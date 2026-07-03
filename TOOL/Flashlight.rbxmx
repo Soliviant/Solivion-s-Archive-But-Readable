@@ -1,0 +1,1551 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX6E5577E1D0434DF08CD23C7C610DF5A6">
+		<Properties>
+			<bool name="CanBeDropped">false</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">false</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>-25.247242</X>
+					<Y>1.70881987</Y>
+					<Z>13.7211027</Z>
+					<R00>-0.661465824</R00>
+					<R01>-0.279000163</R01>
+					<R02>0.696148098</R02>
+					<R10>-3.73663715e-05</R10>
+					<R11>0.928240776</R11>
+					<R12>0.371981561</R12>
+					<R20>-0.749975324</R20>
+					<R21>0.246026948</R21>
+					<R22>-0.614010155</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Flashlight</string>
+			<int64 name="SourceAssetId">18576990766</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="MeshPart" referent="RBX6A10202924C54C2D926068FBC6716299">
+			<Properties>
+				<bool name="DoubleSided">false</bool>
+				<bool name="HasJointOffset">false</bool>
+				<bool name="HasSkinnedMesh">false</bool>
+				<Vector3 name="InitialSize">
+					<X>0.0703125969</X>
+					<Y>0.0703125969</Y>
+					<Z>0.426268995</Z>
+				</Vector3>
+				<Vector3 name="JointOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Content name="MeshId"><url>rbxassetid://3297095920</url></Content>
+				<BinaryString name="PhysicsData"></BinaryString>
+				<token name="RenderFidelity">1</token>
+				<Content name="TextureID"><url>rbxassetid://3297097809</url></Content>
+				<int name="VertexCount">0</int>
+				<SharedString name="AeroMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<token name="FluidFidelityInternal">0</token>
+				<bool name="InertiaMigrated">true</bool>
+				<SharedString name="PhysicalConfigData">+ZNefe2ti28mNSfYd3aFSg==</SharedString>
+				<Vector3 name="UnscaledCofm">
+					<X>-4.19874552e-19</X>
+					<Y>4.7134204e-19</Y>
+					<Z>-0.0174906496</Z>
+				</Vector3>
+				<Vector3 name="UnscaledVolInertiaDiags">
+					<X>1.68638417e-05</X>
+					<Y>1.68638417e-05</Y>
+					<Z>4.79394373e-07</Z>
+				</Vector3>
+				<Vector3 name="UnscaledVolInertiaOffDiags">
+					<X>2.18427381e-24</X>
+					<Y>-8.40302083e-23</Y>
+					<Z>4.59146487e-23</Z>
+				</Vector3>
+				<float name="UnscaledVolume">0.00107614847</float>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>-25.247242</X>
+					<Y>1.70881987</Y>
+					<Z>13.7211027</Z>
+					<R00>-0.661465824</R00>
+					<R01>-0.279000163</R01>
+					<R02>0.696148098</R02>
+					<R10>-3.73663715e-05</R10>
+					<R11>0.928240776</R11>
+					<R12>0.371981561</R12>
+					<R20>-0.749975324</R20>
+					<R21>0.246026948</R21>
+					<R22>-0.614010155</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">false</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">true</bool>
+				<token name="Material">1312</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>-1.6104234e-06</X>
+					<Y>-7.82545364e-15</Y>
+					<Z>-4.70451283e-07</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>6.01464478e-08</X>
+					<Y>0.00499586016</Y>
+					<Z>-2.05890103e-07</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>0.5</X>
+					<Y>0.5</Y>
+					<Z>1.5</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Attachment" referent="RBX97D1BCECAF6442A0A4A78B079BF86364">
+				<Properties>
+					<CoordinateFrame name="CFrame">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>-14.625</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="Visible">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">End</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Part" referent="RBXF5162E40E16D40F5BAA062A9BECC1804">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">1</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-25.5911293</X>
+						<Y>1.50890517</Y>
+						<Z>14.0244169</Z>
+						<R00>-0.661465645</R00>
+						<R01>-0.2790007</R01>
+						<R02>0.696148515</R02>
+						<R10>-3.69871123e-05</R10>
+						<R11>0.928241968</R11>
+						<R12>0.371981919</R12>
+						<R20>-0.749975502</R20>
+						<R21>0.246027097</R21>
+						<R22>-0.614011049</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">true</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">false</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4294506744</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">true</bool>
+					<token name="Material">288</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>-1.6104234e-06</X>
+						<Y>-7.82545364e-15</Y>
+						<Z>-4.70451283e-07</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>-3.39036745e-08</X>
+						<Y>0.00499651022</Y>
+						<Z>1.16057194e-07</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>0.348749965</X>
+						<Y>0.307500035</Y>
+						<Z>0.4375</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Glass</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="SpecialMesh" referent="RBXE248F8233E7041B6908C60A83A446AE0">
+					<Properties>
+						<token name="MeshType">4</token>
+						<Content name="MeshId"><null></null></Content>
+						<Content name="TextureId"><null></null></Content>
+						<Vector3 name="Offset">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+						</Vector3>
+						<Vector3 name="Scale">
+							<X>1</X>
+							<Y>1</Y>
+							<Z>1</Z>
+						</Vector3>
+						<Vector3 name="VertexColor">
+							<X>1</X>
+							<Y>1</Y>
+							<Z>1</Z>
+						</Vector3>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Mesh</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="SpotLight" referent="RBXF2D2C3CDF8D44CFEA36B96FCEBA7A10D">
+					<Properties>
+						<float name="Angle">120</float>
+						<token name="Face">5</token>
+						<float name="Range">30</float>
+						<float name="Brightness">2</float>
+						<Color3 name="Color">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<bool name="Enabled">true</bool>
+						<bool name="Shadows">true</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">SpotLight</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="SpotLight" referent="RBXD184FAA7AD954747BFD1C6A5EE1B6FF0">
+					<Properties>
+						<float name="Angle">90</float>
+						<token name="Face">5</token>
+						<float name="Range">40</float>
+						<float name="Brightness">4</float>
+						<Color3 name="Color">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<bool name="Enabled">true</bool>
+						<bool name="Shadows">true</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">SpotLight</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="SpotLight" referent="RBX181919FB548B40A1BBFA6B0B06144374">
+					<Properties>
+						<float name="Angle">60</float>
+						<token name="Face">5</token>
+						<float name="Range">50</float>
+						<float name="Brightness">6</float>
+						<Color3 name="Color">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<bool name="Enabled">true</bool>
+						<bool name="Shadows">true</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">SpotLight</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="SpotLight" referent="RBX3814D18A5B7F4E24BED17C50D9C33FA1">
+					<Properties>
+						<float name="Angle">30</float>
+						<token name="Face">5</token>
+						<float name="Range">60</float>
+						<float name="Brightness">8</float>
+						<Color3 name="Color">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<bool name="Enabled">true</bool>
+						<bool name="Shadows">true</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">SpotLight</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Part" referent="RBX918D346178A0491DA29C7DBC8A3F3E0B">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">1</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-25.6819115</X>
+						<Y>1.47655702</Y>
+						<Z>14.1044865</Z>
+						<R00>0.696148098</R00>
+						<R01>-0.279000163</R01>
+						<R02>0.661465824</R02>
+						<R10>0.371981561</R10>
+						<R11>0.928240776</R11>
+						<R12>3.73663715e-05</R12>
+						<R20>-0.614010155</R20>
+						<R21>0.246026948</R21>
+						<R22>0.749975324</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">true</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4294967295</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">true</bool>
+					<token name="Material">288</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>-1.6104234e-06</X>
+						<Y>-7.82545364e-15</Y>
+						<Z>-4.70451283e-07</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>-4.91219083e-08</X>
+						<Y>0.00499668205</Y>
+						<Z>1.68151416e-07</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>0.21875</X>
+						<Y>0.4375</Y>
+						<Z>0.4375</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Light</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="SpecialMesh" referent="RBXF7E40C0177884671BB1992B1A1E94398">
+					<Properties>
+						<token name="MeshType">4</token>
+						<Content name="MeshId"><null></null></Content>
+						<Content name="TextureId"><null></null></Content>
+						<Vector3 name="Offset">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+						</Vector3>
+						<Vector3 name="Scale">
+							<X>1</X>
+							<Y>1</Y>
+							<Z>1</Z>
+						</Vector3>
+						<Vector3 name="VertexColor">
+							<X>1</X>
+							<Y>1</Y>
+							<Z>1</Z>
+						</Vector3>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Mesh</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Sound" referent="RBXD32DC7F0191E461EAAD26A8E5503E37D">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">0</float>
+					<float name="RollOffMinDistance">0</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://2034189546</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">10</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Pickup</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBXC491823E9F444DA3BBE9071556365D3B">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">0.800000012</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">0</float>
+					<float name="RollOffMinDistance">0</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://242135745</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">ClickSound</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Attachment" referent="RBXACCC5ACC9F574445BE3F0212E45C7480">
+				<Properties>
+					<CoordinateFrame name="CFrame">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>-0.835205078</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="Visible">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Start</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Attachment" referent="RBX19F4D7C540FA495CA307B58408049053">
+				<Properties>
+					<CoordinateFrame name="CFrame">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>-1.01100159</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="Visible">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Attachment</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX1B1494C57D18483E8EC99EDFDF7D8323">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://198914875</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Flashlight On</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX6D6795E90DD149F79C6FCFB6CEE97BB1">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://198915223</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Flashlight Off</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Weld" referent="RBXB0839D876DD140D3829ABBCCBBDF4844">
+				<Properties>
+					<CoordinateFrame name="C0">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<CoordinateFrame name="C1">
+						<X>0.624393463</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>0</R00>
+						<R01>0</R01>
+						<R02>1</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>-0</R12>
+						<R20>-1</R20>
+						<R21>0</R21>
+						<R22>0</R22>
+					</CoordinateFrame>
+					<bool name="Enabled">true</bool>
+					<Ref name="Part0">RBX6A10202924C54C2D926068FBC6716299</Ref>
+					<Ref name="Part1">RBX918D346178A0491DA29C7DBC8A3F3E0B</Ref>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Weld</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Weld" referent="RBX1C30691F081348F4BF02E79121A2DB24">
+				<Properties>
+					<CoordinateFrame name="C0">
+						<X>0</X>
+						<Y>0.0150003433</Y>
+						<Z>-0.124393463</Z>
+						<R00>3.87430191e-07</R00>
+						<R01>2.5331974e-07</R01>
+						<R02>-1</R02>
+						<R10>-1.49011612e-08</R10>
+						<R11>1.00000131</R11>
+						<R12>-2.5331974e-07</R12>
+						<R20>1.00000095</R20>
+						<R21>-1.49011612e-08</R21>
+						<R22>-3.87430191e-07</R22>
+					</CoordinateFrame>
+					<CoordinateFrame name="C1">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="Enabled">true</bool>
+					<Ref name="Part0">RBXF5162E40E16D40F5BAA062A9BECC1804</Ref>
+					<Ref name="Part1">RBX918D346178A0491DA29C7DBC8A3F3E0B</Ref>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Light</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Actor" referent="RBXC5F256025E954A528626CCAE9556F4D4">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData">
+					<CFrame>
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CFrame>
+				</OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Actor</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBX585780BB256A4A4D9AD15F13A896A635">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--<<Flashlight2:ElectricBoogaloo, Dangerously Minimalized Version>>--
+--<<Written By: Solivion>>--
+--yes, another rufus14's toolbox item's carbon copy, now come with some new features(around 2, if I remembered Correctly)
+--<<It's Highly Unintended For Horror Shenanigans, But Well It Works Anyway>>--
+local On = false
+local Cooldown = false
+local IsFlashlightWithU = true
+local OnAnim = false
+local AdvanceOperation = false
+local StartTick = tick()
+local mousetarget = nil
+local SaveChar = nil
+local Damaging = false
+local equiproute: thread
+local equiptick = tick()
+local HadFixed = {}
+--I've finished making this for a while now, a bit after the knife(it got taken down for 'gender' content, dunno why either), and I certainly uses typing and testing method, it's tiring
+local Debounce = {}
+local AnimTable = { -- One Frame lol, Too lazy to type it out and test everytime, Atleast I used Circular. So It Honestly Looks Fire :>
+	Charge = {HandFrame = CFrame.new(-0.5, 1, 0) * CFrame.Angles(math.rad(-65) ,math.rad(-120) ,math.rad(-165) ), GripThingy = CFrame.new(0, 0, 1) * CFrame.Angles(math.rad(-60) ,math.rad(-60) ,math.rad(0) ) }, -- Charge
+	Off = {HandFrame = CFrame.new(1, -0.5, -1)* CFrame.Angles(math.rad(45) ,math.rad(-45) ,math.rad(0) ) , GripThingy = CFrame.new(0.2, 0, 0.45) * CFrame.Angles(math.rad(120+210) ,math.rad(180) ,math.rad(-135) ) }, -- N/A Equipping Anim When The Light Is Off
+	On = {HandFrame = CFrame.new(1, -0.5, -1)* CFrame.Angles(math.rad(45) ,math.rad(-45) ,math.rad(0) ) , GripThingy = CFrame.new(0.5, 0, 0) * CFrame.Angles(math.rad(-50) ,math.rad(0) ,math.rad(45) ) }, -- N/A Equipping Anim Bla Bla Bla
+	Throw = {HandFrame = CFrame.new(0.5, 1.5, -0.5) * CFrame.Angles(math.rad(15) ,math.rad(60) ,math.rad(15) ) , GripThingy = CFrame.new(0, 0, 1)* CFrame.Angles(math.rad(90) ,math.rad(45) ,math.rad(0) )}, -- Will Absolutely Broke the Object Out Of Existence
+	Nil = {HandFrame = CFrame.new(0,0,0) , GripThingy = CFrame.new(0,0,0)} --Reset/Idle. Da Nil Position
+}
+local SoundTabel_ss69_ep420 = { -- OmgItsDaSoundTable
+	glassbreak0wav = "rbxasset://sounds//glassbreak.wav",
+	Hit = "http://www.roblox.com/asset/?id=58831920",
+	Hitmarker = "rbxassetid://160432334",
+	Swoosh = "http://www.roblox.com/asset?id=153647529",
+	Woosh = "rbxassetid://12222200",
+	Equip = "rbxasset://sounds//snap.wav",
+	Unequip = "rbxassetid://12221831",
+	Switch = "rbxasset://sounds//switch.wav",
+	Kerplunk = "rbxasset://sounds//kerplunk.wav",
+	FlashBulb = "rbxassetid://12221996",
+	SWITCH3 = "rbxasset://sounds//SWITCH3.wav",
+	BASS = "rbxassetid://12221831"
+}-- "I use saem soudn"
+function PlaySound(SoundName,ToWhere)
+	--getOrCreateSound(SoundName)
+	local Mainplayfunction = function(hmm)
+		hmm.PlaybackSpeed = math.random(100-20,100+20)/100
+		hmm:Play()
+	end
+	if ToWhere == nil then
+		ToWhere = script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle")
+	end
+	if ToWhere and ToWhere:FindFirstChild(SoundName) and ToWhere:FindFirstChild(SoundName):IsA("Sound") then
+		Mainplayfunction(ToWhere:FindFirstChild(SoundName))
+	elseif ToWhere and not ToWhere:FindFirstChild(SoundName) then
+		--DebugText("Checking Encryted Table For Sound:"..tostring(Encryption(SoundName,true)) )
+		if SoundTabel_ss69_ep420[SoundName] then
+			local sound = Instance.new("Sound")
+			local Where = ToWhere
+			sound.Parent = Where
+			sound.SoundId = SoundTabel_ss69_ep420[SoundName]
+			sound.Name = SoundName
+			sound:Play()
+		else
+			warn("Sound >"..SoundName.."< Not Found In Database")
+		end
+	end
+end
+function Anim(Name:string,TPF:number)
+	if not AnimTable[Name] then
+	--	print("There Is No Animation With This Name.")
+		return
+	end
+	if TPF == nil then
+		TPF = 1
+	end
+	for i,v in pairs(AnimTable[Name]) do -- Wan Frame :Skull:
+		local ThatWeld = (i == "HandFrame" and script:FindFirstAncestorOfClass("Tool"):FindFirstChildOfClass("Snap")) or script:FindFirstAncestorOfClass("Tool")
+		if not ThatWeld then
+	--		print("Snap Has No Matching Name")
+			return
+		end
+		local TweenIn = TweenInfo.new(TPF+0.05,Enum.EasingStyle.Circular,Enum.EasingDirection.InOut)
+		local TweenThing = game.TweenService:Create(ThatWeld,TweenIn,(ThatWeld:IsA("Snap") and {C1 = v}) or {Grip = v})
+		TweenThing:Play()
+	--	print("Tween Operation Complete"..tostring(ThatWeld:GetFullName()))
+		script:FindFirstAncestorOfClass("Tool").AncestryChanged:Connect(function(huh,huh2)
+			TweenThing:Cancel()
+		end)
+	end
+	task.wait(TPF)
+end
+script:FindFirstAncestorOfClass("Tool").Equipped:Connect(function(mouse)
+	local t
+	t = tick()
+	equiptick = t
+	for i, v in pairs(script:FindFirstAncestorOfClass("Tool"):GetDescendants())  do
+		if v:IsA("BasePart") then
+			v.Transparency = 1
+		elseif v:IsA("SpotLight") then
+			v.Enabled = false
+		end
+	end
+	AdvanceOperation = true
+	Cooldown = true
+	SaveChar = script:FindFirstAncestorOfClass("Model")
+	if script:FindFirstAncestorOfClass("Model") ~= SaveChar then
+		return
+	end
+	local Character = SaveChar
+	if not table.find(HadFixed, Character) and Character:FindFirstChildOfClass('Humanoid') and Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+		coroutine.resume(coroutine.create(function()
+			for i,v in Character:GetDescendants() do
+				if v.Name == 'RightGripAttachment' and v.CFrame ~= (CFrame.new(v.CFrame.Position) * CFrame.Angles(math.rad(-90),0,0)) then
+					v.CFrame = CFrame.new(v.CFrame.Position) * CFrame.Angles(math.rad(-90),0,0)
+				end
+			end
+			table.insert(HadFixed, Character)
+		end))
+	else
+		table.insert(HadFixed, Character)
+	end
+	if not script:FindFirstAncestorOfClass("Tool"):FindFirstChildOfClass("Snap") then
+		local NewHandWeld = Instance.new("Snap",script:FindFirstAncestorOfClass("Tool"))
+		NewHandWeld.Name = "Handy Weld"
+		NewHandWeld.Enabled = true
+		NewHandWeld.C0 = CFrame.new(1.5, 0.5, -0.5) * CFrame.Angles(math.rad(90),math.rad(0),math.rad(0))
+		if script:FindFirstAncestorOfClass("Model"):FindFirstChild("Right Arm") or script:FindFirstAncestorOfClass("Model"):FindFirstChild("RightUpperArm") then
+			NewHandWeld.Part1 = script:FindFirstAncestorOfClass("Model"):FindFirstChild("Right Arm") or script:FindFirstAncestorOfClass("Model"):FindFirstChild("RightUpperArm")
+		end
+		if script:FindFirstAncestorOfClass("Model"):FindFirstChild("Torso") or script:FindFirstAncestorOfClass("Model"):FindFirstChild("UpperTorso") then
+			NewHandWeld.Part0 = script:FindFirstAncestorOfClass("Model"):FindFirstChild("Torso") or script:FindFirstAncestorOfClass("Model"):FindFirstChild("UpperTorso")
+		end
+		if not game.Players:GetPlayerFromCharacter(script:FindFirstAncestorOfClass("Model")) then
+			NewHandWeld.C0 = CFrame.new(1.5, 0.5, -0.5) * CFrame.Angles(math.rad(90),math.rad(0),math.rad(0))
+		end
+	else
+		script:FindFirstAncestorOfClass("Tool"):FindFirstChildOfClass("Snap").Enabled = true
+	end
+	if On == false then
+		Anim("Off",0.5)
+	else
+		Anim("On",0.5)
+	end
+	if script:FindFirstAncestorOfClass("Model") ~= SaveChar then
+		return
+	end
+	task.wait(0.5)
+	if equiptick ~= t then
+		return
+	end
+	if script:FindFirstAncestorOfClass("Model") ~= SaveChar then
+		return
+	end
+	if SaveChar:FindFirstChild("FlashTS") then
+		SaveChar:FindFirstChild("FlashTS"):Destroy()
+	end
+	PlaySound("BASS")
+	for i, v in pairs(script:FindFirstAncestorOfClass("Tool"):GetDescendants())  do
+		if v:IsA("BasePart") then
+			if v.Name ~= "Glass" and v.Name ~= "Light" then
+				v.Transparency = 0
+			elseif (v.Name == "Glass" or v.Name == "Light") and On == true then
+				v.Transparency  = 0
+			end
+		elseif v:IsA("SpotLight") then
+			if On then
+				v.Enabled = true
+			else
+				v.Enabled = false
+			end
+		end
+	end
+	if script:FindFirstAncestorOfClass("Model") ~= SaveChar then
+		return
+	end
+	if equiptick ~= t then
+		return
+	end
+	Anim("Nil",0.5)
+	if script:FindFirstAncestorOfClass("Model") ~= SaveChar then
+		return
+	end
+	AdvanceOperation = false
+	Cooldown = false
+end)
+script:FindFirstAncestorOfClass("Tool").Activated:Connect(function()
+	StartTick = tick()
+end)
+
+script:FindFirstAncestorOfClass("Tool").Deactivated:Connect(function()
+	if not script:FindFirstAncestorOfClass("Tool").Handle then
+	--	print("Flashlight Missing Handle")
+		return
+	end
+	if not script:FindFirstAncestorOfClass("Tool").Handle.Glass then
+	--	print("Flashlight Missing Glass")
+		return
+	end
+	if not script:FindFirstAncestorOfClass("Tool").Handle.Light then
+	--	print("Flashlight Missing Light")
+		return
+	end
+	if Cooldown then
+	--	print("Flashlight On Cooldown")
+		return
+	else
+	--	print("Flashlight Succeed")
+		Cooldown = true
+	end
+	if tick() - StartTick < 0.5 then -- Ehhhhhhhhhhhhhhhhhhh Mazing
+		if On then
+			On = false
+			PlaySound("SWITCH3")
+			for i,v in script:FindFirstAncestorOfClass("Tool").Handle.Glass:children() do
+				if v:IsA("SpotLight") then
+					v.Enabled = false
+				end
+			end
+			for i,v in script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle"):children() do
+				if v:IsA("BasePart") then
+					v.Transparency = 1
+				end
+			end
+		else
+			On = true
+			PlaySound("Switch")
+			for i,v in script:FindFirstAncestorOfClass("Tool").Handle.Glass:children() do
+				if v:IsA("SpotLight") then
+					v.Enabled = true
+				end
+			end
+			for i,v in script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle"):children() do
+				if v:IsA("BasePart") then
+					v.Transparency = 0
+				end
+			end
+		end
+	else
+	--	print("SHATTRRRRRR!!!!1!!!!")
+		table.clear(Debounce)
+		PlaySound("Swoosh")
+		Anim("Charge",0.7)
+		Damaging = true
+		PlaySound("Woosh")
+		Anim("Throw",0.2)-- I have to mention that I don't know how throwing works. So Have A Smashing Flashlight lol. It's Also Made Of Titanium :Skull:
+		Anim("Nil",0.7)
+		Damaging = false
+	end
+	task.wait(0.1)
+	Cooldown = false
+end)
+script:FindFirstAncestorOfClass("Tool").Unequipped:Connect(function()
+	local t
+	t = tick()
+	equiptick = t
+	--[[if On == false then
+		Anim("Off",0.5)
+	else
+		Anim("On",0.5)
+	end]]
+	if script:FindFirstAncestorOfClass("Model") == SaveChar then
+		return
+	end
+	if equiptick ~= t then
+		return
+	end
+	local nweld = script:FindFirstAncestorOfClass("Tool"):FindFirstChildOfClass("Snap")
+	if nweld and not script:FindFirstAncestorOfClass("Model") then
+		nweld.C1 = CFrame.new(0,0,0)
+		nweld.Enabled = false
+	end
+	if script:FindFirstAncestorOfClass("Model") == SaveChar then
+		return
+	end
+	if equiptick ~= t then
+		return
+	end
+	if not SaveChar:FindFirstChild("FlashTS") then
+		local KeepedHandle = script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle"):Clone()
+		KeepedHandle.Parent = SaveChar
+		KeepedHandle.Name = "FlashTS"
+		local NewWeld = Instance.new("Glue",KeepedHandle)
+		NewWeld.Name = "Attach"
+		NewWeld.Part1 = KeepedHandle
+		NewWeld.Part0 = SaveChar:FindFirstChild("Torso") or SaveChar:FindFirstChild("UpperTorso")
+		if script:FindFirstAncestorOfClass("Model") == SaveChar then
+			return
+		end
+		if equiptick ~= t then
+			return
+		end
+		if On then
+			NewWeld.C1 = CFrame.new(-1, 1, 0)
+		else
+			NewWeld.C1 = CFrame.new(-1, -1, 0) * CFrame.Angles(math.rad(0),math.rad(180),math.rad(-180))
+		end
+	end
+	if script:FindFirstAncestorOfClass("Model") == SaveChar then
+		return
+			
+			
+	end
+	if equiptick ~= t then
+		return end
+	PlaySound("Kerplunk")	if script:FindFirstAncestorOfClass("Model") == SaveChar then
+		return
+	end
+	if equiptick ~= t then
+		return
+	end
+	for i, v in pairs(script:FindFirstAncestorOfClass("Tool"):GetDescendants())  do
+		if v:IsA("BasePart") then
+			v.Transparency = 1
+		elseif v:IsA("SpotLight") then
+			if On then
+				v.Enabled = false
+			end
+		end
+	end
+	if script:FindFirstAncestorOfClass("Model") == SaveChar then
+		return
+	end
+end)
+local function createRandomSizedShard(parent, glassObject:BasePart, maxShardSize)
+	coroutine.resume(coroutine.create(function()
+		local shard = glassObject:Clone()
+		task.desynchronize()
+		if not shard:GetAttribute("Generation") then
+			task.synchronize()
+			shard:SetAttribute("Generation",0)
+		else
+			task.synchronize()
+			shard:SetAttribute("Generation",shard:GetAttribute("Generation") +1)
+			task.desynchronize()
+			if shard:GetAttribute("Generation") > 1 then
+				return -- Stop, I don't want glass Atom Floating Around.
+			end
+		end
+		task.synchronize()
+		shard.EnableFluidForces =  true
+		shard.Anchored = false
+		shard.CanTouch = true
+		shard.CanCollide = true
+		--EasyTween(shard,"Transparency",1,20,"Sine","In"):Play()
+		game.Debris:AddItem(shard,20)
+		task.desynchronize()
+		local flingForce = (script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle").Position - shard.Position).unit * 10
+		local bodyVelocity = shard:FindFirstChild("BodyVelocity")
+		if not bodyVelocity then
+			task.synchronize()
+			bodyVelocity = Instance.new("BodyVelocity")
+			bodyVelocity.Velocity = -flingForce
+			bodyVelocity.MaxForce = Vector3.new(10, 10,10)
+			bodyVelocity.Parent = shard
+			game.Debris:AddItem(bodyVelocity, 0.2)
+		end
+		task.desynchronize()
+		local maxX = math.min(maxShardSize.X, glassObject.Size.X)
+		local maxY = math.min(maxShardSize.Y, glassObject.Size.Y)
+		local maxZ = math.min(maxShardSize.Z, glassObject.Size.Z)
+
+		if maxX < 0.5 and maxY < 0.5 and maxZ < 0.5 then
+			maxX = 0.5
+			maxY = 0.5
+			maxZ = 0.5
+		end
+
+		local sizeX = Random.new():NextNumber() * maxX
+		local sizeY = Random.new():NextNumber() * maxY
+		local sizeZ = Random.new():NextNumber() * maxZ
+		
+		task.synchronize()
+		shard.Size = Vector3.new(sizeX, sizeY, sizeZ)
+		task.desynchronize()
+
+		-- Calculate the volume of the shard
+		local shardVolume = sizeX * sizeY * sizeZ
+
+		local offset = Vector3.new(
+			(Random.new():NextNumber() - 0.5) * glassObject.Size.X,
+			(Random.new():NextNumber() - 0.5) * glassObject.Size.Y,
+			(Random.new():NextNumber() - 0.5) * glassObject.Size.Z
+		)
+		
+		task.synchronize()
+		shard.CFrame = glassObject.CFrame + offset
+		shard:SetAttribute("Impaled",false)
+		--[[shard.Touched:Connect(function(hit)
+			if shard:GetAttribute("Impaled") and shard:GetAttribute("Impaled") == false then
+				if shard.Velocity.Magnitude > 5 and hit.Parent and hit.Parent:FindFirstChildOfClass("Humanoid") and hit.Parent:FindFirstChildOfClass("Humanoid").Health > 0 then
+					shard:SetAttribute("Impaled",true)
+					hit.Parent:FindFirstChildOfClass("Humanoid").Health = hit.Parent:FindFirstChildOfClass("Humanoid").Health - math.random(2,4)
+					local Stick = Instance.new("Glue",shard)
+					Stick.Name = "Ouch"
+					Stick.Part0 = hit
+					Stick.Part1 = shard
+					shard.CanCollide = false
+					shard.CanTouch = false
+					Stick.C0 = hit.CFrame:toObjectSpace(Stick.CFrame)
+				end
+			end
+		end)]]
+		shard.Parent = parent
+	end))
+	
+end
+
+local function breakGlass(glassObject, maxShardSize)
+	if glassObject:IsA("BasePart") then
+		PlaySound("glassbreak0wav",glassObject)
+		if glassObject.Size.X < 5 or glassObject.Size.Y < 5 or glassObject.Size.Z < 5 then
+			for i = 1, 10 do
+				createRandomSizedShard(glassObject.Parent, glassObject, maxShardSize)
+			end
+		else
+			for x = 0, glassObject.Size.X - maxShardSize.X, maxShardSize.X do
+				for y = 0, glassObject.Size.Y - maxShardSize.Y, maxShardSize.Y do
+					for z = 0, glassObject.Size.Z - maxShardSize.Z, maxShardSize.Z do
+						createRandomSizedShard(glassObject.Parent, glassObject, maxShardSize)
+					end
+				end
+			end
+		end
+
+		glassObject:Destroy() -- Remove the original glass object
+	end
+end
+function Die(Hit)
+	if not Damaging then
+		return
+	end
+	if Debounce[Hit] or Debounce[Hit.Parent] or not Hit.Parent then
+	--	print("Debounced "..Hit:GetFullName())
+		return
+	end
+	if not Debounce[Hit.Parent] then
+		Debounce[Hit] = true
+		Debounce[Hit.Parent] = true --Debounce
+		PlaySound("FlashBulb")
+		if Hit.Material == Enum.Material.Glass or Hit.Material == Enum.Material.Ice then
+			breakGlass(Hit,Vector3.new(4,4,4)) -- Bro Shattered it like Edible Glass.
+		end
+		if Hit.Parent and Hit.Parent:FindFirstChildOfClass("Humanoid") then
+			PlaySound("Hit")
+			Hit.Parent:FindFirstChildOfClass("Humanoid").Health = Hit.Parent:FindFirstChildOfClass("Humanoid").Health - math.random(100,200)/10
+		end
+	end
+end
+if script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle") then
+	script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle").Touched:Connect(Die)
+	script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle").TouchEnded:Connect(Die)
+	script:FindFirstAncestorOfClass("Tool"):FindFirstChild("Handle").LocalSimulationTouched:Connect(Die)
+end
+--[[ArmRemote:Connect(function(WhoDid,Where)
+	if WhoDid.Name ~= script:FindFirstAncestorOfClass("Model").Name then
+		return
+	end
+	local nweld = script:FindFirstAncestorOfClass("Tool"):FindFirstChildOfClass("Snap")
+	if AdvanceOperation then
+		Where = CFrame.new(1.5, 0.5, -0.5) * CFrame.Angles(math.rad(90),math.rad(0),math.rad(0))
+	--[[else
+		if not script:FindFirstAncestorOfClass("Model").Torso then
+			return
+		end
+		local tframe = script:FindFirstAncestorOfClass("Model").Torso.CFrame
+		tframe = tframe + tframe:vectorToWorldSpace(Vector3.new(1.5, 0.5, -0.5))
+		local taim = mousetarget.p -( tframe.p )
+		Where = (CFrame.new(Vector3.new(),tframe:vectorToObjectSpace(taim))*CFrame.Angles(math.rad(-90),math.rad(90),math.rad(-90)))+Vector3.new( 1.5, 0.5, 0.5 )]]
+	--[[end
+	if nweld then
+		nweld.C0 = nweld.C0:Lerp(Where,0.1)
+	else
+		local NewHandWeld = Instance.new("Snap",script:FindFirstAncestorOfClass("Tool"))
+		NewHandWeld.Name = "Handy Weld"
+		NewHandWeld.Enabled = true
+		if script:FindFirstAncestorOfClass("Model"):FindFirstChild("Right Arm") or script:FindFirstAncestorOfClass("Model"):FindFirstChild("RightUpperArm") then
+			NewHandWeld.Part1 = script:FindFirstAncestorOfClass("Model"):FindFirstChild("Right Arm") or script:FindFirstAncestorOfClass("Model"):FindFirstChild("RightUpperArm")
+		end
+		if script:FindFirstAncestorOfClass("Model"):FindFirstChild("Torso") or script:FindFirstAncestorOfClass("Model"):FindFirstChild("UpperTorso") then
+			NewHandWeld.Part0 = script:FindFirstAncestorOfClass("Model"):FindFirstChild("Torso") or script:FindFirstAncestorOfClass("Model"):FindFirstChild("UpperTorso")
+		end
+		NewHandWeld.C0 = NewHandWeld.C0:Lerp(Where,0.1)
+	end
+end)]]
+--[[script:FindFirstAncestorOfClass("Tool").Handle.Destroying:Connect(function()
+	--Converted with ttyyuu12345's model to script plugin v4, Unlike the Knife Ehich I Personally Write Line By line
+	local function sandbox(var,func)
+		local env = getfenv(func)
+		local newenv = setmetatable({},{
+			__index = function(self,k)
+				if k=="script" then
+					return var
+				else
+					return env[k]
+				end
+			end,
+		})
+		setfenv(func,newenv)
+		return func
+	end
+	local cors = {}
+	local mas = Instance.new("Model",game:GetService("Lighting"))
+	local MeshPart0 = Instance.new("MeshPart")
+	local Part1 = Instance.new("Part")
+	local SpecialMesh2 = Instance.new("SpecialMesh")
+	local SpotLight3 = Instance.new("SpotLight")
+	local SpotLight4 = Instance.new("SpotLight")
+	local SpotLight5 = Instance.new("SpotLight")
+	local SpotLight6 = Instance.new("SpotLight")
+	local Part7 = Instance.new("Part")
+	local SpecialMesh8 = Instance.new("SpecialMesh")
+	local Weld9 = Instance.new("Weld")
+	local Weld10 = Instance.new("Weld")
+	local Sound11 = Instance.new("Sound")
+	local Sound12 = Instance.new("Sound")
+	local BillboardGui13 = Instance.new("BillboardGui")
+	local ImageLabel14 = Instance.new("ImageLabel")
+	local Beam15 = Instance.new("Beam")
+	local SpotLight16 = Instance.new("SpotLight")
+	local Sound17 = Instance.new("Sound")
+	local Sound18 = Instance.new("Sound")
+	MeshPart0.Name = "Handle"
+	MeshPart0.Parent = mas
+	MeshPart0.CFrame = CFrame.new(-0.00122099998, 0.493483007, 0.00488300016, -0.661465883, -0.278999984, 0.696147978, -3.75010859e-05, 0.928240359, 0.371981472, -0.749975264, 0.246026903, -0.614009857)
+	MeshPart0.Orientation = Vector3.new(-21.83799934387207, 131.41299438476562, -0.0020000000949949026)
+	MeshPart0.Position = Vector3.new(-0.0012209999840706587, 0.4934830069541931, 0.004883000161498785)
+	MeshPart0.Rotation = Vector3.new(-148.79200744628906, 44.11899948120117, 157.1300048828125)
+	MeshPart0.Velocity = Vector3.new(6.014644782226242e-08, 0.004995860159397125, -2.058901031887217e-07)
+	MeshPart0.Size = Vector3.new(0.5, 0.5, 1.5)
+	MeshPart0.CanCollide = false
+	MeshPart0.Material = Enum.Material.Fabric
+	MeshPart0.RotVelocity = Vector3.new(-0.0000016104233964142622, -7.82545364364515e-15, -4.7045128326317354e-07)
+	MeshPart0.TextureID = "rbxassetid://3297097809"
+	Part1.Name = "Glass"
+	Part1.Parent = MeshPart0
+	Part1.CFrame = CFrame.new(-0.442364246, 0.257761419, 0.393976003, 0.696147978, -0.278999984, 0.661465883, 0.371981472, 0.928240359, 3.75010859e-05, -0.614009857, 0.246026903, 0.749975264)
+	Part1.Orientation = Vector3.new(-0.0020000000949949026, 41.4119987487793, 21.83799934387207)
+	Part1.Position = Vector3.new(-0.44236424565315247, 0.2577614188194275, 0.39397600293159485)
+	Part1.Rotation = Vector3.new(-0.003000000026077032, 41.4119987487793, 21.84000015258789)
+	Part1.Color = Color3.new(0.972549, 0.972549, 0.972549)
+	Part1.Velocity = Vector3.new(-5.074907249991156e-08, 0.004996694158762693, 1.737214461172698e-07)
+	Part1.Size = Vector3.new(0.21875, 0.4375, 0.4375)
+	Part1.BottomSurface = Enum.SurfaceType.Smooth
+	Part1.BrickColor = BrickColor.new("Institutional white")
+	Part1.Material = Enum.Material.Neon
+	Part1.RotVelocity = Vector3.new(-0.0000016104233964142622, -7.82545364364515e-15, -4.7045128326317354e-07)
+	Part1.TopSurface = Enum.SurfaceType.Smooth
+	Part1.brickColor = BrickColor.new("Institutional white")
+	SpecialMesh2.Parent = Part1
+	SpecialMesh2.MeshType = Enum.MeshType.Cylinder
+	SpotLight3.Parent = Part1
+	SpotLight3.Face = Enum.NormalId.Left
+	SpotLight3.Range = 30
+	SpotLight3.Angle = 120
+	SpotLight4.Parent = Part1
+	SpotLight4.Face = Enum.NormalId.Left
+	SpotLight4.Range = 40
+	SpotLight4.Brightness = 2
+	SpotLight5.Parent = Part1
+	SpotLight5.Face = Enum.NormalId.Left
+	SpotLight5.Range = 50
+	SpotLight5.Brightness = 3
+	SpotLight5.Angle = 60
+	SpotLight6.Parent = Part1
+	SpotLight6.Face = Enum.NormalId.Left
+	SpotLight6.Range = 60
+	SpotLight6.Brightness = 4
+	SpotLight6.Angle = 30
+	Part7.Name = "Light"
+	Part7.Parent = MeshPart0
+	Part7.CFrame = CFrame.new(-0.435891241, 0.261220217, 0.388266742, 0.696147978, -0.278999984, 0.661465883, 0.371981472, 0.928240359, 3.75010859e-05, -0.614009857, 0.246026903, 0.749975264)
+	Part7.Orientation = Vector3.new(-0.0020000000949949026, 41.4119987487793, 21.83799934387207)
+	Part7.Position = Vector3.new(-0.4358912408351898, 0.26122021675109863, 0.38826674222946167)
+	Part7.Rotation = Vector3.new(-0.003000000026077032, 41.4119987487793, 21.84000015258789)
+	Part7.Color = Color3.new(1, 1, 1)
+	Part7.Velocity = Vector3.new(-4.912187989702943e-08, 0.004996682051569223, 1.681513310813898e-07)
+	Part7.Size = Vector3.new(0.21875, 0.4375, 0.4375)
+	Part7.BottomSurface = Enum.SurfaceType.Smooth
+	Part7.BrickColor = BrickColor.new("Institutional white")
+	Part7.Material = Enum.Material.Neon
+	Part7.RotVelocity = Vector3.new(-0.0000016104233964142622, -7.82545364364515e-15, -4.7045128326317354e-07)
+	Part7.TopSurface = Enum.SurfaceType.Smooth
+	Part7.brickColor = BrickColor.new("Institutional white")
+	SpecialMesh8.Parent = Part7
+	SpecialMesh8.MeshType = Enum.MeshType.Cylinder
+	Weld9.Parent = MeshPart0
+	Weld9.C1 = CFrame.new(0.633691788, 0, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+	Weld9.Part0 = MeshPart0
+	Weld9.Part1 = Part1
+	Weld9.part1 = Part1
+	Weld10.Parent = MeshPart0
+	Weld10.C1 = CFrame.new(0.624393463, 0, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+	Weld10.Part0 = MeshPart0
+	Weld10.Part1 = Part7
+	Weld10.part1 = Part7
+	Sound11.Name = "Pickup"
+	Sound11.Parent = MeshPart0
+	Sound11.MaxDistance = 0
+	Sound11.EmitterSize = 0
+	Sound11.MinDistance = 0
+	Sound11.SoundId = "rbxassetid://2034189546"
+	Sound11.Volume = 10
+	Sound12.Name = "ClickSound"
+	Sound12.Parent = MeshPart0
+	Sound12.MaxDistance = 0
+	Sound12.EmitterSize = 0
+	Sound12.MinDistance = 0
+	Sound12.Pitch = 0.800000011920929
+	Sound12.PlaybackSpeed = 0.800000011920929
+	Sound12.SoundId = "rbxassetid://242135745"
+	Sound12.Volume = 5
+	BillboardGui13.Name = "Flare"
+	BillboardGui13.Parent = mas
+	BillboardGui13.Enabled = false
+	BillboardGui13.Size = UDim2.new(7.5, 0, 7.5, 0)
+	BillboardGui13.Active = true
+	BillboardGui13.ClipsDescendants = true
+	BillboardGui13.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	BillboardGui13.MaxDistance = 100
+	BillboardGui13.Brightness = 0.75
+	ImageLabel14.Parent = BillboardGui13
+	ImageLabel14.Size = UDim2.new(1, 0, 1, 0)
+	ImageLabel14.BackgroundColor = BrickColor.new("Institutional white")
+	ImageLabel14.BackgroundColor3 = Color3.new(1, 1, 1)
+	ImageLabel14.BackgroundTransparency = 1
+	ImageLabel14.Image = "rbxassetid://1847258023"
+	Beam15.Parent = mas
+	Beam15.Attachment0 = nil
+	Beam15.Attachment1 = nil
+	Beam15.Enabled = false
+	Beam15.FaceCamera = true
+	Beam15.LightEmission = 1
+	Beam15.Texture = "rbxassetid://2950987173"
+	Beam15.TextureSpeed = 0
+	Beam15.Transparency = NumberSequence.new(0.75,1)
+	Beam15.Width0 = 0.75
+	Beam15.Width1 = 8.25
+	SpotLight16.Parent = mas
+	SpotLight16.Enabled = false
+	SpotLight16.Range = 30
+	SpotLight16.Angle = 45
+	Sound17.Name = "Flashlight On"
+	Sound17.Parent = MeshPart0
+	Sound17.SoundId = "rbxassetid://198914875"
+	Sound18.Name = "Flashlight Off"
+	Sound18.Parent = MeshPart0
+	Sound18.SoundId = "rbxassetid://198915223"
+	for i,v in pairs(mas:GetChildren()) do
+		v.Parent = workspace
+		pcall(function() v:MakeJoints() end)
+	end
+	mas:Destroy()
+	for i,v in pairs(cors) do
+		spawn(function()
+			pcall(v)
+		end)
+	end
+	MeshPart0.Parent = script:FindFirstAncestorOfClass("Tool")
+end)]]]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{0DB18779-F602-48DA-AF09-204EF6C7054D}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Main_Handler</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+		<SharedString md5="+ZNefe2ti28mNSfYd3aFSg==">Q1NHUEhTCAAAAAIAKLUv/WDsCuUdAAQXCQAAAPC8AQAAOGxvAwAAcEALAAANABC97j9avj0+
+ak8tKEurUN5WodxuQbndlvBWe2qqtigAWlVVrS4Al7O3rt26AOWta6vq1AKrSqtK27ZtVy4K
+ym1F2QUAqQoAn1ulrbpptdVT7dmqaruuXddTCwCU69YFgK7r1q5Qr+vW8FILAGu7bQGta7ut
+t10AACf/8zy/Boy8CAAOPfKvI7489CvbO68sBr09Vb6k+fs8PD09PLu8vLy8vArEXbzIOcA+
+C/XbPFy+WDnrX7ye7L+8vLy8PDw8b/HPvDwI9LM8aeZPvGRF2j083gPEPE9dP/GPvBL49zyR
+Pg++F4L4vW/4DT08c080PNKP5wJFAD28En+8IBPdPLxE9/O80PCLPLzw0QG9GGMqvLy8Pb28
+PLx2OgAQLzfPWsk8zaUUvLw8vEAP3Ty5BX+9plAAPXmC5zxRXTS8fuu/PDr5X7dL9Ns8Ko/S
+PH+Fljs8PDy8vLs8PDyBxKghoySFLPtnQaWAGeuyDnFoRAgaRItS2WMOh/CPxnfCD0/1NzqS
+q9i+efHf3p3yFkb42nR+4Ui/pmfhVafeOPQ4Ejszzd88F2mUvCs+7U/YP20gPOZqnHBbwXQg
+M9cOcX3Ob3jpHEk5RU8OnRKCv/wXvzVy7kRdfCO6JoHuFq/Vu39cE7OA2SmzscNXPmTs8dQx
+gGlMYBpTTvNW3Oy47OeIoyxXRUw/P9XNFyI+3KHrHXGN9gscdAQelrIn9Azzy3Xvhez/A07q
+tbA4/Jy+33w17uIJhBx31PIL4Dvx65dQHkXkyRRm/Wfeyvs7ron/b+0yN9zv+7fn1aEuF6sf
+cvMTzxFjanX1nn7rp77iaqXXjS/V8U77U9SDD0o9XQd+uhnr5TzUTCb64o3/XF9yrqGn5rO5
+Plda0LmCFcvZqBOX/j69VoMomlq3X/U4cRWMu/1SChNXgZXnTdq+Uv8/ohN59PUb2ppdU8m/
+O3X9rL/252DusrcD69Gug9eEixLygrlQ5mZ2BlcMjc46OZ/VRjyZfaXlwIz8N1aDOVPf2jnp
+5YYvlO2RDAd7z684xyv0eAP96RoznLrPk+XKcaK//pie+nECLYVhCMFnWG0l68LtleAcKp5M
+HdXH60+9Q/vbma/G9Bl5IV2sgyNOJLJND9Ap6Rhr4R5jggmjF2D2zyxiTg80z24dne71Tp50
++mD+vfRqx4GZS+vviZN3cpxW9VloZDQ/N+ZlQ2/LXO518DDw6a+JBf7q/HxxujCwB374H0IG
+l2JTAJIG</SharedString>
+	</SharedStrings>
+</roblox>

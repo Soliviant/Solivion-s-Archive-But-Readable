@@ -1,0 +1,574 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX3A3C58BBD4C3435AB93B4E82203CB3AB">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0.400000006</Y>
+				<Z>0.5</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>-0</R02>
+				<R10>0</R10>
+				<R11>0</R11>
+				<R12>1</R12>
+				<R20>0</R20>
+				<R21>-1</R21>
+				<R22>0</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><url>rbxasset://Textures/PaintballIcon.png</url></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>31.8999977</X>
+					<Y>0.500001013</Y>
+					<Z>-83.3999939</Z>
+					<R00>0</R00>
+					<R01>1</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>0</R11>
+					<R12>-1</R12>
+					<R20>-1</R20>
+					<R21>0</R21>
+					<R22>0</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">ClassicPaintballGun_WaterEdition(Lite)</string>
+			<int64 name="SourceAssetId">17114110232</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Part" referent="RBX782703E162234A29AA3122508C9E4416">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">0</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>31.8999977</X>
+					<Y>0.500001013</Y>
+					<Z>-83.3999939</Z>
+					<R00>0</R00>
+					<R01>1</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>0</R11>
+					<R12>-1</R12>
+					<R20>-1</R20>
+					<R21>0</R21>
+					<R22>0</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>1</X>
+					<Y>3</Y>
+					<Z>2</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBX44E56510B021449E949EF44845F7FD37">
+				<Properties>
+					<token name="MeshType">5</token>
+					<Content name="MeshId"><url>rbxasset://fonts/PaintballGun.mesh</url></Content>
+					<Content name="TextureId"><url>rbxasset://textures/PaintballGunTex128.png</url></Content>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Mesh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX382CA38611A843D48732CAA0698A5424">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">0</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxasset://sounds//paintball.wav</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">1</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Fire</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Actor" referent="RBXAEBC0D08672D4B84BC8ACF629779E601">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Actor</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBX1592D19830BA46888FDBE5F1E3EAD6E2">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--Solivion's Lazy Songkran Special Watergun
+local UpdateRate = 1/60
+
+local Water_Gun: (Tool|Flag) = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag')
+if Water_Gun then
+	Water_Gun.ToolTip = 'Shoots Out Water Via Long Tool Activation'
+else
+	return -- no way no tool
+end
+local EffectInstance: {Instance?} = {}
+local Debris = game:FindFirstChildOfClass('Debris')
+local Character: Model?
+local Equipped: boolean = false
+local Activated: boolean = false
+local LastFireTick: number = tick()
+local MaxCapacity: number = 100
+local Capacity: number = MaxCapacity
+local C: thread?
+
+function Classic_Flagstand_Effect(Coordinate: (CFrame | Vector3)?, Size: number?, Parent: Instance?, Amount: number?, Fade_Duration: number?, Colour: Color3?, Material: Enum.Material?, Motion: Vector3?, ShrinkOrExpand: ('Shrink' | 'Expand')?, Size_Rate: number?, Filter: {Instance?}?)
+	--if not BrickVFX then return end
+	task.desynchronize()
+	if typeof(Coordinate) == 'Vector3' then Coordinate = CFrame.new(Coordinate) end
+	Amount = math.ceil(Amount)
+	local Subject = (Character or Water_Gun)
+	local Terrain = RaycastParams.new()
+	Terrain.IgnoreWater = false
+	Terrain.FilterType = Enum.RaycastFilterType.Include
+	local RaycastParam = RaycastParams.new()
+	RaycastParam.RespectCanCollide = true
+	RaycastParam.IgnoreWater = true
+	RaycastParam.FilterType = Enum.RaycastFilterType.Exclude
+	if not Coordinate then Coordinate = Subject:GetPivot()end if not Size then Size = 5 end if not Parent then Parent = workspace end if not Amount then	Amount = 3 end if not Fade_Duration then Fade_Duration = 10 end if not Colour then Colour = Color3.new(1, 1, 1) end if not Material then Material = Enum.Material.Neon end if not Motion then Motion = Vector3.new() end if not ShrinkOrExpand then ShrinkOrExpand = 'Expand' end if not Size_Rate then Size_Rate = 1/4 end if Colour and typeof(Colour) == 'BrickColor' then Colour = Colour.Color end if not Filter then Filter = {} end
+	task.synchronize()
+	if Motion ~= Vector3.new() then
+		RaycastParam.FilterDescendantsInstances = {}
+		if Character then	RaycastParam:AddToFilter(Character) end -- Character
+		RaycastParam:AddToFilter(Filter) -- Casted Instance
+		RaycastParam:AddToFilter(EffectInstance) -- Previous Effect
+		Terrain.FilterDescendantsInstances = {workspace:FindFirstChildOfClass('Terrain')}
+		--[[for i,v in Filter do
+			RaycastParam:AddToFilter(v)
+		end]]
+	end
+	for i = 1,Amount do
+		task.synchronize()
+		local effect = Instance.new("FlagStand", Parent)
+		local lastamtick = tick()
+		local coroute
+		local GravityStack = 0
+		local hit:RaycastResult?
+		local lastpos: Vector3? = Coordinate.p or Subject:GetPivot().Position
+		local corouteDis: RBXScriptConnection?
+		local breakApart = (Motion ~= Vector3.new() and Colour ~= Color3.new(1, 1, 1) and Vector3.new(Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1))) or Vector3.new()
+		breakApart = breakApart/8
+		effect.Size = (Size and Vector3.new(Size,Size,Size)) or Vector3.new(5,5,5)
+		effect.Anchored = true
+		effect.CanCollide = false
+		effect.CanTouch = false
+		effect.CanQuery = false
+		effect.CastShadow = false
+		effect.Color = Colour or Color3.new(1, 1, 1)
+		effect.CFrame = Coordinate or CFrame.new()
+		effect.Material = Material or Enum.Material.Neon
+		RaycastParam:AddToFilter(effect)
+		table.insert(EffectInstance, effect)
+		Debris:AddItem(effect, (Fade_Duration*0.05) * 1.05)
+		local Sized = effect.Size.X
+		coroute = coroutine.create(function()
+			task.desynchronize()
+			lastamtick = tick()
+			local Fade_Duration_Count = Fade_Duration
+			task.delay(Fade_Duration - 1, function() if table.find(EffectInstance, effect) then table.remove(EffectInstance, table.find(EffectInstance, effect)) end end)
+			while task.wait(UpdateRate or .01) and Fade_Duration_Count > 0 do
+				task.desynchronize()
+				local delta = tick() - lastamtick
+				local speed = 1 - .000001 ^ delta
+				Fade_Duration_Count = Fade_Duration_Count - delta
+				lastamtick = tick()
+				task.desynchronize()
+				if effect then
+					local targetc = effect.CFrame targetc = (effect.CFrame + (Motion/1.25 + breakApart/1.25) * speed )* CFrame.fromEulerAnglesYXZ(Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3)
+					local targett = effect.Transparency + 1 * speed/Fade_Duration
+					local Sizeb = effect.Size + effect.Size * Size_Rate * speed/Fade_Duration
+					local Sizes = effect.Size - effect.Size * Size_Rate * speed/Fade_Duration
+					task.synchronize()
+					--print('ea')
+					effect.CFrame = targetc
+					effect.Transparency = targett
+					if ShrinkOrExpand == 'Expand' then
+						effect.Size = Sizeb  --Vector3.new((Size/10)/Fade_Duration,(Size/10)/Fade_Duration,(Size/10)/Fade_Duration)
+					elseif ShrinkOrExpand == 'Shrink' then
+						effect.Size = Sizes
+					end
+				end
+				task.desynchronize()
+				if not hit and Motion ~= Vector3.new() and Colour ~= Color3.new(1, 1, 1) then
+					task.desynchronize()
+					hit = workspace:Raycast(effect.Position, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(effect.Position, -(Motion/1.25 + breakApart/1.25),RaycastParam) or workspace:Raycast(lastpos, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(lastpos, effect.Position - lastpos,RaycastParam) or workspace:Raycast(effect.Position,lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos, lastpos - effect.Position,RaycastParam) or workspace:Raycast(effect.Position,effect.Position - lastpos,RaycastParam)
+					if hit then
+						if hit.Material == Enum.Material.Water then
+							if table.find(EffectInstance, effect) then table.remove(EffectInstance, table.find(EffectInstance, effect)) end
+							task.synchronize()effect:Destroy()
+						else
+							task.synchronize()
+							local cloneeffect = effect:Clone()
+							RaycastParam:AddToFilter(cloneeffect)
+							if table.find(EffectInstance, effect) then table.remove(EffectInstance, table.find(EffectInstance, effect)) end
+							table.insert(EffectInstance, cloneeffect)
+							effect:Destroy()
+							effect = nil
+							cloneeffect.Parent = workspace
+							--cloneeffect.Shape = Enum.PartType.Cylinder
+							if hit.Instance:IsA("BasePart") then
+								cloneeffect.Anchored = false
+								local w = Instance.new('Weld', cloneeffect)
+								w.Part1 = cloneeffect or hit.Instance
+								w.Part0 = hit.Instance or cloneeffect
+								local rx, ry, rz =  CFrame.new(lastpos, hit.Position) --[[Subject:GetPivot()]]:ToOrientation()
+								local orientation = Vector3.new(math.deg(rx), math.deg(ry),math.deg(rz))
+								local pcf = (CFrame.new(hit.Position , (hit.Position + hit.Normal--[[ + leg.CFrame.LookVector * Vector3.new(1,-1,1) ]])) * CFrame.Angles(0,0,ry):Inverse()) or (CFrame.new(effect.Position  , (effect.Position + hit.Normal --[[ + leg.CFrame.LookVector * Vector3.new(1,-1,1) ]])) * CFrame.Angles(0,0,ry):Inverse()) -- * savedlleg 
+								local lpcf = pcf + Vector3.new(0,-0.05,0)
+								w.C0 = hit.Instance.CFrame:ToObjectSpace(CFrame.new(hit.Position))  * pcf.Rotation --CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation + Vector3.new(0,0.01,0))
+								if w.Part1 == w.Part0 then
+									if cloneeffect then
+										cloneeffect.Anchored = true
+									end
+									if w then
+										w:Destroy()
+									end
+								else
+									if cloneeffect then
+										cloneeffect.Anchored = false
+									end
+								end
+							else
+								cloneeffect.Anchored = true 
+								cloneeffect.CFrame = CFrame.new(hit.Position) * CFrame.Angles(math.rad(90),0,0)  * CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation
+							end
+							cloneeffect.Size = Vector3.new(cloneeffect.Size.X * 2 + ((cloneeffect.Size.X + cloneeffect.Size.Y) * cloneeffect.Size.Z) - 0.01,cloneeffect.Size.X * 2 + ((cloneeffect.Size.Y + cloneeffect.Size.Y) * cloneeffect.Size.Z) - 0.01,0.1)/1.5
+							if game:FindFirstChildOfClass('TweenService') then
+								game:FindFirstChildOfClass('TweenService'):Create(cloneeffect, TweenInfo.new(10 * (1 - cloneeffect.Transparency),Enum.EasingStyle.Sine,Enum.EasingDirection.Out),{Transparency = 1, Size = cloneeffect.Size * 0.75}):Play()
+							end
+							if Debris then Debris:AddItem(cloneeffect,10) task.delay(9, function() if table.find(EffectInstance, cloneeffect) then table.remove(EffectInstance, table.find(EffectInstance, cloneeffect)) end end) end
+						end
+						task.desynchronize()
+						if hit.Instance and (not Character or Character and not hit.Instance:IsDescendantOf(Character)) then
+							repeat 
+								task.desynchronize()
+								local Randomed = math.random()
+								if Randomed < Sized then
+									--print('uh' .. tostring(CFrame.new(hit.Position, hit.Position + hit.Normal).LookVector) )
+									--print('uh' .. Randomed)
+									--water splash
+									coroutine.resume(coroutine.create(function()--[[ PlaySound('splat0wav', effect)]] Classic_Flagstand_Effect(CFrame.new(hit.Position),Randomed,workspace,math.random(1,2),Fade_Duration/2,Colour,Material,--[[-Motion/2]]--[[ CFrame.new(hit.Position, hit.Position + hit.Normal).LookVector * (Motion.Magnitude/7.5) +]] (HandleRaycastHit(Motion, hit).Magnitude/2) * calculateBounceAngle(Motion, hit).Unit --[[Randomed + breakApart/3]], ShrinkOrExpand, Size_Rate/2, Filter)  end))	
+									Sized = Sized - Randomed
+								else
+									Sized = 0
+									break
+								end
+							until not Sized or Sized <= 0 or not Randomed or not workspace or not game -- noway useless af
+						end
+					elseif not hit then
+						task.desynchronize()
+						Sized = effect.Size.X
+						lastpos = effect.Position
+						if Motion.Y < (-0.5 * 25) then
+							Motion = Motion + Vector3.new(0,0.1,0) * speed -- slow rec as it inverse accelerates
+							GravityStack = GravityStack - 1
+						else -- until gravity balanced out
+							Motion = Motion + Vector3.new(0,-0.25,0) * speed -- high gain as it accelerates
+							GravityStack = GravityStack + 1
+						end
+					end
+				end
+				task.desynchronize()
+				if effect and effect.Color == Color3.new(1,1,1) and effect.Material == Enum.Material.ForceField then
+					local Back = workspace:Raycast(effect.Position, lastpos - effect.Position, Terrain) or workspace:Raycast(lastpos, effect.Position - lastpos, Terrain) or workspace:Raycast(lastpos, Vector3.new(0,1,0), Terrain) or workspace:Raycast(lastpos, Vector3.new(0,-1,0), Terrain)
+					if Back and (Back.Material == Enum.Material.Air or Back.Material == Enum.Material.Water) then
+						task.synchronize()
+						effect.Size = effect.Size * 2
+						effect.Transparency = effect.Transparency + 0.5
+						Debris:AddItem(effect,0.05)
+					end -- Air Bubble
+				end
+				task.desynchronize()
+				if (i >= Fade_Duration) or hit or not effect then
+					coroute = nil
+					if corouteDis then
+						task.synchronize()
+						task.synchronize()
+						corouteDis:Disconnect()
+						corouteDis = nil
+					end
+					if effect then
+						if table.find(EffectInstance, effect) then
+							table.remove(EffectInstance, table.find(EffectInstance, effect))
+						end
+						task.synchronize()
+						effect:Destroy()
+					end
+					break
+				end
+				task.desynchronize()
+				if (i >= Fade_Duration) or not effect or hit ~= nil then
+					return
+				end
+			end
+		end)
+		coroutine.resume(coroute)
+		corouteDis = Subject.Destroying:Connect(function()
+			task.desynchronize()
+			if coroute then
+				task.synchronize() coroutine.close(coroute)
+			end
+			task.desynchronize()
+			if effect then
+				task.synchronize() effect:Destroy()
+			end
+		end)
+	end
+end
+
+
+Water_Gun.Equipped:Connect(function()
+	task.desynchronize()
+	Capacity = math.clamp(Capacity,0,MaxCapacity)
+	if not Water_Gun:FindFirstAncestorWhichIsA('Model') then
+		return -- no character
+	end
+	Character = Water_Gun:FindFirstAncestorWhichIsA('Model')
+	Activated = false
+	if Character then
+		Equipped = true
+	end
+end)
+Water_Gun.Unequipped:Connect(function()
+	task.desynchronize()
+	Capacity = math.clamp(Capacity,0,MaxCapacity)
+	Character = nil
+	Equipped = false
+	Activated = false
+end)
+Water_Gun.Activated:Connect(function()
+	task.desynchronize()
+	Capacity = math.clamp(Capacity,0,MaxCapacity)
+	if not Equipped or Activated then
+		return
+	end
+	Activated = true
+	if C then
+		task.synchronize()
+		coroutine.close(C)
+		C = nil
+	end
+	task.synchronize()
+	C = coroutine.create(function()
+		local LastTick = tick()
+		LastFireTick = LastTick
+		local WaterForce = 10
+		-- under 10 sec
+		while Character and Capacity > 0 and Water_Gun and C and task.wait(0.05) and (10 - (tick() - LastFireTick)) >= 0 and LastFireTick == LastTick and Activated and Equipped and WaterForce > 0 do
+			local CurrentDecrease = math.clamp(WaterForce - (10 - (tick() - LastFireTick)) * math.random(10,15)/30,0,0.5)
+			WaterForce -= CurrentDecrease
+			Capacity = math.clamp(Capacity - CurrentDecrease,0,MaxCapacity) 
+			Water_Gun.ToolTip = '{'..Capacity..'/'..MaxCapacity..'}'
+			Classic_Flagstand_Effect(Water_Gun:FindFirstChild('Handle').CFrame + Water_Gun:FindFirstChild('Handle').CFrame.UpVector * -2.5 + Water_Gun:FindFirstChild('Handle').CFrame.LookVector * 0.25, CurrentDecrease/2.5,workspace,1,10,Color3.new(0, 0.666667, 1),Enum.Material.Neon,nil, 'Expand', 0.3, Character)
+			Classic_Flagstand_Effect(Water_Gun:FindFirstChild('Handle').CFrame + Water_Gun:FindFirstChild('Handle').CFrame.UpVector * -2.5 + Water_Gun:FindFirstChild('Handle').CFrame.LookVector * 0.25, CurrentDecrease/2,workspace,1,10,Color3.new(0.333333, 1, 1),Enum.Material.ForceField,-Water_Gun:FindFirstChild('Handle').CFrame.UpVector * CurrentDecrease * math.clamp(10 - (tick() - LastFireTick) * 10,0,10), 'Shrink', 0.1, Character)
+		end
+	end)
+	if C then coroutine.resume(C) end
+end)
+Water_Gun.Deactivated:Connect(function()
+	task.desynchronize()
+	Activated = false
+	if C then
+		task.synchronize()
+		coroutine.close(C)
+		C = nil
+	end
+	if not Water_Gun then
+		return
+	end
+	if Capacity <= 0 then
+		task.synchronize()
+		Water_Gun.ToolTip = '[Out Of Water]'
+	else
+		task.synchronize()
+		Water_Gun.ToolTip = "[Show em Who's Boss!]"
+	end
+end)]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{F6246FE4-92A4-46C6-B198-7C585819A537}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">WaterShooter</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

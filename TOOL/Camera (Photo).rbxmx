@@ -1,0 +1,1947 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBXF717EBC13FC04A5ABD73D7C6AD028BB4">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0.100000001</X>
+				<Y>0.25</Y>
+				<Z>0.75</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>0.906307757</R11>
+				<R12>-0.42261827</R12>
+				<R20>0</R20>
+				<R21>0.42261827</R21>
+				<R22>0.906307757</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Camera(Photo)</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="MeshPart" referent="RBXA93E340798D84B46883372BF5063241D">
+			<Properties>
+				<bool name="DoubleSided">false</bool>
+				<bool name="HasJointOffset">false</bool>
+				<bool name="HasSkinnedMesh">false</bool>
+				<Vector3 name="InitialSize">
+					<X>8.89865875</X>
+					<Y>6.09556389</Y>
+					<Z>6.14506483</Z>
+				</Vector3>
+				<Vector3 name="JointOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Content name="MeshId"><url>rbxassetid://6318474683</url></Content>
+				<BinaryString name="PhysicsData"></BinaryString>
+				<token name="RenderFidelity">1</token>
+				<Content name="TextureID"><url>rbxassetid://6318474739</url></Content>
+				<int name="VertexCount">0</int>
+				<SharedString name="AeroMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<token name="FluidFidelityInternal">0</token>
+				<bool name="InertiaMigrated">true</bool>
+				<SharedString name="PhysicalConfigData">5ITfYL7TTOj/mULQ0G+emw==</SharedString>
+				<Vector3 name="UnscaledCofm">
+					<X>0.0117453672</X>
+					<Y>-0.577693224</Y>
+					<Z>0.909630358</Z>
+				</Vector3>
+				<Vector3 name="UnscaledVolInertiaDiags">
+					<X>545.360046</X>
+					<Y>1014.88672</Y>
+					<Z>1043.30249</Z>
+				</Vector3>
+				<Vector3 name="UnscaledVolInertiaOffDiags">
+					<X>18.391716</X>
+					<Y>-8.8096199</Y>
+					<Z>-1.73374176</Z>
+				</Vector3>
+				<float name="UnscaledVolume">117.468208</float>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>21.1123295</X>
+					<Y>8.18596077</Y>
+					<Z>-90.445015</Z>
+					<R00>-0.999576867</R00>
+					<R01>-0.0272338316</R01>
+					<R02>-0.0102300569</R02>
+					<R10>-3.37280284e-07</R10>
+					<R11>-0.351635873</R11>
+					<R12>0.936136782</R12>
+					<R20>-0.0290918536</R20>
+					<R21>0.93574059</R21>
+					<R22>0.351487279</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>1</X>
+					<Y>1</Y>
+					<Z>1</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>3.82612257e-07</X>
+					<Y>1.09873117e-05</Y>
+					<Z>3.15337729e-06</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>1.64865875</X>
+					<Y>1.09556389</Y>
+					<Z>1.14506483</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">6318474785</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Sound" referent="RBX16361BFE93204064B833B27F7317FF09">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://10066921516</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">2</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">RBLX UI Camera (SFX)</string>
+					<int64 name="SourceAssetId">10066921516</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Actor" referent="RBXE638FFBC208A40958CE8E84E6D7F7E37">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Math Handler</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBX1CAECEDC11154D0A9C5660703BF904A4">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--//Solivion//--
+--//Uploader: Photochrolination//--
+--//This is more Recent Than Version Uploaded Onto My Main (assetid: '16666809272')//--
+--//A More Updated System. Now With "Photograph" Typo and Image Capturing System, Though Torn Down Quite A Bit From The Recent Version, Enjoy!//--
+--!strict
+if script:FindFirstAncestorOfClass("Actor") then
+	task.synchronize()
+end
+local ServerStorage: ServerStorage = game:GetService("ServerStorage")
+local PhysicsService: PhysicsService = game:GetService('PhysicsService')
+local Debris: Debris = game:GetService("Debris")
+local Players: Players = game:GetService("Players")
+local RayPar = RaycastParams.new()
+RayPar.FilterType = Enum.RaycastFilterType.Exclude
+RayPar.FilterDescendantsInstances = {script:FindFirstAncestorOfClass("Tool")}
+
+--print("Cam V1.8 Initiated")
+if script:FindFirstAncestorOfClass("Actor") then
+	task.desynchronize()
+end
+
+function RGBtoMonochrome(color:Color3 | any) -- unused as i dont know how to make recording feature, not really impossible, but i dislike using table that way
+	if typeof(color) == "BrickColor" then
+		color = color.Color
+	end
+	local r, g, b = math.round(color.R*255), math.round(color.G*255), math.round(color.B*255)
+	local sRgrey, sGgrey, sBgrey = math.min(math.pow((math.pow(r/255.0,2.2)*0.2126+math.pow(g/255.0,2.2)*0.7152+math.pow(b/255.0,2.2)*0.0722),0.454545)*255,255), math.min(math.pow((math.pow(r/255.0,2.2)*0.2126+math.pow(g/255.0,2.2)*0.7152+math.pow(b/255.0,2.2)*0.0722),0.454545)*255,255), math.min(math.pow((math.pow(r/255.0,2.2)*0.2126+math.pow(g/255.0,2.2)*0.7152+math.pow(b/255.0,2.2)*0.0722),0.454545)*255,255)
+	return Color3.new(sRgrey/255, sGgrey/255, sBgrey/255)
+end
+
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	if script:FindFirstAncestorOfClass("Actor") then
+		task.desynchronize()
+	end
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if not Found then
+			if Where == nil then
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v:IsA("BasePart")) then
+				return v
+			end
+		end
+	end
+end
+
+local GotFlashed = {} -- I Don No Haw 2 Type Chec Dis.
+local IgnoreList = {} -- I Don No Haw 2 No Check tp
+local SavedShots: {CFrame} = {}
+local CorouteRecord: thread | any
+local RecordNewConnect: RBXScriptConnection?
+local ScenerySize: Vector3 = Vector3.new(100,100,100)
+local Tool: Tool = script:FindFirstAncestorOfClass("Tool")
+if not Tool then
+	repeat task.wait(.01) Tool = script:FindFirstAncestorOfClass("Tool") if Tool then break end until Tool
+end
+local Handle: BasePart? = Tool:FindFirstChildOfClass("BasePart") or Tool:FindFirstChild("Handle")
+if not Tool or not Handle then
+	repeat task.wait(.01) if Tool and Handle then --[[print("Found Both")]] break end until false
+end
+local StartingTick: number = tick()
+local ActivatedTick: number = tick()
+local starttime: number = tick()
+local Enabled: boolean = false
+local Enabled2: boolean = false
+local Recording: boolean = false
+local Activated:boolean = false
+local Cooldown: boolean = false
+local WeldR: Instance & JointInstance
+local WeldL: Instance & JointInstance
+local ExpectedChar: Model
+local Allowed:boolean = false
+local CollisionGroupName = 'Viewer'
+
+if script:FindFirstAncestorOfClass("Actor") then
+	task.synchronize()
+end
+
+if not PhysicsService:IsCollisionGroupRegistered(CollisionGroupName) then
+	PhysicsService:RegisterCollisionGroup(CollisionGroupName)
+end
+PhysicsService:CollisionGroupSetCollidable(CollisionGroupName,CollisionGroupName, false)
+for i,v in ipairs(PhysicsService:GetRegisteredCollisionGroups())  do
+	PhysicsService:CollisionGroupSetCollidable(CollisionGroupName,v.name, false)
+end
+
+function IsBehind(Part:BasePart, CF: CFrame)
+	if Part and CF then
+		local lookat = (Part.Position - CF.Position).Unit
+		local PartFacing = Part.CFrame.LookVector.Unit
+		if lookat:Dot(PartFacing) <= 0 then
+			return true
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+
+local function HandAim(Looker,Weld,TargetCFrame,hand)
+	--task.synchronize()
+	if Looker == nil then
+		return
+	end
+	if hand == nil then
+		return
+	end
+	local tr = Looker:FindFirstChild("UpperTorso") or Looker:FindFirstChild("Torso") or Looker:FindFirstChild("HumanoidRootPart")
+	if tr == nil then
+		return
+	end
+	local tframe = tr.CFrame or CFrame.new(0,0,0)
+	local HandOff
+	local C1X = 1
+	local C2 = 1
+	local HandAng
+	if string.match(hand.Name,"Left") then
+		C1X = -0.5
+	else
+		C1X = 0.5
+	end
+	if string.match(hand.Name,"Left") then
+		C2 = -1
+	else
+		C2 = 1
+	end
+	local CurHandName:string
+	local OppoHandName:string
+	if string.match(hand.Name,"Left") then
+		HandOff = Vector3.new( -1.5, 0.5, -0.5 )	
+		CurHandName = "Left"
+		OppoHandName = "Right"
+	else
+		HandOff = Vector3.new( 1.5, 0.5, -0.5 )	
+		CurHandName = "Right"
+		OppoHandName = "Left"
+	end
+	tframe = tframe + tframe:VectorToWorldSpace(HandOff)
+	local taim = ((TargetCFrame and TargetCFrame.p) or Vector3.new(0,0,0)) -( tframe.p )
+	local LookAtVec = (hand.Position - TargetCFrame.Position)
+	local Where
+	if TargetCFrame == nil then
+		Where = CFrame.new(1.5, 0.5, -0.5) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+	--[[else
+		if not script.Parent.Parent.Torso then
+			return
+		end
+		local tframe = script.Parent.Parent.Torso.CFrame
+		tframe = tframe + tframe:vectorToWorldSpace(Vector3.new(1.5, 0.5, -0.5))
+		local taim = mousetarget.p -( tframe.p )
+		Where = (CFrame.new(Vector3.new(),tframe:vectorToObjectSpace(taim))*CFrame.Angles(math.rad(-90),math.rad(90),math.rad(-90)))+Vector3.new( 1.5, 0.5, 0.5 )]]
+	else
+
+		Where = --[[CFrame.new(LookAtVec)]] CFrame.new(Vector3.new(),tframe:vectorToObjectSpace(taim))*CFrame.Angles(math.rad(-90),math.rad(180),math.rad(180))-- +HandOff -- + Vector3.new(LookAtVec.Magnitude,LookAtVec.Y-1.5,LookAtVec.Magnitude) * LookAtVec.Unit
+	end
+	local nweld = Looker:FindFirstChildOfClass("Snap")
+	if nweld then
+		local NewAttachmentWeld = nweld
+		if not TargetCFrame then
+			nweld.C0 = nweld.C0:Lerp(CFrame.new(1.5, 0, 0) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.1)
+		else
+			Where = Where.Rotation * CFrame.new(math.clamp(Where.X,-2,2),math.clamp(Where.Y,-2,2),math.clamp(Where.Z,-2,2)) + HandOff
+			nweld.C0 = nweld.C0:Lerp(Where,0.3)
+			local Meh = (hand.CFrame.Position - TargetCFrame.Position).Magnitude
+			--local Offseter:CFrame = CFrame.new(math.clamp((-Meh + 0.0625 * 20) * C1X, -1, 1),math.clamp(Meh,-2,2),math.clamp(Meh,-0.5,0.5))
+			----[[if Looker:FindFirstChild("Torso") and Looker:FindFirstChild("Torso"):FindFirstChild("BodyFrontAttachment") and Looker:FindFirstChild("Torso"):FindFirstChild("BodyBackAttachment")  then
+			--	if (Looker:FindFirstChild("Torso"):FindFirstChild("BodyFrontAttachment").Position - TargetCFrame.Position).Magnitude > (Looker:FindFirstChild("Torso"):FindFirstChild("BodyBackAttachment").Position - TargetCFrame.Position).Magnitude or IsBehind(Looker:FindFirstChild("Torso"),TargetCFrame) --[[or (Looker:FindFirstChild("Torso"):FindFirstChild(CurHandName.."CollarAttachment").Position - TargetCFrame.Position).Magnitude < (Looker:FindFirstChild("Torso"):FindFirstChild(OppoHandName.."CollarAttachment").Position - TargetCFrame.Position).Magnitude]] or Offseter == CFrame.new(-1, 2, 0.5) or Offseter == CFrame.new(1, 2, 0.5) then
+			--		-- Inverted Formula, In This Case The Hand Is Bent Backward
+			--		nweld:SetAttribute("Formula","Inverted")
+			--		Offseter = CFrame.new(math.clamp((-Meh - 0.0625 * 20) * (-C2 + (-C2 * 0.5)), -2, 2),math.clamp(Meh,-2,2),-math.clamp(Meh,-0.5,0.5))
+			--	else-- Normal Formula
+			--		nweld:SetAttribute("Formula","Normal")
+			--		Offseter = CFrame.new(math.clamp((-Meh + 0.0625 * 20) * C1X, -1, 1),math.clamp(Meh,-2,2),math.clamp(Meh,-0.5,0.5))
+			--	end
+			--else
+			--	-- Attachment Not Found
+			--	nweld:SetAttribute("Formula","Normal")
+			--	Offseter = CFrame.new(math.clamp((-Meh + 0.0625 * 20) * C1X, -1, 1),math.clamp(Meh,-2,2),math.clamp(Meh,-0.5,0.5))
+			--end]]
+			--nweld.C1 = nweld.C1:Lerp(Offseter,0.45)
+		end
+	else
+		local NewHandWeld = Weld or Instance.new("Snap",Looker)
+		NewHandWeld.Name = "Hand Door"
+		NewHandWeld.Enabled = true
+		nweld = NewHandWeld
+		if hand:IsDescendantOf(Looker) then
+			NewHandWeld.Part1 = hand
+		end
+		if Looker:FindFirstChild("Torso") or Looker:FindFirstChild("UpperTorso") then
+			NewHandWeld.Part0 = Looker:FindFirstChild("Torso") or Looker:FindFirstChild("UpperTorso")
+		end
+		if not TargetCFrame then
+			NewHandWeld.C0 = NewHandWeld.C0:Lerp(CFrame.new(1.5, 0, 0) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.6) 
+			NewHandWeld.C1 = NewHandWeld.C1:Lerp(CFrame.new(0,0,0),0.6)
+			--	NewHandWeld.C0 = NewHandWeld.C0:Lerp(CFrame.new(1.5, 0, 0) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.1)
+		else
+			--	NewHandWeld.C0 = NewHandWeld.C0:Lerp(Where,0.3)
+			Where = Where.Rotation * CFrame.new(math.clamp(Where.X,-2,2),math.clamp(Where.Y,-2,2),math.clamp(Where.Z,-2,2))
+			NewHandWeld.C0 = NewHandWeld.C0:Lerp(Where,0.6)
+			local Meh = (hand.CFrame.Position - TargetCFrame.Position).Magnitude
+			local Offseter:CFrame = CFrame.new(math.clamp((-Meh + 0.0625 * 20) * C1X, -1, 1),math.clamp(Meh,-2,2),math.clamp(Meh,-0.5,0.5))
+			if Looker:FindFirstChild("Torso") and Looker:FindFirstChild("Torso"):FindFirstChild("BodyFrontAttachment") and Looker:FindFirstChild("Torso"):FindFirstChild("BodyBackAttachment")  then
+				if Looker:FindFirstChild("Torso"):FindFirstChild("BodyFrontAttachment") and Looker:FindFirstChild("Torso"):FindFirstChild("BodyBackAttachment") and (Looker:FindFirstChild("Torso"):FindFirstChild("BodyFrontAttachment").Position - TargetCFrame.Position).Magnitude > (Looker:FindFirstChild("Torso"):FindFirstChild("BodyBackAttachment").Position - TargetCFrame.Position).Magnitude or IsBehind(Looker:FindFirstChild("Torso"),TargetCFrame) --[[or (Looker:FindFirstChild("Torso"):FindFirstChild(CurHandName.."CollarAttachment").Position - TargetCFrame.Position).Magnitude < (Looker:FindFirstChild("Torso"):FindFirstChild(OppoHandName.."CollarAttachment").Position - TargetCFrame.Position).Magnitude]] or Offseter == CFrame.new(-1, 2, 0.5) or Offseter == CFrame.new(1, 2, 0.5) then
+					nweld:SetAttribute("Formula","Inverted")
+					Offseter = CFrame.new(math.clamp((-Meh - 0.0625 * 20) * (-C2 + (-C2 * 0.5)), -2, 2),math.clamp(Meh,-2,2),-math.clamp(Meh,-0.5,0.5))
+				else-- Normal Formula
+					nweld:SetAttribute("Formula","Normal")
+					Offseter = CFrame.new(math.clamp((-Meh + 0.0625 * 20) * C1X, -1, 1),math.clamp(Meh,-2,2),math.clamp(Meh,-0.5,0.5))
+				end
+			else
+				-- Attachment Not Found
+				nweld:SetAttribute("Formula","Normal")
+				Offseter = CFrame.new(math.clamp((-Meh + 0.0625 * 20) * C1X, -1, 1),math.clamp(Meh,-2,2),math.clamp(Meh,-0.5,0.5))
+			end
+			nweld.C1 = nweld.C1:Lerp(Offseter,0.45)
+		end
+	end
+end
+
+if Tool then
+	WeldL = Handle:FindFirstChild("RightWeld") :: JointInstance or Instance.new("ManualWeld")
+	WeldL.Name = "RightWeld"
+	WeldL.Parent = Handle
+	WeldR = Handle:FindFirstChild("LeftWeld") :: JointInstance or Instance.new("ManualWeld")
+	WeldR.Name = "LeftWeld"
+	WeldR.Parent = Handle
+	local Record = function(Type: 'Picture' | 'Video')
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.desynchronize()
+		end
+		if not ExpectedChar or not Handle then
+			if Recording then
+				Recording = false
+			end
+			return
+		end
+		if not Recording then
+			if Type == 'Picture' then
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					local Copy = Handle:Clone()
+					Copy.Anchored = true
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.desynchronize()
+					end
+				local Image = {}
+
+				-- Function to check if two colors are approximately the same
+				local function colorsApproximatelyEqual(color1, color2)
+					local epsilon = 0.01
+					return math.abs(color1.R - color2.R) < epsilon and
+						math.abs(color1.G - color2.G) < epsilon and
+						math.abs(color1.B - color2.B) < epsilon
+				end
+
+				-- Function to merge adjacent parts with the same color
+				local function mergeAdjacentParts(x, y)
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.desynchronize()
+					end
+					local mergedPart = Image[x][y]
+					if not mergedPart then
+						return
+					end
+					local stackCountx = 0
+					local stackCounty = 0
+					-- Check left neighbor
+					if x > 1 and Image[x-1] and Image[x-1][y] and colorsApproximatelyEqual(Image[x-1][y].Colour, mergedPart.Colour) then
+						stackCountx = stackCountx + Image[x-1][y].Stack + 1
+						mergedPart.CFrame = Image[x-1][y].CFrame
+						Image[x-1][y] = nil
+					end
+
+					-- Check right neighbor
+					if x < 100 and Image[x+1] and Image[x+1][y] and colorsApproximatelyEqual(Image[x+1][y].Colour, mergedPart.Colour) then
+						stackCountx = stackCountx + Image[x+1][y].Stack + 1
+						Image[x+1][y] = nil
+					end
+
+					-- Check above neighbor
+					if y < 75 and Image[x] and Image[x][y+1] and colorsApproximatelyEqual(Image[x][y+1].Colour, mergedPart.Colour) then
+						stackCounty = stackCounty + Image[x][y+1].Stack + 1
+						Image[x][y+1] = nil
+					end
+
+					-- Check below neighbor
+					if y > 1 and Image[x] and Image[x][y-1] and colorsApproximatelyEqual(Image[x][y-1].Colour, mergedPart.Colour) then
+						stackCounty = stackCounty + Image[x][y-1].Stack + 1
+						Image[x][y-1] = nil
+					end
+
+					-- Resize the merged part based on stack count
+					mergedPart.Size = Vector3.new(0.01 + stackCountx * 0.01, 0.1/1.35, 0.01 + stackCounty * 0.01)
+				end
+
+				-- Iterate through the pixels and create parts
+				for x = 1, 100 do
+					Image[x] = {}
+					for y = 1, 75 do
+						Image[x][y] = {}
+						local cast = workspace:Raycast(Copy.Position + Copy.CFrame.LookVector * Copy.Size / 2,  ((Copy.Position + Copy.CFrame.LookVector * Copy.Size / 2 + Copy.CFrame.UpVector * (y/100 - 75/200)/2 + Copy.CFrame.RightVector * (x/100 - 100/200)/2) - (Copy.Position)).Unit * 10000, RayPar)
+
+						if cast then
+							Image[x][y].Instance = cast.Instance
+							Image[x][y].Material = cast.Material
+							Image[x][y].Normal = cast.Normal
+							Image[x][y].Position = cast.Position
+							Image[x][y].Distance = cast.Distance
+							Image[x][y].Colour = (cast.Instance:IsA('BasePart') and cast.Instance.Color) or (cast.Instance:isA('Terrain') and workspace:FindFirstChildOfClass('Terrain'):GetMaterialColor(cast.Material)) or Color3.new(0, 0, 0)
+							Image[x][y].Stack = 0
+							Image[x][y].CFrame = CFrame.new(x/100, 0.0175, y/100)
+							Image[x][y].Size = Vector3.new(0.01,0.1/1.35,0.01)
+							-- Merge adjacent parts with the same color
+							
+						else
+							Image[x][y].Material = Enum.Material.Neon
+							Image[x][y].Stack = 0
+							Image[x][y].Colour = Color3.new(0, 0, 0)
+							Image[x][y].CFrame = CFrame.new(x/100, 0.0175, y/100)
+							Image[x][y].Size = Vector3.new(0.01,0.1/1.35,0.01)
+							--Image[x][y] = nil
+						end
+					end
+				end
+				
+
+					-- non working greedy meshing type thing
+				-- Function to merge adjacent parts along the x-axis
+				local function mergeAdjacentX(x, y)
+					local startX = x
+					local endX = x
+
+					-- Expand to the left
+					while startX > 1 and Image[startX][y] and Image[startX][y].Colour == Image[startX - 1][y].Colour do
+						startX = startX - 1
+					end
+
+					-- Expand to the right
+					while endX < 100 and Image[endX][y] and Image[endX][y].Colour == Image[endX + 1][y].Colour do
+						endX = endX + 1
+					end
+
+					return startX, endX
+				end
+
+				-- Function to merge adjacent parts along the y-axis
+				local function mergeAdjacentY(x, y)
+					local startY = y
+					local endY = y
+
+					-- Expand upwards
+					while startY > 1 and Image[x][startY] and Image[x][startY].Colour == Image[x][startY - 1].Colour do
+						startY = startY - 1
+					end
+
+					-- Expand downwards
+					while endY < 75 and Image[x][endY] and Image[x][endY].Colour == Image[x][endY + 1].Colour do
+						endY = endY + 1
+					end
+
+					return startY, endY
+				end
+
+				-- Function to merge parts along the x-axis
+				local function mergeXAxis(x, y, FamiliarOmgX)
+					for i = 1, FamiliarOmgX do
+						if Image[x][y] and Image[x + i][y] then
+							Image[x][y].Stack = Image[x][y].Stack + 1
+							Image[x][y].Size = Image[x][y].Size + Vector3.new(Image[x + i][y].Size.X, 0, 0)
+							Image[x][y].CFrame = Image[x][y].CFrame + Vector3.new(Image[x + i][y].Size.X / 2, 0, 0)
+							Image[x + i][y] = nil
+						end
+					end
+				end
+
+				-- Function to merge parts along the y-axis
+				local function mergeYAxis(x, y, FamiliarOmgY)
+					for i = 1, FamiliarOmgY do
+						if Image[x][y] and Image[x][y + i] then
+							Image[x][y].Stack = Image[x][y].Stack + 1
+							Image[x][y].Size = Image[x][y].Size + Vector3.new(0, 0, Image[x][y + i].Size.Z)
+							Image[x][y].CFrame = Image[x][y].CFrame + Vector3.new(0, 0, Image[x][y + i].Size.Z / 2)
+							Image[x][y + i] = nil
+						end
+					end
+				end
+
+				-- Iterate through the pixels and create parts
+				for x = 1, 100 do
+					if Image[x] then
+						for y = 1, 75 do
+							if Image[x][y] then
+								local FamiliarOmgX = 0
+
+								-- Check for similarities in the x-axis
+								for SimilarCountX = x + 1, 100 do
+									if Image[x][y] and Image[SimilarCountX][y] and Image[SimilarCountX][y].Colour and Image[SimilarCountX][y].Colour ~= Image[x][y].Colour then
+										break
+									elseif Image[x][y] and Image[SimilarCountX][y] and Image[SimilarCountX][y].Colour and Image[SimilarCountX][y].Colour == Image[x][y].Colour then
+										FamiliarOmgX = FamiliarOmgX + 1
+									else
+										break
+									end
+								end
+
+								-- Merge parts along the x-axis
+								if FamiliarOmgX > 0 then
+									mergeXAxis(x, y, FamiliarOmgX)
+								else
+									local FamiliarOmgY = 0
+
+									-- Check for similarities in the y-axis
+									for SimilarCountY = y + 1, 75 do
+										if Image[x][y] and Image[x][SimilarCountY] and Image[x][SimilarCountY].Colour and Image[x][SimilarCountY].Colour ~= Image[x][y].Colour then
+											break
+										elseif Image[x][y] and Image[x][SimilarCountY] and Image[x][SimilarCountY].Colour and Image[x][SimilarCountY].Colour == Image[x][y].Colour then
+											FamiliarOmgY = FamiliarOmgY + 1
+										else
+											break
+										end
+									end
+
+									-- Merge parts along the y-axis
+									if FamiliarOmgY > 0 then
+										mergeYAxis(x, y, FamiliarOmgY)
+									end
+								end
+
+								-- Merge parts along the y-axis for adjacent colors
+								if Image[x][y + 1] and Image[x][y].Colour == Image[x][y + 1].Colour then
+									mergeYAxis(x, y, 1)
+								end
+							end
+						end
+					end
+				end
+
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+				--	workspace:FindFirstChildOfClass('Folder'):ClearAllChildren()
+					local Tool = Instance.new("Tool", workspace)
+					local ToolActive = false
+					local ImagePaper = Instance.new("Part", Tool)
+					local Canvas = Instance.new("Part", ImagePaper)
+					local Interact = Instance.new("ProximityPrompt", ImagePaper)
+					local ImageUI = Instance.new("SurfaceGui", ImagePaper)
+					local ImageDisplay = Instance.new("ViewportFrame", game:GetService('ServerStorage'))
+					local ImageDisplayFolder = Instance.new("Folder", ImageDisplay)
+					local Camera = Instance.new("Camera", workspace)
+					Camera.Name = workspace:GetServerTimeNow()
+					if not Tool then return else Tool.ToolTip = 'From '..os.date() Tool.Grip = CFrame.Angles(math.rad(270),0,math.rad(90))  end
+					if Camera and not Handle then Camera.CFrame = Tool:GetPivot() end
+					if Camera and Handle then Camera.CFrame = Handle.CFrame end
+					if ImagePaper then
+						ImagePaper.Material = Enum.Material.SmoothPlastic
+						ImagePaper.CanTouch = true
+						ImagePaper.Size = Vector3.new(2.25/3,0.1,1)
+						ImagePaper.Name = 'Handle'
+						ImagePaper.CanCollide = true
+						ImagePaper.CFrame = Handle.CFrame
+						if Canvas then
+							Canvas.Size = ImagePaper.Size / 1.35
+							Canvas.CastShadow = false
+							Canvas.Name = 'Canvas'
+							Canvas.Material = Enum.Material.Neon
+							Canvas.Color = Color3.new()
+							local Attach = Instance.new('Weld', Canvas)
+							Attach.Part1 = Canvas
+							Attach.Part0 = ImagePaper
+							Attach.C0 = CFrame.new(0,-0.015,0)
+							coroutine.resume(coroutine.create(function()
+							Attach.C0 = CFrame.new(0,-0.015,0) * CFrame.Angles(math.rad(0),math.rad(-90),math.rad(0))
+								local all: {BasePart} = {}
+								for x = 1,100  do
+									if Image[x] then
+										for y = 1,75  do
+											if Image[x][y] then
+												local pos = (Copy.Position + Copy.CFrame.LookVector * Copy.Size / 2 + Copy.CFrame.UpVector * (y/100 - 75/200) + Copy.CFrame.RightVector * (x/100-100/200) )
+												--local att = Instance.new('Attachment',workspace:FindFirstChildOfClass('Terrain'))
+												--att.Position = pos
+												--att.Visible = true
+												local part = Instance.new( 'Part',workspace)
+												part.Anchored = true part.Color = Image[x][y].Colour part.CFrame = Image[x][y].CFrame part.Size = Image[x][y].Size
+												--	Debris:AddItem(part,15)
+												table.insert(all, part)
+												part:SetAttribute('Pos', Image[x][y].CFrame)
+											end
+										end
+										task.wait(.01)
+									end
+								end
+								--print(all)
+								if Canvas then
+									Canvas.Archivable = true
+								--[[	local Union = Canvas:UnionAsync(all,Enum.CollisionFidelity.Box,Enum.RenderFidelity.Performance)
+									if Union then
+										Union.Anchored = false
+										Union.CanCollide = false
+										Union.CastShadow = false
+										Union.CanCollide = false
+										Union.CanTouch = false
+										Union.CanQuery = false
+										local Attach = Instance.new('Weld', Union)
+										Attach.Part1 = Union
+										Attach.Part0 = Canvas
+										Attach.C0 = CFrame.new(0,0,0)
+									else]]
+										for i,v in pairs(all) do
+											v.Name = tostring(i)
+											v.Parent = Canvas	
+											v.Massless = true
+											v.CastShadow = false
+											v.CanCollide = false
+											v.CanTouch = false
+											v.CanQuery = false
+											v.Anchored = false
+											v.Material = Enum.Material.Neon
+											local Attach = Instance.new('Snap', v)
+											Attach.Part1 = v
+											Attach.Part0 = Canvas
+								 			Attach.C0 = v:GetAttribute('Pos') * CFrame.new(-0.5,0,-0.75/2)
+											Attach.C1 = CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)) * CFrame.new(0,0.018,0)
+										end
+									--end
+								end
+							end))
+						end
+						if ImageUI then
+							ImageUI.Adornee = ImagePaper
+							ImageUI.Face = Enum.NormalId.Bottom
+							ImageUI.Name = string.gsub("Picture_Display_"..workspace:GetServerTimeNow(),' ','_')
+							if ImageDisplay then
+								ImageDisplayFolder.Name = 'Instance'
+								ImageDisplayFolder.Parent = ImageDisplay
+								ImageDisplay.CurrentCamera = Camera
+								ImageDisplay.Interactable = false
+								ImageDisplay.LightDirection = Handle.CFrame.LookVector
+								ImageDisplay.LightColor = Color3.new(1,1,1)
+								ImageDisplay.Size = UDim2.fromScale(1,1)
+								ImageDisplay.Name = "Picture_"..workspace:GetServerTimeNow()
+								ImageDisplay.Ambient = game:FindFirstChildOfClass('Lighting') and game:FindFirstChildOfClass('Lighting').Ambient
+								coroutine.resume(coroutine.create(function()
+									local loggedbypass: {Instance} = {}
+									local partcheckall = function(part: BasePart)
+										if script:FindFirstAncestorOfClass("Actor") then
+											task.desynchronize()
+										end
+										if not Handle then return false end
+										if (part.CFrame.Position - Handle.CFrame.Position).Unit:Dot(Handle.CFrame.LookVector) > (0 or math.cos(math.rad(110))) and (Handle.CFrame.Position - part.CFrame.Position).Magnitude < 50 then
+											for i,v in loggedbypass do
+												if part:IsDescendantOf(v) then
+													return false
+												end
+											end
+											if part.Anchored == false then
+												return true
+											end
+										else
+											return false
+										end
+										return false
+									end
+									for i,v in pairs(workspace:GetDescendants()) do
+										if v ~= ExpectedChar and not v:IsDescendantOf(ExpectedChar) then
+											if script:FindFirstAncestorOfClass("Actor") then
+												task.desynchronize()
+											end
+											--if v:IsA('BaseScript') then if script:FindFirstAncestorOfClass("Actor") then task.synchronize() end v:Destroy() end
+											if v:IsA('Model') and v:FindFirstChildOfClass('Humanoid') then
+												table.insert(loggedbypass,v)
+												if script:FindFirstAncestorOfClass("Actor") then
+													task.synchronize()
+												end
+												if (v:GetPivot().Position - Handle.Position).Unit:Dot(Handle.CFrame.LookVector) > (0 or math.cos(math.rad(110))) then
+													v.Archivable = true
+													v:Clone().Parent = ImageDisplayFolder
+												end
+											end
+											if v:IsA('BasePart') and partcheckall(v) then
+												if script:FindFirstAncestorOfClass("Actor") then
+													task.synchronize()
+												end
+												v.Archivable = true 
+												local clone = v:Clone()
+												clone.Parent = ImageDisplayFolder
+												clone.CollisionGroup = CollisionGroupName
+											end
+										end
+									end
+									for i,v in pairs(ImageDisplay:GetDescendants()) do	
+										if script:FindFirstAncestorOfClass("Actor") then
+											task.desynchronize()
+										end
+										if v:IsA('BaseScript') and v:IsDescendantOf(ImageDisplay) then
+											if script:FindFirstAncestorOfClass("Actor") then
+												task.synchronize()
+											end
+											v:Destroy()
+										elseif v:IsA('Humanoid') and v:IsDescendantOf(ImageDisplay) then	
+											if script:FindFirstAncestorOfClass("Actor") then task.synchronize()end v.MaxHealth = math.huge v.Health = math.huge v.WalkSpeed = 0 v.BreakJointsOnDeath = false v.NameDisplayDistance = 0 v.HealthDisplayDistance = 0
+										elseif v:IsA("BasePart") and v.Anchored == false and v:IsDescendantOf(ImageDisplay) then
+											if script:FindFirstAncestorOfClass("Actor") then
+												task.synchronize()
+											end
+											v.CanCollide = false
+											v.Anchored = true
+											v.CanTouch = false
+											v.CanQuery = false
+											v.CastShadow = false
+											v.CollisionGroup = CollisionGroupName
+											v:BreakJoints()
+											v.Transparency = v.Transparency + 0.5
+											v.Color = RGBtoMonochrome(v.Color)
+										elseif (v:IsA("Texture") or v:IsA("Decal") or v:IsA("Frame")) and v:IsDescendantOf(ImageDisplay) then
+											if script:FindFirstAncestorOfClass("Actor") then
+												task.synchronize()
+											end
+											v.Transparency = v.Transparency + 0.5
+										elseif v:IsA("Sound") and v:IsDescendantOf(ImageDisplay) then
+											if script:FindFirstAncestorOfClass("Actor") then
+												task.synchronize()
+											end
+											v:Destroy()
+										elseif v:IsA("Light") and v:IsDescendantOf(ImageDisplay) then
+											if script:FindFirstAncestorOfClass("Actor") then
+												task.synchronize()
+											end
+											v.Color = RGBtoMonochrome(v.Color)
+											v.Brightness = v.Brightness / 2
+										elseif v:IsA("JointInstance") and v:IsDescendantOf(ImageDisplay) then	
+											if script:FindFirstAncestorOfClass("Actor") then
+												task.synchronize()
+											end
+											v:Destroy()
+										end
+										if script:FindFirstAncestorOfClass("Actor") then
+											task.synchronize()
+										end
+										v.Archivable = false
+									end
+								end))
+							end
+						end
+						local done =false
+						local function self_distruct()
+							if done then return else done = true end
+							if script:FindFirstAncestorOfClass("Actor") then task.synchronize() end
+							if ImagePaper then
+								ImagePaper.Parent = workspace
+								ImagePaper.Anchored = true
+								ImagePaper.Transparency = 0.25
+							end
+							if Tool then
+								Tool:Destroy()
+								ImagePaper.Transparency = 0.5
+							end
+							if Interact then
+								Interact.Enabled = false
+								ImagePaper.Transparency = 0.75
+								Interact:Destroy()
+							end
+							local TweenService: TweenService = game:FindFirstChildOfClass('TweenService')
+							if TweenService then
+								for i,v in pairs(ImagePaper:GetDescendants())  do
+									if v:IsA("BasePart") then
+										TweenService:Create(v, TweenInfo.new(5 - v.Transparency*5), {Transparency = 1}):Play()
+									end
+								end
+							end
+							if ImagePaper then
+								ImagePaper.Transparency = 1	
+								Debris:AddItem(ImagePaper,5)
+							end
+						end
+						script.Destroying:Connect(self_distruct)
+						ExpectedChar.Destroying:Connect(self_distruct)
+						script:FindFirstAncestorWhichIsA('Tool').Destroying:Connect(self_distruct)
+						Tool.Activated:Connect(function()
+							local head = FindFirstChildOfNameAndClass(Tool:FindFirstAncestorWhichIsA('Model'),'Head','BasePart')
+							local arm = FindFirstChildOfNameAndClass(Tool:FindFirstAncestorWhichIsA('Model'),'RightUpperArm','BasePart') or FindFirstChildOfNameAndClass(Tool:FindFirstAncestorWhichIsA('Model'),'Right Arm','BasePart')
+							if script:FindFirstAncestorOfClass("Actor") then
+								task.synchronize()
+							end
+							ToolActive = true
+							coroutine.resume(coroutine.create(function()
+								while task.wait(.01) and Tool:FindFirstAncestorWhichIsA('Model') and head and arm and ToolActive do
+									Tool.Grip = Tool.Grip:Lerp(CFrame.Angles(math.rad(45),math.rad(15),math.rad(90)) * CFrame.new(0.05,-0.45,-0.1),0.15)
+									HandAim(Tool:FindFirstAncestorWhichIsA('Model'),nil,head.CFrame + head.CFrame.LookVector * 2.75 + head.CFrame.UpVector * -1.5 + head.CFrame.RightVector * -0.35,arm)
+								end
+								if arm and arm.Parent and arm.Parent:FindFirstChildOfClass('Snap') then
+									arm.Parent:FindFirstChildOfClass('Snap'):Destroy()
+									while task.wait(.01) and Tool and not ToolActive and Tool.Grip ~= CFrame.Angles(math.rad(270),0,math.rad(90)) do
+										Tool.Grip = Tool.Grip:Lerp(CFrame.Angles(math.rad(270),0,math.rad(90)),0.2) 
+										if (Tool.Grip.Position - CFrame.Angles(math.rad(270),0,math.rad(90)).Position).Magnitude < 0.005 then
+											break
+										end
+									end
+								end
+							end))
+							if ImageDisplay and ImageDisplayFolder then
+								--[[if script:FindFirstAncestorOfClass("Actor") then
+									task.synchronize()
+								end
+								if Players:GetPlayerFromCharacter(ExpectedChar) then
+									local plr =Players:GetPlayerFromCharacter(ExpectedChar)
+									if plr:FindFirstChildOfClass('PlayerGui') and not FindFirstChildOfNameAndClass(plr:FindFirstChildOfClass('PlayerGui'),'Memories','GuiMain')  then
+										if script:FindFirstAncestorOfClass("Actor") then
+											task.synchronize()
+										end
+										local Memory = Instance.new('GuiMain', plr:FindFirstChildOfClass('PlayerGui'))
+										local Holder = Instance.new('ViewportFrame', Memory)
+										Memory.Name = 'Memories'
+										Holder.Name = 'Holder'
+										Holder.CurrentCamera = Camera
+										Holder.Interactable = false
+										Holder.LightDirection = Handle.CFrame.LookVector
+										Holder.LightColor = Color3.new(1,1,1)
+										Holder.BackgroundColor3 = Color3.new(0,0,0)
+										Holder.BackgroundTransparency = 1
+										Holder.Size = UDim2.fromScale(1,1)
+										Holder.Ambient = game:FindFirstChildOfClass('Lighting') and game:FindFirstChildOfClass('Lighting').Ambient
+										ImageDisplayFolder.Parent = Holder
+										Camera.Parent = plr:FindFirstChildOfClass('PlayerGui')
+									else
+										if script:FindFirstAncestorOfClass("Actor") then
+											task.synchronize()
+										end
+										if FindFirstChildOfNameAndClass(plr:FindFirstChildOfClass('PlayerGui'),'Memories','GuiMain') and FindFirstChildOfNameAndClass(FindFirstChildOfNameAndClass(plr:FindFirstChildOfClass('PlayerGui'),'Memories','GuiMain'),'Holder','ViewportFrame') then
+											local VPF = FindFirstChildOfNameAndClass(FindFirstChildOfNameAndClass(plr:FindFirstChildOfClass('PlayerGui'),'Memories','GuiMain'),'Holder','ViewportFrame')
+											if script:FindFirstAncestorOfClass("Actor") then
+												task.synchronize()
+											end
+											ImageDisplayFolder.Parent = VPF
+											VPF.Name = 'Holder'
+											VPF.BackgroundColor3 = Color3.new(0,0,0)
+											VPF.BackgroundTransparency = 1
+											VPF.CurrentCamera = Camera
+											VPF.Interactable = false
+											VPF.LightDirection = Handle.CFrame.LookVector
+											VPF.LightColor = Color3.new(1,1,1)
+											VPF.Size = UDim2.fromScale(1,1)
+											VPF.Ambient = game:FindFirstChildOfClass('Lighting') and game:FindFirstChildOfClass('Lighting').Ambient
+											Camera.Parent = plr:FindFirstChildOfClass('PlayerGui')
+										end
+									end
+								else]]
+									if script:FindFirstAncestorOfClass("Actor") then
+										task.synchronize()
+									end
+									ImageDisplayFolder.Parent = workspace
+								--end
+							end
+						end)
+						Tool.Deactivated:Connect(function()
+							ToolActive = false
+							if arm and arm.Parent and FindFirstChildOfNameAndClass(arm.Parent,'Hand Door','Snap') then
+								local NoMor = FindFirstChildOfNameAndClass(arm.Parent,'Hand Door','Snap')
+								if script:FindFirstAncestorOfClass("Actor") then task.synchronize() end
+								NoMor:Destroy()
+							end
+							if ImageDisplay and ImageDisplayFolder and ImageUI then
+								ImageDisplayFolder.Parent = ImageDisplay
+							end
+						end)
+						Tool.Unequipped:Connect(function()
+							ToolActive = false
+							if arm and arm.Parent and FindFirstChildOfNameAndClass(arm.Parent,'Hand Door','Snap') then
+								local NoMor = FindFirstChildOfNameAndClass(arm.Parent,'Hand Door','Snap')
+								if script:FindFirstAncestorOfClass("Actor") then task.synchronize() end
+								NoMor:Destroy()
+							end
+							if ImageDisplay and ImageDisplayFolder and ImageUI then
+								ImageDisplayFolder.Parent = ImageDisplay
+							end
+						end)
+						if Interact then
+							Interact.RequiresLineOfSight = true
+							Interact.ActionText = 'Pick Up'
+							Interact.ObjectText = string.gsub("Photograpth_"..os.date(),' ','_') 
+							Interact.HoldDuration = math.huge
+							Interact.Name = 'Interaction'
+							Interact.Exclusivity = Enum.ProximityPromptExclusivity.AlwaysShow
+							Interact.KeyboardKeyCode = Enum.KeyCode.Q
+							Interact.ClickablePrompt = false
+							local prompttrigger: RBXScriptConnection?
+							--Interact.PromptShown:Connect(function()
+								prompttrigger = Interact.PromptButtonHoldBegan:Connect(function(who)
+									if Interact.Enabled == false or not who or not who.Character or not Handle then
+										return
+									end
+									local done = false
+									local pressed = true
+									local ended
+									local timestart = tick()
+									local CharRight = who.Character:FindFirstChild("RightHand") or who.Character:FindFirstChild("Right Arm") or who.Character:FindFirstChild("Left Arm")
+									local CharLeft = who.Character:FindFirstChild("LeftHand") or who.Character:FindFirstChild("Left Arm") or who.Character:FindFirstChild("Right Arm")
+									if (CharLeft == nil and CharRight == nil) or not Handle or not who or not who.Character then
+										return
+									end
+									local arm = ((CharLeft.CFrame.Position - Handle.CFrame.Position).Magnitude < (CharRight.CFrame.Position - Handle.CFrame.Position).Magnitude and CharLeft) or CharRight
+									if Interact.Enabled == true and who and who.Character then
+										coroutine.resume(coroutine.create(function()
+											while task.wait(.01) and not done and pressed and Tool and Tool.Parent == workspace and arm and Interact.Enabled == true and (tick() - timestart) < 1.5 and ImagePaper do
+												HandAim(who.Character,nil,ImagePaper.CFrame,arm)
+												if (tick() - timestart) >= 1 then
+													if pressed then
+														done = true
+														if Tool and who and who:FindFirstChildOfClass('Backpack') then
+															Tool.Parent = who:FindFirstChildOfClass('Backpack')
+															Interact.Enabled = false
+														end
+													end
+												end
+											end
+											if who and who.Character then
+												if arm then
+													if arm:FindFirstChild("Hand Door") then
+														arm:FindFirstChild("Hand Door"):Destroy()
+													end
+												end
+												if who.Character:FindFirstChild("Hand Door") then
+													who.Character:FindFirstChild("Hand Door"):Destroy()
+												end
+											end
+										end))
+									else
+										return
+									end
+									ended = Interact.PromptButtonHoldEnded:Connect(function(who2)
+										if who2 == who then
+											pressed = false
+											done = true
+											if ended then
+												ended:Disconnect()
+											end
+										end
+									end)
+								end)
+							--end)
+						end	
+				end
+				Tool:GetPropertyChangedSignal('Parent'):Connect(function()
+					if Tool.Parent == workspace then
+						if Interact then
+							Interact.Enabled = true
+						end
+					else
+						if Interact then
+							Interact.Enabled = false
+						end
+					end
+				end)
+			elseif Type == 'Video' then
+				Recording = true
+			end
+		else
+			if Type == 'Video' then
+				Recording = false
+			end
+		end
+	end
+	Tool.Activated:Connect(function()
+		Activated = true
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.desynchronize()
+		end
+		if Cooldown then
+			return
+		end
+		ExpectedChar = script:FindFirstAncestorOfClass("Model")
+		if not ExpectedChar then
+			return
+		end
+		--print(ExpectedChar:GetFullName())
+		local Torso: BasePart | nil = FindFirstChildOfNameAndClass(ExpectedChar,"UpperTorso","BasePart") or FindFirstChildOfNameAndClass(ExpectedChar,"Torso","BasePart")  or FindFirstChildOfNameAndClass(ExpectedChar,"HumanoidRootPart","BasePart")
+		local RArm: BasePart | nil =	FindFirstChildOfNameAndClass(ExpectedChar,"RightUpperArm","BasePart") or FindFirstChildOfNameAndClass(ExpectedChar,"Right Arm","BasePart")
+		local LArm: BasePart | nil = FindFirstChildOfNameAndClass(ExpectedChar,"LeftUpperArm","BasePart") or FindFirstChildOfNameAndClass(ExpectedChar,"Left Arm","BasePart")
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.synchronize()
+		end
+		if Torso then
+			if WeldR and LArm then
+				WeldR.Part0 = Torso
+				--print("Current LARM:".. LArm:GetFullName())
+				WeldR.Part1 = LArm
+			end
+			if WeldL and RArm then
+				WeldL.Part0 = Torso
+				--print("Current RArm:".. RArm:GetFullName())
+				WeldL.Part1 = RArm
+			end
+		end
+		if WeldL then
+			WeldL.Enabled = true
+		end
+		if WeldR then
+			WeldR.Enabled = true
+		end
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.desynchronize()
+		end
+		if Tool == nil or Handle == nil then
+			return -- no tool, no handle. what the hell, how is the script still here
+		end
+		ActivatedTick = tick()
+		Enabled = true
+		if CorouteRecord then
+			coroutine.close(CorouteRecord)
+			CorouteRecord = nil :: any
+		end
+		--print("Initializing Thread")
+		--[[CorouteRecord = coroutine.create(function()
+			print("Creating A Part!")
+			if script:FindFirstAncestorOfClass("Actor") then
+				task.synchronize()
+			end
+			if ServerStorage:FindFirstChild("Cam_Rec_"..Tool:GetFullName()) then
+				ServerStorage:FindFirstChild("Cam_Rec_"..Tool:GetFullName()):Destroy()
+			end
+			local newpart: Instance | BasePart = ServerStorage:FindFirstChild("Cam_Rec_"..Tool:GetFullName()) or Instance.new("Part")
+			newpart.Parent = ServerStorage
+			newpart.CanTouch = false
+			newpart.CanCollide = false
+			newpart.CanQuery = false
+			newpart.Name = "Cam_Rec_"..Tool:GetFullName()
+			newpart.Size = ScenerySize
+			newpart.Anchored = true
+			if newpart and Handle then
+				newpart.CFrame = Handle.CFrame + Vector3.new(ScenerySize.X/2,ScenerySize.Y/2,ScenerySize.Z/2)
+				newpart.Transparency = 1
+			end
+			local SavedWorldState = Instance.new("Folder",ServerStorage)
+			SavedWorldState.Name = "WorldRecording_Asset_"..tostring(tick())
+			for i,v in workspace:GetChildren() do
+				if not v:IsA("Terrain") then
+					if v.Archivable == false then v.Archivable = true v:SetAttribute("ChangeBack",false) end 	local cloen = v:Clone() if cloen then cloen.Parent = SavedWorldState end if v and v:GetAttribute("ChangeBack") then v.Archivable = v:GetAttribute("ChangeBack") v:SetAttribute("ChangeBack",nil) end
+				end
+			end
+			if RecordNewConnect then
+				RecordNewConnect:Disconnect()
+				RecordNewConnect = nil
+			end
+			RecordNewConnect = game.DescendantAdded:Connect(function(v)
+				if not v:IsDescendantOf(SavedWorldState) then if v.Archivable == false then v.Archivable = true v:SetAttribute("ChangeBack",false) end 	local cloen = v:Clone() if cloen then cloen.Parent = SavedWorldState end if v and v:GetAttribute("ChangeBack") then v.Archivable = v:GetAttribute("ChangeBack") v:SetAttribute("ChangeBack",nil) end end
+			end)
+			--print("Thread Ran!")
+			--Insert Ur Logic If The Player Is Still Activating The Tool
+			while task.wait(0.05) do
+				if not Activated or not Enabled then
+					if newpart then
+						newpart:Destroy()
+					end
+					if RecordNewConnect then
+						RecordNewConnect:Disconnect()
+						RecordNewConnect = nil
+					end
+					break
+				end
+				if newpart and Handle then
+					newpart.CFrame = Handle.CFrame + Vector3.new(ScenerySize.X/2,ScenerySize.Y/2,ScenerySize.Z/2) * Handle.CFrame.LookVector
+					--newpart.Transparency = 1
+				end
+				for i,v in workspace:GetPartsInPart(newpart) do
+					if not ServerStorage:FindFirstChild("AssetStorage") then
+						local NewFolder = Instance.new("Folder")
+						NewFolder.Name = "AssetStorage"
+					end
+				end
+				--print("Recording System Missing!") -- Add System Here. I'm Too Lazy
+			end
+			--print("Thread End!")
+			if newpart then
+				newpart:Destroy()
+			end
+		end)]]
+		CorouteRecord = coroutine.create(function()
+			Allowed = false
+			starttime = tick()
+			while task.wait(0.01) and Activated and Enabled do
+				if script:FindFirstAncestorOfClass("Actor") then
+					task.desynchronize()
+				end
+				if not Activated or not Enabled then
+					if WeldL then
+						WeldL.C0 = CFrame.new(1.5,0,-0.5) * CFrame.Angles(math.rad(70),math.rad(75),math.rad(40))
+						WeldL.Enabled = false
+					end
+					if WeldR then
+						WeldR.C0 = CFrame.new(-1.5,0,0) * CFrame.Angles(0,0,0)
+						WeldR.Enabled = false
+					end
+					task.wait(.01)
+					break
+				end
+				--tick() - ActivatedTick
+				if tick() - starttime > 0.5 then
+					if not Cooldown then
+						Allowed = true
+					end
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					if WeldL then
+						WeldL.Enabled = true
+					end
+					if WeldL then
+						WeldL.C0 = WeldL.C0:Lerp(CFrame.new(1.4,-0.5,-0.5) * CFrame.Angles(math.rad(-45+150),0,0), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5))
+					end
+					if WeldR then
+						WeldR.Enabled = true
+					end
+					if tick() - starttime > 0.6 then
+						Enabled2 = true
+						if WeldR then
+							WeldR.C0 = WeldR.C0:Lerp(CFrame.new(-0.05,-0.45,-0.75) * CFrame.Angles(math.rad(-45+160),math.rad(10),math.rad(50)), math.clamp((tick() - ActivatedTick)/ 1.1,0,0.9))
+						end
+					else
+						if WeldR then
+							WeldR.C0 = WeldR.C0:Lerp(CFrame.new(-0.1,-0.2,-0.55) * CFrame.Angles(math.rad(-45+165),math.rad(10),math.rad(75)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.7))
+						end
+					end
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0.15, 0.1, 0.5) * CFrame.Angles(math.rad(10), 0, math.rad(0)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5) )
+				elseif tick() - starttime > 0.4 then
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					if WeldL then
+						WeldL.Enabled = true
+					end
+					if WeldR then
+						WeldR.Enabled = true
+					end
+					if WeldL then
+						WeldL.C0 = WeldL.C0:Lerp(CFrame.new(1.1,-0.5,-0.5) * CFrame.Angles(math.rad(-45+140),math.rad(10),math.rad(10)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5))
+					end
+					if WeldR then
+						WeldR.C0 = WeldR.C0:Lerp(CFrame.new(-0.9,-0.25,-0.45) * CFrame.Angles(math.rad(-45+170),math.rad(10),math.rad(40)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.7))
+					end
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0.15, 0.1, 0.5) * CFrame.Angles(math.rad(-10), 0, 0), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5) )
+				elseif tick() - starttime > 0.3 then
+					--[[local SavedWorldState = Instance.new("Folder",ServerStorage)
+					SavedWorldState.Name = "WorldRecording_Asset_"..tostring(tick())
+					for i,v in workspace:GetChildren() do
+						if not v:IsA("Terrain") then
+							if v.Archivable == false then v.Archivable = true v:SetAttribute("ChangeBack",false) end 	local cloen = v:Clone() if cloen then cloen.Parent = SavedWorldState end if v and v:GetAttribute("ChangeBack") then v.Archivable = v:GetAttribute("ChangeBack") v:SetAttribute("ChangeBack",nil) end
+						end
+					end
+					if RecordNewConnect then
+						RecordNewConnect:Disconnect()
+						RecordNewConnect = nil
+					end
+					RecordNewConnect = game.DescendantAdded:Connect(function(v)
+						if not v:IsDescendantOf(SavedWorldState) then if v.Archivable == false then v.Archivable = true v:SetAttribute("ChangeBack",false) end 	local cloen = v:Clone() if cloen then cloen.Parent = SavedWorldState end if v and v:GetAttribute("ChangeBack") then v.Archivable = v:GetAttribute("ChangeBack") v:SetAttribute("ChangeBack",nil) end end
+					end)]]
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					if WeldL then
+						WeldL.Enabled = true
+					end
+					if WeldR then
+						WeldR.Enabled = true
+					end
+					if WeldL then
+						WeldL.C0 = WeldL.C0:Lerp(CFrame.new(1.25,-0.5,-0.5) * CFrame.Angles(math.rad(-45+120),math.rad(-15),math.rad(-5)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5))
+					end
+					if WeldR then
+						WeldR.C0 = WeldR.C0:Lerp(CFrame.new(-1.25,-0.3,-0.5) * CFrame.Angles(math.rad(-45+180),math.rad(-10),math.rad(45)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5))
+					end
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0.15, 0.3, 0.65) * CFrame.Angles(math.rad(45), 0, 0), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5) )
+				elseif tick() - starttime > 0.2 then
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					if WeldL then
+						WeldL.Enabled = true
+					end
+					if WeldR then
+						WeldR.Enabled = true
+					end
+					if WeldL then
+						WeldL.C0 = WeldL.C0:Lerp(CFrame.new(1.75,-0.5,0.25) * CFrame.Angles(math.rad(-45),math.rad(-20),math.rad(-20)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5))
+					end
+					if WeldR then
+						WeldR.C0 = WeldR.C0:Lerp(CFrame.new(-1.75,-0.2,-0.7) * CFrame.Angles(math.rad(-45+180),math.rad(-20),math.rad(50)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5))
+					end
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0.15, 0.3, 0.65) * CFrame.Angles(math.rad(30), 0, 0), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5) )
+				else
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					if WeldL then
+						WeldL.Enabled = true
+					end
+					if WeldR then
+						WeldR.Enabled = true
+					end
+					if WeldL then
+						WeldL.C0 = WeldL.C0:Lerp(CFrame.new(1.5,-0.5,-0.25) * CFrame.Angles(math.rad(-45),math.rad(10),math.rad(20)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5))
+					end
+					if WeldR then
+						WeldR.C0 = WeldR.C0:Lerp(CFrame.new(-1.5,-0.25,0.25) * CFrame.Angles(math.rad(-45+140),math.rad(10),math.rad(-10)), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5))
+					end
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0.1, -0.25, 0.75) * CFrame.Angles(math.rad(-25), 0, 0), math.clamp((tick() - ActivatedTick)/ 1.25,0,0.5) )
+				end
+			end
+			if not Activated or not Enabled then
+				if script:FindFirstAncestorOfClass("Actor") then
+					task.synchronize()
+				end
+				if WeldL then
+					WeldL.C0 = CFrame.new(1.5,0,-0.5) * CFrame.Angles(math.rad(70),math.rad(75),math.rad(40))
+					WeldL.Enabled = false
+				end
+				if WeldR then
+					WeldR.C0 = CFrame.new(-1.5,0,0) * CFrame.Angles(0,0,0)
+					WeldR.Enabled = false
+				end
+				task.wait(.01)
+			end
+		end)
+		--print("Thread Initialized")
+		coroutine.resume(CorouteRecord)
+		--[[while task.wait(.01) do
+			if coroutine.status(CorouteRecord) == "dead" and not Activated and Allowed == false then
+				if WeldL then
+					WeldL.C0 = WeldL.C0:Lerp(CFrame.new(1.5,0,0) * CFrame.Angles(0,0,0), math.clamp((tick() - starttime)/ 0.75,0,0.5))
+				end
+				if WeldR then
+					WeldR.C0 = WeldR.C0:Lerp(CFrame.new(-1.5,0,0) * CFrame.Angles(0,0,0), math.clamp((tick() - starttime)/ 0.75,0,0.5))
+				end
+				if WeldL.C0 == CFrame.new(1.5,0,0) * CFrame.Angles(0,0,0) and WeldR.C0 ==CFrame.new(-1.5,0,0) * CFrame.Angles(0,0,0) then
+					WeldL.Enabled = false
+					WeldR.Enabled = false
+					break
+				end
+			else
+				break
+			end
+		end]]
+	end)
+	Tool.Deactivated:Connect(function()
+		Activated = false
+		if CorouteRecord then
+			coroutine.close(CorouteRecord)
+			CorouteRecord = nil
+		end
+		if not Allowed or not Enabled2 then
+			task.wait(0.05)
+			if WeldL then
+				WeldL.C0 = CFrame.new(1.5,0,-0.5) * CFrame.Angles(math.rad(70),math.rad(75),math.rad(40))
+				--WeldL.Enabled = false
+			end
+			if WeldR then
+				WeldR.C0 = CFrame.new(-1.5,0,0) * CFrame.Angles(0,0,0)
+				WeldR.Enabled = false
+			end
+			Tool.Grip = CFrame.new(0.15, 0.1, 0.5) * CFrame.Angles(math.rad(10), 0, math.rad(90))
+			coroutine.resume(coroutine.create(function()
+				while task.wait(.01) and not Activated do
+					if WeldL then
+						WeldL.C0 = CFrame.new(1.5,0,-0.5) * CFrame.Angles(math.rad(70),math.rad(75),math.rad(40))
+					end
+					if WeldR then
+						WeldR.C0 = CFrame.new(-1.5,0,0) * CFrame.Angles(0,0,0)
+						WeldR.Enabled = false
+					end
+				end
+			end))
+			return
+		else
+			Allowed = false
+		end
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.synchronize()
+		end
+		if RecordNewConnect then
+			RecordNewConnect:Disconnect()
+			RecordNewConnect = nil
+		end
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.desynchronize()
+		end
+		if not ExpectedChar then
+			return
+		end
+		if ServerStorage:FindFirstChild("Cam_Rec_"..Tool:GetFullName()) then
+			if script:FindFirstAncestorOfClass("Actor") then
+				task.synchronize()
+			end
+			ServerStorage:FindFirstChild("Cam_Rec_"..Tool:GetFullName()):Destroy()
+		end
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.desynchronize()
+		end
+		if Tool == nil or Handle == nil then
+			return -- no tool, no camera. what the hell, how is the script still here
+		end
+		if Cooldown then
+		--	print("Activation On Cooldown")
+			return
+		else
+			if Enabled2 then
+				Enabled2 = false
+			else
+				return
+			end
+		--	print("Activation Completed")
+			Cooldown = true
+			--if tick() - ActivatedTick < 0.25 and Enabled then
+			StartingTick = tick()
+			Enabled = false
+				if script:FindFirstAncestorOfClass("Actor") then
+					task.synchronize()
+				end
+				if Handle and Handle:FindFirstChild('RBLX UI Camera (SFX)') then
+					Handle:FindFirstChild('RBLX UI Camera (SFX)'):Play()
+				else
+					local RBLX = Instance.new("Sound",Handle)
+					RBLX.SoundId = 'rbxassetid://10066921516'
+					RBLX.Volume = 2
+					RBLX:Play()
+				end
+				local Flashbang = Instance.new("SpotLight",Handle)
+				Flashbang.Angle = 120
+				Flashbang.Color = Color3.new(1,1,1)
+				Flashbang.Range = 35
+				Flashbang.Brightness = 50
+				local Hitbox = Instance.new("Part",workspace)
+				Hitbox.Transparency = 1
+				Hitbox.Material = Enum.Material.Glass
+				Hitbox.CanCollide = false
+				Hitbox.CanQuery = false
+				Hitbox.Massless = true
+				Hitbox.Anchored = true
+				--Hitbox.Shape = Enum.PartType.Cylinder
+				Hitbox.Size = Vector3.new(Flashbang.Range,Flashbang.Range,Flashbang.Range) 
+				Debris:AddItem(Hitbox, 0.51)
+				local ExecuteSoon = {}
+				if script:FindFirstAncestorOfClass("Actor") then
+					task.desynchronize()
+				end
+				for i,v in workspace:GetPartsInPart(Hitbox) do
+					if v.Name == "Head" and not v:IsDescendantOf(Tool:FindFirstAncestorOfClass("Model")) and v:FindFirstAncestorOfClass("Model") and v:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid") then
+						table.insert(ExecuteSoon,v)
+					end
+				end
+				if script:FindFirstAncestorOfClass("Actor") then
+					task.synchronize()
+				end
+				--local hi = Instance.new("Highlight",Hitbox)
+				--hi.Enabled = false
+				coroutine.resume(coroutine.create(function()
+					Record('Picture')
+					while task.wait(.01) do
+						if script:FindFirstAncestorOfClass("Actor") then
+							task.desynchronize()
+						end
+						if tick() - StartingTick >= 0.5 then
+							if Flashbang then
+								if script:FindFirstAncestorOfClass("Actor") then
+									task.synchronize()
+								end
+								Flashbang:Destroy()
+							end
+							if Hitbox then
+								if script:FindFirstAncestorOfClass("Actor") then
+									task.synchronize()
+								end
+								Hitbox:Destroy()
+							end
+							break
+						end 
+						if script:FindFirstAncestorOfClass("Actor") then
+							task.desynchronize()
+						end
+						if not Flashbang then
+							break
+						end
+						if not Hitbox then
+							break
+						end
+						local CurStep = tick() - StartingTick
+						if script:FindFirstAncestorOfClass("Actor") then
+							task.synchronize()
+						end
+						if WeldL then
+							WeldL.C0 = WeldL.C0:Lerp(CFrame.new(1.5,0,-0.5) * CFrame.Angles(math.rad(70),math.rad(75),math.rad(40)), math.clamp((tick() - StartingTick)/ 1.5,0,0.5))
+						end
+						if WeldR then
+							WeldR.C0 = WeldR.C0:Lerp(CFrame.new(-1.5,0,0) * CFrame.Angles(0,0,0), math.clamp((tick() - StartingTick)/ 1.5,0,0.5))
+						end
+						Tool.Grip = Tool.Grip:Lerp(CFrame.new(0.15, 0.1, 0.5) * CFrame.Angles(math.rad(10), 0, math.rad(90)), math.clamp((tick() - StartingTick)/ 1.25,0,0.5) )
+						if WeldL.C0 == CFrame.new(1.5,0,0) * CFrame.Angles(0,0,0) and WeldR.C0 ==CFrame.new(-1.5,0,0) * CFrame.Angles(0,0,0) then
+							WeldL.Enabled = false
+							WeldR.Enabled = false
+						end
+						Flashbang.Brightness = 50 - (CurStep * 100)
+						Flashbang.Range = 30 - (CurStep * 50)
+						Flashbang.Angle = 100 - (CurStep * 45)
+						Hitbox.Transparency = 1 --+ CurStep*2
+						Hitbox.Position = Handle.Position + (Handle.CFrame.LookVector * Hitbox.Size.Z/2)  :: Vector3
+						Hitbox.Size = Vector3.new(Flashbang.Range,Flashbang.Range,Flashbang.Range) 
+					if Flashbang.Range <= 0 or Flashbang.Brightness <= 0 or not Tool:FindFirstAncestorWhichIsA("Model") then
+							if Flashbang then
+								Flashbang:Destroy()
+							end
+							if Hitbox then
+								Hitbox:Destroy()
+							end
+						end
+					end
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.desynchronize()
+					end
+					task.wait(0.35)
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					if WeldL then
+						--WeldL.Enabled = false
+					end
+					if WeldR then
+						WeldR.Enabled = false
+					end
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.desynchronize()
+					end
+					table.clear(GotFlashed)
+					Cooldown = false
+					Enabled = true
+				end))
+				local function Flashed(Part:BasePart)
+					if Part == nil then
+						return
+					end
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.desynchronize()
+					end
+					if Part and Tool:FindFirstAncestorOfClass('Model') and not Part:IsDescendantOf(Tool:FindFirstAncestorOfClass('Model')) and (Part.Name == "Head" or Part.Name == "HumanoidRootPart") and Part:FindFirstAncestorOfClass("Model") and Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid") and not GotFlashed[Part:FindFirstAncestorOfClass("Model")] then
+					local param = RaycastParams.new()
+					param.IgnoreWater = true
+					param.FilterType = Enum.RaycastFilterType.Exclude
+					local copy = table.clone(IgnoreList)
+					table.insert(copy, (Tool:FindFirstAncestorWhichIsA('Model') or Tool.Parent or Tool))
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					param.FilterDescendantsInstances = copy
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.desynchronize()
+					end
+					local lightang = (Handle and Handle:FindFirstChildOfClass('SpotLight') and Handle:FindFirstChildOfClass('SpotLight').Angle) or 100
+					local Scan: RaycastResult? = workspace:Raycast(Handle.Position, (Part.Position - Handle.Position), param) or workspace:Raycast(Part.Position, (Handle.Position - Part.Position), param)
+						if not Scan or (Scan and Scan.Instance:IsDescendantOf(Part:FindFirstAncestorOfClass("Model"))) then
+						if (Handle.CFrame.LookVector):Dot((Part.Position - Handle.Position).Unit) > math.cos(math.rad(lightang)) and (Part.CFrame.LookVector):Dot((Handle.Position - Part.Position).Unit) > math.cos(math.rad(lightang)) then
+							GotFlashed[Part:FindFirstAncestorOfClass("Model")] = "Flashed Lmaooooo"
+							coroutine.resume(coroutine.create(function()
+								local AngleScalar: number = (Handle.CFrame.LookVector):Dot((Part.Position - Handle.Position).Unit)
+								local Distance: number = (Handle.Position - Part.Position).Magnitude
+								local Began: number = tick()
+								local saved: Player?
+								local BangMain: GuiMain
+								local BangFrame: Frame
+								while task.wait(.01) do
+									local Ouch = (tick() - Began) + Distance / 30
+									local Colour = math.clamp(math.abs(AngleScalar) - math.cos(math.rad(lightang)) * .85 - Ouch,0,1)
+									if script:FindFirstAncestorOfClass("Actor") then
+										task.synchronize()
+									end
+									if Part and Part:FindFirstAncestorOfClass("Model") and Players:GetPlayerFromCharacter(Part:FindFirstAncestorOfClass("Model")) then
+										if not BangMain  then
+											local saved = Players:GetPlayerFromCharacter(Part:FindFirstAncestorOfClass("Model"))
+											BangMain = Instance.new("GuiMain",Players:GetPlayerFromCharacter(Part:FindFirstAncestorOfClass("Model")):FindFirstChildOfClass("PlayerGui")) :: GuiMain BangFrame = Instance.new("Frame",BangMain) :: Frame
+											BangMain.Name = "PtCAbu7oLuCTNzVSsVq4tJGnqUhXVF>>"..Tool.Parent.Name
+											Debris:AddItem(BangMain, 1.01)
+										end
+										if not saved or saved.Character ~= Part:FindFirstAncestorOfClass("Model")  then
+											if Players:GetPlayerFromCharacter(Part:FindFirstAncestorOfClass("Model")) then
+												saved = Players:GetPlayerFromCharacter(Part:FindFirstAncestorOfClass("Model"))
+												if not BangMain then
+													BangMain = Instance.new("GuiMain",Players:GetPlayerFromCharacter(Part:FindFirstAncestorOfClass("Model")):FindFirstChildOfClass("PlayerGui")) :: GuiMain BangFrame = Instance.new("Frame",BangMain) :: Frame
+													BangMain.Name = "SVNFRVlPVQ==>>"..Tool.Parent.Name
+													Debris:AddItem(BangMain, 1.01)
+												end
+											else
+											--[[	if GotFlashed[Part:FindFirstAncestorOfClass("Model")] then
+													GotFlashed[Part:FindFirstAncestorOfClass("Model")] = nil
+												end
+												break]]
+											end
+										end
+										if not BangMain then
+											return
+										end
+
+										if Ouch >= 1 then
+											if BangMain then
+												BangMain:Destroy()
+											end
+											if GotFlashed[Part:FindFirstAncestorOfClass("Model")] then
+												GotFlashed[Part:FindFirstAncestorOfClass("Model")] = nil
+											end
+											break
+										end
+										if BangMain and BangFrame then
+											local Bangr = BangMain:FindFirstChild('Bangr'..Distance)
+											if not Bangr then
+												local Bangr = Instance.new('Sound', BangMain)
+												Bangr.SoundId = 'rbxassetid://12221990'
+												Bangr.Volume = math.clamp((1 - Ouch )/ Distance * (Ouch+1) * 2,0,1) 
+												Bangr.TimePosition = Ouch/10
+												Bangr.PlaybackSpeed = 1 + Ouch * 2
+												Bangr:Play()
+											else
+												if Bangr:IsA('Sound') then
+													--Bangr.TimePosition = Ouch/10
+													Bangr.PlaybackSpeed = 1 + Ouch * 2
+													Bangr.Volume =  math.clamp((1 - Ouch )/ Distance * (Ouch+1) * 2,0,1) 
+												end
+											end
+											BangFrame.Size = UDim2.fromScale(2+ Ouch,2 + Ouch)
+											BangFrame.Transparency = Ouch
+											BangMain.IgnoreGuiInset = true
+											BangFrame.Visible = true
+											BangFrame.ZIndex = 99
+											BangFrame.Selectable = true 
+											BangFrame.BackgroundColor3 = Color3.new(Colour,Colour,Colour)
+										end
+									end 
+									if Part and Part:FindFirstAncestorOfClass("Model") and Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid") and Ouch <= 0.5 then  
+										--local random1B = Random.new():NextInteger(-1,1)
+										--local random2B = Random.new():NextInteger(-1,1)
+										if script:FindFirstAncestorOfClass("Actor") then
+											task.desynchronize()
+										end
+										local random1 = Random.new():NextInteger((1 - Ouch) * -1500,(1 - Ouch) * 1500)--[[*random1B]]/100
+										local random2 = Random.new():NextInteger((1 - Ouch) * -1500,(1 - Ouch) * 1500)--[[*random2B]]/100
+										if script:FindFirstAncestorOfClass("Actor") then
+											task.synchronize()
+										end
+									if not Part or not Part:FindFirstAncestorOfClass("Model") or not Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid") then
+										return
+									end
+									if BangMain and BangFrame and BangFrame.Transparency < 1 then
+										Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid"):MoveTo(Part:FindFirstAncestorOfClass("Model"):GetPivot().Position * Vector3.new(math.clamp(random1, -100, 100) ,math.clamp(random2 * random1, -100, 100),math.clamp(random2, -100, 100)))	
+										
+									
+										if Ouch <= 1 then
+											--Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid"):MoveTo(Part:FindFirstAncestorOfClass("Model"):GetPivot().Position)
+											--Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid").Jump = true
+										end
+									elseif not BangMain then
+										Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid"):MoveTo(Part:FindFirstAncestorOfClass("Model"):GetPivot().Position * Vector3.new(math.clamp(random1, -100, 100) ,math.clamp(random2 * random1, -100, 100),math.clamp(random2, -100, 100)))	
+									end	
+									elseif Part and Part:FindFirstAncestorOfClass("Model") and Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid") and Ouch > 0.5 then
+											if Ouch < 0.55 then
+												Part:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid"):MoveTo(Part.Position)
+											end
+										end
+									end	
+								if GotFlashed[Part:FindFirstAncestorOfClass("Model")] then
+									GotFlashed[Part:FindFirstAncestorOfClass("Model")] = nil
+								end
+							end))
+						else
+							if Scan and Scan.Instance and Scan.Instance:IsA('BasePart') and (Scan.Instance.Material == Enum.Material.ForceField or Scan.Instance.Transparency > 0) then
+								if not table.find(IgnoreList,Scan.Instance) then
+									table.insert(IgnoreList,Scan.Instance)
+									local wha: RBXScriptConnection?
+									if script:FindFirstAncestorOfClass("Actor") then
+										task.synchronize()
+									end
+									wha = Scan.Instance.Changed:Connect(function(whar: string)
+										if whar == 'Material' then
+											if Scan.Instance.Material ~= Enum.Material.ForceField then
+												if table.find(IgnoreList,Scan.Instance) then
+													table.remove(IgnoreList,table.find(IgnoreList,Scan.Instance))
+												end
+												if wha then
+													wha:Disconnect()
+													wha = nil
+												end
+											end
+										elseif whar == 'Transparency' then
+											if Scan.Instance.Transparency == 0 then
+												if table.find(IgnoreList,Scan.Instance) then
+													table.remove(IgnoreList,table.find(IgnoreList,Scan.Instance))
+												end
+												if wha then
+													wha:Disconnect()
+													wha = nil
+												end
+											end
+										end
+									end)
+									if script:FindFirstAncestorOfClass("Actor") then
+										task.desynchronize()
+									end
+								end
+							end
+						end
+						end
+					else
+						if GotFlashed[Part:FindFirstAncestorOfClass("Model")] then
+							--print("Already Flashed"..Part:GetFullName())
+						end
+					end
+				end
+				if ExecuteSoon ~= {} then
+					for i,v in pairs(ExecuteSoon) do
+						if v then
+							Flashed(v)
+							if ExecuteSoon[v] then
+								ExecuteSoon[v] = nil
+							end
+						end
+					end
+				end
+				if Hitbox then
+					if script:FindFirstAncestorOfClass("Actor") then
+						task.synchronize()
+					end
+					Hitbox.Touched:Connect(Flashed) Hitbox.TouchEnded:Connect(Flashed) Hitbox.LocalSimulationTouched:Connect(Flashed)
+				end	
+			--[[else
+				Cooldown = false
+			end]]
+		end
+	end)
+end
+--//Solivion//--]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{76D7DA99-B76B-41B5-892D-32BC00F1371C}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Script[Camera(Photo)]</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+		<SharedString md5="5ITfYL7TTOj/mULQ0G+emw==">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
+lVgR68RuJjuMFiLWjwlnzIQO</SharedString>
+	</SharedStrings>
+</roblox>

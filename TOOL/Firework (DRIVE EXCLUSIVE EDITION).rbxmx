@@ -1,0 +1,839 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBXB5EE7142B70B4B55A2A17D474348A1A0">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0.5</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>0</R00>
+				<R01>0</R01>
+				<R02>1</R02>
+				<R10>-1</R10>
+				<R11>0</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>-1</R21>
+				<R22>0</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><url>http://www.roblox.com/asset/?id=20064127</url></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>0.199999809</X>
+					<Y>1.99999857</Y>
+					<Z>0</Z>
+					<R00>0</R00>
+					<R01>-1</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>0</R11>
+					<R12>-1</R12>
+					<R20>1</R20>
+					<R21>0</R21>
+					<R22>0</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Firework2010</string>
+			<int64 name="SourceAssetId">17356894316</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Part" referent="RBXA86088D412654ECD8134225461C00DE2">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">1</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>0.199999809</X>
+					<Y>1.99999857</Y>
+					<Z>0</Z>
+					<R00>0</R00>
+					<R01>-1</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>0</R11>
+					<R12>-1</R12>
+					<R20>1</R20>
+					<R21>0</R21>
+					<R22>0</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>1</X>
+					<Y>1</Y>
+					<Z>4</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBXD3B5A29733D74FCFA311108172E36A8A">
+				<Properties>
+					<token name="MeshType">5</token>
+					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=12557856</url></Content>
+					<Content name="TextureId"><url>http://www.roblox.com/asset/?id=20064204</url></Content>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>1.29999995</X>
+						<Y>1.29999995</Y>
+						<Z>1.29999995</Z>
+					</Vector3>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Mesh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBXFA18AFB43EB2485D91508BF5532F208E">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://12222065</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Launching rocket.wav</string>
+					<int64 name="SourceAssetId">12222065</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX1C2A014FDC014D809340B70116798297">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://12222046</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">hit.wav</string>
+					<int64 name="SourceAssetId">12222046</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Actor" referent="RBX1C737C3681424AB78CA7A3C3C6D531DD">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData">
+					<CFrame>
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CFrame>
+				</OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Rocket Handler</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBXE25D7F74369E4B268709FD545311571B">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--By Solivion, Funny Negative quality
+local Debris: Debris = game:FindFirstChildOfClass('Debris')
+local Players: Players = game:FindFirstChildOfClass('Players')
+
+local Tool: (Flag | Tool)? = script:FindFirstAncestorOfClass('Tool') or script:FindFirstAncestorOfClass('Flag')
+local Handle: BasePart? = Tool and Tool:FindFirstChild('Handle')
+
+if not Tool or not Handle then return end
+
+--<<Setting>>--
+local AmountLeft: number = 10
+local Active: boolean = true
+local RepeatedPopAmount: number = 3
+local TravelLength: number = 15 -- tick
+local BombSound: string = 'rbxassetid://12222065'
+local FlyingSound: string  = 'rbxassetid://12222046'
+local Colour = BrickColor.random().Color
+
+--<<Variables and Stuff>>--
+local Equipped: boolean = false
+local TickVerify: number = tick()
+local ArmWeld: Weld?
+local RagdollCountdowner: {[Model?]: number?} = {}
+local FireworkCoroutine: {thread?} = {}
+local EffectInstance:{BasePart?} = {}
+local ApplyAttribute = function(Any: Instance)
+	if Any then
+		task.synchronize()
+		Any:SetAttribute("Origin",'Firework Script')
+	end
+end
+
+function calculateBounceAngle(rayDirection: Vector3, raycastResult: RaycastResult) : Vector3
+	task.desynchronize()
+	local normal = raycastResult.Normal
+	local dotProduct = rayDirection:Dot(normal)
+	local reflection = rayDirection - 2 * dotProduct * normal
+	return reflection :: Vector3
+end
+
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	if script:FindFirstAncestorOfClass("Actor") then
+		task.desynchronize()
+	end
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.desynchronize()
+		end
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				if script:FindFirstAncestorOfClass("Actor") then
+					task.synchronize()
+				end
+				return v
+			end
+		end
+	end
+end
+
+function Classic_Flagstand_Effect(Coordinate: CFrame?, Size: number?, Parent: Instance?, Amount: number?, Fade_Duration: number?, Colour: Color3?, Material: Enum.Material?, Motion: Vector3?, ShrinkOrExpand: ('Shrink' | 'Expand')?, Size_Rate: number?, Filter: {Instance?}?, Enable_Gravity: boolean?)
+	task.desynchronize()
+	local RaycastParam = RaycastParams.new()
+	RaycastParam.RespectCanCollide = true
+	RaycastParam.IgnoreWater = true
+	RaycastParam.FilterType = Enum.RaycastFilterType.Exclude
+	if not Coordinate then Coordinate = Tool:GetPivot()end if not Size then Size = 5 end if not Parent then Parent = workspace end if not Amount then	Amount = 3 end if not Fade_Duration then Fade_Duration = 10 end if not Colour then Colour = Color3.new(1, 1, 1) end if not Material then Material = Enum.Material.Neon end if not Motion then Motion = Vector3.new() end if not ShrinkOrExpand then ShrinkOrExpand = 'Expand' end if not Size_Rate then Size_Rate = 1/4 end if Colour and typeof(Colour) == 'BrickColor' then Colour = Colour.Color end if not Filter then Filter = {} end
+	task.synchronize()
+	if Motion ~= Vector3.new() then
+		RaycastParam.FilterDescendantsInstances = {}
+		if Character then RaycastParam:AddToFilter(Character) end -- Character
+		RaycastParam:AddToFilter(Tool) -- Bat
+		RaycastParam:AddToFilter(Filter) -- Casted Instance
+		RaycastParam:AddToFilter(EffectInstance) -- Previous Effect
+		--[[for i,v in Filter do
+			RaycastParam:AddToFilter(v)
+		end]]
+	end
+	for i = 1,Amount do
+		task.synchronize()
+		local effect = Instance.new("FlagStand", Parent)
+		local coroute
+		local GravityStack = 0
+		local hit:RaycastResult?
+		local lastpos: Vector3? = Coordinate.Position or GenHandle.Position or Tool:GetPivot().Position
+		local corouteDis: RBXScriptConnection?
+		local breakApart = (Motion ~= Vector3.new() and Enable_Gravity and Vector3.new(Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1))) or Vector3.new()
+		effect.Size = (Size and Vector3.new(Size,Size,Size)) or Vector3.new(5,5,5)
+		effect.Anchored = true
+		effect.CanCollide = false
+		effect.CanTouch = false
+		effect.CanQuery = false
+		effect.CastShadow = false
+		effect.Color = Colour or Color3.new(1, 1, 1)
+		effect.CFrame = Coordinate or CFrame.new()
+		effect.Material = Material or Enum.Material.Neon
+		RaycastParam:AddToFilter(effect)
+		table.insert(EffectInstance, effect)
+		Debris:AddItem(effect, (Fade_Duration*0.05) * 1.05)
+		coroute = coroutine.create(function()
+			task.synchronize()
+			for i = 1,Fade_Duration do
+				task.desynchronize()
+				if effect then
+					task.synchronize()
+					--print('ea')
+					effect.CFrame = (effect.CFrame + Motion/1.25 + breakApart/1.25) * CFrame.fromEulerAnglesYXZ(Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3)
+					effect.Transparency = effect.Transparency + 1/Fade_Duration
+					if ShrinkOrExpand == 'Expand' then
+						effect.Size = effect.Size + effect.Size * Size_Rate/Fade_Duration  --Vector3.new((Size/10)/Fade_Duration,(Size/10)/Fade_Duration,(Size/10)/Fade_Duration)
+					elseif ShrinkOrExpand == 'Shrink' then
+						effect.Size = effect.Size - effect.Size * Size_Rate/Fade_Duration
+					end
+					task.wait(0.05)
+				end
+				task.desynchronize()
+				if not hit and Motion ~= Vector3.new() and Enable_Gravity then
+					task.desynchronize()
+					hit = workspace:Raycast(effect.Position, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(effect.Position, -(Motion/1.25 + breakApart/1.25),RaycastParam) or workspace:Raycast(lastpos, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(lastpos, effect.Position - lastpos,RaycastParam) or workspace:Raycast(effect.Position,lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos - Motion, (effect.Position - lastpos) + Motion,RaycastParam) or workspace:Raycast(lastpos + Motion, (effect.Position - lastpos) - Motion,RaycastParam) or workspace:Raycast(lastpos, lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos + Motion, (lastpos - effect.Position) - Motion,RaycastParam) or workspace:Raycast(lastpos - Motion, (lastpos - effect.Position) + Motion,RaycastParam) or workspace:Raycast(lastpos,-Motion,RaycastParam) or workspace:Raycast(effect.Position,Motion,RaycastParam) or workspace:Raycast(lastpos,Motion,RaycastParam) or workspace:Raycast(effect.Position,-Motion,RaycastParam) or workspace:Raycast(effect.Position,effect.Position - lastpos,RaycastParam)
+					if hit then
+						if hit.Material == Enum.Material.Water then
+							task.synchronize()effect:Destroy()
+						else
+							task.synchronize()
+							local cloneeffect = effect:Clone()
+							RaycastParam:AddToFilter(cloneeffect)
+							table.insert(EffectInstance, cloneeffect)
+							effect:Destroy()
+							effect = nil
+							cloneeffect.Parent = workspace
+							cloneeffect.Shape = Enum.PartType.Cylinder
+							if hit.Instance:IsA("BasePart") then
+								if cloneeffect then
+									cloneeffect.Anchored = false
+								end
+								local w = Instance.new('Weld', cloneeffect)
+								w.Part1 = cloneeffect or hit.Instance
+								w.Part0 = hit.Instance or cloneeffect
+								w.C0 = hit.Instance.CFrame:ToObjectSpace(CFrame.new(hit.Position) * CFrame.Angles(math.rad(90),0,0)  * CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation + Vector3.new(0,0.01,0))
+								if w.Part1 == w.Part0 then
+									if cloneeffect then
+										cloneeffect.Anchored = true
+									end
+									if w then
+										w:Destroy()
+									end
+								else
+									if cloneeffect then
+										cloneeffect.Anchored = false
+									end
+								end
+							else
+								cloneeffect.Anchored = true 
+								cloneeffect.CFrame = CFrame.new(hit.Position) * CFrame.Angles(math.rad(90),0,0)  * CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation
+							end
+							cloneeffect.Size = Vector3.new(0.01,cloneeffect.Size.X * 2 + ((cloneeffect.Size.X + cloneeffect.Size.Y) * cloneeffect.Size.Z) - 0.01,cloneeffect.Size.X * 2 + ((cloneeffect.Size.Y + cloneeffect.Size.Y) * cloneeffect.Size.Z) - 0.01)
+							if TweenService then
+								TweenService:Create(cloneeffect, TweenInfo.new(10 * (1 - cloneeffect.Transparency),Enum.EasingStyle.Sine,Enum.EasingDirection.Out),{Transparency = 1, Size = cloneeffect.Size * 0.75}):Play()
+							end
+							if Debris then Debris:AddItem(cloneeffect,10) end
+						end
+					elseif not hit then
+						task.desynchronize()
+						lastpos = effect.Position
+						if Enable_Gravity then
+							if Motion.Y < (-0.5 * 25) then
+
+								Motion = Motion + Vector3.new(0,0.1,0) -- slow rec as it inverse accelerates
+								GravityStack = GravityStack - 1
+							else -- until gravity balanced out
+								Motion = Motion + Vector3.new(0,-0.25,0) -- high gain as it accelerates
+								GravityStack = GravityStack + 1
+							end	
+						end
+					end
+				elseif not hit and Motion ~= Vector3.new() and not Enable_Gravity then
+					hit = workspace:Raycast(effect.Position, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(effect.Position, -(Motion/1.25 + breakApart/1.25),RaycastParam) or workspace:Raycast(lastpos, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(lastpos, effect.Position - lastpos,RaycastParam) or workspace:Raycast(effect.Position,lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos, lastpos - effect.Position,RaycastParam) or workspace:Raycast(effect.Position,effect.Position - lastpos,RaycastParam)
+					if hit and hit.Instance and hit.Material ~= Enum.Material.ForceField and (not hit.Instance:IsDescendantOf(Tool) or (Character and not hit.Instance:IsDescendantOf(Character))) then
+						Motion = calculateBounceAngle(Motion,hit)
+					end
+				end
+				task.desynchronize()
+				if (i >= Fade_Duration) or (hit and Enable_Gravity) or not effect then
+					coroute = nil
+					if corouteDis then
+						task.synchronize()
+						corouteDis:Disconnect()
+						corouteDis = nil
+					end
+					if effect then
+						task.synchronize()
+						effect:Destroy()
+					end
+					break
+				end
+				task.desynchronize()
+				if (i >= Fade_Duration) or not effect or (hit and Enable_Gravity) then
+					return
+				end
+			end
+		end)
+		coroutine.resume(coroute)
+		corouteDis = Tool.Destroying:Connect(function()
+			task.desynchronize()
+			if coroute then
+				task.synchronize() coroutine.close(coroute)
+			end
+			task.desynchronize()
+			if effect then
+				task.synchronize() effect:Destroy()
+			end
+		end)
+	end
+end
+
+function Ragdoll(Who, RagdollTime)
+	task.desynchronize()
+	if Who == nil or (Who:GetAttribute("IsRagdoll") == true and Who:FindFirstChildOfClass("Humanoid") and Who:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Physics) then
+		if RagdollCountdowner[Who] then	RagdollCountdowner[Who] = RagdollCountdowner[Who] + RagdollTime end
+		return 
+	end
+	if not RagdollCountdowner[Who] then
+		RagdollCountdowner[Who] = RagdollTime
+	end
+	local StartTic = 0
+	StartTic = tick()
+	if Who:FindFirstChildOfClass("Humanoid") then
+		task.synchronize()
+		local WhosHumanoid = Who:FindFirstChildOfClass("Humanoid")
+		Who:SetAttribute("IsRagdoll", true)
+		WhosHumanoid:ChangeState(Enum.HumanoidStateType.Physics)
+		WhosHumanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+		WhosHumanoid:SetStateEnabled(Enum.HumanoidStateType.Running, false)
+		WhosHumanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+		WhosHumanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, false)
+	end
+	task.desynchronize()
+	for index,joint in pairs(Who:GetDescendants()) do
+		task.desynchronize()
+		if joint:IsA("Motor6D") then
+			task.synchronize()
+			local socket = Instance.new("BallSocketConstraint")
+			local a1 = Instance.new("Attachment")
+			local a2 = Instance.new("Attachment")
+			a1.Parent = joint.Part0
+			a2.Parent = joint.Part1
+			socket.Parent = joint.Parent
+			socket.Attachment0 = a1
+			socket.Attachment1 = a2
+			a1.CFrame = joint.C0
+			a2.CFrame = joint.C1
+			socket.LimitsEnabled = true
+			socket.TwistLimitsEnabled = true
+			socket.Name = joint.Name.."FakeAhhJoints"
+			local Nocollide = Instance.new("NoCollisionConstraint")
+			Nocollide.Parent = joint.Parent
+			Nocollide.Part1 = joint.Part1
+			Nocollide.Part0 = joint.Part0
+			Nocollide.Name = joint.Name
+			ApplyAttribute(a1)
+			ApplyAttribute(Nocollide)
+			ApplyAttribute(a2)
+			ApplyAttribute(socket)
+			if not joint.Parent:FindFirstChild(socket.Name) then
+				Debris:AddItem(a1, RagdollTime)
+				Debris:AddItem(a2,RagdollTime)
+				Debris:AddItem(socket,RagdollTime)
+				Debris:AddItem(Nocollide, RagdollTime)
+			end
+			if joint.Enabled == true then
+				joint:SetAttribute("WasOn",true)
+			else
+				joint:SetAttribute("WasOn",false)
+			end
+			joint.Enabled = false
+		elseif joint:IsA("Tool") or joint:IsA("Flag") then
+			task.synchronize()
+			if joint.Enabled == true then
+				joint:SetAttribute("WasOn",true)
+			else
+				joint:SetAttribute("WasOn",false)
+			end
+			joint.Enabled = false
+		elseif joint:IsA("Weld") or joint:IsA("Snap") or joint:IsA("Glue") then -- Nope, Leave these guys alone.
+			if joint.Enabled == true then
+				task.synchronize()
+				joint:SetAttribute("WasOn",true)
+			else
+				task.synchronize()
+				joint:SetAttribute("WasOn",false)
+			end
+			joint.Enabled = true
+		elseif joint:IsA("Part") or joint:IsA("BasePart") or joint:IsA("MeshPart") or joint:IsA("WedgePart") or joint:IsA("UnionOperation") then
+			if joint.CanCollide == true then
+				task.synchronize()
+				joint:SetAttribute("WasOn",true)
+			else
+				task.synchronize()
+				joint:SetAttribute("WasOn",false)
+			end
+			task.synchronize()
+			joint.CanCollide = true
+			joint.CanTouch = true
+		elseif joint:IsA("Script") or joint:IsA("LocalScript") and joint ~= script then
+			if joint.Enabled == true then
+				task.synchronize()
+				joint:SetAttribute("WasOn",true)
+			else
+				task.synchronize()
+				joint:SetAttribute("WasOn",false)
+			end
+			task.synchronize()
+			joint.Enabled = false
+		end
+	end
+	repeat task.wait() until (tick() - StartTic) >= RagdollCountdowner[Who]
+	RagdollCountdowner[Who] = nil
+	if Who == nil then
+		return 
+	end
+	task.desynchronize()
+	if Who ~= nil then
+		for index,joint in pairs(Who:GetDescendants()) do
+			task.desynchronize()
+			if joint:IsA("Motor6D") or joint:IsA("Weld") or joint:IsA("Snap") or joint:IsA("Glue") or joint:IsA("Script") or joint:IsA("LocalScript") or joint:IsA('Tool') or joint:IsA('Flag') then
+				if joint:GetAttribute("WasOn") == true then
+					task.synchronize()
+					joint.Enabled = true
+				else
+					task.synchronize()
+					joint.Enabled = false
+				end
+			elseif joint:IsA('BallSocketConstraint') or joint:IsA("NoCollisionConstraint") then
+				task.synchronize()
+				joint:Destroy()
+			elseif joint:IsA("Part") or joint:IsA("BasePart") or joint:IsA("MeshPart") then
+				if joint:GetAttribute("WasOn") == true then
+					task.synchronize()
+					joint.CanCollide = true
+				else
+					task.synchronize()
+					joint.CanCollide = false
+				end
+			end
+			if joint:GetAttribute("WasOn") then
+				task.synchronize()
+				joint:SetAttribute("WasOn",nil)
+			end
+		end
+		if   Who ~= nil and Who:FindFirstChildOfClass("Humanoid") then
+			task.synchronize()
+			--if Who:FindFirstChildOfClass("Humanoid") and Who:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Physics then
+			Who:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Running)
+			Who:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+			Who:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Running, true)
+			Who:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+			Who:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Freefall, true)
+			--else
+			--	Who:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Physics) --Lmao
+			--	Who:SetAttribute("IsRagdoll", true)
+			--end
+			--UnRagdolled
+			Who:SetAttribute("IsRagdoll", nil)
+		end
+	end
+
+end
+
+function Launch()
+	task.desynchronize()
+	local Ticked
+	Ticked = tick()
+	TickVerify = Ticked
+	if not Handle or not Equipped or not script:FindFirstAncestorWhichIsA('Model') or not Tool:FindFirstAncestorWhichIsA('Model') then return end
+	if ArmWeld then task.synchronize() ArmWeld:Destroy() ArmWeld = nil end
+	task.desynchronize()
+	local Character = Tool:FindFirstAncestorWhichIsA('Model') or Tool.Parent
+	local Torso: BasePart? = Character and FindFirstChildOfNameAndClass(Character, 'UpperTorso', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Torso', 'BasePart')
+	local Arm: BasePart? = Character and FindFirstChildOfNameAndClass(Character, 'RightUpperArm', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Right Arm', 'BasePart')
+	local LeftArmDefaultOffset = CFrame.new(Torso.Size.X/1.35,0,0)
+	task.desynchronize()
+	if Arm and Torso then
+		task.synchronize()
+		ArmWeld = Instance.new('Weld', Character)
+		ArmWeld.Part1 = Arm
+		ArmWeld.Part0 = Torso
+		ArmWeld.C0 = LeftArmDefaultOffset
+	end
+	while tick() - Ticked <= 0.5 and task.wait() and ArmWeld and TickVerify == Ticked do
+		ArmWeld.C0 = ArmWeld.C0:Lerp(CFrame.new(Torso.Size.X/1.35,0,0) * CFrame.Angles(math.rad(90),0,0), 0.1) 
+	end
+	if TickVerify ~= Ticked or not ArmWeld then
+		return
+	end
+	if AmountLeft > 0 then
+		AmountLeft -= 1
+		if AmountLeft <= 0 then
+			task.synchronize()
+			Handle.Transparency = 1
+		end
+	else
+		return
+	end
+	local Raypar = RaycastParams.new()
+	Raypar.IgnoreWater = true
+	Raypar.FilterType = Enum.RaycastFilterType.Exclude
+	Raypar.RespectCanCollide = true
+	task.synchronize()
+	if Tool then
+		Tool.ToolTip = "["..AmountLeft.." LEFT]"
+	end
+	Raypar.FilterDescendantsInstances = {Tool:FindFirstAncestorWhichIsA('Model')}
+	task.desynchronize()
+	local Distance = 0
+	local RandomValue = math.random(8000,12000)/10000
+	local MaxDistance = TravelLength * RandomValue
+	local Velocity = Vector3.new(0, 10 * RandomValue, 0) --Handle.CFrame.LookVector * 7
+	local Task: thread
+	if TickVerify ~= Ticked or not ArmWeld then
+		return
+	end
+	Task = coroutine.create(function()
+		task.synchronize()
+		local CloneHandle = Handle:Clone()
+		CloneHandle.Anchored = true
+		CloneHandle.Parent = workspace
+		CloneHandle.Transparency = 0
+		CloneHandle.CFrame = CFrame.new(CloneHandle.Position, Velocity)
+		local Sound = Instance.new'Sound'
+		Sound.Parent = CloneHandle
+		Sound.SoundId = FlyingSound
+		Sound.PlaybackSpeed = RandomValue
+		Sound.Looped = true
+		Sound:Play()
+		Raypar:AddToFilter(CloneHandle)
+		local RayHit
+		local LastTick = tick()
+		local LastCFrame = CloneHandle.CFrame
+		if TickVerify ~= Ticked or not ArmWeld then
+			return
+		end
+		while CloneHandle and CloneHandle:IsDescendantOf(workspace) and Velocity.Y > 0 and MaxDistance > Distance and task.wait() do
+			task.desynchronize()
+			local Delta = tick() - LastTick
+			LastTick = tick()
+			Distance += Delta
+			RayHit = workspace:Raycast(CloneHandle.Position, CloneHandle.Position + Velocity, Raypar) or workspace:Raycast(LastCFrame.p, (CloneHandle.Position - LastCFrame.p), Raypar) or workspace:Raycast(CloneHandle.Position, (LastCFrame.p - CloneHandle.Position), Raypar)
+			if RayHit then
+				Velocity = calculateBounceAngle(Velocity, RayHit)
+			end
+			LastCFrame = CloneHandle.CFrame
+			task.synchronize()
+			CloneHandle.CFrame = CFrame.new(CloneHandle.Position, Velocity) * CFrame.Angles(math.rad(180),0,math.rad(90)) + Velocity * Delta/0.1
+			task.desynchronize()
+			Velocity = Velocity - Vector3.new(0,MaxDistance/10,0) * Delta/0.1
+			Classic_Flagstand_Effect(CloneHandle.CFrame - (CloneHandle.Size.Z/2 * CloneHandle.CFrame.LookVector), CloneHandle.Size.X/2, workspace, math.random(2,3), 10, Colour, Enum.Material.Neon, -Velocity/10, 'Shrink', 1, CloneHandle, false)
+			Classic_Flagstand_Effect(CloneHandle.CFrame - (CloneHandle.Size.Z/2 * CloneHandle.CFrame.LookVector), CloneHandle.Size.X/4, workspace, math.random(2,3), 10, Colour, Enum.Material.Neon, Vector3.new(), 'Expand', 0.5, CloneHandle, false)
+			Classic_Flagstand_Effect(CloneHandle.CFrame - (CloneHandle.Size.Z/2 * CloneHandle.CFrame.LookVector), CloneHandle.Size.X/2, workspace, math.random(2,3), 10, Color3.new(1 - Distance/MaxDistance,1 - Distance/MaxDistance,1 - Distance/MaxDistance), Enum.Material.ForceField, Vector3.new(), 'Expand', 1, CloneHandle, false)
+		end
+		task.synchronize()
+		local bomb = Instance.new('Explosion',workspace)
+		bomb.DestroyJointRadiusPercent = 0
+		bomb.Position = CloneHandle.Position
+		bomb.Hit:Connect(function(awhellah, long)
+			if awhellah:FindFirstAncestorWhichIsA('Model') and awhellah:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid') then
+				awhellah:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').PlatformStand = true
+				if awhellah:FindFirstAncestorWhichIsA('Model').PrimaryPart then awhellah:FindFirstAncestorWhichIsA('Model').PrimaryPart.Velocity = (awhellah:FindFirstAncestorWhichIsA('Model').PrimaryPart.Position - bomb.Position).Unit * (Distance / bomb.BlastRadius) * bomb.BlastPressure end
+				awhellah:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid'):TakeDamage((Distance / bomb.BlastRadius) * bomb.BlastPressure)
+				Ragdoll(awhellah:FindFirstAncestorWhichIsA('Model'), (Distance / bomb.BlastRadius) * bomb.BlastPressure)
+			end
+		end)
+		Classic_Flagstand_Effect(CloneHandle.CFrame - (CloneHandle.Size.Z/2 * CloneHandle.CFrame.LookVector), CloneHandle.Size.Z/2, workspace, math.random(2,3), 9, Colour, Enum.Material.Neon, Vector3.new(), 'Expand', 3, CloneHandle, false)
+		Classic_Flagstand_Effect(CloneHandle.CFrame - (CloneHandle.Size.Z/2 * CloneHandle.CFrame.LookVector), CloneHandle.Size.Z/4, workspace, math.random(2,3), 9, Colour, Enum.Material.Neon, Vector3.new(), 'Expand', 2, CloneHandle, false)
+		Classic_Flagstand_Effect(CloneHandle.CFrame - (CloneHandle.Size.Z/2 * CloneHandle.CFrame.LookVector), CloneHandle.Size.Z/2, workspace, math.random(2,3), 9, Color3.new(1 - Distance/MaxDistance,1 - Distance/MaxDistance,1 - Distance/MaxDistance), Enum.Material.ForceField, Vector3.new(), 'Expand', 4, CloneHandle, false)
+		for i = 1,math.random(50,100) do
+			Classic_Flagstand_Effect(CloneHandle.CFrame, CloneHandle.Size.X, workspace, 1, math.random(5,15), Colour, Enum.Material.Neon, Vector3.new(Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1)),'Shrink',RandomValue,CloneHandle, true)
+		end
+		local Part = Instance.new'Part'
+		Part.Transparency = 1
+		Part.CanCollide = false
+		Part.Anchored = true
+		Part.Parent = workspace
+		Part.CFrame = CloneHandle.CFrame
+		local Sound = Instance.new'Sound'
+		Sound.Parent = Part
+		Sound.SoundId = BombSound
+		Sound.PlaybackSpeed = RandomValue
+		Sound:Play()
+		Debris:AddItem(Part, 5)
+		Debris:AddItem(bomb, 5)
+		if CloneHandle then CloneHandle:Destroy() end
+		if table.find(FireworkCoroutine, Task) then
+			table.remove(FireworkCoroutine, table.find(FireworkCoroutine, Task))
+		end
+	end)
+	table.insert(FireworkCoroutine, Task)
+	if TickVerify ~= Ticked or not ArmWeld then
+		return
+	end
+	coroutine.resume(Task)
+end
+
+task.synchronize()
+Tool.Destroying:Connect(function() Equipped = false TickVerify = tick() script.Parent = Players Debris:AddItem(script, 60) end)
+Tool.Activated:Connect(Launch)
+Tool.Deactivated:Connect(function() TickVerify = tick() if ArmWeld  then task.synchronize() ArmWeld:Destroy() end end)
+Tool.Equipped:Connect(function() Equipped = true TickVerify = tick() if ArmWeld then task.synchronize() ArmWeld:Destroy() end if Tool and Tool.ToolTip ~= "["..AmountLeft.." LEFT]" then task.synchronize() Tool.ToolTip = "["..AmountLeft.." LEFT]" end end)
+Tool.Unequipped:Connect(function() Equipped = false TickVerify = tick() if ArmWeld then task.synchronize() ArmWeld:Destroy() end end)]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{85323607-1731-43AA-97AC-58E86CF7554D}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Firework Script</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

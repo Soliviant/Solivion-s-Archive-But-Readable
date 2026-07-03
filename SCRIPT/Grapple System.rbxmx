@@ -1,0 +1,946 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Folder" referent="RBX7A56C79B9CE84934921264297F4EF050">
+		<Properties>
+			<BinaryString name="AttributesSerialize">AQAAAAUAAABHVUlERQIbAAAAVU5HUk9VUCBBTkQgUkVBRCBUSEUgU0NSSVBU</BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Solivion&apos;s Grapple System</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Actor" referent="RBXE8C5F20F27914803808CB1F8C5F519F4">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData">
+					<CFrame>
+						<X>-1.57999992</X>
+						<Y>0.0250133872</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CFrame>
+				</OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize">AQAAAAUAAABHVUlERQIaAAAAUHV0IEluIFNlcnZlclNjcmlwdFNlcnZpY2U=</BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Put In ServerScriptService</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBXB09E801D4CAC420CBDE54782D2DDA745">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--!native
+
+--<{Introduction}>~-
+--By Solivion
+--Centrifugal Physic thingy and Bounce Physic implementation assisted by Chat-GPT; Badly Made Box Based Collision, Framework and Class checks by yours truly
+--Put In ServerScriptService/ReplicatedFirst under an actor!1!!
+--Registering Tool Via Requesting Remote
+--To Shoot At Mouse Location, Set a "Vector3" attribute called 'MouseLocation' on your tool for the script to retrieve it
+--It's recommended to set MouseLocation Attribute On the Tool After It's Registeration
+
+--Example Requesting Script:
+--[[
+local Storage = game:GetService("ServerStorage") or game:GetService("ReplicatedStorage") if not Storage then print('Ur Cooked') return end
+local reg = Storage:WaitForChild('GrapplingHookRegister')
+if reg then reg:Fire(script.Parent,{GrappleSpeed = math.random(30,45), Colour = Color3.new(math.random(),math.random(),math.random())}) end
+script:Destroy()
+]]
+
+--You can put more GrappleData as the second Argument or set the attributes on the tools, but Argument will be prioritized over attributes, they will not merge
+
+--~<{Core: A}>~--
+if not script:GetActor() then warn(script.Name..' Requires Actor') script:Destroy() return end
+local SS = game:GetService("ServerScriptService") or game:GetService("ReplicatedFirst")
+if not SS then script:Destroy() return else script:GetActor().Parent = SS end
+script:GetActor().Name = script:GetActor().Name:gsub('Put In ServerScriptService', 'Grapple_Actor')
+--Grapple Hook Model
+local HookModel = script:FindFirstChild('Hook')
+if not HookModel then
+	local Model = Instance.new('Part')
+	Model.Size = Vector3.new(.25,.5,.25)
+	Model.Name = 'Hook'
+	Model.Parent = script
+	HookModel = Model
+end
+
+--~<{Settings}>~--
+--Variables
+local Gravity: number = 9.8 -- Gravitational acceleration
+local debugtrue: boolean = false -- Debug
+local LittleDamageOnCollision: boolean = false -- Little Yet Noticable
+local GrappleSpeedValue: number = 30 -- Matters More On The Hook
+local PlayerInputMultiplier: number = 1.25
+local Elasticity: number = 0 -- Adds bouncyness to impacting, Low 0 max 1 best range
+local BoundingBoxMultiplier: number = 1 -- Affect Collsion Size
+
+--Hook Raycast Parameter
+local HookParameter = RaycastParams.new()
+HookParameter.FilterDescendantsInstances = {}
+for i,v in workspace:GetChildren() do
+	if v.Name:upper() ~= 'BASEPLATE' and not v:FindFirstChildOfClass('Humanoid') and not (v:IsA('BasePart') and v.Transparency >= 1) then
+		HookParameter:AddToFilter(v)
+	end
+end
+HookParameter.IgnoreWater = true
+HookParameter.RespectCanCollide = true
+HookParameter.FilterType = Enum.RaycastFilterType.Include
+
+--Collsion Parameters
+local CollisionParameter = RaycastParams.new()
+CollisionParameter.RespectCanCollide = true
+CollisionParameter.FilterType = Enum.RaycastFilterType.Exclude
+CollisionParameter.IgnoreWater = true
+
+--~<{Core: B}>~--
+--Custom Data Classes
+type GrappleData = {
+	GrappleSpeed: number?,
+	Colour: Color3?,
+	CurrentTarget: Vector3?,
+	CurrentAttachments: {Attachment?},
+	AttachmentA: Attachment?,
+	AttachmentB: Attachment?,
+	ShootCoroutine: thread,
+	RopeLength: number,
+	LatestProcessor: Processor?
+}
+type Processor = {
+	Grapple: GrappleData?,
+	AttachedObject: Instance?,
+	AttachedTool: Tool?,
+	AttachedPoint: Vector3,
+	CurrentVelocity: Vector3,
+	RopeLength: number,
+	ObjectPosition: Vector3,
+	AnchorPart: BasePart?,
+	ExtentSize: Vector3?
+}
+
+--debug
+function what(...)
+	if not debugtrue then return end
+	print(...)
+end
+
+--Utility Function To Check If CFrame Is As Intended
+function isCFrameInvalid(cframe: CFrame): boolean
+	if cframe == nil or not CheckFalse(cframe, 'CFrame') then
+		return true, "CFrame is nil or contains incompatible type"
+	end
+
+	local components = {cframe:GetComponents()}
+	for _, component in ipairs(components) do
+		if component ~= component then -- Check for NaN
+			return true, "CFrame contains NaN"
+		end
+		if component == math.huge or component == -math.huge then -- Check for infinity
+			return true, "CFrame contains infinite value"
+		end
+	end
+
+	if cframe.Position.Magnitude == 0 and cframe.LookVector.Magnitude == 0 then
+		return true, "CFrame is zero"
+	end
+
+	return false, "CFrame is valid"
+end
+
+--Utility Function To Check If Vector3 Is As Intended
+function isVector3Invalid(vector3: Vector3): boolean
+	if vector3 == nil or typeof(vector3) ~= 'Vector3' then
+		return true, "Vector3 is nil"
+	end
+
+	if vector3.X ~= vector3.X or vector3.Y ~= vector3.Y or vector3.Z ~= vector3.Z then -- Check for NaN
+		return true, "Vector3 contains NaN"
+	end
+	if math.abs(vector3.X) == math.huge or math.abs(vector3.Y) == math.huge or math.abs(vector3.Z) == math.huge then -- Check for infinity
+		return true, "Vector3 contains infinite value"
+	end
+
+	return false, "Vector3 is valid"
+end
+
+--Data Tables
+local DebounceTool: {Tool} = {}
+local DataTool: {[Tool?]: GrappleData} = {}
+local ToolConnections: {[Tool?]: {RbxScriptConnections}} = {}
+local RegisterConnectionRemote: BindableEvent = game:GetService('ServerStorage'):FindFirstChild('GrapplingHookRegister')
+local ProcessorTable: {Processor} = {}
+local FrictionCoefficients = {
+	["Plastic"] = 0.3,
+	["Wood"] = 0.4,
+	["Slate"] = 0.5,
+	["Concrete"] = 0.6,
+	["CorrodedMetal"] = 0.7,
+	["DiamondPlate"] = 0.8,
+	["Foil"] = 0.9,
+	["Grass"] = 0.4,
+	["Ice"] = 0.1,
+	["Marble"] = 0.7,
+	["Granite"] = 0.6,
+	["Brick"] = 0.5,
+	["Pebble"] = 0.4,
+	["Sand"] = 0.3,
+	["Fabric"] = 0.5,
+	["SmoothPlastic"] = 0.3,
+	["Metal"] = 0.6,
+	["WoodPlanks"] = 0.5,
+	["Cobblestone"] = 0.6,
+	["Air"] = 0.0,
+	["Water"] = 0.2,
+	["Rock"] = 0.7,
+	["Glacier"] = 0.1,
+	["Snow"] = 0.2,
+	["Sandstone"] = 0.6,
+	["Mud"] = 0.4,
+	["Basalt"] = 0.7,
+	["Ground"] = 0.5,
+	["CrackedLava"] = 0.6,
+}
+local Soundcloud = {
+	SPRING_ATTACH = 12222054, SHORT_SPRING = 12222124
+}
+
+--Sound Player
+function PlaySound(SoundName,ToWhere: Instance?)
+	task.synchronize()
+	local Mainplayfunction = function(hmm)
+		hmm.PlaybackSpeed = math.random(100-20,100+20)/100
+		hmm:Play()
+	end
+	if ToWhere == nil then
+		return
+	end
+	if ToWhere and ToWhere:FindFirstChild(SoundName) and ToWhere:FindFirstChild(SoundName):IsA("Sound") then
+		Mainplayfunction(ToWhere:FindFirstChild(SoundName))
+	elseif ToWhere and not ToWhere:FindFirstChild(SoundName) then
+		if Soundcloud[SoundName] then
+			local sound = Instance.new("Sound")
+			local Where = ToWhere
+			sound.Parent = Where
+			sound.Volume = .1
+			sound.SoundId = typeof(Soundcloud[SoundName]) == 'string' and Soundcloud[SoundName] or 'http://www.roblox.com/asset/?id='..tostring(Soundcloud[SoundName])
+			sound.Name = SoundName
+			sound:Play()
+		else
+			warn("Sound >"..SoundName.."< Not Found In Database")
+		end
+	end
+end
+
+if not RegisterConnectionRemote then
+	local Event = Instance.new('BindableEvent')
+	Event.Parent = game:GetService('ServerStorage') or game:GetService('ReplicatedFirst')
+	Event.Name = 'GrapplingHookRegister'
+	RegisterConnectionRemote = Event
+end
+
+--Set To Workspace If Unable To Interact
+if #HookParameter.FilterDescendantsInstances <= 0 then
+	HookParameter.FilterDescendantsInstances = {workspace}
+end
+
+--Type Checking Core Function
+function CheckFalse(CheckedInstance: Instance, ClassType: string, IsA: string?)
+	if not CheckedInstance or typeof(ClassType) ~= "string" or typeof(CheckedInstance):upper() ~= ClassType:upper() then return false end
+	if ClassType:upper() == "INSTANCE" and (typeof(IsA) ~= "string" or not CheckedInstance.Parent or (not CheckedInstance:IsA(IsA) and IsA:upper() ~= CheckedInstance.ClassName:upper())) then return false end
+	return true
+end
+
+--Clamp Magnitude Of A Vector
+function ClampVector(Vector: Vector3)
+	if not IsVector(Vector) then return Vector3.new() end
+	return Vector.Unit * math.clamp(Vector.Magnitude, 0, 10000)
+end
+
+--Type Checking Shortcuts
+function IsThread(Thread: thread) return CheckFalse(Thread, "thread") end
+function IsTable(Table: {}) return CheckFalse(Table, "table") end
+function IsNumber(Number: number) return CheckFalse(Number, "number") end
+function IsAttachment(Attachment: Attachment) return CheckFalse(Attachment, "Instance", "Attachment") end
+function IsColour(Colour: (Color3 | BrickColor)) return CheckFalse(Colour, "Color3") or CheckFalse(Colour, "BrickColor") end
+function IsVector(Vector: Vector3) return (not isVector3Invalid(Vector)) and CheckFalse(Vector, "Vector3") end
+function IsEvent(Event: RbxScriptConnections) return CheckFalse(Event, "RbxScriptConnections") end
+function IsPlayer(Instance: Player) return CheckFalse(Instance, "Instance", "Player") end
+function IsCharacter(Instance: Model) return CheckFalse(Instance, "Instance", "Model") and Instance:FindFirstChildOfClass("Humanoid") end
+function IsTool(Instance: Tool) return CheckFalse(Instance, "Instance", "Tool") end
+function IsPart(Instance: BasePart) return CheckFalse(Instance, "Instance", "BasePart") end
+
+--Check For Skill Issue In Setting
+Gravity = IsNumber(Gravity) and Gravity or 9.8
+PlayerInputMultiplier = IsNumber(PlayerInputMultiplier) and PlayerInputMultiplier or 1
+GrappleSpeedValue = IsNumber(GrappleSpeedValue) and GrappleSpeedValue or 30
+debugtrue = CheckFalse(debugtrue, 'boolean') and debugtrue or false
+LittleDamageOnCollision = CheckFalse(LittleDamageOnCollision, 'boolean') and LittleDamageOnCollision or false
+Elasticity = IsNumber(Elasticity) and Elasticity or 0
+BoundingBoxMultiplier = IsNumber(BoundingBoxMultiplier) and BoundingBoxMultiplier or 0
+
+--Generates New GrappleData Class
+function NewGrappleData(Extra: GrappleData?): GrappleData
+	if IsTable(Extra) and IsTable(Extra.CurrentAttachments) then for i,v in ipairs(Extra.CurrentAttachments) do if not isAttachment(v) then table.remove(Extra.CurrentAttachments, table.find(Extra.CurrentAttachment, v)) end end end
+	return IsTable(Extra) and {
+		GrappleSpeed = (IsNumber(Extra.Speed) and Extra.Speed) or GrappleSpeedValue or 30,
+		Colour = (IsColour(Extra.Colour) and ((typeof(Extra.Colour) == "BrickColor" and Extra.Colour.Color) or Extra.Colour)) or Color3.new(0,0,0),
+		CurrentTarget = (IsVector(Extra.CurrentTarget) and Extra.CurrentTarget) or Vector3.new(),
+		CurrentAttachments = (IsTable(Extra.CurrentAttachments) and Extra.CurrentAttachments) or {},
+		AttachmentA = IsAttachment(Extra.AttachmentA) and Extra.AttachmentA,
+		AttachmentB = IsAttachment(Extra.AttachmentB) and Extra.AttachmentB,
+		ShootCoroutine = IsThread(Extra.ShootCoroutine) and Extra.ShootCoroutine,
+		RopeLength = IsNumber(Extra.RopeLength) and Extra.RopeLength or math.random(30,40)
+	} or {
+		GrappleSpeed = GrappleSpeedValue or 30,
+		RopeLength = math.random(30,40),
+		Colour = BrickColor.random().Color or Color3.FromRGB(math.random(10,2550)/10, math.random(10,2550)/10, math.random(10,2550)/10) or Color3.new(0,0,0),
+		CurrentTarget = Vector3.new(),
+		CurrentAttachments = {},
+	}
+end
+--Use The Grappler Tool
+function Grapple(Player: Player, Character: Character, Tool: Tool, MouseLocation: Vector3)
+	task.desynchronize()
+	what('Grappl statr')
+	if not IsTable(DataTool[Tool]) then what('No tool data') what(DataTool[Tool]) return end
+	if DataTool[Tool].LatestProcessor and table.find(ProcessorTable, DataTool[Tool].LatestProcessor) then
+		ProcessorTable[table.find(ProcessorTable, DataTool[Tool].LatestProcessor)].AttachedPoint = nil
+	end
+	if not IsPlayer(Player) or not IsTool(Tool) or table.find(DebounceTool, Tool) or not DataTool or not DataTool[Tool] or not IsCharacter(Character) or Tool.Parent ~= Character or Player.Character ~= Character then return end
+	Cooldown(Tool)
+	local NeccessityDatas: GrappleData = DataTool[Tool]
+	if not NeccessityDatas then return end
+	local GrappleSpeed: number = (IsNumber(NeccessityDatas.GrappleSpeed) and NeccessityDatas.GrappleSpeed) or 30
+	local PivotOrigin: CFrame = Character:GetPivot() or Tool:GetPivot() or CFrame.new()
+	if isCFrameInvalid(PivotOrigin) then RemoveCooldown(Tool) what('CFrame Cooked') return end
+	local Direction: Vector3 = (IsVector(MouseLocation) and (MouseLocation - Character:GetPivot().Position)) or (Character:GetPivot().LookVector * 120 + Character:GetPivot().UpVector * 50)
+	local CastDirection: Vector3 = Direction.Unit * (Direction.Magnitude + 1)
+	local Target: RaycastResult? = workspace:Raycast(PivotOrigin.Position, CastDirection, RaycastParameter)
+	local Velocity: Vector3 = Direction.Unit * GrappleSpeed/15
+	local GravityVelocity: Vector3 = Vector3.new()
+	task.synchronize()
+	CollisionParameter:AddToFilter(Character)
+	local Part: BasePart = HookModel:Clone() or Instance.new('Part')
+	Part.Parent =  workspace or Tool
+	Part.Anchored = true
+	Part.CanCollide = false
+	Part.CanTouch = false
+	Part.CanQuery = false
+	Part.CFrame = PivotOrigin
+	Part.Color = NeccessityDatas.Colour or Color3.new(0,0,0)
+	PlaySound('SHORT_SPRING', Part)
+	CollisionParameter:AddToFilter(Part)
+	if not Part:FindFirstChildOfClass('Attachment') then
+		local Attachment = Instance.new('Attachment')
+		Attachment.Parent = Part
+	end
+	if Part:FindFirstChildOfClass('Attachment') and Tool:FindFirstChild('Handle') and Tool:FindFirstChild('Handle'):FindFirstChildOfClass('Attachment') then
+		local SpringVisual = Instance.new('SpringConstraint')
+		SpringVisual.Parent = Part
+		SpringVisual.Visible = true
+		SpringVisual.Color = BrickColor.Black()
+		SpringVisual.Attachment0 = Part:FindFirstChildOfClass('Attachment')
+		SpringVisual.Attachment1 = Tool:FindFirstChild('Handle'):FindFirstChildOfClass('Attachment')
+	end
+	task.desynchronize()
+	local CFrameHookOrigin: CFrame = PivotOrigin
+	local RayLock: RaycastResult
+	local HookShotThread: thread = coroutine.create(function()
+		--Shoot and process hook physics
+		what('hook')
+		while not RayLock and Tool and Part and Part.Parent and Character and Character.Parent and Tool.Parent == Character and (CFrameHookOrigin.Position - PivotOrigin.Position).Magnitude <= NeccessityDatas.RopeLength and CFrameHookOrigin.Y > workspace.FallenPartsDestroyHeight and Velocity.Magnitude >= 0.1 and GravityVelocity.Magnitude < 10000 do
+			task.desynchronize()
+			local Delta: number = task.wait()
+			local Speed: number = 1 - ((10 ^ -6) ^ Delta)
+			local Total: Vector3 = ClampVector(GravityVelocity + Velocity)
+			local FinalPosition: CFrame = CFrame.lookAlong(CFrameHookOrigin.Position + Total, CFrameHookOrigin.Position + (Total * 2))
+			if isCFrameInvalid(FinalPosition) then what('FinalPosition Cooked') break end
+			GravityVelocity += Vector3.new(0,-Gravity * Delta,0)
+			Velocity = Velocity:Lerp(Vector3.new(), Speed/4)
+			RayLock = workspace:Blockcast(CFrameHookOrigin, Part.Size, Total, HookParameter)
+			CFrameHookOrigin = FinalPosition
+			if isCFrameInvalid(CFrameHookOrigin) then what('CFrameHookOrigin Cooked') continue end
+			if RayLock and RayLock.Instance then break end
+			task.synchronize()
+			Part:PivotTo(CFrameHookOrigin)
+		end
+		what('hooker')
+		RemoveCooldown(Tool)
+		task.desynchronize()
+		if not IsCharacter(Character) then return end
+		if RayLock and RayLock.Instance and Tool.Parent == Character and Tool and (PivotOrigin.Position - RayLock.Position).Magnitude <= NeccessityDatas.RopeLength then
+			local ExtentSize: Vector3
+			task.synchronize()
+			pcall(function() ExtentSize = Character:GetExtentsSize()/1.575 end)
+			if Part then
+				PlaySound('SPRING_ATTACH', Part)
+				if RayLock.Instance:IsA('Terrain') then
+					Part.Position = RayLock.Position
+					Part.Anchored = true
+					Part.Parent = workspace
+				else
+					local hit = RayLock
+					local cloneeffect = Part
+					local lastpos = CFrameHookOrigin.Position - Velocity
+					local effect = Part
+					local w = Instance.new('Weld', cloneeffect)
+					w.Part1 = cloneeffect or hit.Instance
+					w.Part0 = hit.Instance or cloneeffect
+					local rx, ry, rz =  CFrame.new(lastpos, hit.Position) --[[Subject:GetPivot()]]:ToOrientation()
+					local orientation = Vector3.new(math.deg(rx), math.deg(ry),math.deg(rz))
+					local pcf = (CFrame.new(hit.Position , (hit.Position + hit.Normal--[[ + leg.CFrame.LookVector * Vector3.new(1,-1,1) ]])) * CFrame.Angles(0,0,ry):Inverse()) or (CFrame.new(effect.Position  , (effect.Position + hit.Normal --[[ + leg.CFrame.LookVector * Vector3.new(1,-1,1) ]])) * CFrame.Angles(0,0,ry):Inverse()) -- * savedlleg 
+					local lpcf = pcf + Vector3.new(0,-0.05,0)
+					w.C0 = hit.Instance.CFrame:ToObjectSpace(CFrame.new(hit.Position))  * pcf.Rotation --CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation + Vector3.new(0,0.01,0))
+					Part.Anchored = false Part.Parent = workspace
+				end
+			end
+			task.desynchronize()
+			local Processor: Processor = {
+				Grapple = NeccessityDatas,
+				AttachedTool = Tool,
+				AttachedObject = Character,
+				CurrentVelocity = Velocity + (RayLock.Position - CFrameHookOrigin.Position) * 25,
+				AttachedPoint = RayLock.Position,
+				RopeLength = (PivotOrigin.Position - RayLock.Position).Magnitude,
+				ObjectPosition = CFrameHookOrigin.Position or (Part and Part.Position) or Vector3.new(),
+				AnchorPart = Part,
+				ExtentSize = ExtentSize * (BoundingBoxMultiplier or 1)
+			}
+			what('what')
+			if IsTable(NeccessityDatas.LatestProcessor) and table.find(ProcessorTable, NeccessityDatas.LatestProcessor) then table.remove(ProcessorTable, table.find(ProcessorTable, NeccessityDatas.LatestProcessor)) end
+			NeccessityDatas.LatestProcessor = Processor
+			Cooldown(Tool)
+			table.insert(ProcessorTable, Processor)
+			-- this thread is done
+		else
+			what('what 2')
+			-- if not or no tool or timeout then break loop
+			if Part then task.synchronize() Part:Destroy() end
+			RemoveCooldown(Tool)
+		end	
+	end)
+	if HookShotThread and IsTool(Tool) and table.find(DebounceTool, Tool) then
+		what('corouted')
+		coroutine.resume(HookShotThread)
+	end
+end
+--Override Tool Data
+function SetToolData(Tool: Tool, Extra: GrappleData?)
+	if not IsTool(Tool) then return end
+	DataTool[Tool] = NewGrappleData(Extra) -- extra will be filtered autmoatically by function
+end
+--Remove Tool From Cooldown
+function RemoveCooldown(Tool: Tool, Extra: GrappleData?)
+	if not IsTool(Tool) then return end
+	if table.find(DebounceTool, Tool) then
+		table.remove(DebounceTool, table.find(DebounceTool, Tool))
+	end
+end
+--Add tool to cooldown list
+function Cooldown(Tool: Tool, Extra: GrappleData?)
+	if not IsTool(Tool) then return end
+	if not table.find(DebounceTool, Tool) then
+		table.insert(DebounceTool, Tool)
+	end
+end
+--Register New Tools
+function RegisterTool(Tool: Tool, Extra: GrappleData?, ...)
+	task.desynchronize()
+	what('Registering')
+	if not IsTool(Tool) or ToolConnections[Tool] then return end
+	local MouseLocation = Tool:GetAttribute('MouseLocation')
+	if IsVector(MouseLocation) then Tool:SetAttribute('MouseLocation', nil) end
+	SetToolData(Tool,(IsTable(Extra) and Extra) or (Tool:GetAttributes() ~= {} and Tool:GetAttributes()))
+	task.synchronize()
+	Tool:SetAttribute('MouseLocation', MouseLocation)
+	Tool.Name = Tool.Name:gsub("%s*%(Remove This Instruction%)%s*", "")
+	if not Tool:FindFirstChild('Handle') then
+		local NewHandle = Instance.new('Part')
+		NewHandle.Name = 'Handle'
+		NewHandle.Parent = Tool
+		NewHandle.Color = Color3.new(0,0,0)
+		NewHandle.Size = Vector3.new(.5,.5,.5)
+	end
+	if Tool:FindFirstChild('Handle') and not Tool:FindFirstChild('Handle'):FindFirstChildOfClass('Attachment') then
+		local NewAttachment = Instance.new('Attachment')
+		NewAttachment.Name = 'Spring_Attachment'
+		NewAttachment.Parent = Tool:FindFirstChild('Handle')
+	end
+	local EquipConnection, MouseLocationConnection, UnequipConnection, DestroyConnection, ActivationConnection, DeactivationConnection
+	local TablesOfConnection: {RBXScriptConnection} = {}
+	--ActivationConnection = Tool.Activated:Connect(function()
+		
+	--end)
+	DeactivationConnection = Tool.Deactivated:Connect(function()
+		what('Deactivated')
+		if not IsTool(Tool) or not IsCharacter(Tool.Parent) then return end
+		what('Grappel')
+		task.synchronize()
+		Grapple(game:FindFirstChildOfClass('Players'):GetPlayerFromCharacter(Tool.Parent), Tool.Parent, Tool, IsVector(Tool:GetAttribute('MouseLocation')) and Tool:GetAttribute('MouseLocation'))
+	end)
+	--UnequipConnection = Tool.Unequipped:Connect(function()
+
+	--end)
+	--EquipConnection = Tool.Equipped:Connect(function(Player:Player, Character: Model, MouseLocation: Vector3)
+
+	--end)
+	MouseLocationConnection = Tool:GetAttributeChangedSignal('MouseLocation'):Connect(function()
+		if IsVector(Tool:GetAttribute('MouseLocation')) then
+			MouseLocation = Tool:GetAttribute('MouseLocation')
+		else
+			MouseLocation = nil
+		end
+	end)
+	DestroyConnection = Tool.Destroying:Once(function()
+		for i,v in ipairs(TablesOfConnection) do
+			v:Disconnect()
+		end
+		TablesOfConnection = {}
+	end)
+	task.desynchronize()
+	--table.insert(TablesOfConnection, ActivationConnection)
+	table.insert(TablesOfConnection, DeactivationConnection)
+--[[	table.insert(TablesOfConnection, UnequipConnection)
+	table.insert(TablesOfConnection, EquipConnection)]]
+	table.insert(TablesOfConnection, DestroyConnection)
+	table.insert(TablesOfConnection, MouseLocationConnection)
+	ToolConnections[Tool] = TablesOfConnection
+end
+
+coroutine.resume(coroutine.create(function()
+	while script and script.Parent do
+		task.desynchronize()
+		local DeltaTime = task.wait(1 / 240) * 10
+		local Speed = math.clamp(1 - ((10 ^ -6) ^ DeltaTime), .01, 1)
+		for i, Processor: Processor in ipairs(ProcessorTable) do
+			task.desynchronize()
+			if not Processor then continue end
+			if not IsTable(Processor) or not IsCharacter(Processor.AttachedObject) or not IsTool(Processor.AttachedTool) or Processor.AttachedTool.Parent ~= Processor.AttachedObject or not table.find(DebounceTool, Processor.AttachedTool) or not IsVector(Processor.AttachedPoint) or not IsVector(Processor.CurrentVelocity) or (Processor.CurrentVelocity.Magnitude * 10) > 10000 then
+				table.remove(ProcessorTable, i)
+				task.synchronize()
+				if Processor.AnchorPart then Processor.AnchorPart:Destroy() end
+				if Processor and Processor.AttachedTool then RemoveCooldown(Processor.AttachedTool) end
+				if Processor and Processor.AttachedObject and Processor.AttachedObject:FindFirstChildOfClass('Humanoid') and Processor.AttachedObject:FindFirstChildOfClass('Humanoid').RootPart then Processor.AttachedObject:FindFirstChildOfClass('Humanoid').RootPart.Anchored = false end
+				continue
+			end
+			
+			-- Calculate direction and distance
+			local RopeLength: number = Processor.RopeLength or (Processor.Grapple and Processor.Grapple.RopeLength) or 30
+			local Anchor: Vector3 = (IsPart(Processor.AnchorPart) and Processor.AnchorPart.Position) or Processor.AttachedPoint or Vector3.new()
+			local Player: Model = Processor.AttachedObject
+			local PlayerPosition: Vector3 = Processor.ObjectPosition or (IsCharacter(Player) and Player:GetPivot().Position) or Vector3.new()
+			local ExtentSize: Vector3 = Processor.ExtentSize or Vector3.new(4,5,1)
+			ExtentSize = ExtentSize - Vector3.new(0,ExtentSize.Y/6,0)
+			local Direction: Vector3  = (PlayerPosition - Anchor).Unit
+			local Distance: number = (PlayerPosition - Anchor).Magnitude
+			local Velocity: Vector3 = Processor.CurrentVelocity or Vector3.new()
+			local Pivot: CFrame = (IsCharacter(Player) and Player:GetPivot()) or CFrame.new(PlayerPosition)
+			if isCFrameInvalid(Pivot) then what('Pivot Cooked') continue end
+			local RayOrigin: Vector3 = PlayerPosition
+			local RayDirection: Vector3 = Processor.CurrentVelocity * DeltaTime
+			local RayResult: RaycastResult = workspace:Blockcast(Pivot - RayDirection, ExtentSize, RayDirection * 2, CollisionParameter) -- Velocity Impact
+			if not RayResult then
+				local ReverseRay: RaycastResult = workspace:Blockcast(Pivot + RayDirection, ExtentSize, -RayDirection * 2, CollisionParameter) -- Velocity Impact
+				if ReverseRay then
+					RayResult = {}
+					RayResult.Distance = (RayDirection * 2).Magnitude - ReverseRay.Distance
+					RayResult.Normal = -ReverseRay.Normal
+					RayResult.Position = RayOrigin + (RayResult.Distance/2 * RayDirection.Unit)
+					RayResult.Instance = ReverseRay.Instance
+					RayResult.Material = ReverseRay.Material
+				end
+			end
+			local ExtentHeight: number = (Pivot.UpVector:Dot(Vector3.new(0, -1, 0)) * ExtentSize.Y)
+			--local CollisionGround: RaycastResult = workspace:Blockcast(Pivot + (Pivot.UpVector * ExtentSize.Y/2), ExtentSize, Vector3.new(0, -ExtentHeight, 0), CollisionParameter) or workspace:Blockcast(Pivot - (Pivot.UpVector * ExtentSize.Y/2), ExtentSize, Vector3.new(0, ExtentHeight/2,0), CollisionParameter)
+			--local CollisionCeiling: RaycastResult = workspace:Blockcast(Pivot - (Pivot.UpVector * ExtentSize.Y/2), ExtentSize, Vector3.new(0, ExtentHeight,0), CollisionParameter) or workspace:Blockcast(Pivot + (Pivot.UpVector * ExtentSize.Y/2), ExtentSize, Vector3.new(0, -ExtentHeight/2,0), CollisionParameter)
+			local CollisionGround: RaycastResult = workspace:Blockcast(Pivot, ExtentSize, Vector3.new(0, -ExtentHeight/2, 0), CollisionParameter) or workspace:Blockcast(Pivot - (Pivot.UpVector * ExtentSize.Y/2), ExtentSize, Vector3.new(0, ExtentHeight/2,0), CollisionParameter)
+			local CollisionCeiling: RaycastResult = workspace:Blockcast(Pivot, ExtentSize, Vector3.new(0, ExtentHeight/2,0), CollisionParameter) or workspace:Blockcast(Pivot + (Pivot.UpVector * ExtentSize.Y/2), ExtentSize, Vector3.new(0, -ExtentHeight/2,0), CollisionParameter)
+			local CollidedMargin: Vector3 = Vector3.new()
+			local CollisionRight: RaycastResult = workspace:Blockcast(Pivot - Pivot.RightVector * ExtentSize.X/2, ExtentSize, Pivot.RightVector * ExtentSize.X, CollisionParameter)
+			local CollisionLeft: RaycastResult = workspace:Blockcast(Pivot + Pivot.RightVector * ExtentSize.X/2, ExtentSize, Pivot.RightVector * -ExtentSize.X, CollisionParameter)
+			local CollisionFront: RaycastResult = workspace:Blockcast(Pivot - Pivot.LookVector * ExtentSize.Z/2, ExtentSize, Pivot.LookVector * ExtentSize.Z, CollisionParameter)
+			local CollisionBack: RaycastResult = workspace:Blockcast(Pivot + Pivot.LookVector * ExtentSize.Z/2, ExtentSize, Pivot.LookVector * -ExtentSize.Z, CollisionParameter)
+			local CollisionTop: RaycastResult = workspace:Blockcast(Pivot - Pivot.UpVector * ExtentSize.Y/2, ExtentSize, Pivot.UpVector * ExtentSize.Y, CollisionParameter)
+			local CollisionBottom: RaycastResult = workspace:Blockcast(Pivot + Pivot.UpVector * ExtentSize.Y/2, ExtentSize, Pivot.UpVector * -ExtentSize.Y, CollisionParameter)
+			local CollidedMargin: Vector3 = Vector3.new()
+			if CollisionRight then CollidedMargin += Pivot.RightVector * ((ExtentSize.X) - CollisionRight.Distance) end
+			if CollisionLeft then CollidedMargin -= Pivot.RightVector * ((ExtentSize.X) - CollisionLeft.Distance) end
+			if CollisionFront then CollidedMargin += Pivot.LookVector * ((ExtentSize.Z) - CollisionFront.Distance) end
+			if CollisionBack then CollidedMargin -= Pivot.LookVector * ((ExtentSize.Z) - CollisionBack.Distance) end
+			if CollisionTop then CollidedMargin += Pivot.UpVector * ((ExtentSize.Y) - CollisionTop.Distance) end
+			if CollisionBottom then CollidedMargin -= Pivot.UpVector * ((ExtentSize.Y) - CollisionBottom.Distance) end
+			
+			if RayResult and RayResult.Instance then
+				local HitPosition = RayResult.Position
+				local HitNormal = RayResult.Normal
+				local FrictionCoefficient = RayResult.Material and (FrictionCoefficients[RayResult.Material.Name or 'General'] or RayResult.Instance:GetAttribute('Friction') or 0.8) or 0.8
+				
+				Processor.ObjectPosition = HitPosition + RayDirection * ((RayDirection * 2).Magnitude - RayResult.Distance)
+				Processor.CurrentVelocity = Processor.CurrentVelocity - (1 + (Elasticity or 0)) * Processor.CurrentVelocity:Dot(HitNormal) * HitNormal
+				Processor.CurrentVelocity = Processor.CurrentVelocity * math.clamp(FrictionCoefficient,0,1)
+				if HitNormal.Y <= 0 then  -- Check if the collision is with the ceiling
+					Processor.CurrentVelocity = Processor.CurrentVelocity * math.clamp(FrictionCoefficient,0,1)  -- Increase damping
+				end
+				Velocity = Processor.CurrentVelocity
+				
+				if LittleDamageOnCollision then
+					local ImpactForce = Processor.CurrentVelocity.Magnitude
+					local Humanoid = Player:FindFirstChildOfClass('Humanoid')
+					if Humanoid then
+						local Damage = math.clamp(ImpactForce / 10, 0, 100)
+						task.synchronize()
+						Humanoid:TakeDamage(Damage)
+					end
+					task.desynchronize()
+				end
+			end
+			
+			if CollisionTop or CollisionGround then Velocity = Vector3.new(Velocity.X,math.clamp(Velocity.Y ,CollisionGround and 0 or -math.huge, CollisionCeiling and 0 or math.huge),Velocity.Z) end -- limiter
+			-- Rope constraint
+			if Distance > RopeLength then
+				local Correction = Direction * (Distance - RopeLength)
+				PlayerPosition = Anchor + Direction * RopeLength
+				Processor.CurrentVelocity = Processor.CurrentVelocity - Correction.Unit * Processor.CurrentVelocity:Dot(Correction.Unit)
+			end
+
+			-- Forces
+			local GravityForce = Vector3.new(0, -Gravity, 0)
+			local Threshold = 0.01
+			local TensionForce = -Direction * math.max(Threshold, GravityForce:Dot(Direction) + Velocity:Dot(Direction) / DeltaTime)
+			local PlayerInput = Vector3.new(0, 0, 0)
+			if Player:FindFirstChildOfClass('Humanoid') then
+				PlayerInput = Player:FindFirstChildOfClass('Humanoid').MoveDirection * RopeLength * PlayerInputMultiplier * DeltaTime -- Scale input force
+			end
+			local NetForce = GravityForce + TensionForce + PlayerInput
+
+			-- Update velocity with damping
+			local DecayFactor = math.clamp(DeltaTime / 5, 0, 0.1)
+			--Processor.CurrentVelocity = (Velocity + NetForce * DeltaTime) * (1 - DecayFactor)
+			if Velocity.Magnitude < 0.01 and NetForce.Magnitude < 0.01 then
+				Processor.CurrentVelocity = Vector3.new() -- Snap to zero velocity
+				Processor.ObjectPosition = Anchor - CollidedMargin + Direction * RopeLength -- Snap to constrained position
+			else
+				if NetForce.Magnitude < 0.01 then
+					Processor.CurrentVelocity = Processor.CurrentVelocity * math.clamp(1 - DecayFactor * 2.5,0,1)
+				else
+					Processor.CurrentVelocity = (Velocity + NetForce * DeltaTime) * math.clamp(1 - DecayFactor,0,1)
+				end
+			end
+			
+			-- Clamp small velocities
+			if Processor.CurrentVelocity.Magnitude < 0.01 then
+				Processor.CurrentVelocity = Vector3.new()
+			end
+
+			-- Update position
+			Processor.ObjectPosition = PlayerPosition - CollidedMargin + (Processor.CurrentVelocity * DeltaTime)
+			
+			Velocity = Processor.CurrentVelocity - CollidedMargin
+			PlayerPosition = Processor.ObjectPosition
+			
+			--print('TENSION:'..tostring(TensionForce), 'GRAVITY: '..tostring(GravityForce),'VELOCITY:'..tostring(Velocity), 'PLAYERINPUT:'..tostring(PlayerInput), 'POSITION:'..tostring(PlayerPosition))
+			-- Anchor player during grappling
+			if Player and (Velocity.Magnitude >= 0.01 or NetForce.Magnitude >= 0.01) and Player:FindFirstChildOfClass('Humanoid') and Player:FindFirstChildOfClass('Humanoid').RootPart then
+				if Player:FindFirstChildOfClass('Humanoid').RootPart.Anchored == false then
+					Processor.ObjectPosition = Player:GetPivot().Position or PlayerPosition or Anchor or Vector3.new()
+					task.synchronize()
+					--print('NEW OPERATION, STARTPOS: '..tostring(Processor.ObjectPosition))
+					Player:FindFirstChildOfClass('Humanoid').RootPart.Anchored = true
+				end
+				local LookDirection: Vector3 = (((Velocity.Magnitude >= .01 and Velocity) or (CollisionGround and PlayerInput.Magnitude > .01 and PlayerInput) or (NetForce.Magnitude >= 0.01) and NetForce) or Pivot.LookVector)
+				if CollisionGround then LookDirection = Vector3.new(LookDirection.X,0,LookDirection.Z) end
+				if not IsVector(LookDirection) then continue end
+				local Target = CollisionGround and CFrame.lookAt(Processor.ObjectPosition, Processor.ObjectPosition + LookDirection) or CFrame.lookAlong(Processor.ObjectPosition, Processor.ObjectPosition + LookDirection)
+				if isCFrameInvalid(Target) then what('Target Cooked') continue end
+				local TargetPivot = Player:GetPivot():Lerp(Target, Speed/5)
+				if isCFrameInvalid(TargetPivot) then what('TargetPivot Cooked') continue end
+				task.synchronize()
+				Player:PivotTo(TargetPivot)
+			end
+		end
+	end
+end))
+
+if not RegisterConnectionRemote then task.synchronize() script:Destroy() return end
+what('established connection')
+--Connectr, For New Handler Framework Instead Of Individual Script
+RegisterConnectionRemote.Event:Connect(RegisterTool)
+
+--~<{Credits}>~--
+--@Solivion(1233413367) Dec. 6 2024
+--[[
+	["CREATOR_ID"] = 1233413367
+	["CREATOR"] = @Solivion
+	["DATE_OF_CREATION"] = 12/6/2024
+	["GUIDE"] = PUT UNDER AN ACTOR UNDER SERVERSCRIPTSERVICE
+]]--]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{152A2F79-23B0-4A7A-BB23-5F053F8C9412}</string>
+					<BinaryString name="AttributesSerialize"><![CDATA[AQAAAAUAAABHVUlERQIsAAAAUFVUIFVOREVSIEFOIEFDVE9SIFVOREVSIFNFUlZFUlNDUklQ
+VFNFUlZJQ0U=]]></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Grapple_Handler</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Tool" referent="RBX69B6AB723B514A8C98021F312281A4B1">
+			<Properties>
+				<bool name="CanBeDropped">true</bool>
+				<bool name="Enabled">true</bool>
+				<CoordinateFrame name="Grip">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="ManualActivationOnly">false</bool>
+				<bool name="RequiresHandle">true</bool>
+				<string name="ToolTip">LMB To Use</string>
+				<Content name="TextureId"><null></null></Content>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData">
+					<CFrame>
+						<X>-3.15999985</X>
+						<Y>0.050026387</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CFrame>
+				</OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"><![CDATA[AwAAAAUAAABHVUlERQISAAAAUHV0IEluIFN0YXJ0ZXJQYWNrDAAAAEdyYXBwbGVTcGVlZAYA
+AAAAAIBBQA0AAABNb3VzZUxvY2F0aW9uEf///3////9/////fw==]]></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Grapple(Put In StarterPack)</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBX1FE3AF32F57640228121AE519B52BAB1">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--~<{please change it}>~ >>Soli<<
+script.Parent.Equipped:Connect(function()
+	if not script:FindFirstAncestorWhichIsA('Model') then return end
+	local Storage = game:GetService("ServerStorage") or game:GetService("ReplicatedStorage") if not Storage then print('Ur Cooked') return end
+	local reg = Storage:WaitForChild('GrapplingHookRegister')
+	script.Parent.Name = script.Parent.Name:gsub('Put In StarterPack', 'Remove This Instruction')
+	if reg then reg:Fire(script.Parent) end
+	script:Destroy()
+end)]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{4338BD14-4B7F-4491-AB06-1AD73BDE29D8}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Script</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Part" referent="RBXF8EB296DD83F4A98A31F44E0E44FC8EA">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">1</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-1.58000004</X>
+						<Y>0.0250129998</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">true</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>0.00100000005</X>
+						<Y>0.00100000005</Y>
+						<Z>0.00100000005</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Handle</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Script" referent="RBX03AEFF17EC574CD5BD140244C7700142">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[if not script.Parent then script:Destroy() return end
+if script.Parent:FindFirstChildOfClass('Actor') or script.Parent:FindFirstChild('Put In ServerScriptService') then
+	(script.Parent:FindFirstChildOfClass('Actor') or script.Parent:FindFirstChild('Put In ServerScriptService')).Parent = game:GetService('ServerScriptService') or game:GetService('ReplicatedFirst')
+end
+if script.Parent:FindFirstChildOfClass('Tool') then
+	script.Parent:FindFirstChildOfClass('Tool').Parent = game:GetService('StarterPack')
+end
+script:Destroy()]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{5CFC76FC-5305-4CBB-9453-66B2904D381E}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Installer</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

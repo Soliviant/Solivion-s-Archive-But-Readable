@@ -1,0 +1,1282 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX5BF1DA48DE7645E782E4519BF4AC5439">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip">ATTACK AWAY DO NOT DELAY</string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>46.0999985</X>
+					<Y>-2.05996156</Y>
+					<Z>29.9000015</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Baseball Bat</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Actor" referent="RBX203FC5E3727A494E93855DD82850D964">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Actor</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBXF44A2356A0F9473EB70F68EADCA78553">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--!native
+--//Solivion//--
+--Hitboxes are delicate, but performant enough
+--Badly Made Baseball Bat, Also I hope these funny palallel optimiztion helps
+--While Swinging, The Bat Will Counter Any Damages If They Came At You A Bit Too Fast.(And They Must BE Near, Infront of you too)
+local Debris = game:FindFirstChildOfClass('Debris')
+local Baseball_Bat = script:FindFirstAncestorWhichIsA("Tool")
+local HEALTH: number = 100
+local Damaging: boolean = false
+local LastestTime: number = tick()
+local Releasing: boolean = false -- Indicate if firing is possible
+local now: boolean = true
+local Act: boolean = true
+local HealthChangingConnect: RBXScriptConnection?
+local HBAttachments: {Attachment?} = {}
+local Handle: BasePart? 
+local HBSC -- Server Hitbox Connection
+local HasActor = false
+local animatL = false
+local Character
+local EquipTick: number = tick()
+local Debounce: {Instance?} = {}
+local DebounceInstance: {Instance?} = {}
+local EffectInstance: {Instance?} = {}
+if script:FindFirstAncestorWhichIsA('Actor') then
+	HasActor = true
+end
+script:GetPropertyChangedSignal('Parent'):Connect(function()
+	if script:FindFirstAncestorWhichIsA('Actor') then
+		HasActor = true
+	else
+		HasActor = false
+	end
+end)
+local function HandAim(Looker,Weld,TargetCFrame,hand)
+	--task.synchronize()
+	if Looker == nil then
+		return
+	end
+	if hand == nil then
+		return
+	end
+	local tr = Looker:FindFirstChild("UpperTorso") or Looker:FindFirstChild("Torso") or Looker:FindFirstChild("HumanoidRootPart")
+	if tr == nil then
+		return
+	end
+	task.desynchronize()
+	local tframe = tr.CFrame or CFrame.new(0,0,0)
+	local HandOff
+	local C1X = 1
+	local C2 = 1
+	local HandAng
+	if string.match(hand.Name,"Left") then
+		C1X = -0.5
+	else
+		C1X = 0.5
+	end
+	if string.match(hand.Name,"Left") then
+		C2 = -1
+	else
+		C2 = 1
+	end
+	local CurHandName:string
+	local OppoHandName:string
+	if string.match(hand.Name,"Left") then
+		HandOff = Vector3.new( -1.5, 0.5, -0.5 )	
+		CurHandName = "Left"
+		OppoHandName = "Right"
+	else
+		HandOff = Vector3.new( 1.5, 0.5, -0.5 )	
+		CurHandName = "Right"
+		OppoHandName = "Left"
+	end
+	tframe = tframe + tframe:VectorToWorldSpace(HandOff)
+	local taim = ((TargetCFrame and TargetCFrame.p) or Vector3.new(0,0,0)) -( tframe.p )
+	local LookAtVec = (hand.Position - TargetCFrame.Position)
+	local Where
+	if TargetCFrame == nil then
+		Where = CFrame.new(1.5, 0.5, -0.5) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0))
+	else
+
+		Where = --[[CFrame.new(LookAtVec)]] CFrame.new(Vector3.new(),tframe:vectorToObjectSpace(taim))*CFrame.Angles(math.rad(-90),math.rad(180),math.rad(180))-- +HandOff -- + Vector3.new(LookAtVec.Magnitude,LookAtVec.Y-1.5,LookAtVec.Magnitude) * LookAtVec.Unit
+	end
+	local nweld = Looker:FindFirstChildOfClass("Snap")
+	if nweld then
+		local NewAttachmentWeld = nweld
+		if not TargetCFrame then
+			task.synchronize()
+			nweld.C0 = nweld.C0:Lerp(CFrame.new(1.5, 0, 0) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.1)
+		else
+			Where = Where.Rotation * CFrame.new(math.clamp(Where.X,-2,2),math.clamp(Where.Y,-2,2),math.clamp(Where.Z,-2,2)) + HandOff
+			task.synchronize()
+			nweld.C0 = nweld.C0:Lerp(Where,0.3)
+		end
+	else
+		task.synchronize()
+		local NewHandWeld = Weld or Instance.new("Snap",Looker)
+		NewHandWeld.Name = "Aim"
+		NewHandWeld.Enabled = true
+		nweld = NewHandWeld
+		task.desynchronize()
+		if hand:IsDescendantOf(Looker) then
+			task.synchronize() NewHandWeld.Part1 = hand
+		end
+		task.desynchronize()
+		if Looker:FindFirstChild("Torso") or Looker:FindFirstChild("UpperTorso") then
+			task.synchronize()NewHandWeld.Part0 = Looker:FindFirstChild("Torso") or Looker:FindFirstChild("UpperTorso")
+		end
+		task.desynchronize()
+		if not TargetCFrame then
+			NewHandWeld.C0 = NewHandWeld.C0:Lerp(CFrame.new(1.5, 0, 0) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.6) 
+			NewHandWeld.C1 = NewHandWeld.C1:Lerp(CFrame.new(0,0,0),0.6)
+			--	NewHandWeld.C0 = NewHandWeld.C0:Lerp(CFrame.new(1.5, 0, 0) * CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.1)
+		else
+			--	NewHandWeld.C0 = NewHandWeld.C0:Lerp(Where,0.3)
+			Where = Where.Rotation * CFrame.new(math.clamp(Where.X,-2,2),math.clamp(Where.Y,-2,2),math.clamp(Where.Z,-2,2))
+			task.synchronize() NewHandWeld.C0 = NewHandWeld.C0:Lerp(Where,0.6)
+			task.desynchronize()
+			local Meh = (hand.CFrame.Position - TargetCFrame.Position).Magnitude
+			local Offseter:CFrame = CFrame.new(math.clamp((-Meh + 0.0625 * 20) * C1X, -1, 1),math.clamp(Meh,-2,2),math.clamp(Meh,-0.5,0.5))
+			Offseter = CFrame.new(math.clamp((-Meh + 0.0625 * 20) * C1X, -1, 1),math.clamp(Meh,-2,2),math.clamp(Meh,-0.5,0.5))
+			task.synchronize()	nweld.C1 = nweld.C1:Lerp(Offseter,0.45)
+			task.desynchronize()
+		end
+	end
+end
+function Classic_Flagstand_Effect(Coordinate: CFrame?, Size: number?, Parent: Instance?, Amount: number?, Fade_Duration: number?, Colour: Color3?, Material: Enum.Material?, Motion: Vector3?, ShrinkOrExpand: ('Shrink' | 'Expand')?, Size_Rate: number?, Filter: {Instance?}?)
+	task.desynchronize()
+	local RaycastParam = RaycastParams.new()
+	RaycastParam.RespectCanCollide = true
+	RaycastParam.IgnoreWater = true
+	RaycastParam.FilterType = Enum.RaycastFilterType.Exclude
+	if not Coordinate then Coordinate = Baseball_Bat:GetPivot()end if not Size then Size = 5 end if not Parent then Parent = workspace end if not Amount then	Amount = 3 end if not Fade_Duration then Fade_Duration = 10 end if not Colour then Colour = Color3.new(1, 1, 1) end if not Material then Material = Enum.Material.Neon end if not Motion then Motion = Vector3.new() end if not ShrinkOrExpand then ShrinkOrExpand = 'Expand' end if not Size_Rate then Size_Rate = 1/4 end if Colour and typeof(Colour) == 'BrickColor' then Colour = Colour.Color end if not Filter then Filter = {} end
+	task.synchronize()
+	if Motion ~= Vector3.new() then
+		RaycastParam.FilterDescendantsInstances = DebounceInstance
+		RaycastParam:AddToFilter(Character) -- Character
+		RaycastParam:AddToFilter(Baseball_Bat) -- Bat
+		RaycastParam:AddToFilter(Filter) -- Casted Instance
+		RaycastParam:AddToFilter(EffectInstance) -- Previous Effect
+		--[[for i,v in Filter do
+			RaycastParam:AddToFilter(v)
+		end]]
+	end
+	for i = 1,Amount do
+		task.synchronize()
+		local effect = Instance.new("FlagStand", Parent)
+		local coroute
+		local GravityStack = 0
+		local hit:RaycastResult?
+		local lastpos: Vector3? = Baseball_Bat:GetPivot().Position
+		local corouteDis: RBXScriptConnection?
+		local breakApart = (Motion ~= Vector3.new() and Vector3.new(Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1))/1.25) or Vector3.new()
+		effect.Size = (Size and Vector3.new(Size,Size,Size)) or Vector3.new(5,5,5)
+		effect.Anchored = true
+		effect.CanCollide = false
+		effect.CanTouch = false
+		effect.CanQuery = false
+		effect.CastShadow = false
+		effect.Color = Colour or Color3.new(1, 1, 1)
+		effect.CFrame = Coordinate or CFrame.new()
+		effect.Material = Material or Enum.Material.Neon
+		RaycastParam:AddToFilter(effect)
+		table.insert(EffectInstance, effect)
+		Debris:AddItem(effect, (Fade_Duration*0.05) * 1.05)
+		coroute = coroutine.create(function()
+			task.synchronize()
+			for i = 1,Fade_Duration do
+				task.desynchronize()
+				if effect then
+					task.synchronize()
+					--print('ea')
+					effect.CFrame = (effect.CFrame + Motion/1.25 + breakApart/1.25) * CFrame.fromEulerAnglesYXZ(Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3)
+					effect.Transparency = effect.Transparency + 1/Fade_Duration
+					if ShrinkOrExpand == 'Expand' then
+						effect.Size = effect.Size + effect.Size * Size_Rate/Fade_Duration  --Vector3.new((Size/10)/Fade_Duration,(Size/10)/Fade_Duration,(Size/10)/Fade_Duration)
+					elseif ShrinkOrExpand == 'Shrink' then
+						effect.Size = effect.Size - effect.Size * Size_Rate/Fade_Duration
+					end
+					task.wait(0.05)
+				end
+				task.desynchronize()
+				if not hit and Motion ~= Vector3.new() then
+					task.desynchronize()
+					hit = workspace:Raycast(effect.Position, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(effect.Position, -(Motion/1.25 + breakApart/1.25),RaycastParam) or workspace:Raycast(lastpos, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(lastpos, effect.Position - lastpos,RaycastParam) or workspace:Raycast(effect.Position,lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos, lastpos - effect.Position,RaycastParam) or workspace:Raycast(effect.Position,effect.Position - lastpos,RaycastParam)
+					if hit then
+						if hit.Material == Enum.Material.Water then
+							task.synchronize()effect:Destroy()
+						else
+							task.synchronize()
+							local cloneeffect = effect:Clone()
+							RaycastParam:AddToFilter(cloneeffect)
+							table.insert(EffectInstance, cloneeffect)
+							effect:Destroy()
+							effect = nil
+							cloneeffect.Parent = workspace
+							cloneeffect.Shape = Enum.PartType.Cylinder
+							if hit.Instance:IsA("BasePart") then
+								local w = Instance.new('Weld', cloneeffect)
+								w.Part1 = cloneeffect or hit.Instance
+								w.Part0 = hit.Instance or cloneeffect
+								w.C0 = hit.Instance.CFrame:ToObjectSpace(CFrame.new(hit.Position) * CFrame.Angles(math.rad(90),0,0)  * CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation + Vector3.new(0,0.01,0))
+								if w.Part1 == w.Part0 then
+									if cloneeffect then
+										cloneeffect.Anchored = true
+									end
+									if w then
+										w:Destroy()
+									end
+								else
+									if cloneeffect then
+										cloneeffect.Anchored = false
+									end
+								end
+							else
+								cloneeffect.Anchored = true 
+								cloneeffect.CFrame = CFrame.new(hit.Position) * CFrame.Angles(math.rad(90),0,0)  * CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation
+							end
+							cloneeffect.Size = Vector3.new(0.01,cloneeffect.Size.X * 2 + ((cloneeffect.Size.X + cloneeffect.Size.Y) * cloneeffect.Size.Z) - 0.01,cloneeffect.Size.X * 2 + ((cloneeffect.Size.Y + cloneeffect.Size.Y) * cloneeffect.Size.Z) - 0.01)
+							if game:FindFirstChildOfClass('TweenService') then
+								game:FindFirstChildOfClass('TweenService'):Create(cloneeffect, TweenInfo.new(10 * (1 - cloneeffect.Transparency),Enum.EasingStyle.Sine,Enum.EasingDirection.Out),{Transparency = 1, Size = cloneeffect.Size * 0.75}):Play()
+							end
+							if Debris then Debris:AddItem(cloneeffect,10) end
+						end
+					elseif not hit then
+						task.desynchronize()
+						lastpos = effect.Position
+						if Motion.Y < (-0.1 * 25) then
+							Motion = Motion + Vector3.new(0,0.05,0) -- slow rec as it inverse accelerates
+							GravityStack = GravityStack - 1
+						else -- until gravity balanced out
+							Motion = Motion + Vector3.new(0,-0.1,0) -- high gain as it accelerates
+							GravityStack = GravityStack + 1
+						end
+					end
+				end
+				task.desynchronize()
+				if (i >= Fade_Duration) or hit or not effect then
+					coroute = nil
+					if corouteDis then
+						task.synchronize()
+						corouteDis:Disconnect()
+						corouteDis = nil
+					end
+					if effect then
+						task.synchronize()
+						effect:Destroy()
+					end
+					break
+				end
+				task.desynchronize()
+				if (i >= Fade_Duration) or not effect or hit ~= nil then
+					return
+				end
+			end
+		end)
+		coroutine.resume(coroute)
+		corouteDis = Baseball_Bat.Destroying:Connect(function()
+			task.desynchronize()
+			if coroute then
+				task.synchronize() coroutine.close(coroute)
+			end
+			task.desynchronize()
+			if effect then
+				task.synchronize() effect:Destroy()
+			end
+		end)
+	end
+end
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				return v
+			end
+		end
+	end
+end
+Handle = FindFirstChildOfNameAndClass(Baseball_Bat,"Handle",'BasePart')
+if not Handle then
+	local howmuch = 10
+	repeat 
+		howmuch -= 1
+		Handle = FindFirstChildOfNameAndClass(Baseball_Bat,"Handle",'BasePart')
+		if Handle then
+			break
+		end
+	until howmuch <= 0 or Handle
+	if not Handle then
+		return
+	end
+end
+local CFrameAngles = function(wan,tou,bucklemyshoe)
+	return CFrame.Angles(math.rad(bucklemyshoe),math.rad(tou),math.rad(wan))
+end -- Reversed
+local AnimTable = { -- One Frame lol, Atleast I used Circular. So It Honestly Looks Fire :>
+	Equip = {HandFrame = CFrame.new(-0.5, -0.5, -1.5) * CFrameAngles(90, -30, 0), GripThingy = CFrame.new(0, 0, -1.25) * CFrameAngles(0, 100, 75) }, -- Where u store bat
+	Idle = {HandFrame = CFrame.new(-1.5, 0.2, -0.2) * CFrameAngles(15, 160, -180 ), GripThingy = CFrame.new(0, 0, -1) * CFrameAngles(0, 90, 30) }, -- Charge
+	-- Imp Frames
+	Blocking1s = {HandFrame = CFrame.new(-2,0.7 , 0.7+0.25) * CFrameAngles(-90+ 180- 50, -135+ 180  + 30, 0+ 180 + 90) , GripThingy = CFrame.new(0, 0, -1.25) * CFrameAngles(-90- 90 , 180-70, -45+30)},
+	Blocking1 = {HandFrame = CFrame.new(-2 , 0.7, 0.7+0.5) * CFrameAngles(-90+ 180- 60, -135+ 180  + 20, 0+ 180 +75) , GripThingy = CFrame.new(0, 0, -1.25) * CFrameAngles(-90- 90 , 180-140-160, -45+90-20)},
+	Blocking0 = {HandFrame = CFrame.new(-2 , 0.7, 0.7+ 1.5) * CFrameAngles(-90+ 180- 50, -135+ 180  + 15, 0+ 180 +60) , GripThingy = CFrame.new(0, 0, -1.25) * CFrameAngles(-90- 15 , 180- 15, -45+15)},
+	Blocking = {HandFrame = CFrame.new(-2 , 0.7, 0.7+ 2) * CFrameAngles(-90+ 180- 30, -135+ 180  + 0 , 0+ 180 + 0) , GripThingy = CFrame.new(0, 0, -1.25) * CFrameAngles(-90, 180+15, -45)},
+	Blocking2 = {HandFrame = CFrame.new(-2 , 0.7, 0.7+ 3) * CFrameAngles(-90+ 180+ 30, -135+ 180 - 30, 0+ 180 - 60) , GripThingy = CFrame.new(0, 0, -1.25) * CFrameAngles(-90- 15, 180+ 45, -45 + 0)},
+	Blocking3 = {HandFrame = CFrame.new(-2 , 0.7, 0.7+ 1.5) * CFrameAngles(-90+ 180+ 60, -135+ 180 - 60, 0+ 180 - 120) , GripThingy = CFrame.new(0, 0, -1.25) * CFrameAngles(-90- 30, 180+ 30, -45+15)},
+	Charging = {HandFrame = CFrame.new(-0.5, -0.5, -1.5) * CFrameAngles(45 , -120, -180) , GripThingy = CFrame.new(0, 0, -1.25) * CFrameAngles(0, 100, 90)}--Reset/Idle. Da Nil Position
+}
+local HBAP = { -- One Attachment Every Small Bits Of Stud.
+	--CFrame.new(0,0,0),CFrame.new(0,-0.075,0),CFrame.new(0,-0.15,2),CFrame.new(0,-0.125,1.5),CFrame.new(0,-0.1,1),CFrame.new(0,-0.1,0.5)--[[]],CFrame.new(0,0.075,0),CFrame.new(0,0.15,2),CFrame.new(0,0.125,1.5),CFrame.new(0,0.1,1),CFrame.new(0,0.1,0.5)--[[]],CFrame.new(0,0,-2),CFrame.new(0,0,-1.5),CFrame.new(0,0,-1),CFrame.new(0,0,-0.5),CFrame.new(0,0,0),CFrame.new(0,0,2),CFrame.new(0,0,1.5),CFrame.new(0,0,1),CFrame.new(0,0,0.5),CFrame.new(0.075,0,0),CFrame.new(-0.075,0,0),CFrame.new(0.1,0,0.5),CFrame.new(-0.1,0,0.5),CFrame.new(0.15, 0, 1),CFrame.new(-0.15, 0, 1),CFrame.new(0.175, 0, 1.5),CFrame.new(-0.175, 0, 1.5),CFrame.new(0.2, 0, 2),CFrame.new(-0.2, 0, 2)
+	CFrame.new(0, 0, 2),
+	CFrame.new(0, 0, 1.5),
+	CFrame.new(0, 0, 1),
+	CFrame.new(0, 0, 0.5),
+	CFrame.new(0, 0, 0),
+	CFrame.new(0.2, 0, 2),
+	CFrame.new(0.175, 0, 1.5),
+	CFrame.new(0.15, 0, 1),
+	CFrame.new(0.1, 0, 0.5),
+	CFrame.new(0.075, 0, 0),
+	CFrame.new(-0.175, 0, 1.5),
+	CFrame.new(-0.15, 0, 1),
+	CFrame.new(-0.1, 0, 0.5),
+	CFrame.new(-0.075, 0, 0),
+	CFrame.new(-0.2, 0, 2),
+	CFrame.new(0, -0.15, 2),
+	CFrame.new(0, -0.125, 1.5),
+	CFrame.new(0, -0.1, 1),
+	CFrame.new(0, -0.1, 0.5),
+	CFrame.new(0, -0.075, 0),
+	CFrame.new(0, 0.15, 2),
+	CFrame.new(0, 0.125, 1.5),
+	CFrame.new(0, 0.1, 1),
+	CFrame.new(0, 0.1, 0.5),
+	CFrame.new(0, 0.075, 0),
+	CFrame.new(0, 0, -2),
+	CFrame.new(0, 0, -1.5),
+	CFrame.new(0, 0, -1),
+	CFrame.new(0, 0, -0.5)	
+}
+local SoundTabel_ss69_ep420 = { -- OmgItsDaSoundTable
+	glassbreak0wav = "rbxasset://sounds//glassbreak.wav",
+	Hit = "http://www.roblox.com/asset/?id=58831920",
+	Hitmarker = "rbxassetid://160432334",
+	Swoosh = "http://www.roblox.com/asset?id=153647529",
+	Woosh = "rbxassetid://12222200",
+	Equip = "rbxasset://sounds//snap.wav",
+	Unequip = "rbxassetid://12221831",
+	Switch = "rbxasset://sounds//switch.wav",
+	Kerplunk = "rbxasset://sounds//kerplunk.wav",
+	FlashBulb = "rbxassetid://12221996",
+	SWITCH3 = "rbxasset://sounds//SWITCH3.wav",
+	BASS = "rbxassetid://12221831"
+}-- "Nah legit too lazy to find a better soundeffect"
+function PlaySound(SoundName,ToWhere)
+	if HasActor then
+		task.synchronize()
+	end
+	--getOrCreateSound(SoundName)
+	local Mainplayfunction = function(hmm)
+		hmm.PlaybackSpeed = math.random(100-20,100+20)/100
+		hmm:Play()
+	end
+	if ToWhere == nil then
+		ToWhere = Handle or Baseball_Bat:FindFirstChild("Handle")
+	end
+	if ToWhere and FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound') then
+		Mainplayfunction(FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound'))
+	elseif ToWhere and not FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound') then
+		--DebugText("Checking Encryted Table For Sound:"..tostring(Encryption(SoundName,true)) )
+		if SoundTabel_ss69_ep420[SoundName] then
+			local sound = Instance.new("Sound")
+			local Where = ToWhere
+			sound.Parent = Where
+			sound.SoundId = SoundTabel_ss69_ep420[SoundName]
+			sound.Name = SoundName
+			sound:Play()
+		else
+			warn("Sound >"..SoundName.."< Not Found In Database")
+		end
+	end
+end
+local function Dmg(who: Instance, HitPos: Vector3?)
+	if not Damaging then
+		return
+	end
+	if HitPos == nil and who:IsA("BasePart") then
+		HitPos = who.CFrame.Position
+	end
+	if HasActor then
+		task.synchronize()
+	end
+	if  who:FindFirstAncestorWhichIsA("Model") and who:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid") and not table.find(DebounceInstance,Debounce[who:FindFirstAncestorWhichIsA("Model")]) and not Debounce[who:FindFirstAncestorWhichIsA("Model")] and not Debounce[who] then
+		Debounce[who] = "Lorem ipsum"-- Debouncing the part.
+		Debounce[who:FindFirstAncestorWhichIsA("Model")] = "The quick brown fox jumps over the lazy dog"-- Debouncing the Model.
+		table.insert(DebounceInstance,who:FindFirstAncestorWhichIsA("Model"))
+		if who.Name == 'Head' then
+			who:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").Health = who:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").Health - math.clamp((math.random(25,40) - math.ceil(#Debounce) + Handle.Velocity.Magnitude * 1.75)/125,0,math.huge) * who:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").MaxHealth
+			who.Velocity = who.Velocity + Handle.Velocity * math.random(5, 10)/10
+		else
+			who:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").Health = who:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").Health - math.clamp((math.random(15,25) - math.ceil(#Debounce) + Handle.Velocity.Magnitude * 1.25)/125,0,math.huge) * who:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").MaxHealth
+		end
+		PlaySound("Hit",who)
+	end
+end
+function Hitbox(Duration)
+	Damaging = true
+	if HBSC then
+		HBSC:Disconnect()
+	end
+	local Ignore = {}
+	local Params = RaycastParams.new()
+	Params.IgnoreWater = true
+	Params.FilterType = Enum.RaycastFilterType.Exclude
+	Params.FilterDescendantsInstances = {Character, Debounce, DebounceInstance}
+	Params:AddToFilter(EffectInstance)
+	Params:AddToFilter(DebounceInstance)
+	local StartingTick = tick()
+	local PositionThingy = {}
+	if HasActor then
+		task.desynchronize()
+	end
+	for i,Attachment in pairs(HBAttachments) do
+		table.insert(PositionThingy, {Attachment, Attachment.WorldPosition})
+	end
+	if HasActor then
+		task.synchronize()
+	end
+	HBSC = game:GetService("RunService").Heartbeat:Connect(function(DT)
+		Damaging = true
+		Act = false
+		if HasActor then
+			task.desynchronize()
+		end
+		if (tick() - StartingTick >= Duration) or not Baseball_Bat:FindFirstAncestorWhichIsA("Model") or not (Baseball_Bat:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid")) then
+			Damaging = false
+			if HasActor then
+				task.synchronize()
+			end
+			HBSC:Disconnect()
+			if HasActor then
+				task.desynchronize()
+			end
+		end
+		local Cast: RaycastResult?
+		local function WhenCast(Cast: RaycastResult, VectorThingy: Vector3)
+			task.desynchronize()
+			if Cast and Cast.Instance and not table.find(Ignore, Cast.Instance) and (not Cast.Instance:FindFirstAncestorWhichIsA('Folder') and not Cast.Instance:FindFirstAncestorWhichIsA('Model') and true) or (Cast.Instance:FindFirstAncestorWhichIsA('Model') and not table.find(Ignore,Cast.Instance:FindFirstAncestorWhichIsA('Model')) or (Cast.Instance:FindFirstAncestorWhichIsA('Folder') and not Cast.Instance:FindFirstAncestorWhichIsA('Model')and not table.find(Ignore,Cast.Instance:FindFirstAncestorWhichIsA('Folder')))) then
+				table.insert(Ignore, Cast.Instance)
+				table.insert(Ignore, Cast.Instance.Parent)
+				task.synchronize()
+				Params:AddToFilter(Cast.Instance)
+				task.desynchronize()
+				if Cast.Instance:FindFirstAncestorWhichIsA('Model') --[[and not table.find(Ignore,Cast.Instance:FindFirstAncestorWhichIsA('Model'))  ]]then Dmg(Cast.Instance, Cast.Position) table.insert(Ignore,Cast.Instance:FindFirstAncestorWhichIsA('Model')) task.synchronize()	Params:AddToFilter(Cast.Instance:FindFirstAncestorWhichIsA('Model')) end
+				task.desynchronize()
+				if Cast.Instance:FindFirstAncestorWhichIsA('Folder') and not Cast.Instance:FindFirstAncestorWhichIsA('Model')--[[ and not table.find(Ignore,Cast.Instance:FindFirstAncestorWhichIsA('Folder'))]] then table.insert(Ignore,Cast.Instance:FindFirstAncestorWhichIsA('Folder')) task.synchronize()	Params:AddToFilter(Cast.Instance:FindFirstAncestorWhichIsA('Folder')) end
+				task.desynchronize()
+				if Debounce[Cast.Instance] then -- confirm that this is actually damaged
+					--lower dmg, registr character to filter
+					for i,v in DebounceInstance do
+						if v and v:IsAncestorOf(Cast.Instance) and not table.find(Ignore, v) then
+							task.synchronize()
+							Params:AddToFilter(v)
+							task.desynchronize()
+							table.insert(Ignore, v)
+						end
+					end
+						task.desynchronize()
+						local Color = (Cast.Instance:IsA('BasePart') and Cast.Instance.Color) or (Cast.Instance:isA('Terrain') and workspace:FindFirstChildOfClass('Terrain'):GetMaterialColor(Cast.Material)) or Color3.new(1, 1, 1)
+						task.desynchronize()
+						Classic_Flagstand_Effect(CFrame.new(Cast.Position),(1 - 0.05 * #Debounce/2) * (Handle.Size.X + Handle.Size.Y), workspace, math.floor(#Debounce/4) + 3, 5, Color, Cast.Material or Enum.Material.Neon, nil,'Expand',1/2)
+						task.desynchronize()
+						Classic_Flagstand_Effect(CFrame.new(Cast.Position),(0.8 - 0.05 * #Debounce/2) * (Handle.Size.X + Handle.Size.Y), workspace, math.random(5,7) - math.floor(#Debounce/8), math.random(6,9) - math.ceil(#Debounce/6), Color, Cast.Material or Enum.Material.Neon, VectorThingy.Unit * 1.75,'Shrink',1,{Cast.Instance})
+					--else
+						--[[local Color = (Cast.Instance:IsA('BasePart') and Cast.Instance.Color) or (Cast.Instance:isA('Terrain') and workspace:FindFirstChildOfClass('Terrain'):GetMaterialColor(Cast.Material)) or Color3.new(1, 1, 1)
+						Classic_Flagstand_Effect(CFrame.new(Cast.Position),0.6 * (Handle.Size.X + Handle.Size.Y), workspace, 2, 5, Color or Color3.new(1, 1, 0.498039), Enum.Material.Neon, nil,'Expand',1)	
+						Classic_Flagstand_Effect(CFrame.new(Cast.Position),0.5 * (Handle.Size.X + Handle.Size.Y), workspace, 3, 6, Color, Cast.Material or Enum.Material.Neon, VectorThingy.Unit * 1 + Vector3.new(0,-1.5,0),'Shrink',1, {Cast.Instance})
+					]]end
+				if HasActor then
+					task.desynchronize()
+				end
+			end
+		end
+		for ind, val in pairs(PositionThingy) do
+			local VectorThingy = val[2] - val[1].WorldPosition -- The Second Value In The Table Is LastPosition Of The Attachment, While the first is the Attachment itself
+			coroutine.resume(coroutine.create(function()
+				repeat 
+					Cast = workspace:Raycast(val[2], -VectorThingy.Unit*VectorThingy.Magnitude, Params) or workspace:Raycast(val[1].WorldPosition, VectorThingy, Params)  or (ind == 1 and PositionThingy[#PositionThingy] and  workspace:Raycast(val[1].WorldPosition, (val[1].WorldPosition - PositionThingy[#PositionThingy][1].WorldPosition).Unit * 1, Params))
+					if Cast and not table.find(Ignore,Cast.Instance) and Cast.Instance.Parent and not table.find(Ignore,Cast.Instance.Parent) then
+						WhenCast(Cast,VectorThingy)
+					else
+						break
+					end
+					task.desynchronize()
+				until not Cast or (tick() - StartingTick >= Duration)
+			end))
+			task.desynchronize()
+			-- or workspace:Raycast(val[1].WorldPosition, Handle.CFrame:ToWorldSpace(CFrame.new(-val[1].CFrame.X,-val[1].CFrame.Y,val[1].CFrame.Z)).Position - val[1].WorldPosition, Params) or workspace:Raycast(Handle.CFrame:ToWorldSpace(CFrame.new(-val[1].CFrame.X,-val[1].CFrame.Y,val[1].CFrame.Z)).Position, val[1].WorldPosition - Handle.CFrame:ToWorldSpace(CFrame.new(-val[1].CFrame.X,-val[1].CFrame.Y,val[1].CFrame.Z)).Position, Params) 
+			if ind >= #PositionThingy - 4  then
+				for i = 0, math.floor(VectorThingy.Magnitude), 0.1 do
+					local start = val[1].WorldPosition +  VectorThingy.Unit * i
+					repeat 
+						Cast = workspace:Raycast(start, CFrame.Angles(0, math.rad(90), 0):VectorToWorldSpace(VectorThingy.Unit * 2.25),Params) or workspace:Raycast(start +  CFrame.Angles(0, math.rad(90), 0):VectorToWorldSpace(VectorThingy.Unit * 2.25), -CFrame.Angles(0, math.rad(90), 0):VectorToWorldSpace(VectorThingy.Unit * 2.25) ,Params)
+						if Cast and not table.find(Ignore,Cast.Instance) and Cast.Instance.Parent and not table.find(Ignore,Cast.Instance.Parent) then
+							WhenCast(Cast,VectorThingy)
+						else
+							break
+						end
+						task.desynchronize()
+					until not Cast or (tick() - StartingTick >= Duration)
+					if Cast and not table.find(Ignore,Cast.Instance) and Cast.Instance.Parent and not table.find(Ignore,Cast.Instance.Parent) then
+						WhenCast(Cast,VectorThingy)
+						-- More!
+					end
+				end
+			end
+			--[[local Cast = workspace:Raycast(val[2], -VectorThingy.Unit*VectorThingy.Magnitude, Params) or  workspace:Raycast(val[1].WorldPosition, VectorThingy, Params) or (ind == 1 and PositionThingy[#PositionThingy] and  workspace:Raycast(val[1].WorldPosition, (val[1].WorldPosition - PositionThingy[#PositionThingy][1].WorldPosition).Unit * 1, Params))-- or workspace:Raycast(val[1].WorldPosition, Handle.CFrame:ToWorldSpace(CFrame.new(-val[1].CFrame.X,-val[1].CFrame.Y,val[1].CFrame.Z)).Position - val[1].WorldPosition, Params) or workspace:Raycast(Handle.CFrame:ToWorldSpace(CFrame.new(-val[1].CFrame.X,-val[1].CFrame.Y,val[1].CFrame.Z)).Position, val[1].WorldPosition - Handle.CFrame:ToWorldSpace(CFrame.new(-val[1].CFrame.X,-val[1].CFrame.Y,val[1].CFrame.Z)).Position, Params) 
+			if not Cast and ind >= #PositionThingy - 4  then
+				for i = 0, math.floor(VectorThingy.Magnitude), 0.05 do
+					local start = val[1].WorldPosition +  VectorThingy.Unit * i
+					Cast = workspace:Raycast(start, CFrame.Angles(0, math.rad(90), 0):VectorToWorldSpace(VectorThingy.Unit * 2.25),Params) or workspace:Raycast(start +  CFrame.Angles(0, math.rad(90), 0):VectorToWorldSpace(VectorThingy.Unit * 2.25), -CFrame.Angles(0, math.rad(90), 0):VectorToWorldSpace(VectorThingy.Unit * 2.25) ,Params)
+					if Cast then
+						--print('ca')
+						break
+					end
+				end
+			end
+			if Cast and Cast.Instance then
+				if HasActor then
+					task.synchronize()
+				end
+				Params:AddToFilter(Cast.Instance)
+				Dmg(Cast.Instance, Cast.Position)
+				task.desynchronize()
+				if Debounce[Cast.Instance] then -- confirm that this is it
+					--lower dmg
+					task.desynchronize()
+					local Color = (Cast.Instance:IsA('BasePart') and Cast.Instance.Color) or (Cast.Instance:isA('Terrain') and workspace:FindFirstChildOfClass('Terrain'):GetMaterialColor(Cast.Material)) or Color3.new(1, 1, 1)
+					task.desynchronize()
+					Classic_Flagstand_Effect(CFrame.new(Cast.Position),(1 - 0.05 * #Debounce/2) * (Handle.Size.X + Handle.Size.Y), workspace, math.floor(#Debounce/4) + 3, 5, Color, Cast.Material or Enum.Material.Neon, nil,'Expand',1/2)
+					task.desynchronize()
+					Classic_Flagstand_Effect(CFrame.new(Cast.Position),(0.8 - 0.05 * #Debounce/2) * (Handle.Size.X + Handle.Size.Y), workspace, math.random(5,7) - math.floor(#Debounce/8), math.random(6,9) - math.ceil(#Debounce/6), Color, Cast.Material or Enum.Material.Neon, VectorThingy.Unit * 1.75,'Shrink',1,{Cast.Instance})
+				else
+					local Color = (Cast.Instance:IsA('BasePart') and Cast.Instance.Color) or (Cast.Instance:isA('Terrain') and workspace:FindFirstChildOfClass('Terrain'):GetMaterialColor(Cast.Material)) or Color3.new(1, 1, 1)
+					Classic_Flagstand_Effect(CFrame.new(Cast.Position),0.6 * (Handle.Size.X + Handle.Size.Y), workspace, 2, 5, Color or Color3.new(1, 1, 0.498039), Enum.Material.Neon, nil,'Expand',1)	
+					Classic_Flagstand_Effect(CFrame.new(Cast.Position),0.5 * (Handle.Size.X + Handle.Size.Y), workspace, 3, 6, Color, Cast.Material or Enum.Material.Neon, VectorThingy.Unit * 1 + Vector3.new(0,-1.5,0),'Shrink',1, {Cast.Instance})
+				end
+				if HasActor then
+					task.desynchronize()
+				end
+			end]]
+			PositionThingy[ind] = nil
+		end
+		for i,Attachment in pairs(HBAttachments) do
+			table.insert(PositionThingy, {Attachment, Attachment.WorldPosition})
+		end
+	end)
+	if HasActor then
+		task.synchronize()
+	end
+end
+function Anim(Name:string,TPF:number)
+	task.desynchronize()
+	if not AnimTable[Name] then
+		--	print("There Is No Animation With This Name.")
+		return
+	end
+	if TPF == nil then
+		TPF = 1
+	end
+	local TweenConnect
+	for i,v in pairs(AnimTable[Name]) do -- Wan Frame :Skull:
+		task.desynchronize()
+		if not Baseball_Bat:FindFirstAncestorWhichIsA("Model") or (Baseball_Bat:FindFirstAncestorWhichIsA("Model") and not Baseball_Bat:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid")) then
+			break
+		end
+		local ThatWeld = (i == "HandFrame" and Baseball_Bat:FindFirstChildOfClass("Snap")) or Baseball_Bat
+		if not ThatWeld then
+			--		print("Snap Has No Matching Name")
+			return
+		end
+		if HasActor then
+			task.synchronize()
+		end
+		local TweenIn = TweenInfo.new(TPF+0.05,Enum.EasingStyle.Linear,Enum.EasingDirection.In)
+		local TweenThing = game:GetService('TweenService'):Create(ThatWeld,TweenIn,(ThatWeld:IsA("Snap") and {C1 = v}) or {Grip = v})
+		TweenThing:Play()
+		--	print("Tween Operation Complete"..tostring(ThatWeld:GetFullName()))
+		TweenConnect = Baseball_Bat.AncestryChanged:Connect(function(huh,huh2)
+			if not table.find({Enum.PlaybackState.Completed , Enum.PlaybackState.Cancelled},TweenThing.PlaybackState)  then
+				TweenThing:Cancel()
+			end
+		end)
+		TweenThing.Completed:Once(function(state)
+			if TweenConnect and state == (Enum.PlaybackState.Completed or Enum.PlaybackState.Cancelled) then
+				TweenConnect:Disconnect()
+			end
+		end)
+	end
+	task.wait(TPF)
+	task.synchronize()
+end
+if Baseball_Bat and Handle then
+	local Equip_connect = Baseball_Bat.Equipped:Connect(function()
+		local omgtic
+		omgtic = tick()
+		EquipTick = omgtic
+		task.synchronize()
+		now = false
+		Character = Baseball_Bat.Parent
+		for i,v in HBAP do
+			local NA = Instance.new("Attachment")
+			NA.Name = i
+			NA.CFrame = v
+			NA.Visible = false
+			NA.Parent = Handle
+			table.insert(HBAttachments,NA)
+		end
+		PlaySound("FlashBulb",Handle)
+		if not Baseball_Bat:FindFirstChildOfClass("Snap") then
+			local NewWeld = Instance.new("Snap")
+			NewWeld.Parent = Baseball_Bat
+			NewWeld.C0 = CFrame.new(0,0,0.5) * CFrameAngles(180,0,180)
+			NewWeld.C1 = CFrame.new(-2, 0, 0) * CFrameAngles(0, 90, -135)
+			NewWeld.Part0 = FindFirstChildOfNameAndClass(Character,"UpperTorso","BasePart") or  FindFirstChildOfNameAndClass(Character,"Torso","BasePart")
+			NewWeld.Part1 = FindFirstChildOfNameAndClass(Character,"RightLowerArm","BasePart") or  FindFirstChildOfNameAndClass(Character,"Right Arm","BasePart")
+		end
+		Anim("Charging",0.1)
+		coroutine.resume(coroutine.create(function()
+			while task.wait() and omgtic == EquipTick and Character and Baseball_Bat and Baseball_Bat:FindFirstChildOfClass("Snap") and Baseball_Bat:IsDescendantOf(Character) do
+				if animatL then task.synchronize() if Character and Character:FindFirstChild('Aim') then Character:FindFirstChild('Aim').Enabled = true end	HandAim(Character, nil, Handle.CFrame:ToWorldSpace(CFrame.new(0, 0, -1)) + Handle.AssemblyLinearVelocity * 2, FindFirstChildOfNameAndClass(Character,"LeftUpperArm","BasePart") or  FindFirstChildOfNameAndClass(Character,"Left Arm","BasePart")) else  if Character and Character:FindFirstChild('Aim') and Character:FindFirstChild('Aim').Enabled ~= false then task.synchronize() Character:FindFirstChild('Aim').Enabled = false end end 
+			end
+			if Character and Character:FindFirstChild('Aim') then
+				Character:FindFirstChild('Aim') :Destroy()
+			end
+		end))
+		animatL = false
+		if omgtic == EquipTick then
+			PlaySound("Kerplunk",Handle)
+			Anim("Idle",0.1)
+			now = true
+		end
+	end)
+	local Unequip_connect = Baseball_Bat.Unequipped:Connect(function()
+		local omgtic
+		omgtic = tick()
+		EquipTick = omgtic
+		for i,A in HBAttachments do
+			A:Destroy()
+			HBAttachments[A] = nil
+		end
+		if Handle:FindFirstChildOfClass("Trail") then
+			Handle:FindFirstChildOfClass("Trail").Enabled = false
+		end
+		now = false
+		if Character and Character:FindFirstChild('Aim') then
+			Character:FindFirstChild('Aim') :Destroy()
+		end
+		LastestTime = tick()
+		Anim("Equip",1)
+		if omgtic == EquipTick then
+			if Baseball_Bat:FindFirstChildOfClass("Snap") then
+				Baseball_Bat:FindFirstChildOfClass("Snap"):Destroy()
+			end
+		end
+	end)
+	local Acti_connect = Baseball_Bat.Activated:Connect(function()
+		task.synchronize()
+		animatL = false
+		task.desynchronize()
+		if not now  then
+			return
+		end
+		if Handle:FindFirstChildOfClass("Trail") then
+			task.synchronize()	Handle:FindFirstChildOfClass("Trail").Enabled = false
+		end
+		task.desynchronize()
+		local cur = tick()
+		LastestTime = cur
+		Act = true
+		if Damaging or Releasing then
+			return
+		end
+		animatL = true
+		Anim("Charging",0.5)
+		task.desynchronize()
+		if now and Act and not Damaging and not Releasing and LastestTime == cur and tick() - LastestTime >= 0.5 then
+			Releasing = true
+		end
+	end)
+	local Deacti_connect = Baseball_Bat.Deactivated:Connect(function()	
+		task.synchronize()
+		animatL = false
+		task.desynchronize()
+		if not Act then
+			return
+		end
+		if not Releasing then
+			if not Act then
+				return
+			end
+			Act = false
+			if LastestTime - tick() > 0.1 then
+				LastestTime = tick()
+				Anim("Idle",0.1/1.75)
+				Releasing = false
+				return
+			end
+			if not now  then
+				return
+			else
+				now = false
+			end
+			if Damaging then
+				return
+			end
+			task.desynchronize()
+			if Handle:FindFirstChildOfClass("Trail") then
+				task.synchronize() Handle:FindFirstChildOfClass("Trail").Enabled = true
+			end
+			PlaySound("Woosh",Handle)
+			Damaging = true
+			table.clear(Debounce)
+			table.clear(DebounceInstance)
+			Hitbox(0.11/1.75)
+			Anim("Blocking"..math.random(0,3),0.1/1.75)
+			task.desynchronize()
+			task.wait(0.05)
+			Damaging = false
+			if Handle:FindFirstChildOfClass("Trail") then
+				task.synchronize()Handle:FindFirstChildOfClass("Trail").Enabled = false
+			end
+			Anim("Charging",0.3/1.75)
+			Anim("Idle",0.1/1.75)
+			now = true
+			Releasing = false
+			return
+		end
+		task.desynchronize()
+		LastestTime = tick()
+		Act = false
+		if not now  then
+			return
+		else
+			now = false
+		end
+		if Damaging then
+			return
+		end
+		Damaging = true
+		Releasing = false
+		HEALTH = Character:FindFirstChildOfClass("Humanoid").Health
+		local Blocking_Left = math.huge -- How Many Time U Deflect Damage, Different Person Each Block
+		local Blocked = {}
+		if HealthChangingConnect then
+			task.synchronize()
+			HealthChangingConnect:Disconnect()
+		end
+		task.synchronize()
+		Character:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+		HealthChangingConnect = Character:FindFirstChildOfClass("Humanoid").HealthChanged:Connect(function(Hp)
+			task.desynchronize()
+			if Hp < HEALTH then
+				if Blocking_Left <= 0 then
+					task.synchronize()
+					Character:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+					return
+				else
+					task.synchronize()
+					Character:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+					task.desynchronize()
+					Blocking_Left = Blocking_Left - 1
+				end
+				local ClosestTarget = nil
+				local ClosestDis = 12 --type math.huge If you want to have that psycho mob power
+				local Got = math.abs(HEALTH - Hp)
+				local SavedLowHp = HEALTH -- Save First
+				SavedLowHp = Hp
+				if HEALTH >= Character:FindFirstChildOfClass("Humanoid").Health then
+					task.synchronize()Character:FindFirstChildOfClass("Humanoid").Health = HEALTH
+				end
+				task.desynchronize()
+				-- counter and also lower the chance to counter again
+				--HEALTH = SavedLowHp
+				if not Character or not Character:FindFirstChildOfClass('Humanoid') then return end
+				task.synchronize()
+				local partsearch = Instance.new('Part')
+				partsearch.Size = Vector3.new(ClosestDis,ClosestDis,ClosestDis) * 2
+				partsearch.CFrame = Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame -- + Character:GetPivot().LookVector * partsearch.Size/2
+				task.desynchronize()
+				local searched = workspace:GetPartsInPart(partsearch)
+				task.synchronize()
+				partsearch:Destroy()
+				for i,part in searched do
+					task.desynchronize()
+					local v = part:FindFirstAncestorOfClass('Model')
+					task.desynchronize()
+					if v and v:FindFirstChildOfClass("Humanoid") and v:FindFirstChildOfClass("Humanoid").Health > 0 and v:IsA("Model") then
+						if FindFirstChildOfNameAndClass(v,"Head","BasePart") ~= nil and Character and FindFirstChildOfNameAndClass(Character,"Head","BasePart") and FindFirstChildOfNameAndClass(Character,"Head","BasePart").CFrame.LookVector:Dot (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - FindFirstChildOfNameAndClass(Character,"Head","BasePart").Position) >= -0.1 then
+							local Parameter = RaycastParams.new()
+							Parameter.IgnoreWater = true
+							Parameter.RespectCanCollide = true
+							Parameter.FilterType = Enum.RaycastFilterType.Exclude
+							task.synchronize()
+							Parameter.FilterDescendantsInstances = Blocked
+							Parameter:AddToFilter(v)
+							Parameter:AddToFilter(Character)
+							task.desynchronize()
+							if not workspace:Raycast(Handle.Position,FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Handle.Position, Parameter) and not workspace:Raycast(FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Handle.Position - FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Parameter) and (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Handle.Position).Magnitude < ClosestDis and v ~= Character and not Blocked[v] then
+								ClosestTarget = v
+								ClosestDis = (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Handle.Position).Magnitude
+							end
+						end
+					end
+				end
+				if ClosestTarget ~= nil and FindFirstChildOfNameAndClass(ClosestTarget,"Head","BasePart") then
+					Blocked[ClosestTarget] = "Written_By_Solivion"
+					task.synchronize()
+					--FindFirstChildOfNameAndClass(ClosestTarget,"Head","BasePart").Position = Handle.Position + Handle.AssemblyLinearVelocity.Unit
+					FindFirstChildOfNameAndClass(ClosestTarget,"Head","BasePart").CFrame = CFrame.new(FindFirstChildOfNameAndClass(ClosestTarget,"Head","BasePart").CFrame.Position, FindFirstChildOfNameAndClass(Character,"Head","BasePart").CFrame.Position)
+					FindFirstChildOfNameAndClass(ClosestTarget,"Head","BasePart").Velocity = FindFirstChildOfNameAndClass(ClosestTarget,"Head","BasePart").Velocity + --[[FindFirstChildOfNameAndClass(ClosestTarget,"Head","BasePart").CFrame.LookVector]] Handle.AssemblyLinearVelocity.Unit * (math.clamp(Handle.AssemblyLinearVelocity.Magnitude*2,2,math.huge)  + Got * 1/4)
+					if ClosestTarget:FindFirstChildOfClass("Humanoid") then
+						ClosestTarget:FindFirstChildOfClass("Humanoid").PlatformStand = true
+						ClosestTarget:FindFirstChildOfClass("Humanoid").Health = ClosestTarget:FindFirstChildOfClass("Humanoid").Health - ((math.random(15,25) + Got * 1.25) /125) * ClosestTarget:FindFirstChildOfClass("Humanoid").MaxHealth
+						PlaySound("Hit",FindFirstChildOfNameAndClass(ClosestTarget,"Head","BasePart"))
+						coroutine.resume(coroutine.create(function() if ClosestTarget:FindFirstChildOfClass("Humanoid") then task.wait(math.random(5,7)/10 + Got / 5) if ClosestTarget:FindFirstChildOfClass("Humanoid") then task.synchronize() ClosestTarget:FindFirstChildOfClass("Humanoid").PlatformStand = false end end end))
+					end					
+				end
+			end
+		end)
+		task.desynchronize()
+		if Handle:FindFirstChildOfClass("Trail") then
+			task.synchronize() Handle:FindFirstChildOfClass("Trail").Enabled = true
+		end
+		task.synchronize()
+		animatL = true
+		task.desynchronize()
+		table.clear(Debounce)
+		table.clear(DebounceInstance)
+		task.synchronize()
+		Hitbox(0.45/1.75)
+		Anim("Idle",0.05/1.75)
+		PlaySound("Swoosh",Handle)
+		Anim("Blocking3",0.05/1.75)
+		Anim("Blocking2",0.05/1.75)
+		Anim("Blocking",0.05/1.75)
+		Anim("Blocking0",0.05/1.75)
+		Anim("Blocking1",0.1/1.75)
+		task.synchronize()
+		Damaging = false
+		if Handle:FindFirstChildOfClass("Trail") then
+			Handle:FindFirstChildOfClass("Trail").Enabled = false
+		end
+		LastestTime = tick()
+		task.wait(0.1)
+		HealthChangingConnect:Disconnect()
+		Anim("Blocking1s",0.1/1.75)
+		Anim("Charging",0.25/1.75)
+		Anim("Idle",0.05/1.75)
+		animatL = false
+		if Baseball_Bat and Character and Character:FindFirstChildOfClass("Humanoid") then
+			Character:FindFirstChildOfClass("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+		end
+		task.desynchronize()
+		--print(#DebounceInstance)
+		LastestTime = tick()
+		Releasing = false
+		now = true
+	end)
+	--Aw Hell Nah
+	--[[task.synchronize()
+	Handle.Touched:Connect(Dmg)
+	Handle.TouchEnded:Connect(Dmg)
+	Handle.LocalSimulationTouched:Connect(Dmg)]]
+end
+]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{D989977F-CDE8-428D-9A4E-0C9034F19C86}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Main_Handler</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Part" referent="RBX7162A64BE1BD40C5B4CB1385FE23B646">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">1</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">4</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>43.0999985</X>
+					<Y>0.17001915</Y>
+					<Z>-4.099998</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">true</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">512</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">3</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>0.290000021</X>
+					<Y>0.340000153</Y>
+					<Z>4.24999857</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBX7CD3CBF362B446538685693D54738B27">
+				<Properties>
+					<token name="MeshType">5</token>
+					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=54983181 </url></Content>
+					<Content name="TextureId"><url>http://www.roblox.com/asset/?id=54983107</url></Content>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>1.5</X>
+						<Y>1.5</Y>
+						<Z>1.5</Z>
+					</Vector3>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Mesh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Trail" referent="RBX5459FEEA6E9E4318A762F73E76BF0610">
+				<Properties>
+					<Ref name="Attachment0">RBXFE38E9DFDDAF49EF8EA355ADBB4AA6BB</Ref>
+					<Ref name="Attachment1">RBXAA565E1AE6C841588A97498C5E64F446</Ref>
+					<float name="Brightness">1</float>
+					<ColorSequence name="Color">0 1 1 1 0 0.5 0 0 0 0 1 0 0 0 0 </ColorSequence>
+					<bool name="Enabled">false</bool>
+					<bool name="FaceCamera">false</bool>
+					<float name="Lifetime">0.5</float>
+					<float name="LightEmission">1</float>
+					<float name="LightInfluence">1</float>
+					<float name="MaxLength">0</float>
+					<float name="MinLength">0.100000001</float>
+					<Content name="Texture"><null></null></Content>
+					<float name="TextureLength">1</float>
+					<token name="TextureMode">0</token>
+					<NumberSequence name="Transparency">0 0 0 0.0635118 0.13125 0 0.11208 0.25 0 0.153176 0.4 0 0.190535 0.5625 0 0.217933 0.76875 0 0.222914 1 0 1 1 0 </NumberSequence>
+					<NumberSequence name="WidthScale">0 1 0 0.0249066 0.75 0 0.0709838 0.49375 0 0.102117 0.325 0 0.129514 0.2125 0 0.154421 0.14375 0 0.181818 0.075 0 0.209215 0.0375 0 0.234122 0 0 0.429639 0 0 0.486924 0 0 1 0 0 </NumberSequence>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Trail</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Attachment" referent="RBXAA565E1AE6C841588A97498C5E64F446">
+				<Properties>
+					<CoordinateFrame name="CFrame">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>2</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="Visible">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Attachment</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Attachment" referent="RBXFE38E9DFDDAF49EF8EA355ADBB4AA6BB">
+				<Properties>
+					<CoordinateFrame name="CFrame">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>-2</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="Visible">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Attachment</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="LocalScript" referent="RBX38500631468346C5BDDE004983135D23">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[local c = game.Workspace.CurrentCamera
+local p1 = game:GetService("Players")
+local p2 = p1.LocalPlayer
+local m = p2:GetMouse()
+local char
+local eq = false
+script.Parent.Equipped:Connect(function()
+	eq = true
+end)
+script.Parent.Unequipped:Connect(function()
+	eq = false
+	script.RemoteEvent:FireServer(c,p1,p2,m,game.Players.LocalPlayer.Character,m.Hit,m.Origin,"unequip")
+end)
+coroutine.resume(coroutine.create(function()
+	while task.wait(0.1) do
+		if eq then 
+		script.RemoteEvent:FireServer(c,p1,p2,m,game.Players.LocalPlayer.Character,m.Hit,m.Origin,"equip")
+	end end
+end))
+]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{8A310A02-5090-45FE-B8EC-A75C66EC5E5D}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Mouse_Handler</string>
+				<int64 name="SourceAssetId">12108480377</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBXB72C0BA4960A4E2F82F2696201150B69">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[script.Parent.RemoteEvent.OnServerEvent:Connect(function(plr,c,p1,p2,m,char,mohi,morgin,request)
+	char = p2.Character or p2.CharacterAdded:wait()
+	if request == "equip" and script.Parent.Parent:FindFirstChildOfClass("Snap") then
+		script.Parent.Parent:FindFirstChildOfClass("Snap").C0 = CFrame.new(0,0,0.5) * CFrame.Angles(math.rad(180),0,math.rad(180)) * CFrame.Angles(math.asin((morgin.p - mohi.p).unit.y),0,0)
+	end
+end)]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{510FD329-F463-458E-BFDD-275537939EEA}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Script</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="RemoteEvent" referent="RBX3D5B14C2724749178878646F94C8BD6A">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">RemoteEvent</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

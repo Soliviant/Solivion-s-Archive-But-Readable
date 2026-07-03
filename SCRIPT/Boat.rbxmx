@@ -1,0 +1,287 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Model" referent="RBXE6C84A787B52496880866B256B840052">
+		<Properties>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">RBX6FDA25AA4267471F8CC26A333F5D51A4</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>25.4191074</X>
+					<Y>0.673202395</Y>
+					<Z>-49.7170143</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>0.999999642</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>0.999998927</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Boat</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="VehicleSeat" referent="RBX6FDA25AA4267471F8CC26A333F5D51A4">
+			<Properties>
+				<bool name="Disabled">false</bool>
+				<bool name="HeadsUpDisplay">true</bool>
+				<float name="MaxSpeed">25</float>
+				<int name="Steer">0</int>
+				<float name="SteerFloat">0</float>
+				<int name="Throttle">0</int>
+				<float name="ThrottleFloat">0</float>
+				<float name="Torque">10</float>
+				<float name="TurnSpeed">1</float>
+				<bool name="Anchored">true</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>25.4191074</X>
+					<Y>0.173201978</Y>
+					<Z>-49.7170143</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4279970357</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>4</X>
+					<Y>1</Y>
+					<Z>2</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">VehicleSeat</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<Item class="Script" referent="RBX5B9AF7803ACD428896C7CFEA777C4898">
+		<Properties>
+			<ProtectedString name="Source"><![CDATA[--Solivion: Simple Boat Controller
+local ManageBoat: {[Model?]: BoatData} = {}
+
+type BoatData = {
+	Vel: Vector3,
+	Acc: Vector3,
+	Dir: Vector3,
+	HP: number,
+	Occupants: {Model?},
+	Driver: (Player | Humanoid)?,
+	MainSeats: VehicleSeat,
+	Seats: {Seat?},
+	RaycastParameter: RaycastParams,
+	OverlapParameter: OverlapParams
+}
+
+function ClampVector3(vector: Vector3)
+	if not vector or not vector.Magnitude or vector.Magnitude ~= vector.Magnitude or vector.Magnitude <= 0 then return Vector3.new() end
+	return vector.Unit * math.clamp(vector.Magnitude,1,24)
+end
+
+function NewBoatData(ExtraData: {any}?): BoatData
+	return {
+		Vel = Vector3.new(0,0,0),
+		Acc = Vector3.new(0,0,0),
+		Dir = Vector3.new(0,0,0),
+		HP = ((ExtraData and ExtraData.HP and typeof(ExtraData.HP) == 'number' and ExtraData.HP) or 100),
+		Occupants = ((ExtraData and ExtraData.Occupants and typeof(ExtraData.Occupants) == 'table' and ExtraData.Occupants) or {}),
+		Driver = (ExtraData and ExtraData.Driver and typeof(ExtraData.Driver) == "Instance" and ExtraData.Driver:IsA("Player") and ExtraData.Driver) or nil,
+		Seats = ((ExtraData and ExtraData.Seats and typeof(ExtraData.Seats) == 'table' and ExtraData.Seats) or {}),
+		MainSeats = ((ExtraData and ExtraData.MainSeats and typeof(ExtraData.MainSeats) == 'Instance' and ExtraData.MainSeats) or nil),
+		RaycastParameter = ((ExtraData and ExtraData.RaycastParameter and typeof(ExtraData.RaycastParameter) == 'RaycastParams' and ExtraData.RaycastParameter) or RaycastParams.new()),
+		OverlapParameter = ((ExtraData and ExtraData.OverlapParameter and typeof(ExtraData.OverlapParameter) == 'OverlapParams' and ExtraData.OverlapParameter) or OverlapParams.new()),
+	}
+end
+
+function Register_Boat(Boat: Model, Extras: {any}): BoatData?
+	if not Boat or typeof(Boat) ~= "Instance" or not Boat:IsA("Model") or ManageBoat[Boat] then return end
+	if ManageBoat[Boat] then return ManageBoat[Boat] end
+	local Dataset: BoatData = ManageBoat[Boat] or NewBoatData(Extras)
+	if not Dataset then warn("<NO DATA>") return end
+	if Dataset.RaycastParameter then Dataset.RaycastParameter.FilterDescendantsInstances = {Boat} Dataset.RaycastParameter.FilterType = Enum.RaycastFilterType.Exclude Dataset.RaycastParameter.RespectCanCollide = true Dataset.RaycastParameter.IgnoreWater = true end -- Water Can't Be Hit
+	if Dataset.OverlapParameter then Dataset.OverlapParameter.FilterDescendantsInstances = {Boat} Dataset.OverlapParameter.FilterType = Enum.RaycastFilterType.Exclude Dataset.OverlapParameter.RespectCanCollide = true Dataset.OverlapParameter.MaxParts = 5 end -- Water Can't Be Hit
+	if #Dataset.Seats <= 0 then
+		for i,v in ipairs(Boat:GetDescendants()) do
+			if v:IsA('VehicleSeat') then
+				if v.Occupant and not table.find(Dataset.Occupants, v) then
+					table.insert(Dataset.Occupants, v.Occupant)
+					Dataset.Driver = v
+				end
+				if not Dataset.MainSeats then
+					Dataset.MainSeats = v
+				end
+			elseif v:IsA('Seat') then
+				table.insert(Dataset.Seats, v)
+				if v.Occupant and not table.find(Dataset.Occupants, v) then
+					table.insert(Dataset.Occupants, v.Occupant)
+				end
+			end
+		end
+	end
+	if not Dataset.MainSeats then warn('<NO DRIVER SEAT>') end
+	ManageBoat[Boat] = Dataset
+end
+
+coroutine.resume(coroutine.create(function()
+	while script do
+		local DT = task.wait()
+		local Speed = (10 ^ -6) ^ DT
+		for Boat: Model, Data: BoatData in pairs(ManageBoat) do
+			if Data and Boat then
+				if Data.Vel.Magnitude > 1 then
+					local TimedVelocity = Data.Vel * DT
+					local Collision = workspace:Blockcast(Boat:GetPivot(), Boat:GetExtentsSize(), TimedVelocity, Data.RaycastParameter)
+					if Collision then
+						if not Data.HP then Data.HP = 100 end
+						Data.HP = Data.HP - Data.Vel.Magnitude
+						if Data.HP <= 0 and Boat then ManageBoat[Boat] = nil Boat:Destroy() end
+						Data.Acc = Data.Vel/2.05
+						Data.Vel = -Data.Vel/1.5
+					else
+						Boat:PivotTo(CFrame.new(Boat:GetPivot().Position + TimedVelocity, Boat:GetPivot().Position + TimedVelocity * 2))
+					end
+				end
+				local Driver = Data.Driver
+				if Driver and Driver:IsA("Player") and Driver.Character and Driver.Character:FindFirstChildOfClass("Humanoid") and Driver.Character:FindFirstChildOfClass("Humanoid").SeatPart and Driver.Character:FindFirstChildOfClass("Humanoid").SeatPart == Data.MainSeats and Driver.Character:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Seated then
+					Data.Dir = Driver.Character:FindFirstChildOfClass("Humanoid").MoveDirection
+				else
+					Data.Dir = Vector3.new()
+					if Data.MainSeats and Data.MainSeats.Occupant then
+						Data.Driver = game:FindFirstChildOfClass('Players'):GetPlayerFromCharacter(Data.MainSeats.Occupant.Parent)
+					end
+				end
+				Data.Acc = Data.Acc:Lerp(Data.Dir, Speed)
+				Data.Vel = ClampVector3(Data.Vel + Data.Acc * DT * 30)
+			elseif not Data and Boat then
+				ManageBoat[Boat] = NewBoatData()
+			end
+		end
+	end
+end))
+
+for i,v in workspace:GetChildren() do
+	if v:IsA('Model') and v.Name:upper() == 'BOAT' then
+		Register_Boat(v)
+	end
+end]]></ProtectedString>
+			<bool name="Disabled">false</bool>
+			<Content name="LinkedSource"><null></null></Content>
+			<token name="RunContext">0</token>
+			<string name="ScriptGuid">{29195E2B-F0F6-4A95-8AAF-D4EC1200FA3D}</string>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Boat_Handler</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

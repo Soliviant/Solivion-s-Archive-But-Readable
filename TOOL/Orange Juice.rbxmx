@@ -1,0 +1,364 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX857603194074416F9A740B34B2D812D0">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>-1</R00>
+				<R01>0</R01>
+				<R02>-8.74227766e-08</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>8.74227766e-08</R20>
+				<R21>0</R21>
+				<R22>-1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip">The Classic Orange Juice</string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">RBX329E9D1ADCE7423A82DE9CB0F7DF060B</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Orange Juice</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBX72431EF183FB421690824F6391A5EC86">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--By Solivion
+--Settings
+local VagueDurationIndicator: boolean = true -- will turn number indicator into bar like indicator(using tool tip)
+
+local Drink: Tool = script:FindFirstAncestorWhichIsA("Tool")
+if not Drink then return end
+local Durabillity: number = 100
+local Equipped: boolean = false
+local Active: boolean = false
+local CurrentActionThread: thread
+local Connection: RBXScriptConnection
+local HandleWeld: Weld
+local UniqueIDOperationTag: string = "__NILVALUE"
+local LastConsumed: number = 0
+local OperationRuntime: number = 0
+local function GenerateKeycode() -- The Code Isn't That Hard To Crack.
+	local code = ""
+	local characters = "ABCDFGHIJKLMNOPQRTVWYZabcdeghijlmnopqrstuvwxyz01246789!@#$%^&*()_+-=[]{}|;:',.<>/?"
+	local numCharacters = #characters
+
+	for i = 1, math.random(30,50) do -- You can adjust the length of the keycode as needed
+		local charIndex = math.random(1, numCharacters)
+		code = code .. characters:sub(charIndex, charIndex)
+	end
+	return code
+end
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	local Found: boolean = false
+	if typeof(Where) ~= 'Instance' or type(Name) ~= 'string' or type(Class) ~= 'string' then
+		return
+	end
+	if Where:FindFirstChild(Name) and Where:FindFirstChild(Name).ClassName:upper():match(Class:upper()) then
+		return Where:FindFirstChild(Name)
+	end
+	for i,v in Where:GetChildren() do
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				return v
+			end
+		end
+	end
+end
+local Handle: BasePart = FindFirstChildOfNameAndClass(Drink, 'Handle', 'BasePart')  or Drink:FindFirstChild('Handle')
+local Sound: Sound = Handle:FindFirstChildOfClass('Sound')
+function UpdateToolTip() if Equipped then Drink.ToolTip = 'Durabillity: '..tostring((VagueDurationIndicator and Durabillity and string.rep('|',math.ceil(Durabillity/5))) or Durabillity or '[[Value Missing]]') else Drink.ToolTip = '' end end
+function CleanUpWeld(Weld: JointInstance) if not Weld then Weld = HandleWeld end if typeof(Weld) ~= 'Instance' or not Weld:IsA('JointInstance') then return end Weld:Destroy() end
+function NewHandleWeld(): Weld CleanUpWeld(HandleWeld) if typeof(Drink) ~= "Instance" or not Drink.Parent or not Handle or not FindFirstChildOfNameAndClass(Drink.Parent, 'Head', 'BasePart') then return end local NewWeld: Weld = Instance.new('Weld') NewWeld.Parent = Drink or workspace NewWeld.C0 = FindFirstChildOfNameAndClass(Drink.Parent, 'Head', 'BasePart').CFrame:ToObjectSpace(Handle.CFrame) NewWeld.Part1 = Handle NewWeld.Part0 = FindFirstChildOfNameAndClass(Drink.Parent, 'Head', 'BasePart') return NewWeld end
+function EndConnection(Connection_Target: RBXScriptConnection) if not Connection_Target then Connection_Target = Connection end if typeof(Connection_Target) ~= "RBXScriptConnection" then return end Connection_Target:Disconnect() end
+function EndThread(Thread_Target: thread) if not Thread_Target then Thread_Target = CurrentActionThread end if typeof(Thread_Target) ~= "thread" then return end task.cancel(Thread_Target) end
+function EndTask()
+	local NewOperationId = GenerateKeycode()
+	if NewOperationId == UniqueIDOperationTag then NewOperationId = NewOperationId..GenerateKeycode() end
+	UniqueIDOperationTag = NewOperationId or '__NILVALUE'
+	Equipped = false
+	Active = false
+	LastConsumed = 0
+	OperationRuntime = 0
+	UpdateToolTip()
+	CleanUpWeld(HandleWeld)
+	EndConnection(Connection)
+	EndThread(CurrentActionThread)
+	if typeof(HandleWeld) == "Instance" then HandleWeld:Destroy() HandleWeld = nil end
+end
+function StartDrink() EndConnection(Connection)
+	if not Equipped or not Active or UniqueIDOperationTag == '__NILVALUE' then return end
+	local CurrentConnection: RBXScriptConnection
+	local Operation_ID = UniqueIDOperationTag
+	LastConsumed = 0
+	CurrentConnection = game:GetService('RunService').Heartbeat:Connect(function(dt)
+		local CalculatedDeltaTime = dt * 10
+		if CalculatedDeltaTime > 10 then Drink:Deactivate() return end
+		if UniqueIDOperationTag ~= Operation_ID or not Active then EndConnection(CurrentConnection) return end
+		OperationRuntime += dt
+		if OperationRuntime > 600 then OperationRuntime -= 600 end
+		DeductDurabillity(CalculatedDeltaTime)
+		UpdateToolTip()
+	end)
+	EndConnection(Connection)
+	UpdateToolTip()
+	Connection = CurrentConnection
+end
+function DeductDurabillity(number: nunber)
+	if typeof(number) ~= "number" or not Active or not Equipped or not Connection or OperationRuntime <= 0 then return end
+	local FinalizedDeduction: number = math.max(0,math.min(math.abs(number), Durabillity)) -- prevent 0 or more than durabillity
+	Durabillity -= FinalizedDeduction
+	LastConsumed += FinalizedDeduction
+	if Handle and Sound then Sound.Volume = FinalizedDeduction Sound:Play() Sound.TimePosition = (Durabillity > 0 and .95 or 1.5) + (math.sin(OperationRuntime * 7.5)/15) end
+end
+Drink.Equipped:Connect(function()
+	EndTask()
+	Equipped = true
+end)
+Drink.Activated:Connect(function()
+	Active = true
+	EndThread(CurrentActionThread)
+	local CurrentOperationID = UniqueIDOperationTag
+	CurrentActionThread = task.spawn(function()
+		local Character: Model? = Drink.Parent
+		if not Character then return end
+		local CharacterHead: BasePart? = Character:FindFirstChild('Head')
+		if not CharacterHead then return end
+		HandleWeld = NewHandleWeld()
+		if HandleWeld then
+			local HeadOffset: CFrame = CFrame.new(0,CharacterHead.Size.Y/2 + Handle.Size.Y/3,(CharacterHead.Size.Z/2) + Handle.Size.Z/3):Inverse() * CFrame.Angles(0,math.rad(-90),0)
+			game:GetService('TweenService'):Create(HandleWeld, TweenInfo.new(.25), {C0 = HeadOffset}):Play()
+		end
+		task.wait(.25)
+		if not (UniqueIDOperationTag == CurrentOperationID and Equipped and Active and Character and CharacterHead) then return end
+		StartDrink()
+	end)
+end)
+Drink.Deactivated:Connect(function()
+	Active = false
+	EndConnection(Connection)
+	EndThread(CurrentActionThread)
+	CleanUpWeld(HandleWeld)
+	if Handle and Sound then
+		if LastConsumed <= 0.05 then
+			Sound:Stop()
+		else
+			Sound.Volume = LastConsumed/100
+		end
+	end
+end)
+Drink.Unequipped:Connect(function()
+	EndTask()
+end)
+if Handle and Sound then Sound.PlaybackSpeed = 1 - math.random(-1,1)/25 end]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{9CBBBD1C-F8CE-42C5-8B6A-EE839F3F0BF4}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Script</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="Part" referent="RBX329E9D1ADCE7423A82DE9CB0F7DF060B">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">2</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>-17.6000977</X>
+					<Y>171.440002</Y>
+					<Z>-20.6211834</Z>
+					<R00>0</R00>
+					<R01>0</R01>
+					<R02>1</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>-0</R12>
+					<R20>-1</R20>
+					<R21>0</R21>
+					<R22>0</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4291677645</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>1</X>
+					<Y>1.20000005</Y>
+					<Z>1</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBX1D20A749DC79473A8DD90594CA32D7D1">
+				<Properties>
+					<token name="MeshType">5</token>
+					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=21382712</url></Content>
+					<Content name="TextureId"><url>http://www.roblox.com/asset/?id=52404653</url></Content>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>1.20000005</X>
+						<Y>1.20000005</Y>
+						<Z>1.20000005</Z>
+					</Vector3>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Mesh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX0CC7A2CA054B4153A00376BAC8378836">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://6911756959</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">HQ Bloxy Cola Drink Sound</string>
+					<int64 name="SourceAssetId">6911756959</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

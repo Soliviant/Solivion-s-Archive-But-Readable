@@ -1,0 +1,241 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX12AC6C9C176243CAAAADD03F177CBF57">
+		<Properties>
+			<bool name="CanBeDropped">false</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">false</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Push</string>
+			<int64 name="SourceAssetId">18132757582</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Actor" referent="RBX7493145E69444AF6A5DA013CF21EE8D0">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Actor</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBX84F9C96F07634A77B3557DFD95B0B310">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--By Solivion
+--Mid Terms Test Are Coming :>
+
+--<<Neccessities>>--
+local Debounce = {}
+local lastpush: number = 0
+local toolactor: Actor? = script:FindFirstAncestorWhichIsA('Actor') if not toolactor then return end
+function sync() if toolactor or (script:IsDescendantOf(game) and script:FindFirstAncestorWhichIsA('Actor')) then if script.Parent ~= toolactor then script.Parent = toolactor end task.synchronize() end end
+function unsync() if toolactor or (script:IsDescendantOf(game) and script:FindFirstAncestorWhichIsA('Actor')) then if script.Parent ~= toolactor then pcall(function() task.synchronize() script.Parent = toolactor end) end   task.desynchronize() end end
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				return v
+			end
+		end
+	end
+end
+
+--<<Setting>>--
+local Damage: number = Random.new():NextInteger(10,15)
+local MaxDamage: number = Random.new():NextInteger(15,25)
+local Cooldown: number = 0.6
+local RagdollTimer: number = 0.3
+local MaxHit = 3
+local MaxRange = 10
+
+--<<Instances>>--
+local Tool: (Tool | Flag)? = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag')
+local Character: Model
+
+--<<Util>>--
+function nodown(yes: Model): boolean
+	if yes and not table.find(Debounce, yes) and yes:FindFirstChildOfClass('Humanoid') and not yes:FindFirstChildOfClass('Humanoid').PlatformStand then
+		return true
+	end
+	return false
+end
+
+local DetectNearby = function(Character: Model, Dis: number?, Query: any?): Model?
+	if not Character or not Character:FindFirstChildOfClass('Humanoid') or not Character:FindFirstChildOfClass('Humanoid').RootPart then return end
+	local ClosestTarget
+	local ClosestDis = Dis or 5
+	sync()
+	local partsearch = Instance.new('Part')
+	partsearch.Size = Vector3.new(ClosestDis,ClosestDis,ClosestDis) * 2
+	partsearch.CFrame = Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame -- + Character:GetPivot().LookVector * partsearch.Size/2
+	local Parameter = RaycastParams.new()
+	Parameter.IgnoreWater = true
+	Parameter.RespectCanCollide = true
+	Parameter.FilterType = Enum.RaycastFilterType.Exclude
+	Parameter.FilterDescendantsInstances = {}
+	Parameter:AddToFilter(Character)
+	unsync()
+	local searched = workspace:GetPartsInPart(partsearch)
+	sync()
+	partsearch:Destroy()
+	for i,part in searched do
+		unsync()
+		local v = part:FindFirstAncestorOfClass('Model')
+		unsync()
+		if v and v~=Character and v:FindFirstChildOfClass("Humanoid") and v:FindFirstChildOfClass("Humanoid").Health > 0 and v:IsA("Model") and (not Query or (Query and Query(v))) then
+			unsync()
+			local ClosestTargetHead = FindFirstChildOfNameAndClass(Character,"Head","BasePart")
+			if not table.find(Parameter.FilterDescendantsInstances, v) then
+				sync()
+				Parameter:AddToFilter(v)
+			end
+			unsync()
+			if FindFirstChildOfNameAndClass(v,"Head","BasePart") ~= nil and Character and ClosestTargetHead and ClosestTargetHead.CFrame.LookVector:Dot (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - ClosestTargetHead.Position) >= -0.1 then
+				if (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - ClosestTargetHead.Position).Magnitude < ClosestDis and v ~= Character then
+					unsync()
+					if Character and Character.PrimaryPart and not workspace:Raycast(Character.PrimaryPart.Position,FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Character.PrimaryPart.Position, Parameter) and not workspace:Raycast(FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Character.PrimaryPart.Position - FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Parameter) then
+						ClosestTarget = v
+						ClosestDis = (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Character.PrimaryPart.Position).Magnitude
+					end
+				end
+				--end
+			end
+		end
+	end
+	return ClosestTarget, ClosestDis
+end
+
+--<<Checking Variables Variables>>--
+MaxDamage = math.clamp(MaxDamage, 0, math.huge) or 10
+Damage = math.clamp(Damage, 0, MaxDamage) or 15
+Cooldown = math.clamp(Cooldown, 0, math.huge) or 0.6
+RagdollTimer = math.clamp(RagdollTimer, 0, math.huge) or 0.3
+MaxHit = math.ceil(math.clamp(MaxHit, 0, math.huge) or 3)
+MaxRange =  math.clamp(MaxRange, 0, math.huge) or 7
+
+--<<Event Connections>>--
+Tool.Equipped:Connect(function()
+	Character = Tool:FindFirstAncestorWhichIsA('Model')
+end)
+Tool.Activated:Connect(function()
+	unsync()
+	if not Character or not Tool or not Tool:IsDescendantOf(Character) or Tool.Enabled == false or (tick() - lastpush) < Cooldown then return end
+	lastpush = tick()
+	for i = 1, MaxHit do
+		local near: Model? = DetectNearby(Character, MaxRange - i, nodown)
+		if near and near:FindFirstChildOfClass('Humanoid') then
+			lastpush = tick()
+			if not table.find(Debounce, near) then
+				table.insert(Debounce, near)
+			end
+			sync()
+			near:FindFirstChildOfClass('Humanoid').Health = near:FindFirstChildOfClass('Humanoid').Health - near:FindFirstChildOfClass('Humanoid').MaxHealth * Random.new():NextInteger(Damage + i,MaxDamage + i) / 100
+			near:FindFirstChildOfClass('Humanoid').PlatformStand = true
+			if near:FindFirstChildOfClass('Humanoid').RootPart then near:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity = near:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity + (Character:GetPivot().p - near:GetPivot().p).Unit * -Random.new():NextInteger(35 - i * 3, 70 - i * 3) end
+			if RagdollTimer == RagdollTimer and RagdollTimer > 0 and RagdollTimer ~= math.huge then	task.delay(RagdollTimer + i/10, function() if near and near:FindFirstChildOfClass('Humanoid') then near:FindFirstChildOfClass('Humanoid').PlatformStand = false end if table.find(Debounce, near) then table.remove(Debounce, table.find(Debounce, near)) end end) end
+		end
+		task.wait(.01)
+	end
+end)]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{5E1D9BF6-E909-419E-8DF9-DF63CB586035}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Script[Push]</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

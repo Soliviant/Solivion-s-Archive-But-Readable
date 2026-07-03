@@ -1,0 +1,572 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Flag" referent="RBXF1D69860CECC48B1B3BAE510958420F0">
+		<Properties>
+			<int name="TeamColor">194</int>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">false</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Checkpoint</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBX92D72131B11F4ACA89D1D58D80A8561B">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--!native
+--!strict
+
+--<<CREDITS>>--
+--//Written By @Photochrolination//--
+--//Ideas By @Melon5926//--
+
+--<<VARIABLES>>--
+--//Basics_In_Variable//--
+local FLAG = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag') -- Tool
+if not FLAG then
+	script:Destroy()
+end
+local Players: Players = game:FindFirstChildOfClass("Players")
+local SavedPos: {any} = {} -- Ex: ["Checkpoint Name"] = {CF = CFrame.new(), Des = "?", Colour = BrickColor.Red}
+local SaveDirectory: Instance = game:FindFirstChildOfClass("ServerStorage") -- Save To ServerStorage For Permanent Save, Save To The Flag For Chaos To Ensue.
+local Char: Model
+local AltChar: Model
+local Viewing: boolean = false
+local LatestSave: number = 0
+local LatestPos: CFrame = CFrame.new()
+local LatestTick: number = tick()
+local CurrentlySelectedSave: number = 1
+local Active: boolean = false
+local State: "Normal" | "Holding_Map" | "Holding_Flag" | "Choosing" | "Loading" | "Saving" = 'Normal' -- For The Sake Of Less Bugs, We Have This State Machine Ahh
+local MainOption:  'Normal' | 'Holding_Map' | 'Holding_Flag' = 'Holding_Flag'
+
+--<<SETTINGS>>--
+--//Tool Setting, This Setting Does Determine Majorities Of The Tool System//--
+local Tool_Checkpoint_Selection = true -- disabling this will only teleport to the latest position, also disabling the gui in the process.
+local CHECKPOINT_VIEW = true -- if the setting above isn't false, then make a copy of player character and, move the original character to checkpoint. once done move it back and remove the clone
+--//GUI Setting, Disabling 'Tool_Checkpoint_Selection' Will Render The Setting Under This Category Useless//--
+local Checkpoint_Placeholder_Name = "Checkpoint" -- Self Explanatory
+
+--<<VARIABLE 2: ELECTRIC BOOGALOO>>--
+local AllTheWeld: {JointInstance?} = {}
+local AllTheConnection: {RBXScriptConnection?} = {}
+local Anim = {
+	['Throw'] = {
+		
+	},
+	['Swing'] = {
+
+	},
+	['Save'] = {
+
+	},
+	['Pick_Up'] = {
+
+	},
+	['Take_Out_Flag'] = {
+
+	},
+	['Equip'] = {
+
+	},
+	['Unequip'] = {
+
+	},
+	['View_Map'] = {
+
+	},
+} -- For The Sake Of Animating It, DIY
+
+local TAG = function(NewInstance: Instance)
+	NewInstance:SetAttribute(FLAG.Name.. "_INSTANCE")
+end
+local VIEW = function(Operation: string, Where: CFrame?)
+	if not CHECKPOINT_VIEW or not Tool_Checkpoint_Selection then
+		return
+	end
+	if not Char then
+		return
+	end
+	if not Operation then
+		return
+	end
+	if string.match(string.upper(Operation),'INITIATE') or string.match(string.upper(Operation),'INITIALIZE') then
+		if not Where then
+			return
+		end
+		if not AltChar then
+			LatestPos = Char:GetPivot()
+			if Char then
+				Char:PivotTo(Where)
+				Char.Archivable = true
+				AltChar = Char:Clone()
+				for i,v in pairs(Char:GetDescendants()) do
+					if v:IsA("BasePart") or v:IsA("Texture") or v:IsA("Decal") or v:IsA("ImageHandleAdornment") then
+						v:SetAttribute("Transparency",v.Transparency) 
+						v.Transparency = 1
+						local Incase = v:GetPropertyChangedSignal('Transparency'):Connect(function()
+							if AltChar then
+								v:SetAttribute("Transparency",v.Transparency)
+								v.Transparency = 1
+							end
+						end)
+						table.insert(AllTheConnection, Incase)
+					end
+				end
+				if AltChar then
+					AltChar.Parent = workspace
+					AltChar:PivotTo(LatestPos)
+					if AltChar:FindFirstChildOfClass('Humanoid') and AltChar:FindFirstChildOfClass('Humanoid').RootPart then
+						AltChar:FindFirstChildOfClass('Humanoid').RootPart.Anchored = true
+					end
+				end
+				if Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').RootPart then
+					Char:FindFirstChildOfClass('Humanoid').RootPart.Anchored = true
+				end
+			end
+		end
+	elseif string.match(string.upper(Operation),'MODIFY_LOCATION') then
+		if not Where then
+			return
+		end
+		if not AltChar then
+			return
+		end
+		Char:PivotTo(Where)
+	elseif string.match(string.upper(Operation),'END_TASK') then
+		for i,v in AllTheConnection do
+			if v and typeof(v) == 'RBXScriptConnection' then
+				v:Disconnect()
+			end
+		end
+		for i,v in pairs(Char:GetDescendants()) do
+			if v:GetAttribute("Transparency") then
+				v.Transparency = v:GetAttribute("Transparency")
+			end
+		end
+		if LatestPos then
+			Char:PivotTo(LatestPos)
+		else
+			if AltChar then
+				LatestPos = AltChar:GetPivot()
+				Char:PivotTo(AltChar:GetPivot())
+			end
+		end
+		if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').RootPart then
+			Char:FindFirstChildOfClass('Humanoid').RootPart.Anchored = false
+		end
+		if AltChar then
+			AltChar:Destroy()
+			AltChar = nil
+		end
+	end
+end
+local TP = function(Id: number)
+	if State == 'Holding_Map' then
+		if not Tool_Checkpoint_Selection then
+			Id = #SavedPos
+		end
+		if State ~= 'Holding_Map' then
+			return
+		end
+		if SavedPos[Id] and SavedPos[Id].CFrame then
+			if Char ~= nil and Char.Parent ~= nil and Char:IsA("Model") then
+				Char:PivotTo(SavedPos[Id].CFrame)
+			end
+		end
+	end
+end
+local SAVE = function(Pos: CFrame | Vector3, Name: string?, Des: string?, Colour: BrickColor?)
+	if State ~= 'Holding_Flag' then
+		return
+	end
+	State = 'Saving'
+	local SaveDT = os.date()
+	local Directory_Slot: number = #SavedPos + 1
+	if not SavedPos[Directory_Slot] then SavedPos[Directory_Slot] = {} end
+	local Directory = SavedPos[Directory_Slot]
+	Directory.CFrame = (typeof(Pos) == 'CFrame' and Pos) or (typeof(Pos) == 'Vector3' and CFrame.new(Pos)) or CFrame.new()
+	Directory.Serial = Directory_Slot
+	Directory.Date = SaveDT
+	if Name then
+		Directory.Name = Name
+	else
+		Directory.Name = Checkpoint_Placeholder_Name
+	end
+	if Des then
+		Directory.Description = Des
+	end
+	if Colour then
+		Directory.Colour = Colour 
+	else
+		Directory.Colour = BrickColor.random() 
+	end
+	--Export File To [SaveDirectory]
+	if not SaveDirectory then
+		return
+	end
+	if SaveDirectory and not SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE") then
+		local Folder = Instance.new('Folder')
+		Folder.Parent = SaveDirectory
+		Folder.Name = FLAG.Name.. "_SAVE"
+		TAG(Folder)
+	end
+	if SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE") and not SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name) then
+		local Folder = Instance.new('Folder')
+		Folder.Parent = SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE")
+		Folder.Name = (Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name
+		TAG(Folder)
+	end
+	if SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE") and SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name) then
+		local SaveFile = Instance.new('CFrameValue')
+		SaveFile.Parent = SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name)
+		SaveFile.Name = tostring(Directory_Slot) or tostring(#SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name):GetChildren() + 1)
+		LatestSave = tonumber(SaveFile.Name)
+		if Name ~= nil then
+			SaveFile:SetAttribute('Name',Name)
+		else
+			SaveFile:SetAttribute('Name',Checkpoint_Placeholder_Name)
+		end
+		if Pos ~= nil then
+			if typeof(Pos) == 'Vector3' then
+				SaveFile.Value = CFrame.new(Pos)
+			elseif typeof(Pos) == 'CFrame' then
+				SaveFile.Value = Pos
+			end
+		else
+			SaveFile.Value = Char:GetPivot()
+		end
+		if Des ~= nil then
+			SaveFile:SetAttribute("Description", Des)
+		end
+		if Directory.Colour then
+			SaveFile:SetAttribute("Colour", Directory.Colour)
+		else
+			if Colour ~= nil then
+				SaveFile:SetAttribute("Colour", Colour)
+			else
+				SaveFile:SetAttribute("Colour", BrickColor.random())
+			end
+		end
+		SaveFile:SetAttribute('Date', SaveDT)
+		SaveFile:SetAttribute('Serial', tonumber(Directory_Slot or SaveFile.Name))
+		TAG(SaveFile)
+	end
+	State = 'Holding_Flag'
+	FLAG.ToolTip = 'Saved!'
+end
+local WELD = function(Operation: string, Weld: string?)
+	if string.match(string.upper(Operation),'INITIATE') then
+		for i,v in Char:GetDescendants() do
+			if v:IsA("Motor6D") then
+				local Replica = Instance.new('Weld')
+				Replica.Part0 = v.Part0
+				Replica.Part1 = v.Part1
+				Replica.C0 = v.C0
+				Replica.C1 = v.C1
+				Replica.Enabled = false
+				Replica.Parent = v.Parent
+				table.insert(AllTheWeld, Replica)
+			end
+		end
+	elseif string.match(string.upper(Operation),'ENABLE') then
+		if not Weld then
+			return
+		end
+		if table.find(AllTheWeld, Weld) and AllTheWeld[table.find(AllTheWeld, Weld)] and AllTheWeld[table.find(AllTheWeld, Weld)]:IsA("JointInstance") then
+			AllTheWeld[table.find(AllTheWeld, Weld)].Enabled = true -- if you want it to detect every single weld with the name provided as an variable 'Weld', please instead use 'for i, v in AllTheWeld' or sort weld with same name as a sub table.
+		end
+	elseif string.match(string.upper(Operation),'DISABLE') then
+		if not Weld then
+			return
+		end
+		if table.find(AllTheWeld, Weld) and AllTheWeld[table.find(AllTheWeld, Weld)] and AllTheWeld[table.find(AllTheWeld, Weld)]:IsA("JointInstance") then
+			AllTheWeld[table.find(AllTheWeld, Weld)].Enabled = false
+		end
+	elseif string.match(string.upper(Operation),'END_TASK') then
+		for i,v in AllTheWeld do
+			if typeof(v) == 'Instance' and v:IsA("JointInstance") then
+				v:Destroy()
+			end
+		end
+		table.clear(AllTheWeld)
+	end
+end
+local ANIMFRAME = function(Name: string, Frame: number)
+	if table.find(Anim,Name) and Anim[table.find(Anim,Name)] and Anim[table.find(Anim,Name)][Frame] then
+       
+	end
+end
+local ANIMATE = function(Name: string)
+	if table.find(Anim,Name) and Anim[table.find(Anim,Name)] then
+		-- DIY
+	end
+end
+local LOAD = function()
+	State = 'Loading'
+	table.clear(SavedPos)
+	if SaveDirectory and SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE") and SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name) then
+		for i,v in SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name):GetChildren() do
+			if v:IsA('CFrameValue') then
+				--if not table.find(SavedPos,v.Name) then
+					--table.insert(SavedPos,v.Name) -- inserted, is there any now?
+				--if table.find(SavedPos,v.Name) and SavedPos[table.find(SavedPos,v.Name)] then
+						if not SavedPos[(v:GetAttribute("Serial") and v:GetAttribute("Serial")) or (#SavedPos + 1)] then	SavedPos[(v:GetAttribute("Serial") and v:GetAttribute("Serial")) or (#SavedPos + 1)] = {} end
+						local Directory = (v:GetAttribute("Serial") and SavedPos[v:GetAttribute("Serial")]) or SavedPos[#SavedPos + 1] or SavedPos[table.find(SavedPos,v.Name)]
+						Directory.CFrame = v.Value -- Guranteed To Be Provided By CFrameValue Itself
+						if v:GetAttribute("Name") then
+							Directory.Name = v:GetAttribute("Name")
+						end
+						if v:GetAttribute("Description") then
+							Directory.Description = v:GetAttribute("Description")
+						end
+						if v:GetAttribute("Colour") then
+							Directory.Colour = v:GetAttribute("Colour")
+						end
+						if v:GetAttribute("Date") then
+							Directory.Date = v:GetAttribute("Date")
+						end
+						if v:GetAttribute("Serial") then
+							Directory.Serial = v:GetAttribute("Serial")
+						end
+					--end
+				--end
+			end
+		end
+	end
+	State = 'Normal'
+end
+FLAG.Equipped:Connect(function()
+	Char = FLAG:FindFirstAncestorOfClass('Model')
+	LOAD()
+end)
+FLAG.Activated:Connect(function()
+	LatestTick = tick()
+	Active = true
+	coroutine.resume(coroutine.create(function()
+		while Active and game:GetService('RunService').Heartbeat:Wait() do
+			local Elapsed = tick() - LatestTick
+			if Elapsed > 1 and Elapsed <= 10 then
+				local Timeloop = math.cos(Elapsed * 2)
+				if FLAG then
+					if State == 'Choosing' then
+						if Timeloop > 0 then
+							FLAG.ToolTip = '(CONFIRM) Continue To State ('..MainOption..')?'
+						else
+							FLAG.ToolTip = '(CANCEL) Cancel Choice'
+						end
+					elseif State == 'Holding_Map' then
+						if AltChar then
+							if Timeloop > 0 then
+								FLAG.ToolTip = '(CONFIRM) '..CurrentlySelectedSave..' For Teleportation?'
+							else
+								FLAG.ToolTip = '(CANCEL) Viewing For '..CurrentlySelectedSave..'?'
+							end
+						else
+							if Timeloop > 0 then
+								FLAG.ToolTip = '(CONFIRM) '..CurrentlySelectedSave..' For Viewing?'
+							else
+								FLAG.ToolTip = '(CANCEL) Return To "Choosing" From '..State
+							end
+						end
+					elseif State == 'Holding_Flag' then
+						if Timeloop > 0 then
+							FLAG.ToolTip = '(CONFIRM) Save?'
+						else
+							FLAG.ToolTip = '(CANCEL) Return To "Choosing" From '..State
+						end
+					else
+						if Timeloop > 0 then
+							FLAG.ToolTip = 'CONFIRM('..State..')'
+						else
+							FLAG.ToolTip = 'CANCEL('..State..')'
+						end
+					end
+				end
+			else
+				if FLAG then
+					if State == 'Choosing' then
+						FLAG.ToolTip = 'Choosing STATE: '..MainOption
+					elseif State == 'Holding_Map' then
+						FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+					elseif State == 'Holding_Flag' then
+						FLAG.ToolTip = 'Please Continue Holding To Continue.'
+					else
+						FLAG.ToolTip = 'STATE: '--[[..tostring(Elapsed)]]..'('..State..')'
+					end
+				end
+			end
+		end
+	end))
+end)
+FLAG.Deactivated:Connect(function()
+	if not Active then
+		if FLAG then
+			if State == 'Choosing' then
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+			elseif State == 'Holding_Map' then
+				FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+			elseif State == 'Holding_Flag' then
+				FLAG.ToolTip = 'Save Checkpoint?'
+			else
+				FLAG.ToolTip = 'STATE: '--[[..tostring(Elapsed)]]..'('..State..')'
+			end
+		end
+		return
+	end
+	Active = false
+	local Elapsed = tick() - LatestTick
+	LatestTick = tick()
+	if Elapsed <= 1 then
+		if State == 'Holding_Map' then
+			if (CurrentlySelectedSave + 1) > #SavedPos then
+				CurrentlySelectedSave = 1
+			else
+				CurrentlySelectedSave = math.clamp(CurrentlySelectedSave + 1, 1, #SavedPos)
+			end
+			if SavedPos[CurrentlySelectedSave] then	VIEW('modify_location',SavedPos[CurrentlySelectedSave].CFrame) end
+		elseif State == 'Holding_Flag' then
+			if FLAG then
+				FLAG.ToolTip = 'Please Hold The Tool To Continue. ('..State..')'
+			end
+		elseif State == 'Choosing' then
+			FLAG.ToolTip = 'Choosing STATE: '..MainOption
+			if MainOption == 'Holding_Map' then
+				MainOption = 'Holding_Flag'
+			elseif MainOption == 'Holding_Flag' then
+				MainOption = 'Normal'
+			elseif MainOption == 'Normal' then
+				MainOption = 'Holding_Map'
+			end
+		end
+	else
+		if State == 'Holding_Map' then
+			if string.match(string.upper(FLAG.ToolTip) ,'CANCEL') then
+				if AltChar then
+					VIEW('end_task')
+					FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+				else
+					State = 'Choosing'
+					FLAG.ToolTip = 'Choosing STATE: '..MainOption
+				end
+			elseif string.match(string.upper(FLAG.ToolTip) ,'CONFIRM') then
+				if AltChar then
+					VIEW('end_task')
+					TP(CurrentlySelectedSave)
+					CurrentlySelectedSave = 1
+					State = 'Holding_Map'
+				else
+					if SavedPos[CurrentlySelectedSave] and not AltChar then
+						VIEW('initiate',SavedPos[CurrentlySelectedSave].CFrame)
+						FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+					end
+				end
+			end
+		elseif State == 'Holding_Flag' then
+			if string.match(string.upper(FLAG.ToolTip) ,'CANCEL') then
+				State = 'Choosing'
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+			elseif string.match(string.upper(FLAG.ToolTip) ,'CONFIRM') then
+				-- Flag configuration pop up gui. nvm im lazy
+				FLAG.ToolTip = 'Saved!'
+				SAVE(Char:GetPivot()) -- mayb reload data
+			end
+		elseif State == 'Choosing' then
+			if string.match(string.upper(FLAG.ToolTip) ,'CANCEL') then
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+			elseif string.match(string.upper(FLAG.ToolTip) ,'CONFIRM') then
+				--[[if MainOption == 'Holding_Map' then
+					State = 'Holding_Map'
+				elseif MainOption == 'Holding_Flag' then
+					State = 'Holding_Flag'
+				end]]
+				State = MainOption
+				if MainOption == 'Holding_Map' then
+					CurrentlySelectedSave = 1
+				end
+			end
+		elseif State == 'Normal' then
+			if string.match(string.upper(FLAG.ToolTip) ,'CONFIRM') then
+				MainOption = 'Holding_Flag'
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+				State = 'Choosing'
+			end
+		end
+		if FLAG then
+			if State == 'Choosing' then
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+			elseif State == 'Holding_Map' then
+				FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+			elseif State == 'Holding_Flag' then
+				FLAG.ToolTip = 'Save Checkpoint?'
+			else
+				FLAG.ToolTip = 'STATE: '--[[..tostring(Elapsed)]]..'('..State..')'
+			end
+		end
+	end
+end)]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{3FFDBF0C-38C1-4AEB-8443-ACB7C106CC81}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Script[Checkpoint]</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

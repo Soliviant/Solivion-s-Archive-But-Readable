@@ -1,0 +1,883 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Flag" referent="RBXEDEC88C5613B47968B0A96396E78F1F1">
+		<Properties>
+			<int name="TeamColor">1004</int>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">false</bool>
+			<string name="ToolTip">Written And Scripted By Solivion</string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>-2.33705091</X>
+					<Y>2</Y>
+					<Z>0.848079681</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"><![CDATA[AQAAAAYAAABPZmZzZXQUAAAAP83MzL0AAIC+AOpGdz+jMIk9AACAvgAAAADqRnc/7oOEPu6D
+hD4AAIC+69luPw==]]></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Basics In Scripting</string>
+			<int64 name="SourceAssetId">18863163958</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBXE664DF0F624944119F9538491EAE22B6">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--by Solivion, I ported my own book out of 'Library of Aletheia' cuz why not
+--credit me quite a bit if u use this lol
+
+--<<Settings>>--
+local BookDebug: boolean? = false
+local CoverColor: Color3? = Color3.new(1, 0, 0)
+local WhichSideIsCover: Enum.NormalId = Enum.NormalId.Back
+local PageMaterial: Enum.Material? = Enum.Material.SmoothPlastic
+local PageColour: Color3? = Color3.new(0.776471, 0.776471, 0.776471)
+local CoverTextSize: number? = 45
+local CoverTextHasOutline: boolean? = true
+local TextSize: number? = 15
+local BookCanCollide: boolean = false
+local PickUpDuration: number? = nil
+local PickUpMaxDistance: number? = 10
+local SwitchPerClick: number? = 2
+local PageRestLeftAngle: number?, PageRestRightAngle: number? = 1,1
+local FirstEverRegisterAsLastPage: ('15' | '0' | 'Back Cover') = '0' or '15' or 'Back Cover' -- choose one by moving one of these infront of the first 'or'
+
+--<<CORE, DO NOT EDIT UNLESS YOU GET IT>>--
+local Tool = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag')
+local Handle = Instance.new('Part', Tool or game:FindFirstChildOfClass('ServerStorage') or game:FindFirstChildOfClass('ReplicatedStorage'))
+Handle.Name = 'BOOK_PLACEHOLDER'
+Handle.Anchored = false
+Handle.Transparency = 1
+Handle.CanCollide = false
+script.Destroying:Once(function() Handle:Destroy() Handle = nil end)
+type PageDirections = ("Front" | "Back")
+local FrontBackRotation: PageDirections = "Front"
+local LastPageSerial: number = 0
+type PageData = {PagePart: BasePart, IsCover: boolean?, PageNumber: string, PageDirection: PageDirections, SpecialTitle: string?, PageDescription: string?, Front: SurfaceGui?, Back: SurfaceGui?}
+type ArrayType = (string | number)
+type Book_Page_Dataset = {Context: string?, Subtitle: string?, Content: string, IsCover: boolean?}
+type PBDArray = (ArrayType | Book_Page_Dataset)
+type PPDArray = (BasePart | ArrayType)
+local Physical_Pages: {ArrayType: BasePart?} = {}
+local Physical_Page_Data: {PPDArray: {Front: SurfaceGui, Back: SurfaceGui, Page_Number: string, LowestPage: number?, Page_Weld: JointInstance}?} = {}
+local Physical_Book_Data: {PBDArray: PageData?} = {}
+local Cover_Pages: {SurfaceGui?} = {}
+local R15LockWeld: {JointInstance?} = {}
+
+--<{'Basics in scriptin'}>--
+--[[-=<Written Book's Final Version: 16:45 6th August 2024 UTC>=-]]--
+local Datas: {ArrayType: Book_Page_Dataset?} = {
+	['-2'] = {
+		Context = 'Authored By @Solivion',
+		Subtitle = 'THE BOOK COVER',
+		Content = [[-~<[Basic To Scripting]>~-]]
+	},
+	['0'] = {
+		Context = '--<<@Solivion 2024>>--',
+		Subtitle = 'Prologue',
+		Content = [[
+		~<[Introduction]>~
+		
+		This Book Is Expected To Be About Scripting and Algorithm, So it's basically unethical lecture provided by me(as a Beginner on the field)
+		Please do not take this to granted, Some info might be quite obsecure.
+		I've ported the book since I'm not really having any other creative ideas
+		This Book IS Made up of several parts and many text labels, So Expect Performance Issues.
+		I've actually made this tool quite flexible(But no more combat, yay)
+		]]
+	},
+	['1'] = {
+		Context = [[What's on these pages?]],
+		Subtitle = 'Content Page',
+		Content = [[
+		--<<{{CONTENTS}}>>--
+		--"Algorithm" At Page 2--
+		Brief Description: Explains The Root To Writing A Script
+		Description: This Topic Expands On The Basic Requirement 
+		Before Writing A Script. This Includes The Definitions Of
+		Algorithm And Its Example
+		--"Basic To Scripting" At Page 4--
+		Brief Description: Explains How To Write A Script.
+		Description: This Topic Expand And Describe The Process Writing A Script
+		--Conclusion At Page 14, 15--
+		]]
+	},
+	['2'] = {
+		Subtitle = 'Algorithm',
+		Context = 'Basics In Logics',
+		Content = [[
+		--<<ALGORITHM>>--  
+			Before you try to script. The First Thing You have To Understand Is 'Algorithm'. What Is Algorithm?
+		An Algorithm Is A Process Consisted Of Situational Decision, Logic And Process(Algorithm May Be Linear In Some Cases)
+			Algorithm is like defining and separating a process of doing something. It's used in day to day life. You might not even know it. Like for an example-->
+		"A Process Of Buying Something"
+		]]
+	},
+	['3'] = {
+		Content = [[
+		 Let's Separate That Process Into An Algorithm
+			Logic: When You Buy Something You Require Enough Money
+			--> Start
+			->>You have enough money, buy
+			-->End
+			      Also, You may add more checks and step Like.
+			"The Item's Requirement"
+			"Price Comparison"
+			ETC.
+		]]
+	},
+	['4'] = {
+		Subtitle = 'Scripting Help',
+		Context = 'Basics In Scriptings',
+		Content = [[
+		--<<Basic To Scripting>>--      
+     	When Trying To Script, The main concept of the whole script is actually the process of something translated to certain scripting language, and adapted to the languages' own process or function. That 'Something' Can be Anything For Example "Fall Damage" Or "Ragdoll". Or The Script Can Be Traced Back To Algorithm
+		]]
+	},
+	['5'] = {
+		Content = [[
+		      We can use the example process from the last topic to be written in script, This should be the process, as the last topic has defined on the steps
+			Here's what we know from step defining process(Algortihm),
+			This is the expanded process. THIS IS NOT IN A SCRIPTING LANGUAGE(Next Page)>>>
+		]]
+	},
+	['6'] = {
+		Subtitle = "Pseudocode",
+		Context = 'An Example Of Pseudocode',
+		Content = [[
+		--Start
+		--You want to buy something
+		>You need to check the price
+		>You have to check your money
+		--You have to compare the price and your money
+			>>If Your money is more than the price then "You can buy it"
+			>>If your money is lower than the price then "You can't buy it"
+		>>>If you can buy it then "buy it"
+		--End
+		]]
+	},
+	['7'] = {
+		Subtitle = 'Symbol Breakdown',
+		Context = 'Clarification of symbols on the previous page',
+		Content = [[
+		    In THE mess On The Last Page, Here is the meaning between each symbol
+			">" Defines a variable
+			">>" Defines The First Check In The Process
+			">>>" Defines the Second Check In The Process
+			Anyways, I'll not teach you about Checking Numbers if one is more or less, it's self-explanatory( =<, =>, <, >, ==, ~=[!=]) 
+		]]
+	},
+	['8'] = {
+		Content = [[
+		   	But Before We Translate Anything Into Code. We'll have to know the basic variable types in that certain scripting language. Like In 'Lua' there are quite a lot of variable types such as: number, string, boolean and more
+				We'll now translate the process to a Scripting language primarily known for being Roblox's Scripting Language "Lua"
+			We'll First Translate Localizing A Variable
+			(Next Page)
+		]]
+	},
+	['9'] = {
+		Context = 'Translation Of Pseudocode To Luau',
+		Subtitle = 'Pseudo to real',
+		Content = [[
+		"
+		>You need to check the price
+		>You have to check your money
+		"
+		It'd become
+		"
+		local Variable1 = ((Price Checking Source))
+		local Variable2 = ((Money Checking Source))
+		"
+			While the variable is now defined, We'll also need the source. Unless you want to fix the variable into a specific value like maybe just plain
+		'Variable2 = 10'. 
+		]]
+	},
+	['10'] = {
+		Content = [[
+		      The Same Can Also Be Done To The Other Variable. The Value May Also Comes From another source such as 'Instance', 'Checking' and more
+			Aka Instance contains a value that can be defined as the matching type of the variable.
+		]]
+	},
+	['11'] = {
+		Content = [[
+		      Alright, Now Straight To The Checking,
+			Let's Say We Now Have Both The Variable Defined
+			Now we have to check if 'We have more money than the price'
+			We'll use 'If Else' for these simple 2 choice situation. If there're more option, I'd recommend 'If Elseif'.
+			>>>
+		]]
+	},
+	['12'] = {
+		Context = 'Complete translation from logic to Luau',
+		Subtitle = 'Completed Luau',
+		Content = [[
+			"
+			>>If Your money is more than the price then "You can buy it"
+			>>If your money is lower than the price then "You can't buy it"
+			"
+			It'll be
+			"
+			if Variable1 <= Variable2 then --> We have enough
+			--Buy Function --
+			else--We don't have 
+			--Blank or smth--
+			end
+		]]
+	},
+	['13'] = {
+		Content = [[
+		      We don't actually have to write 'else' because nothing happened if we lack money. While 'end' is actually required
+			You may notice 'Where is the second check'. There are ways to avoid it. The Second Check If Only Exist If you use another variable to define Buy ability and does another check outside these IfElse Statement. The most effective way is to just put the Buy Function there at the "--"(commented out) section.
+		]]
+	},
+	['14'] = {
+		Subtitle = 'Conclusion 1/2',
+		Context = 'The whole book in a nutshell and final thoughts..',
+		Content = [[
+				After all that, I could potentially just say, Scripting ever is just a way to represent step to step movement or function that derived from logical consideration of process(Algorithm),
+			then just translated to those scripting languages or engine functions, it's that simple to put it that way.
+				By default, Algorithmic consideration skill is fairly simple to acheive with enough research, experience or knowledge (or just plain logic of your creation)
+		]]
+	},
+	['15'] = {
+		Subtitle = 'Conclusion 2/2',
+		Content = [[
+			But when it comes to translating into languages or put it into various game engines, it may require some knowledge or profession. Take it slow, no need to actually rush, just make sure you're actually learning, not copying a tutorial one to one. but to consider your own approach after listening to the logic or result provided by the Ytbers or Scripters
+			-Solivion 2024
+			-- 1 Year of Roblox Developing experience as of writing this, Some info might not be in best transparency
+		]]
+	},
+	['17'] = {
+		Context = 'Ported By @Solivion',
+		Subtitle = 'THE BOOK COVER',
+		Content = [[Basic to Scripting is a book about basic logic in scripting, this book presents subject revoling around scripting/coding such as algorithm, pseudocode, and some examples.
+		This book has been authored around 1 year after the start of the author's scripting experience
+		The book content is fairly interpreted into a simple language to understand, including a conclusion or brief understanding of the topic]]
+	},
+}
+
+function DebugOutput(...)
+	if BookDebug then	print(...) end
+end
+
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				return v
+			end
+		end
+	end
+end
+
+local function StarkestOutlineColour(Colour)
+	local brightness = (0.299 * Colour.R + 0.587 * Colour.G + 0.114 * Colour.B)
+
+	local STARK
+	if brightness > 0.5 then
+		STARK = Color3.new(0, 0, 0)
+	else
+		STARK = Color3.new(1, 1, 1)
+	end
+
+	return STARK
+end
+
+function LockR15Arm(Character: Model)
+	for i,v in pairs(Character:GetDescendants())  do
+		if (v.Name:match('Hand') or v.Name:match('LowerArm')) and v:IsA('BasePart') then
+			if v:FindFirstChildOfClass('Motor6D') and not table.find(R15LockWeld, v:FindFirstChildOfClass('Motor6D')) then
+				local mt = v:FindFirstChildOfClass('Motor6D')
+				if mt.Enabled == true then
+					mt.Enabled = false
+					table.insert(R15LockWeld, mt)
+					local Replace = Instance.new('Weld', mt.Parent)
+					Replace.Name = mt.Name
+					Replace.Part1 = mt.Part1
+					Replace.Part0 = mt.Part0
+					Replace.C0 = mt.C0
+					Replace.C1 = mt.C1
+					table.insert(R15LockWeld, Replace)
+				end
+			end
+		end
+	end --r6ify
+end
+
+function UnlockR15()
+	--task.synchronize()
+	for i,v in ipairs(R15LockWeld) do
+		if v:IsA('Motor6D') then
+			v.Enabled = true
+		else
+			v:Destroy()
+		end
+	end
+	table.clear(R15LockWeld)
+end
+
+local PaperProportion: Vector3 = Vector3.new(.025,2.97,2.1)/2
+
+function CalculateDislocation(Size: Vector3, Degree: number)
+	local for90degree = .519
+	local hawmuch90 = Degree/90
+	local ohok = for90degree * hawmuch90
+	--[[local Theta = math.rad(Degree)
+	local Px, Py, Pz = Size.Z, Size.Y, Size.X
+	local P_X = Px * math.cos(Theta) - Pz * math.sin(Theta)
+	local P_Z = Px * math.sin(Theta) - Pz * math.cos(Theta)]]
+	return Vector3.new(ohok, 0, ohok)
+end
+
+function CreateGuiForPage( TargetSurfaceGui: SurfaceGui, Data: Book_Page_Dataset, PageNumber: number?): SurfaceGui?
+	local Gui = TargetSurfaceGui
+	if not Gui or not Data then return end
+	if not PageNumber then PageNumber = LastPageSerial+1 LastPageSerial += 1 else LastPageSerial = PageNumber end
+	local MainText = Instance.new('TextLabel', TargetSurfaceGui)
+	local Subtext = Instance.new('TextLabel', TargetSurfaceGui)
+	local PageSerialText = Instance.new('TextLabel', TargetSurfaceGui)
+	PageSerialText.Text = tostring(PageNumber)
+	PageSerialText.Size = UDim2.fromScale(0.9, 0.05)
+	PageSerialText.Position = UDim2.fromScale(0.05, 0.05 or 0.025)
+	PageSerialText.TextXAlignment = Enum.TextXAlignment.Right
+	if Data.Content then MainText.Text = Data.Content MainText.TextXAlignment = (PageNumber > 0 and PageNumber < 16) and Enum.TextXAlignment.Left or Enum.TextXAlignment.Center MainText.Size = UDim2.fromScale(0.9, 0.8) MainText.Position = UDim2.fromScale(0.05, 0.1) else MainText:Destroy() return end
+	if Data.Context or (PageNumber <= 0 or PageNumber >= 16) then Subtext.Text = (PageNumber > 0 and PageNumber < 16) and '<<'..tostring(Data.Context)..'>>' or (PageNumber == 0 and '--<<@Solivion 2024>>--' or Data.Context or 'LOREM IPSUM') Subtext.TextXAlignment = (PageNumber > 0 and PageNumber < 16) and Enum.TextXAlignment.Left or Enum.TextXAlignment.Center Subtext.Size = UDim2.fromScale(0.9, 0.05) Subtext.Position = UDim2.fromScale(0.05, 0.9) else Subtext:Destroy() end
+	if Data.Subtitle then PageSerialText.Text = '['..Data.Subtitle..']'..PageSerialText.Text end
+	if Data.Subtitle == 'THE BOOK COVER' then TargetSurfaceGui.Name = 'Book Cover['..tostring(PageNumber)..']' if not table.find(Cover_Pages, TargetSurfaceGui) then table.insert(Cover_Pages, TargetSurfaceGui) end PageSerialText:Destroy() else TargetSurfaceGui.Name = Data.Subtitle and Data.Subtitle..'{'..tostring(PageNumber)..'}' or 'PAGE_UI_'..tostring(PageNumber) end
+	coroutine.resume(coroutine.create(function()
+		for i,v in Gui:GetChildren() do
+			if v:IsA('TextLabel') then
+				if v.Text == 'Text' then v.Text = 'LOREM IPSUM' end
+				v.BackgroundTransparency = 1
+				v.Name = 'PAGE_TEXT'
+				v.TextWrapped = true
+				v.TextSize = TextSize or 20
+				if CoverTextHasOutline and Data.Subtitle == 'THE BOOK COVER' then v.TextStrokeTransparency = 0 v.TextStrokeColor3 = StarkestOutlineColour(CoverColor) end
+				if v == MainText and PageNumber < 0 then v.TextSize = CoverTextSize or 30 end
+			end
+		end
+	end))
+	return TargetSurfaceGui
+end
+
+function CreatePhysicalPage(Data: Book_Page_Dataset, PageNumber: number?): PageData?
+	if not Data then return end
+	if Physical_Book_Data[Data] then return Physical_Book_Data[Data] end
+	local Dataset: PageData = {
+		PagePart = nil,
+		PageNumber = PageNumber or math.random(),
+		PageDirection = (PageNumber and PageNumber % 2 == 0 and "Back" or "Front") or FrontBackRotation
+	}
+	if not PageNumber then LastPageSerial += 1 else LastPageSerial = PageNumber end
+	if not PageNumber then FrontBackRotation = Dataset.PageDirection == 'Back' and 'Front' or 'Back' end
+	if Data.Subtitle then Dataset.SpecialTitle = Data.Subtitle end
+	if Data.Context then Dataset.PageDescription = Data.Context end
+	if not Physical_Pages[math.floor(PageNumber/2)] then local PageBasePart = Instance.new('Part', game:FindFirstChildOfClass('ServerStorage') or game:FindFirstChildOfClass('ReplicatedStorage')) PageBasePart.CanCollide = BookCanCollide PageBasePart.Material = PageMaterial or Enum.Material.Plastic PageBasePart.Color = (Data.Subtitle == 'THE BOOK COVER' and CoverColor) or PageColour or PageBasePart.Color PageBasePart.Size = PaperProportion or Vector3.new(.01,2.97,2.1)/2 PageBasePart.Name = tostring(math.floor(PageNumber/2))..(Data.Subtitle == 'THE BOOK COVER' and '{BOOK COVER}' or '[PAPER]') --[[..'['..(Data.Subtitle or Data.Context or 'REGULAR')..']']] Physical_Pages[math.floor(PageNumber/2)] = PageBasePart --[[Make a basepart]] end
+	local PagePart: BasePart = Physical_Pages[math.floor(PageNumber/2)]
+	local SideUI: SurfaceGui
+	if PagePart then Dataset.PagePart = PagePart else return end
+	if Dataset.PagePart then local NewInterface = Instance.new('SurfaceGui', Dataset.PagePart) NewInterface.Adornee = Dataset.PagePart NewInterface.Face = Dataset.PageDirection == 'Front' and Enum.NormalId.Right or Enum.NormalId.Left SideUI = CreateGuiForPage(NewInterface, Data, PageNumber) --[[Make Surface gui on the <Page_Direction>]] end
+	if PagePart and not Physical_Page_Data[PagePart] then local WeldTogetherWithHandle = Instance.new('Weld', PagePart) WeldTogetherWithHandle.Name = 'AccessoryWeld' WeldTogetherWithHandle.Part0 = Handle WeldTogetherWithHandle.Part1 = PagePart WeldTogetherWithHandle.C0 = CFrame.new(PagePart.Size.X * math.floor(PageNumber/2),0,0) Physical_Page_Data[PagePart] = {Page_Weld = WeldTogetherWithHandle, Page_Number = '', LowestPage = 17} end
+	if Dataset.PageDirection == 'Front' then -- it's swapped
+		Physical_Page_Data[PagePart].Front = SideUI
+		SideUI.Name = SideUI.Name.. '{BACK OF PAPER '..tostring(math.floor(PageNumber/2))..'}'
+	else
+		Physical_Page_Data[PagePart].Back = SideUI
+		SideUI.Name = SideUI.Name.. '{FRONT OF PAPER '..tostring(math.floor(PageNumber/2))..'}'
+	end
+	if CoverColor and not PagePart:FindFirstChildOfClass('Decal')--[[ and not FindFirstChildOfNameAndClass(Dataset.PagePart, 'Cover_Colour', 'Decal')]] and Data.Subtitle ~= 'THE BOOK COVER' then
+		local CoverColour: Decal = Instance.new('Decal', PagePart)
+		CoverColour.Name = 'Cover_Colour'
+		CoverColour.Texture = 'http://www.roblox.com/asset/?id=15368451372'
+		CoverColour.Color3 = CoverColor
+		CoverColour.Face = WhichSideIsCover
+	end
+	if Data.Subtitle == 'THE BOOK COVER' then
+		Dataset.IsCover = true
+		Data.IsCover = true
+	end
+	if Physical_Page_Data[PagePart].LowestPage > PageNumber then
+		Physical_Page_Data[PagePart].LowestPage = PageNumber
+	end
+	Physical_Page_Data[PagePart].Page_Number = Physical_Page_Data[PagePart].Page_Number..'['..tostring(PageNumber)..']'
+	return Dataset
+end
+
+coroutine.resume(coroutine.create(function()
+	--Creating Pure Book Pages
+	Handle.Size = PaperProportion or Vector3.new(.01,2.97,2.1)/2 
+	for i, Data: Book_Page_Dataset? in pairs(Datas) do
+		local NewData: PageData? = CreatePhysicalPage(Data, tonumber(i))
+		if NewData then
+			if not Physical_Book_Data[Data] then Physical_Book_Data[Data] = NewData end
+			if not Physical_Book_Data[tonumber(i)] then Physical_Book_Data[i] = NewData end
+			if not Physical_Book_Data[tostring(i)] then Physical_Book_Data[i] = NewData end
+			if Physical_Page_Data[NewData.PagePart] then Physical_Page_Data[math.floor(tonumber(i)/2)] = Physical_Page_Data[NewData.PagePart] end
+			if NewData.PagePart then
+				NewData.PagePart.Parent = Handle.Parent or Tool or workspace
+				if not Tool then NewData.PagePart.Parent = workspace NewData.PagePart.Anchored = true NewData.PagePart.Position = Vector3.new(0,3,i) end
+			end
+		end
+	end
+end))
+
+if Tool then
+	--DebugOutput('reg')
+	local Character: Model?
+	type States = ('Equipping' | 'Changing_Page' | 'Unequipping' | 'Dropped' | 'None')
+	type PageNumbers = ( 'Front Cover'| '0'| '1'| '2'| '3'| '4'| '5'| '6'| '7'| '8'| '9'| '10'| '11'| '12'| '13'| '14'| '15'| 'Back Cover')
+	local State: States = "None"
+	local CurrentPage: PageNumbers = 'Front Cover'
+	local LastPage: PageNumbers = 'Back Cover'
+	local DisplayingPage: {SurfaceGui?} = {Physical_Book_Data['-2'].Front,Physical_Book_Data['17'].Back}
+	local TS: BasePart?
+	local RH: BasePart?
+	local RA: BasePart?
+	local LA: BasePart?
+	local ToolProx: ProximityPrompt?
+	local HandleWeld: JointInstance?
+	local RAWeld: JointInstance?
+	local HWOffset: CFrame = CFrame.new()
+	local RWOffset: CFrame = CFrame.new()
+	local EquipTick: number = tick()
+	local ActiveTick: number = tick()
+	local LatestPageSwitch = 0
+	local Equipping: boolean = false
+	local Activated: boolean = false
+	--shoulda put it in the same table
+	local OnEquipCorouteFunctions: {thread?} = {}
+	local OnUnequipCorouteFunctions: {thread?} = {}
+	local RuntimeCorouteFunctions: {thread?} = {}
+	
+	local function UpdateBook()
+		DebugOutput('Curpage:'..CurrentPage..'/LastPage:'..LastPage..'/Paper:'..((CurrentPage == 'Back Cover' or CurrentPage == 'Front Cover') and 'Book Cover' or (math.floor(tonumber(CurrentPage)/2))..((tonumber(CurrentPage) or 1) % 2 == 0 and '[Front]' or '[Back]')))
+		DisplayingPage = {} -- always able to be seen, none
+		for i,v in Cover_Pages do
+			table.insert(DisplayingPage, v)
+		end
+		local PageBP: Book_Page_Dataset = CurrentPage ~= 'Front Cover' and CurrentPage ~= 'Back Cover' and Physical_Pages[math.floor(tonumber(CurrentPage)/2)] or 'none'
+		local DATA = Physical_Page_Data[PageBP] or Physical_Book_Data[CurrentPage]
+		if CurrentPage ~= 'Front Cover' and CurrentPage ~= 'Back Cover' and DATA then -- covers are already seen
+			table.insert(DisplayingPage, DATA.Front)
+			table.insert(DisplayingPage, DATA.Back)
+			if ((tonumber(CurrentPage) or 0) - 1) >= -1 then
+				local PageBefore = math.floor(tonumber(CurrentPage)/2) - 1
+				local PageBeforeBP: Book_Page_Dataset = Physical_Pages[PageBefore] or 'none'
+				local PageBeforeData = Physical_Page_Data[PageBeforeBP] or Physical_Book_Data[PageBefore]
+				if PageBeforeData then if PageBeforeData.Front then table.insert(DisplayingPage, PageBeforeData.Front) end end
+			end
+			if ((tonumber(CurrentPage) or 0) + 1) < 16 then
+				local PageAfter = math.floor(tonumber(CurrentPage)/2) + 1
+				local PageAfterBP: Book_Page_Dataset = Physical_Pages[PageAfter] or 'none'
+				local PageAfterData = Physical_Page_Data[PageAfterBP] or Physical_Book_Data[PageAfter]
+				if PageAfterData then if PageAfterData.Back then table.insert(DisplayingPage, PageAfterData.Back) end end
+			end
+		end
+		DebugOutput('Will Only Display', DisplayingPage)
+		for i,v in Tool:GetDescendants() do
+			if v:IsA('SurfaceGui') then
+				if not v.Name:upper():match('BOOK COVER') and not table.find(Cover_Pages, v) then
+					local ISDISPLAYING = table.find(DisplayingPage,v)
+					if v.Enabled == true and not ISDISPLAYING then
+						v.Enabled = false
+					elseif v.Enabled == false and ISDISPLAYING  then
+						v.Enabled = true
+					end
+				else
+					v.Enabled = true
+				end
+			end
+		end
+	end
+	local function Equipped()
+		if State == 'Dropped' then return end
+		Character = Tool:FindFirstAncestorWhichIsA('Model') or Tool.Parent
+		for i,v in RuntimeCorouteFunctions do
+			coroutine.close(v)
+		end
+		RuntimeCorouteFunctions = {}
+		local curstick = tick() curstick = tick()
+		EquipTick = curstick
+		if not Character or not Character:FindFirstChildOfClass('Humanoid') then return end
+		coroutine.resume(coroutine.create(function() LockR15Arm(Character) if ToolProx and Equipping and EquipTick == curstick then ToolProx:Destroy() ToolProx = nil end end))
+		RA = FindFirstChildOfNameAndClass(Character, 'RightUpperArm', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Right Arm', 'BasePart')
+		RH = FindFirstChildOfNameAndClass(Character, 'RightHand', 'BasePart') or RA
+		TS = FindFirstChildOfNameAndClass(Character, 'UpperTorso', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Torso', 'BasePart')
+		local curtick = tick() curtick = tick()
+		EquipTick = curtick
+		ActiveTick = curtick
+		Activated = false
+		Equipping = true
+		State = 'Equipping'
+		CurrentPage = 'Front Cover'
+		LastPage = FirstEverRegisterAsLastPage or '0' or 'Back Cover'
+		LatestPageSwitch = tick() + 0.2
+		UpdateBook()
+		local OnEquipFunction = coroutine.create(function()
+			--DebugOutput('ran')
+			if Character then
+				--DebugOutput('Function Loaded')
+				if TS and RA then
+					HWOffset = CFrame.new(TS.Size.X/2 + RA.Size.X/2,0,0)
+					if not RAWeld then
+						local AnimatableArmWeld = Instance.new('Weld', RA)
+						AnimatableArmWeld.Part0 = TS
+						AnimatableArmWeld.Part1 = RA
+						AnimatableArmWeld.Name = 'RShoulder'
+						AnimatableArmWeld.C0 = HWOffset
+						RAWeld = AnimatableArmWeld
+					end
+				end
+				if RH and Handle then
+					RWOffset = CFrame.new(0,-(RH.Size.Y/2 + Handle.Size.Z/2.25),0) * CFrame.new(-((PaperProportion and PaperProportion.X) or 0.01) * (17/2),0,0) * CFrame.Angles(math.rad(-90),0,0)
+					if not HandleWeld then
+						local AnimatableGripWeld = Instance.new('Weld', Handle)
+						AnimatableGripWeld.Part0 = RH
+						AnimatableGripWeld.Part1 = Handle
+						AnimatableGripWeld.Name = 'BookGrip'
+						AnimatableGripWeld.C0 = RWOffset * CFrame.Angles(math.rad(-30),0,math.rad(45))
+						HandleWeld = AnimatableGripWeld
+					end
+				end
+				State = 'None'
+			end
+		end)
+		local AnimationFunction = coroutine.create(function()
+			local lasttick = tick()
+			while task.wait(.01) and Character and Tool and (EquipTick == curtick or State == 'Unequipping') do
+				local dt = tick() - lasttick
+				local sped = 1 - 0.0000001 ^ dt
+				lasttick = tick()
+				if CurrentPage ~= 'Back Cover' and CurrentPage ~= 'Front Cover' then
+					if RAWeld then
+						RAWeld.C0 = RAWeld.C0:Lerp(HWOffset * CFrame.new(0,TS.Size.Y/5,-TS.Size.Z * 1.25) * CFrame.Angles(math.rad(90),0,math.rad(-45)), sped)
+						if SwitchPerClick >= 2 then
+							RAWeld.C1 = RAWeld.C1:Lerp(CFrame.new() * CFrame.Angles(math.rad(.2 - math.clamp(tick() - LatestPageSwitch,0,.2)) * -100,0,0), sped)
+						else
+							if CurrentPage % 2 == 0 then
+								RAWeld.C1 = RAWeld.C1:Lerp(CFrame.new(-PaperProportion.Z/4,-PaperProportion.Y/4,-PaperProportion.X/4) * CFrame.Angles(math.rad(.2 - math.clamp(tick() - LatestPageSwitch,0,.2)) * -100,0,0), sped)
+							else
+								RAWeld.C1 = RAWeld.C1:Lerp(CFrame.new(-PaperProportion.Z/2,-PaperProportion.Y/2,-PaperProportion.X/2) * CFrame.Angles(math.rad(.1 - math.clamp(tick() - LatestPageSwitch,0,.1)) * 150,0,0), sped)
+							end
+						end
+					end
+					if HandleWeld then
+						HandleWeld.C0 = HandleWeld.C0:Lerp(RWOffset * CFrame.Angles(math.rad(5),math.rad(12.5),math.rad(-14.5)) * CFrame.Angles(math.rad(-15) , math.rad(-15), 0) * CFrame.new(-RH.Size.X/2, -RH.Size.Y/20, -RH.Size.Z/4) * CFrame.new(-0.8, 0.2, 0.4), sped)
+						--[[if CurrentPage % 2 ~= 0 then
+							HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(), sped)
+						else
+							HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(0,0,PaperProportion.Z/2), sped)
+						end]]
+						if SwitchPerClick >= 2 then
+							HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(-RH.Size.Z/2.5,-RH.Size.Z/8,-RH.Size.Z/4) * CFrame.Angles(0, math.abs(25), 0) * CFrame.new(Vector3.new(0.3, -0.25, 0.5)), sped)
+						else
+							HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(0,0,PaperProportion.Z/2), sped)
+						end
+					end
+					for i,v in pairs(Physical_Page_Data) do
+						if v and v.Page_Weld then
+							if v.LowestPage then
+								local iscover = false
+								if v.IsCover then
+									iscover = true
+								end
+								if v.LowestPage > tonumber(CurrentPage) then
+									local Angle = -90 + (v.LowestPage * (PageRestLeftAngle or 1)) + (iscover and 180 or 0)
+									local Offset = CalculateDislocation(PaperProportion, Angle)/1.325 -- Use positive offset
+									v.Page_Weld.C1 = v.Page_Weld.C1:Lerp(CFrame.new(-Offset) * CFrame.Angles(0, math.rad(Angle), 0), sped)
+								else
+									local Angle = -180 + (v.LowestPage * (PageRestRightAngle or 1)) + (iscover and 180 or 0)
+									local Offset = CalculateDislocation(PaperProportion, Angle)/2 -- Use positive offset
+									v.Page_Weld.C1 = v.Page_Weld.C1:Lerp(CFrame.new(-Offset) * CFrame.new(-0.66, 0, 0.4) * CFrame.Angles(0, math.rad(Angle - 45), 0), sped)
+								end
+							else
+								v.Page_Weld.C1 = v.Page_Weld.C1:Lerp(CFrame.new(), sped)
+							end
+						end
+
+					end
+				else
+					if RAWeld then
+						RAWeld.C1 = RAWeld.C1:Lerp(CFrame.new(), sped)
+					end
+					if HandleWeld then
+						HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(), sped)
+					end
+					if State == 'Unequipping' or State == 'Equipping' then
+						if RAWeld then
+							if Equipping then
+								RAWeld.C0 = RAWeld.C0:Lerp(HWOffset * CFrame.Angles(math.rad(90),0,0), sped)
+							else
+								RAWeld.C0 = RAWeld.C0:Lerp(HWOffset, sped)
+							end
+						end
+						if HandleWeld then
+							if Equipping then
+								HandleWeld.C0 = HandleWeld.C0:Lerp(RWOffset, sped)
+							else
+							HandleWeld.C0 = HandleWeld.C0:Lerp(RWOffset * CFrame.Angles(math.rad(-30),0,math.rad(45)), sped)
+							end
+						end
+					else
+						if RAWeld then
+							RAWeld.C0 = RAWeld.C0:Lerp(HWOffset * CFrame.Angles(math.rad(90),math.rad(-45),math.rad(-15)), sped)
+						end
+						if HandleWeld then
+							HandleWeld.C0 = HandleWeld.C0:Lerp(RWOffset * CFrame.Angles(math.rad(-45),math.rad(15),0), sped)
+						end
+					end
+					for i,v in pairs(Physical_Page_Data) do
+						if v and v.Page_Weld then
+							v.Page_Weld.C1 = v.Page_Weld.C1:Lerp(CFrame.new(), sped)
+						end
+					end
+				end
+			end
+		end)
+		if Character and Equipping and EquipTick == curtick then
+			coroutine.resume(OnEquipFunction) coroutine.resume(AnimationFunction)
+			table.insert(RuntimeCorouteFunctions, AnimationFunction)
+			table.insert(OnEquipCorouteFunctions, OnEquipFunction)
+		end
+	end
+	local function UnEquipped()
+		coroutine.resume(coroutine.create(UnlockR15))
+		local curtick = tick() curtick = tick()
+		ActiveTick = curtick
+		EquipTick = curtick
+		Equipping = false
+		Activated = false
+		CurrentPage = 'Front Cover'
+		LastPage = FirstEverRegisterAsLastPage or '0' or 'Back Cover'
+		LatestPageSwitch = tick() + 0.2
+		State = 'Unequipping'
+		for i,v in OnEquipCorouteFunctions do
+			coroutine.close(v)
+			--[[if table.find(OnEquipCorouteFunctions, v) then
+				table.remove(OnEquipCorouteFunctions, table.find(OnEquipCorouteFunctions, v))
+			end]]
+		end
+		OnEquipCorouteFunctions = {}
+		local function destruct()
+			if not Equipping and EquipTick == curtick then
+				for i,v in RuntimeCorouteFunctions do
+					coroutine.close(v)
+				end
+				RuntimeCorouteFunctions = {}
+				State = 'None'
+				if HandleWeld then HandleWeld:Destroy() HandleWeld = nil end if RAWeld then RAWeld:Destroy() RAWeld = nil end
+			end
+		end
+		if Tool:IsDescendantOf(workspace) then -- dropped
+			State = 'Dropped'
+			local latestpart: BasePart
+			for i,v in pairs(Physical_Pages) do if v:IsA('BasePart') then latestpart = v v.CanCollide = true end end
+			destruct()
+			Tool.Enabled = false
+			task.wait(.5)
+			if ToolProx then ToolProx:Destroy() end
+			for i,v in (Handle or latestpart):GetChildren() do if v:IsA('ProximityPrompt') then v:Destroy() end end
+			local NewPrompt = Instance.new('ProximityPrompt', Handle or latestpart)
+			if NewPrompt and NewPrompt.Parent and not Equipping then
+				ToolProx = NewPrompt
+				NewPrompt.ActionText = 'Pick Up'
+				NewPrompt.ObjectText = Tool.Name:upper():match('TOOL') and 'Basic To Scripting(Book)' or Tool.Name
+				NewPrompt.RequiresLineOfSight = false
+				NewPrompt.HoldDuration = PickUpDuration or math.huge
+				NewPrompt.MaxActivationDistance = PickUpMaxDistance or 15
+				local AttemptRecord: {Player: number?} = {}
+				local Attempts: {Player: thread?} = {}
+				local HoldBegan: RBXScriptConnection?, HoldEnded: RBXScriptConnection?, Triggered: RBXScriptConnection?
+				local Running: boolean = true
+				local function clear() if Tool then Tool.Enabled = true end if not BookCanCollide then for i,v in pairs(Physical_Pages) do if v:IsA('BasePart') then v.CanCollide = false end end end if HoldBegan then	HoldBegan:Disconnect() end if HoldEnded then HoldEnded:Disconnect() end if Triggered then Triggered:Disconnect() end HoldBegan = nil HoldEnded = nil Triggered = nil end
+				local function cleantables()
+					Running = false
+					AttemptRecord = {}
+					for i,v in Attempts do
+						coroutine.close(v)
+					end
+					Attempts = {}
+				end
+				HoldBegan =	NewPrompt.PromptButtonHoldBegan:Connect(function(WHO)
+					if not Running then return end
+					local current = math.random() current = tick()
+					local Valid = true
+					AttemptRecord[WHO] = 0 -- nullify
+					if Attempts[WHO] then Attempts[WHO]:Disconnect()  Attempts[WHO] = nil end
+					if WHO and not Attempts[WHO] and WHO.Character and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) then
+						AttemptRecord[WHO] = current
+						local Attempt = coroutine.create(function()
+							while task.wait(.01) and Running and Attempts[WHO] and AttemptRecord[WHO] == current and Valid and WHO.Character and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) and (tick() - current) <= (PickUpDuration or 1) do end
+							if Valid and Running and Attempts[WHO] and AttemptRecord[WHO] == current and WHO.Character and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) and (tick() - current) >= (PickUpDuration or 1) then
+								clear()
+								NewPrompt.Enabled = false
+								Tool.Parent = WHO.Character or WHO.Backpack
+								if Tool.Parent and not Tool.Parent:IsA('Model') then
+									State = "None"
+								end
+								AttemptRecord = {}
+								Attempts = {}
+								NewPrompt:Destroy()
+							end
+							Valid = false
+							AttemptRecord[WHO] = 0
+						end)
+						if AttemptRecord[WHO] == current then Attempts[WHO] = Attempt coroutine.resume(Attempt) end
+					end
+				end)
+				HoldEnded =	NewPrompt.PromptButtonHoldEnded:Connect(function(WHO)
+					local current = math.random() current = tick()
+					AttemptRecord[WHO] = current
+					if Attempts[WHO] then coroutine.close(Attempts[WHO])  Attempts[WHO] = nil end
+				end)
+				Triggered =	NewPrompt.Triggered:Once(function(WHO)
+					clear()
+					NewPrompt:Destroy()
+					Tool.Parent = WHO.Character or WHO.Backpack
+					if Tool.Parent and not Tool.Parent:IsA('Model') then
+						State = "None"
+					end
+					cleantables()
+				end)
+				NewPrompt.Destroying:Once(function()
+					cleantables()
+				end)
+			else
+				if NewPrompt then NewPrompt:Destroy() end
+			end
+		else
+			task.delay(.3,destruct)
+		end
+	end	
+	
+	if Tool.RequiresHandle and not Tool:FindFirstChild('Handle') then
+		warn("Please Change Tool's 'RequiresHandle' Property To False")
+		Tool.AncestryChanged:Connect(function(child, parent)
+			if Tool.Parent and Tool.Parent:IsA('Model') and Tool.Parent:FindFirstChildOfClass('Humanoid') then
+				Equipped()
+			else
+				UnEquipped()
+			end
+		end)
+	else
+		local function SwitchPages(Target_Page: (PageNumbers | PageData | ArrayType))
+			if not LastPage or LastPage == CurrentPage then return end
+			if typeof(Target_Page) == 'PageData' then Target_Page = Target_Page.PageNumber end
+			if not LastPage or LastPage == CurrentPage then return end
+			LatestPageSwitch = tick()
+			LastPage = CurrentPage
+			CurrentPage = tostring(Target_Page)
+			UpdateBook()
+		end
+		Tool.Equipped:Connect(Equipped)
+		Tool.Unequipped:Connect(UnEquipped)
+		Tool.Activated:Connect(function()
+			local curtick = tick() curtick = tick()
+			ActiveTick = curtick
+			if not Equipping or ActiveTick ~= curtick or State ~= 'None' or (tick() - LatestPageSwitch) < 0.1 then return end
+			Activated = true
+		end)
+		Tool.Deactivated:Connect(function()
+			local curtick = tick() curtick = tick()
+			local ADelta = tick() - ActiveTick
+			ActiveTick = curtick
+			if Activated and (tick() - LatestPageSwitch) >= 0.1 then
+				Activated = false
+				if ADelta > 0.5 then
+					if LastPage and LastPage ~= CurrentPage then	SwitchPages(LastPage) else if CurrentPage == 'Front Cover' then SwitchPages('0') elseif CurrentPage == 'Back Cover' then SwitchPages('15') elseif ((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2)) < 16 then if ((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2)) >= 0 then SwitchPages(tostring((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2))) else SwitchPages('Front Cover') end end end
+				else
+					if CurrentPage == 'Front Cover' then
+						SwitchPages('-1')
+					elseif CurrentPage == 'Back Cover' then
+						SwitchPages('Front Cover')
+					else
+						if ((tonumber(CurrentPage) or 0) + (SwitchPerClick or 2)) < 16 then
+							SwitchPages(tostring((tonumber(CurrentPage) or 0) + (SwitchPerClick or 2)))
+						else
+							SwitchPages('Back Cover')
+						end
+					end
+				end
+			end
+		end)
+	end
+end]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{74E5FB4C-A62F-4678-BD35-FDCA507487F3}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">BIS(put in SSS or Tool or Flag)</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

@@ -1,0 +1,853 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX66D2CC7E2CF845929BE04ED8BC294EC6">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">false</bool>
+			<string name="ToolTip">Melon5926 asked for it</string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>-90.3770447</X>
+					<Y>1</Y>
+					<Z>-124.704834</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Hole Molle</string>
+			<int64 name="SourceAssetId">16310406069</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBX2BF32CC2A13B497D9FFFB0DE31E056FF">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--//solivion//--
+--//idea by @melon5926//--
+--//2/23/24//--
+local Weap = script:FindFirstAncestorWhichIsA("Tool")
+local TweenService = game:GetService("TweenService")
+local CurrentAnim = "nil"
+local Character
+local DebugMode = false
+local connect1
+local connect2
+local connect3
+local speed = 1
+local speed2 = 1
+local Angle = 0
+local Angle2 = 0
+local Tiem = tick()
+local connect1 local connect2 local connect3 local unecon local undecon
+local bounce = {}
+local partall = {}
+local gtgignore = {}
+function DebugText(Text:string)
+	if DebugMode == true then
+		print("->"..Text)
+	end
+end
+function DebugWarn(Text:string)
+	if DebugMode == true then
+		warn("-->>"..Text)
+	end
+end
+function CFrameAngles(X,Y,Z)
+	return CFrame.Angles(math.rad(X),math.rad(Y),math.rad(Z))		-- Why Didn't I Thought Of This Earlier.						
+end
+local bobm_sound = function(pos)
+	local part = Instance.new("Part",workspace)
+	part.Transparency = 1
+	part.CanTouch = true
+	part.CanCollide = false
+	part.CanQuery = false
+	part.Anchored= true
+	part.Position = pos
+	game:FindFirstChildOfClass('Debris'):AddItem(part,2)
+	table.insert(partall, part)
+	table.insert(gtgignore,part)
+	part.Touched:Connect(function( part2)
+		if not table.find(gtgignore, part2) and not part2:IsDescendantOf(Character) and not table.find(partall, part2)  then
+			for i = 1, 15 do
+				Instance.new('Explosion',workspace).Position = part.Position + Vector3.new(0, (10-i) * 10,0 )
+				local part = Instance.new("Part",workspace)
+				part.Transparency = 1
+				part.CanTouch = true
+				part.CanCollide = false
+				part.CanQuery = false
+				part.Anchored= true
+				part.Position = part.Position + Vector3.new(0, (14-i) * 10,0 )
+				game:FindFirstChildOfClass('Debris'):AddItem(part,2)
+				local sound = Instance.new("Sound",part)
+				sound.SoundId = "rbxassetid://12222065"
+				sound.Volume = sound.Volume * 1.5
+				sound.PlaybackSpeed = 1 + math.random(-200,200)/1000
+				sound:Play()
+				task.wait(.01)
+			end
+		else
+			if not table.find(gtgignore, part2) and (part2:FindFirstAncestorWhichIsA('Model') and not part2:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid')) or not part2:FindFirstAncestorWhichIsA('Model') then
+				table.insert(gtgignore,part2)
+			end
+		end
+	end)
+	local sound = Instance.new("Sound",part)
+	sound.SoundId = "rbxassetid://5801257793"
+	sound.PlaybackSpeed = 1 + math.random(-500,500)/1000
+	sound:Play()
+end
+local AnimationFrames = {
+	["Idle"] = {Frame1 = 
+	{
+		--LeftShoulder = {CFrame.new(-1.5, 0, 0) * CFrame.Angles(math.rad(0),  math.rad(0), math.rad(0)), 0.1};
+		RightShoulder = {CFrame.new(1.5, 0.5, 0) * CFrameAngles(0, 90, 90), 0.1};
+		GripWeld = {CFrame.new(0, 0, -1) * CFrameAngles(90, 0, 90), 0.45},
+		RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},
+		Root = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},-- R15 version of rootjoint
+		RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},
+		Neck = {CFrame.new(0, 1.5, 0) *CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.45}}
+	},
+	["Cast"] = {Frame1 = 
+		{
+			--LeftShoulder = {CFrame.new(-1.5, 0, 0) * CFrame.Angles(math.rad(0),  math.rad(0), math.rad(0)), 0.1};
+			RightShoulder = {CFrame.new(1.5, 0.5, -0.5) * CFrameAngles(0, 90, 90), 0.1};
+			GripWeld = {CFrame.new(0, 0, -1) * CFrameAngles(90, 0, 90), 0.45},
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},
+			Root = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},-- R15 version of rootjoint
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},
+			Neck = {CFrame.new(0, 1.5, 0) *CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.45}}
+	}
+}
+local WeldStorage = {}
+local function findWeldWithPartialName(part, partialName)
+	for _, descendant in ipairs(part:GetDescendants()) do
+		if descendant:IsA("Weld") and string.find(descendant.Name, partialName, 1, true) then
+			return descendant
+		end
+	end
+	return nil
+end
+function DisableWeld(The)
+	if WeldStorage[The] then
+		WeldStorage[The].Enabled = false
+	end
+end
+function EnableWeld(The)
+	if WeldStorage[The] then
+		WeldStorage[The].Enabled = true
+	end
+end
+function playAnimation(animationName, TimeBetweenFrames)
+	if CurrentAnim ~= animationName then
+		local frames = AnimationFrames[animationName]
+
+		if not frames then
+			DebugWarn("Animation not found: " .. animationName)
+			return
+		end
+
+		for frameName, frameData in pairs(frames) do
+			for weldName, weldCFrame in pairs(frameData) do
+				local weld = findWeldWithPartialName(Weap, weldName) or WeldStorage[weldName]
+				CurrentAnim = animationName
+				if weld then
+					if weldName ~= "LeftShoulder" then
+						EnableWeld(weldName)
+					end
+					local cframe, tweenTime = unpack(weldCFrame)
+					-- You can use TweenService to animate the welds
+					local info = TweenInfo.new(tweenTime, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+					local tween = TweenService:Create(weld, info, {C0 = cframe})
+					if weld.Name ~= "RootJoint" and weld.Name ~= "Root" and not string.find(weld.Name, "Root", 1, true) then
+						weld.C1 = CFrame.new(0, 0, 0)
+					elseif weld.Name ~= "RootJoint" and weld.Name ~= "Root" and string.find(weld.Name, "Root", 1, true) then
+						weld.C1 = CFrame.new(0, 0, 0)
+					else
+						if weld.C1 == CFrameAngles(-90, -180, 0)  then
+							weld.C1 = CFrame.new(0, 0, 0) * CFrameAngles(0, 0, 0)
+						end
+					end
+					if weld.Name == "Neck" and Character:FindFirstChild("UpperTorso") then
+						weld.C1 = CFrame.new(0, 0.2, 0)
+					else
+						weld.C1 = CFrame.new(0, 0, 0)
+					end
+					tween:Play()
+				elseif weldName == "GripWeld" then
+					local cframe, tweenTime = unpack(weldCFrame)
+					-- You can use TweenService to animate the welds
+					local info = TweenInfo.new(tweenTime, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+					local tween = TweenService:Create(Weap, info, {Grip = cframe})
+					-- weld.C1 = CFrame.new(0, 0, 0)
+					tween:Play()
+				elseif weldName == "Root" then
+					EnableWeld(weldName)
+					local cframe, tweenTime = unpack(weldCFrame)
+					weld = findWeldWithPartialName(Weap, weldName)
+					if weld and not Weap:FindFirstChild("RootJoint") then
+						local info = TweenInfo.new(tweenTime, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
+						local tween = TweenService:Create(weld, info, {C0 = cframe})
+						tween:Play()
+					else
+						if weld ~= nil then
+							local info = TweenInfo.new(tweenTime, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
+							local tween = TweenService:Create(weld, info, {C0 = cframe})
+							tween:Play()
+						else
+							DebugWarn("RootJoint Found or No Root Weld")
+						end
+					end
+				else
+					DebugWarn("Weld >" .. weldName .. "< not found")
+				end
+			end
+			task.wait(TimeBetweenFrames)
+		end
+	end
+end
+function GetHumanoid(From:Model)
+	if From then
+		if From:FindFirstChildOfClass("Humanoid") then
+			return From:FindFirstChildOfClass("Humanoid")
+		else
+			return nil
+		end
+	end
+end
+function ReplicateWeld(BasePart,Where)
+	for i,v in BasePart:GetChildren() do
+		if v:IsA("Motor6D") and not WeldStorage[string.gsub(v.Name, " ", "")] then
+			local NewWeldForStuff = Instance.new("Weld", Where)
+			NewWeldForStuff.Name = string.gsub(v.Name," ","")
+			NewWeldForStuff.Part0 = v.Part0
+			NewWeldForStuff.Part1 = v.Part1
+			if string.find(NewWeldForStuff.Name,"Root",1,false) then
+				NewWeldForStuff.C1 = CFrameAngles(0,0,0) * CFrame.new(0,0,0)
+			else
+				NewWeldForStuff.C1 = v.C1
+			end
+
+			NewWeldForStuff.C0 = v.C0
+			NewWeldForStuff.Enabled = v.Enabled
+			-- TODO: Register These Welds Into The Table
+			--Also
+			--ApplyAttribute(NewWeldForStuff)
+			-- Register the newly created weld in the WeldStorage table
+			WeldStorage[string.gsub(v.Name, " ", "")] = NewWeldForStuff
+		end
+	end
+end
+function StartExecution(Where)
+	for i,thing in Where:GetChildren() do
+		if thing:IsA("Weld") then
+			thing:Destroy()      -- Remove
+		end
+	end
+	table.clear(WeldStorage)	
+	local Torso = Character:FindFirstChild("UpperTorso") or Character:FindFirstChild("Torso")
+	local Hrp = Character:FindFirstChild("HumanoidRootPart") or GetHumanoid(Character).RootPart
+	if not Torso then
+		for i, v in Character:GetChildren() do
+			if v:IsA("MeshPart") then
+				ReplicateWeld(v,Where)
+			end
+		end
+	end
+	if Hrp then
+		ReplicateWeld(Hrp,Where)
+	end
+	if Torso then
+		ReplicateWeld(Torso,Where)
+	end
+	for i, v in Character:GetChildren() do
+		if v:IsA("BasePart") then
+			ReplicateWeld(v,Where)
+		end
+	end
+end
+if Weap then
+	Weap.Equipped:Connect(function()
+		Character = Weap.Parent task.wait(.01)
+		--if Character:FindFirstChildOfClass("Humanoid") then
+		--	Character:FindFirstChildOfClass("Humanoid"):UnequipTools()
+		--end
+		task.wait(.01)
+		--[[Weap:FindFirstChild("Handle"):BreakJoints()
+		Weap:FindFirstChild("Handle").Parent = workspace
+		Weap:Destroy()
+		return]]
+		StartExecution(Weap)
+		task.wait(.01)
+		playAnimation("Idle",0.35)
+	end)
+	Weap.Activated:Connect(function()
+		Tiem = tick()
+		playAnimation("Cast",0.35)
+		local sphere = Instance.new("Part",Character)
+		sphere.Shape = Enum.PartType.Ball
+		sphere.Transparency = 0.9
+		sphere.Anchored = true
+		sphere.CanCollide = false
+		sphere.CanQuery = false
+		sphere.Color = Weap:FindFirstChild("Handle").Color
+		sphere.Name = "PROTECTION"
+		table.insert(partall, sphere)
+		local function uhh(part)
+			if not table.find(partall, part) and not part:IsDescendantOf(Character) and part:FindFirstAncestorWhichIsA("Model") and part:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid") and not bounce[part:FindFirstAncestorWhichIsA("Model")] then
+				bounce[part:FindFirstAncestorWhichIsA("Model")] = true
+				if part:FindFirstAncestorWhichIsA("Model") and part:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Head") then part:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Head").CFrame = CFrame.new(part:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Head").Position, sphere.Position) end
+				if part:FindFirstAncestorWhichIsA("Model") and part:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid") then part:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").Sit = true
+				part:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").Health = part:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").Health - 10
+				end	
+				if part:FindFirstAncestorWhichIsA("Model") and part:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Head") then part:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Head").Velocity = Vector3.new(0,10,-150) end
+				if part then Instance.new('Explosion',workspace).Position = part.Position 
+				bobm_sound(part.Position)
+				task.wait(0.5)end
+				if part and part:FindFirstAncestorWhichIsA("Model") then
+					part:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").Sit = false
+					bounce[part:FindFirstAncestorWhichIsA("Model")] = nil
+				end
+			end
+		end
+		if connect1 then
+			connect1:Disconnect()
+			end
+		if connect2 then
+			connect2:Disconnect()
+			end
+		if connect3 then
+			connect3:Disconnect()
+			end
+		connect1 = sphere.Touched:Connect(uhh)
+		connect2 = sphere.TouchEnded:Connect(uhh)
+		connect3 = sphere.LocalSimulationTouched:Connect(uhh)
+		local lastbobm = tick()
+		local spell = coroutine.create(function()
+			while CurrentAnim == "Cast" do
+				while task.wait(.01) do
+					if not Character:FindFirstChildOfClass("ForceField") then
+						local ff = Instance.new('ForceField',Character)
+						ff.Visible = false
+					end
+					speed = math.clamp(speed + 0.01,1,10) 
+					Angle = Angle+speed * 0.01
+					local angle = Angle * 2 * math.pi
+					local xOffset = 25 * math.cos(angle)
+					local zOffset = 25 * math.sin(angle)
+					-- Calculate the new position for the circular attack
+					local newPosition = Weap:FindFirstChild("Handle").CFrame.Position + Vector3.new(xOffset, 0, zOffset)
+					local bobm = Instance.new("Explosion", Weap)
+					bobm.Position = newPosition --(Weap:FindFirstChild("Handle").CFrame + Vector3.new(0,0,5) * CFrameAngles(0,Angle,Angle)).Position --weird
+					bobm.DestroyJointRadiusPercent = 1
+					bobm_sound(newPosition)
+					sphere.Position = Weap:FindFirstChild("Handle").Position
+					sphere.Size = Vector3.new(math.random(40,50),math.random(45,50),math.random(35,50))
+					sphere.Shape = Enum.PartType.Ball
+					sphere.Transparency = 0.7
+					sphere.Anchored = true
+					sphere.CanCollide = false
+					sphere.CanTouch = true
+					sphere.CanQuery = false
+					sphere.Color = Weap:FindFirstChild("Handle").Color
+					if Weap:FindFirstChild("Handle") and Weap:FindFirstChild("Handle"):FindFirstChild("Also Handle") then
+						if  Weap:FindFirstChild("Handle").Material == Enum.Material.Neon then
+							Weap:FindFirstChild("Handle").Material = Enum.Material.SmoothPlastic
+							Weap:FindFirstChild("Handle"):FindFirstChild("Also Handle").Material = Enum.Material.SmoothPlastic
+						else
+							Weap:FindFirstChild("Handle").Material = Enum.Material.Neon
+							Weap:FindFirstChild("Handle"):FindFirstChild("Also Handle").Material = Enum.Material.Neon
+						end
+					end
+					sphere.Name = "PROTECTION"
+					--if (tick() - lastbobm) >= 2 then
+						local drop = Instance.new("Part", workspace)
+						speed2 = math.clamp(speed2 + 0.01,1,5) 
+						Angle2 = Angle2+speed2 * 0.01
+						local angle2 = Angle2 * 2 * math.pi
+						local xOffset = 25 * math.cos(angle2)
+						local zOffset = 25 * math.sin(angle2)
+						-- Calculate the new position for the circular attack
+						local newPosition = Weap:FindFirstChild("Handle").CFrame.Position + Vector3.new(xOffset, 0, zOffset)
+						drop.Position = newPosition
+						game:FindFirstChildOfClass('Debris'):AddItem(drop,1)
+						drop.Anchored = true
+						drop.CanCollide = false
+						drop.Transparency = 1
+						table.insert(partall, drop)
+						drop.Touched:Once(function(part)
+							if not table.find(gtgignore, part) and not table.find(partall, part) and not part:IsDescendantOf(Character) and part:FindFirstAncestorWhichIsA('Model') and part:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid')  then
+								Instance.new('Explosion',workspace).Position = drop.Position
+								drop:Destroy()
+							else
+								if not table.find(gtgignore, part) and (part:FindFirstAncestorWhichIsA('Model') and not part:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid')) or not part:FindFirstAncestorWhichIsA('Model') then
+									table.insert(gtgignore,part)
+								end
+							end
+						end)
+					--end
+				end
+			end
+		end)
+		coroutine.resume(spell)
+		undecon = Weap.Deactivated:Connect(function()
+			--[[local furthestpos = 1000
+			local savedframe = Weap:FindFirstChild("Handle").CFrame
+			if tick() - Tiem < 0.5 then
+				local go = coroutine.create(
+					function()
+						while furthestpos > 0 do
+							local far = 1000 - furthestpos
+							-- Calculate the new position for the circular attack
+							local newPosition = savedframe + Vector3.new(0, 0, far) * savedframe.LookVector
+							local bobm = Instance.new("Explosion", Weap)
+							bobm.Position = newPosition --(Weap:FindFirstChild("Handle").CFrame + Vector3.new(0,0,5) * CFrameAngles(0,Angle,Angle)).Position --weird
+							bobm.DestroyJointRadiusPercent = 0.5
+							bobm_sound(newPosition)
+							furthestpos = furthestpos - 1
+							if furthestpos <= 0 then
+								break
+							end
+						end
+					end
+				)
+				coroutine.resume(go)
+			end]]
+			connect1:Disconnect()
+			connect2:Disconnect()
+			connect3:Disconnect()
+			if undecon then
+				undecon:Disconnect()
+			end
+			if unecon then
+				undecon:Disconnect()
+			end
+			if sphere then
+				sphere:Destroy()
+			end
+			playAnimation("Idle",0.35)
+			coroutine.close(spell)
+			if Character:FindFirstChildOfClass("ForceField") then
+				Character:FindFirstChildOfClass("ForceField"):Destroy()
+			end
+			speed = 1
+			speed = 1
+			--[[if go ~= nil then
+				coroutine.close(go)
+			end]]
+		end)
+		unecon = Weap.Unequipped:Connect(function()
+			for i,v in Weap:GetChildren() do
+				if v:IsA("JointInstance") then
+					v:Destroy()
+					if WeldStorage[v] then
+						WeldStorage[v] = nil
+					end
+				end
+			end
+			connect1:Disconnect()
+			connect2:Disconnect()
+			connect3:Disconnect()
+			if undecon then
+				undecon:Disconnect()
+			end
+			if unecon then
+				undecon:Disconnect()
+			end
+			if sphere then
+				sphere:Destroy()
+			end
+			speed = 1
+			speed = 1
+			if spell then
+				coroutine.close(spell)
+			end
+			CurrentAnim = "nil"
+			table.clear(WeldStorage)
+		end)
+	end)
+	Weap.Unequipped:Connect(function()
+		for i,v in Weap:GetChildren() do
+			if v:IsA("JointInstance") then
+				v:Destroy()
+				if WeldStorage[v] then
+					WeldStorage[v] = nil
+				end
+			end
+		end
+		CurrentAnim = "nil"
+		table.clear(WeldStorage)
+	end)
+end]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{19E1144B-4D38-4C99-ACE8-AB5069908207}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Template</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="Part" referent="RBXEFBC859076CB498386AA6D497560B3DA">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">1</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>-45.1885223</X>
+					<Y>0.5</Y>
+					<Z>-62.352417</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>4</X>
+					<Y>1</Y>
+					<Z>2</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Decal" referent="RBXB33E4151D89E4BCEA3583D8DEA327B3E">
+				<Properties>
+					<bool name="AutoLocalize">true</bool>
+					<Color3 name="Color3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<Content name="MetalnessMap"><null></null></Content>
+					<Content name="NormalMap"><null></null></Content>
+					<float name="Rotation">0</float>
+					<Content name="RoughnessMap"><null></null></Content>
+					<Content name="Texture"><url>rbxassetid://15949653949</url></Content>
+					<Content name="TexturePack"><null></null></Content>
+					<string name="TexturePackMetadata"></string>
+					<float name="Transparency">0</float>
+					<Vector2 name="UVOffset">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<Vector2 name="UVScale">
+						<X>1</X>
+						<Y>1</Y>
+					</Vector2>
+					<int name="ZIndex">1</int>
+					<token name="Face">5</token>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Decal</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Decal" referent="RBX29A7DA8DA1B54A4F8EC547BC3A82828A">
+				<Properties>
+					<bool name="AutoLocalize">true</bool>
+					<Color3 name="Color3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<Content name="MetalnessMap"><null></null></Content>
+					<Content name="NormalMap"><null></null></Content>
+					<float name="Rotation">0</float>
+					<Content name="RoughnessMap"><null></null></Content>
+					<Content name="Texture"><url>rbxassetid://15949653949</url></Content>
+					<Content name="TexturePack"><null></null></Content>
+					<string name="TexturePackMetadata"></string>
+					<float name="Transparency">0</float>
+					<Vector2 name="UVOffset">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<Vector2 name="UVScale">
+						<X>1</X>
+						<Y>1</Y>
+					</Vector2>
+					<int name="ZIndex">1</int>
+					<token name="Face">2</token>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Decal</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Decal" referent="RBXFA8DDC5E6FD144B0B6974F1BCB9876E9">
+				<Properties>
+					<bool name="AutoLocalize">true</bool>
+					<Color3 name="Color3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<Content name="MetalnessMap"><null></null></Content>
+					<Content name="NormalMap"><null></null></Content>
+					<float name="Rotation">0</float>
+					<Content name="RoughnessMap"><null></null></Content>
+					<Content name="Texture"><url>rbxassetid://15949653949</url></Content>
+					<Content name="TexturePack"><null></null></Content>
+					<string name="TexturePackMetadata"></string>
+					<float name="Transparency">0</float>
+					<Vector2 name="UVOffset">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<Vector2 name="UVScale">
+						<X>1</X>
+						<Y>1</Y>
+					</Vector2>
+					<int name="ZIndex">1</int>
+					<token name="Face">1</token>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Decal</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Decal" referent="RBXF70B4966DECF4DFCA11D164D230F8014">
+				<Properties>
+					<bool name="AutoLocalize">true</bool>
+					<Color3 name="Color3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<Content name="MetalnessMap"><null></null></Content>
+					<Content name="NormalMap"><null></null></Content>
+					<float name="Rotation">0</float>
+					<Content name="RoughnessMap"><null></null></Content>
+					<Content name="Texture"><url>rbxassetid://15949653949</url></Content>
+					<Content name="TexturePack"><null></null></Content>
+					<string name="TexturePackMetadata"></string>
+					<float name="Transparency">0</float>
+					<Vector2 name="UVOffset">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<Vector2 name="UVScale">
+						<X>1</X>
+						<Y>1</Y>
+					</Vector2>
+					<int name="ZIndex">1</int>
+					<token name="Face">4</token>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Decal</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Decal" referent="RBXF55D4AC5FF7944A19B772187E24D1C93">
+				<Properties>
+					<bool name="AutoLocalize">true</bool>
+					<Color3 name="Color3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<Content name="MetalnessMap"><null></null></Content>
+					<Content name="NormalMap"><null></null></Content>
+					<float name="Rotation">0</float>
+					<Content name="RoughnessMap"><null></null></Content>
+					<Content name="Texture"><url>rbxassetid://15949653949</url></Content>
+					<Content name="TexturePack"><null></null></Content>
+					<string name="TexturePackMetadata"></string>
+					<float name="Transparency">0</float>
+					<Vector2 name="UVOffset">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<Vector2 name="UVScale">
+						<X>1</X>
+						<Y>1</Y>
+					</Vector2>
+					<int name="ZIndex">1</int>
+					<token name="Face">0</token>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Decal</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Decal" referent="RBX44D94333858C4CBBA3D64B5A866F69FD">
+				<Properties>
+					<bool name="AutoLocalize">true</bool>
+					<Color3 name="Color3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<Content name="MetalnessMap"><null></null></Content>
+					<Content name="NormalMap"><null></null></Content>
+					<float name="Rotation">0</float>
+					<Content name="RoughnessMap"><null></null></Content>
+					<Content name="Texture"><url>rbxassetid://15949653949</url></Content>
+					<Content name="TexturePack"><null></null></Content>
+					<string name="TexturePackMetadata"></string>
+					<float name="Transparency">0</float>
+					<Vector2 name="UVOffset">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<Vector2 name="UVScale">
+						<X>1</X>
+						<Y>1</Y>
+					</Vector2>
+					<int name="ZIndex">1</int>
+					<token name="Face">3</token>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Decal</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

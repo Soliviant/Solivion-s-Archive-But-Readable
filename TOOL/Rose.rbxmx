@@ -1,0 +1,389 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBXA9AC141F3FC44D89984BA1A09998AA82">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Rose</string>
+			<int64 name="SourceAssetId">17379557065</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Part" referent="RBXE77EFFB3D5084E96B03DAC28E2A7C005">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">3</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">4</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>-0.64408493</X>
+					<Y>2.71002865</Y>
+					<Z>-0.748119354</Z>
+					<R00>0</R00>
+					<R01>0.965925813</R01>
+					<R02>-0.258819044</R02>
+					<R10>0</R10>
+					<R11>-0.258819044</R11>
+					<R12>-0.965925813</R12>
+					<R20>-1</R20>
+					<R21>0</R21>
+					<R22>0</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4291045404</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">3</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>0.200000003</X>
+					<Y>0.200000033</Y>
+					<Z>0.999999344</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBX64F2E1163B8340758A6924750A3575E0">
+				<Properties>
+					<token name="MeshType">5</token>
+					<Content name="MeshId"><url>http://www.roblox.com/asset?id=145815862</url></Content>
+					<Content name="TextureId"><url>http://www.roblox.com/asset?id=145815901</url></Content>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>0.75</X>
+						<Y>0.75</Y>
+						<Z>0.75</Z>
+					</Vector3>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Mesh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Script" referent="RBX99BD49725CFA4727B70D0757B5291E4A">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--By Solivion
+local Tool: (Flag | Tool)? = script:FindFirstAncestorWhichIsA('Flag') or script:FindFirstAncestorWhichIsA('Tool')
+local Handle: BasePart? = Tool:FindFirstChildOfClass('BasePart') or Tool:FindFirstChild('Handle')
+
+if not Tool or not Handle then return end
+
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	if script:FindFirstAncestorOfClass("Actor") then
+		task.desynchronize()
+	end
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if script:FindFirstAncestorOfClass("Actor") then
+			task.desynchronize()
+		end
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				if script:FindFirstAncestorOfClass("Actor") then
+					task.synchronize()
+				end
+				return v
+			end
+		end
+	end
+end
+
+local Character: Model?
+local HandWeld: Weld?
+local DefaultArmOffset: CFrame = CFrame.new(1.5,0,0)
+local AnimCoroutine: thread?
+local Equipped: boolean = false
+local Active: boolean = false
+local ActivationTick: number = tick()
+local EquipTick: number = tick()
+type AnimationName = ('Throw'|'Equip'|'Unequip'|'Charge'|'Raise')
+local Anim: AnimationName = 'Unequip'
+local State: AnimationName = 'Unequip'
+local SpecialAction = {
+	['Rehandle'] = function()
+		if not Handle then
+			Handle = Instance.new("Part")
+			Handle.Name = "Handle"
+			Handle.Color = Color3.fromRGB(196, 40, 28)
+			Handle.Size = Vector3.new(0.2, 0.2, 1)
+			Handle.FormFactor = Enum.FormFactor.Custom
+
+			local Mesh = Instance.new("SpecialMesh")
+			Mesh.Scale = Vector3.new(0.75, 0.75, 0.75)
+			Mesh.MeshId = "http://www.roblox.com/asset?id=145815862"
+			Mesh.TextureId = "http://www.roblox.com/asset?id=145815901"
+			Mesh.MeshType = Enum.MeshType.FileMesh
+			Mesh.Parent = Handle
+		end
+	end,
+	['Accessorize'] = function(Where: Model, How: boolean)
+		if not Where then
+			return
+		end
+		if not Handle then
+			return
+		end
+		if How == nil then
+			How = true
+		end
+		if Where then
+			if How then
+				Anim = 'Unequip'
+				local Torso = FindFirstChildOfNameAndClass(Where, 'UpperTorso','BasePart') or FindFirstChildOfNameAndClass(Where, 'Torso','BasePart')
+				if Torso and not Where:FindFirstChild('AttachedHandle') then
+					local Attached = Handle:Clone()
+					local AttachedWeld = Instance.new('Weld', Attached)
+					AttachedWeld.Part0 = Torso
+					AttachedWeld.Part1 = Attached
+					AttachedWeld.C0 = CFrame.new(Torso.Size.X / 3, Torso.Size.Y / 4, -Torso.Size.Z / 2) * CFrame.Angles(math.rad(-90),math.rad(180),0)
+					Attached.Parent = Where
+					Attached.Name = 'AttachedHandle'
+				end
+			else
+				if Where:FindFirstChild('AttachedHandle') then
+					Anim = 'Equip'
+					Where:FindFirstChild('AttachedHandle'):Destroy()
+				end
+			end
+		end
+	end,
+	['Throw'] = function(Where: CFrame, Force: number)
+		if Anim ~= 'Charge' then
+			return
+		end
+		if not Handle then
+			return
+		end
+		Anim = 'Throw'
+		local Thrown = Handle:Clone()
+		Thrown.Parent = workspace
+		Thrown.Velocity = (Where.Position - Thrown.Position).Unit * Force * 10
+		Thrown.CanCollide = true
+	end,
+	['Raise'] = function()
+		if Anim == 'Raise' then
+			Anim = 'Equip'
+		elseif Anim == 'Equip' then
+			Anim = 'Raise'
+		end
+	end
+}
+local ConnectedEvent = {
+	['Equipped'] = function()
+		local a a = tick() EquipTick = a ActivationTick = a Character = Tool:FindFirstAncestorOfClass('Model')
+		if AnimCoroutine then coroutine.close(AnimCoroutine) AnimCoroutine = nil end		
+		Anim = 'Equip'
+		SpecialAction['Accessorize'](Character, false)
+		if EquipTick == a then
+			if HandWeld then HandWeld:Destroy() HandWeld = nil end
+			local Torso = FindFirstChildOfNameAndClass(Character, "UpperTorso", "BasePart") or FindFirstChildOfNameAndClass(Character, "Torso", "BasePart")
+			local RightArm = FindFirstChildOfNameAndClass(Character, "RightUpperArm", "BasePart") or FindFirstChildOfNameAndClass(Character, "Right Arm", "BasePart")
+			if not HandWeld and Torso and RightArm then DefaultArmOffset = CFrame.new(Torso.Size.X/1.35,0,0)
+				HandWeld = Instance.new("Weld", Character) HandWeld.Part1 = RightArm HandWeld.Part0 = Torso HandWeld.C0 = DefaultArmOffset
+			end
+			if EquipTick == a then
+				AnimCoroutine = coroutine.create(function() 
+					while Character and HandWeld and task.wait(.01) do
+						DefaultArmOffset = CFrame.new(Torso.Size.X/1.35,0,0)
+						if Anim == 'Equip' then HandWeld.C0 = HandWeld.C0:Lerp(DefaultArmOffset * CFrame.Angles(math.rad(90),0,0),0.3) elseif Anim == 'Unequip' then HandWeld.C0 = HandWeld.C0:Lerp(DefaultArmOffset * CFrame.Angles(math.rad(105),0,math.rad(-90)),0.3) elseif Anim == 'Charge' then HandWeld.C0 = HandWeld.C0:Lerp(DefaultArmOffset * CFrame.Angles(math.rad(225),math.rad(15),math.rad(15)),0.3) elseif Anim == 'Throw' then HandWeld.C0 = HandWeld.C0:Lerp(DefaultArmOffset * CFrame.Angles(math.rad(45),math.rad(-15),math.rad(-15)),0.3) elseif Anim == 'Raise' then HandWeld.C0 = HandWeld.C0:Lerp(DefaultArmOffset * CFrame.Angles(math.rad(180),0,0),0.3) end
+					end
+				end)
+				coroutine.resume(AnimCoroutine)
+			end
+		end
+	end,
+['Unequipped'] = function()
+	local a a = tick() EquipTick = a ActivationTick = a
+	SpecialAction['Accessorize'](Character, true)
+	Anim = 'Unequip'
+	task.wait(0.5)
+	if EquipTick  == a then if HandWeld then HandWeld:Destroy() HandWeld = nil end if AnimCoroutine then coroutine.close(AnimCoroutine) AnimCoroutine  = nil end end
+end,
+['Activated'] = function()
+	local a a = tick() ActivationTick = a
+end,
+['Deactivated'] = function()
+	local Delta = tick() - ActivationTick
+	local a a = tick() ActivationTick = a
+	if not Character or not Character.PrimaryPart then
+		return
+	end
+	if Anim == 'Charge' then
+		if Delta < 0.25 then 
+			Anim = 'Raise'
+			SpecialAction["Raise"]()
+		else 
+			SpecialAction["Throw"](Handle.CFrame + Character.PrimaryPart.CFrame.UpVector * Delta * 10 + Character.PrimaryPart.CFrame.LookVector * 70, math.clamp(Delta * 10, 0, 100))
+			task.wait(0.1)
+			ActivationTick = tick()
+			Anim = 'Equip'	
+		end
+	elseif Anim == 'Equip' then
+		if Delta < 0.25 then 
+			SpecialAction["Raise"]()
+		else 
+			Anim = 'Charge'
+		end	
+	elseif Anim == 'Raise' then
+		if Delta < 0.25 then 
+			SpecialAction["Raise"]()
+		end
+	end
+end,
+}
+Tool.Equipped:Connect(ConnectedEvent['Equipped'])
+Tool.Unequipped:Connect(ConnectedEvent['Unequipped'])
+Tool.Activated:Connect(ConnectedEvent['Activated'])
+Tool.Deactivated:Connect(ConnectedEvent['Deactivated'])
+
+--I'll never write a script on samsung note again, too many uppercase and "" mistakes]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{ED1F5EB1-8EDB-48FF-A6F0-7D6FBFEEE41D}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Script[Rose]</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

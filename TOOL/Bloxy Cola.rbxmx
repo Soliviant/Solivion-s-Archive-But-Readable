@@ -1,0 +1,615 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX5D98F2820E384E7A8B9CE214D3EAA1FB">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><url>http://www.roblox.com/asset/?id=10472127</url></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>18.562252</X>
+					<Y>12.289854</Y>
+					<Z>53.4999733</Z>
+					<R00>-0.999999523</R00>
+					<R01>-9.04471017e-06</R01>
+					<R02>2.48451997e-05</R02>
+					<R10>-8.99407678e-06</R10>
+					<R11>1</R11>
+					<R12>-1.47936089e-05</R12>
+					<R20>-2.47880726e-05</R20>
+					<R21>-1.48334029e-05</R21>
+					<R22>-1.00000012</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Bloxy Cola</string>
+			<int64 name="SourceAssetId">16266110053</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBX1B1DABEF104C4777A56BB19C5F9D03D7">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--//Bloxy Cola: Solivion Version//--
+--//By @Solivion//--
+--//6th February 2024//--
+--<<Setting>>--
+local maxamount: number = 100
+local amount: number = maxamount
+local amountpertime: number = maxamount/80
+local healamount: number = 1
+local open: boolean = false
+local drinkifnothurt: boolean = true
+--<<Variable>>--
+local Tool: Tool = script:FindFirstAncestorOfClass('Tool');
+local anim: string = 'Idle'
+local Activated: boolean = false
+local opening: boolean = false
+local openingtic: number = 0
+local weld = {}
+if Tool then
+	if not open then
+		Tool.ToolTip = '{UNOPENED}'
+	else
+		Tool.ToolTip = '<<OPENED>>'
+	end
+	
+end
+--<<Functions>>--
+function openreset()
+	opening = false
+	openingtic = 0
+end
+function stopopensound()
+	if Tool and Tool:FindFirstChild("Handle") and Tool:FindFirstChild("Handle"):FindFirstChild("OpenSound") then
+		Tool:FindFirstChild("Handle"):FindFirstChild("OpenSound"):stop()
+	end
+end
+function nocheat(ye) -- not so soon
+	repeat 
+		if openingtic ~= ye or not Tool or not Tool:FindFirstAncestorWhichIsA("Model") or (Tool:FindFirstAncestorWhichIsA("Model") and not Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid")) or table.find({Enum.HumanoidStateType.Dead,Enum.HumanoidStateType.Physics,Enum.HumanoidStateType.FallingDown,Enum.HumanoidStateType.Ragdoll,Enum.HumanoidStateType.Swimming,Enum.HumanoidStateType.None,Enum.HumanoidStateType.GettingUp,Enum.HumanoidStateType.Flying,Enum.HumanoidStateType.RunningNoPhysics,Enum.HumanoidStateType.StrafingNoPhysics}, Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid"):GetState()) then
+			stopopensound()
+			anim = 'idle'
+			break
+		end
+		task.wait(.01)
+	until opening == false or openingtic ~= ye
+end
+
+function Deactivated()
+	anim = 'idle'
+	openreset()
+	drink = false
+	Activated = false
+	stopopensound()
+	--[[if Tool then
+		Tool.GripForward = Vector3.new(-.976,0,-0.217)
+		Tool.GripPos = Vector3.new(0.03,0,0)
+		Tool.GripRight = Vector3.new(.217,0,-.976)
+		Tool.GripUp = Vector3.new(0,1,0)
+	end]]
+	enabled = true
+end
+
+function onActivated()
+	if not enabled  then
+		return
+	end
+	if opening then
+		return
+	end
+	if not open then
+		Activated = true
+		local thetic
+		thetic = tick()
+		opening = true
+		openingtic = thetic
+		coroutine.resume(coroutine.create(function() nocheat(thetic) end))
+		enabled = false
+		anim = 'open'
+		if Tool and Tool:FindFirstChild("Handle") and Tool:FindFirstChild("Handle"):FindFirstChild("OpenSound") then
+			Tool:FindFirstChild("Handle"):FindFirstChild("OpenSound"):play()
+		end
+		coroutine.resume(coroutine.create(function() 
+			task.wait(1)
+			if Activated and opening and string.upper(anim)  == 'OPEN' and openingtic == thetic and openingtic ~= tick() and (tick() - openingtic) > 1 and Tool and Tool:FindFirstAncestorWhichIsA("Model") and Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid") then
+				if Tool then
+					Tool.ToolTip = '<<OPENED>>'
+				end
+				open = true
+				enabled = true
+				openreset()
+				stopopensound()
+				anim = 'idle'
+				Tool:Deactivate()
+			end
+		end))
+		return
+	end
+	local h = script:FindFirstAncestorOfClass('Tool'):FindFirstAncestorOfClass('Model') and script:FindFirstAncestorOfClass('Tool'):FindFirstAncestorOfClass('Model'):FindFirstChildOfClass("Humanoid")
+	if h.MaxHealth == h.Health and not drinkifnothurt then
+		Tool:Deactivate()
+		return
+	end
+	Activated = true
+	enabled = false
+	--[[if Tool then
+		Tool.GripForward = Vector3.new(0,-.759,-.651)
+		Tool.GripPos = Vector3.new(1.5,-.5,.3)
+		Tool.GripRight = Vector3.new(1,0,0)
+		Tool.GripUp = Vector3.new(0,.651,-.759)
+	end]]
+	
+	if (h ~= nil) and h ~= true then
+		coroutine.resume(coroutine.create(function()
+			-- drain cola, heal humanoid
+			local RequiredServerStorage = game:FindFirstChildOfClass('ServerStorage') or game:FindFirstChildOfClass('ReplicatedStorage')
+			local Remote: BindableEvent = RequiredServerStorage and RequiredServerStorage:FindFirstChild('GAME_EVENT_TRIGGER')
+			repeat 	if (h.MaxHealth > h.Health or drinkifnothurt) and amount > 0 then if Tool and Tool:FindFirstChild("Handle") and Tool:FindFirstChild("Handle"):FindFirstChild("DrinkSound") and drink then Tool:FindFirstChild("Handle"):FindFirstChild("DrinkSound"):Play() Tool:FindFirstChild("Handle"):FindFirstChild("DrinkSound").TimePosition = 2.3 end anim = 'drink' if drink then local taken = amountpertime if amount - amountpertime < 0 then taken = amount end amount = math.clamp(amount - amountpertime,0,maxamount) if Remote then Remote:Fire(h.Parent , -((taken/ amountpertime) * healamount)) end h.Health = math.clamp(h.Health + (taken/ amountpertime) * healamount, 0, h.MaxHealth) end  task.wait(0.05) else task.wait(.01) Tool:Deactivate() end if Tool and drink then Tool.ToolTip = '['..amount..'/'..maxamount..']' end  until (amount <= 0  or not Activated)
+			anim = 'idle'
+			if amount <= 0 then
+				Tool.Enabled = false
+				Tool.ManualActivationOnly = true
+				if Tool and Tool:FindFirstChild("Handle") then
+					if Tool and Tool:FindFirstChild("Handle") and Tool:FindFirstChild("Handle"):FindFirstChild("DrinkSound") then 
+						local sound = Tool:FindFirstChild("Handle"):FindFirstChild("DrinkSound")
+						if Tool:FindFirstAncestorWhichIsA("Model") and Tool:FindFirstAncestorWhichIsA("Model").PrimaryPart then
+							sound.Parent = Tool:FindFirstAncestorWhichIsA("Model").PrimaryPart
+						end
+						if game:FindFirstChildOfClass("Debris") then
+							game:FindFirstChildOfClass("Debris"):AddItem(sound,10)
+						end
+					end
+					local handle = Tool:FindFirstChild("Handle")
+					handle.CanTouch = true
+					handle.CanCollide = true
+					if game:FindFirstChildOfClass("TweenService") then
+						game:FindFirstChildOfClass("TweenService"):Create(Tool:FindFirstChild("Handle"),TweenInfo.new(10),{Transparency = 1}):Play()
+					end
+					handle.Parent = workspace
+					Tool:Destroy()
+					if game:FindFirstChildOfClass("Debris") then
+						game:FindFirstChildOfClass("Debris"):AddItem(handle,10)
+					else
+						task.wait(10)
+						handle:Destroy()
+					end
+				end
+			end	
+		end))
+	end
+end
+
+function onEquipped()
+	openreset()
+	if amount > 0 and not Tool:FindFirstChild("Handle") then -- no handle?
+		-- Serialized Via 'Instance Serializer' By @Dekkonot
+		local a=Instance.new"Part"
+		a.Name="Handle"
+		a.BottomSurface=0
+		a.TopSurface=0
+		a.Color=Color3.fromRGB(205,205,205)
+		a.Size=Vector3.new(1,1.2000000476837158,1)
+		local b=Instance.new"SpecialMesh"
+		b.Scale=Vector3.new(1.2000000476837158,1.2000000476837158,1.2000000476837158)
+		b.MeshId="http://www.roblox.com/asset/?id=10470609"
+		b.TextureId="http://www.roblox.com/asset/?id=10470600"
+		b.MeshType=5
+		b.Parent=a
+		local c=Instance.new"Sound"
+		c.Name="DrinkSound"
+		c.SoundId="http://www.roblox.com/asset/?id=10722059"
+		c.Parent=a
+		local d=Instance.new"Sound"
+		d.Name="OpenSound"
+		d.SoundId="http://www.roblox.com/asset/?id=10721950"
+		d.Parent=a
+		a.Parent = Tool
+	end
+	anim = 'idle'
+	drink = false
+	if weld.l then
+		weld.l.C0 = CFrame.new(-1.5,0,0)
+	end
+	if weld.r then
+		weld.r.C0 = CFrame.new(1.5,0,0)
+	end
+	if not open then
+		Tool.Grip = CFrame.Angles(0,0,math.rad(-15))
+	else
+		Tool.Grip = CFrame.new()
+	end
+	Activated = false
+	coroutine.resume(coroutine.create(function() -- anim Crap
+		while task.wait(.01) and Tool:FindFirstAncestorWhichIsA("Model") and Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid") and Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid").RootPart do
+			if not table.find({Enum.HumanoidStateType.Dead,Enum.HumanoidStateType.Physics,Enum.HumanoidStateType.FallingDown,Enum.HumanoidStateType.Ragdoll,Enum.HumanoidStateType.Swimming,Enum.HumanoidStateType.None,Enum.HumanoidStateType.GettingUp,Enum.HumanoidStateType.Flying,Enum.HumanoidStateType.RunningNoPhysics,Enum.HumanoidStateType.StrafingNoPhysics}, Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid"):GetState()) then
+				if not weld.r then
+					local weldr = Instance.new('ManualGlue',Tool)
+					weld.r = weldr
+					local arm = Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("RightUpperArm") or Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Right Arm")
+					local torso =  Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("UpperTorso") or Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Torso")
+					if arm and torso then
+						weldr.Part1 = arm or torso
+						weldr.Part0 = torso or arm
+					end
+					weldr.C0 = CFrame.new(1.5,0,0)
+				end
+				if not weld.l then
+					local weldl = Instance.new('ManualGlue',Tool)
+					weld.l = weldl
+					local arm = Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("LeftUpperArm") or Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Left Arm")
+					local torso =  Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("UpperTorso") or Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Torso")
+					if arm and torso then
+						weldl.Part1 = arm or torso
+						weldl.Part0 = torso or arm
+					end
+					weldl.C0 = CFrame.new(-1.5,0,0)
+				end
+			--[[if not weld.t then
+				local weldr = Instance.new('ManualGlue',Tool)
+			end]]
+				if weld.l then
+					if string.upper(anim)  == 'IDLE' or string.upper(anim)  == 'DRINK' then
+						if (weld.l.C0.Position - CFrame.new(-1.5-math.cos(tick()*6)/100,math.cos(tick()*6)/30,0).Position).Magnitude < 0.5 then
+							weld.l.Enabled = false
+						else
+							weld.l.Enabled = true
+						end
+						weld.l.C0 = weld.l.C0:Lerp(CFrame.new(-1.5-math.cos(tick()*6)/100,math.cos(tick()*6)/30,0)--[[CFrame.new(-weld.l.Part0.Size.X/1.35,weld.l.Part0.Size.Y / 5.5, -weld.l.Part0.Size.Z / 2) * CFrame.Angles(math.rad(90),0,0)]],0.3) 
+					elseif string.upper(anim)  == 'OPEN' then
+						drink = false
+						weld.l.Enabled = true
+						weld.l.C0 = weld.l.C0:Lerp(CFrame.new(0.5-math.cos(tick()*6)/100,math.cos(tick()*6)/30,-0.75) * CFrame.Angles(math.rad(90),math.rad(30),math.rad(30))--[[CFrame.new(-weld.l.Part0.Size.X/1.35,weld.l.Part0.Size.Y / 5.5, -weld.l.Part0.Size.Z / 2) * CFrame.Angles(math.rad(90),0,0)]],0.3) 
+					end
+				end
+				if weld.r then
+					weld.r.Enabled = true
+					if string.upper(anim)  == 'IDLE' or string.upper(anim)  == 'OPEN' then
+						drink = false
+						weld.r.C0 = weld.r.C0:Lerp(CFrame.new(weld.r.Part0.Size.X/1.35,weld.r.Part0.Size.Y / 5.5, -weld.r.Part0.Size.Z / 2) * CFrame.Angles(math.rad(90),0,0),0.3) 
+					elseif string.upper(anim)  == 'DRINK' then
+						weld.r.C0 = weld.r.C0:Lerp(CFrame.new(weld.r.Part0.Size.X/1.5,weld.r.Part0.Size.Y / 5, -weld.r.Part0.Size.Z / 2) * CFrame.Angles(math.rad(150),math.rad(60),math.rad(-60)),0.3)
+					end
+				end
+				if Tool then
+					if string.upper(anim)  == 'IDLE' then
+						drink = false
+						if open then
+							if Tool:FindFirstChild("Handle") then
+								Tool.Grip = Tool.Grip:Lerp(CFrame.new(Vector3.new(),Vector3.new(0,1,0)).Rotation * CFrame.new(0,0,0) *CFrame.Angles(math.rad(-90),0,0),0.3) or Tool.Grip:Lerp(Tool.Grip:ToObjectSpace(CFrame.new() * CFrame.new(Tool:FindFirstChild("Handle").Position,Tool:FindFirstChild("Handle").Position + Vector3.new(1,0,1)).Rotation)  * CFrame.Angles(math.rad(-90),0,0 ),0.3) 	
+							else
+								Tool.Grip = Tool.Grip:Lerp(CFrame.new(),0.3)
+							end
+						else
+							if Tool:FindFirstChild("Handle") then
+								local Vel = Tool:FindFirstChild("Handle").CFrame:vectorToObjectSpace(Tool:FindFirstChild("Handle").Velocity)
+								Tool.Grip = Tool.Grip:Lerp(CFrame.fromEulerAnglesXYZ(Vel.z/45,0,-Vel.x/45),0.3) 	
+							else
+								Tool.Grip = Tool.Grip:Lerp(CFrame.Angles(math.rad(tick()*9.5),0,0),0.3)
+							end
+						end
+					elseif string.upper(anim)  == 'DRINK' then
+						if open then
+							if Tool:FindFirstChild("Handle")  and Tool:FindFirstAncestorWhichIsA("Model") and Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Head") then
+								Tool.Grip = Tool.Grip:Lerp(CFrame.new() * CFrame.new(Tool:FindFirstChild("Handle").Position,Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Head").Position).Rotation * CFrame.Angles(math.rad(-90),0,0 ) * CFrame.new(-0.5,-1.25,-0.25),0.3) 	
+								if (Tool.Grip.Position - (CFrame.new() * CFrame.new(Tool:FindFirstChild("Handle").Position,Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Head").Position).Rotation * CFrame.Angles(math.rad(-90),0,0 ) * CFrame.new(-0.5,-1.25,-0.25)).Position).Magnitude < 0.1 then
+									drink = true
+								else
+									drink = false
+								end
+							else
+								Tool.Grip = Tool.Grip:Lerp(CFrame.Angles(math.rad(-10),0,0),0.3)
+								if (Tool.Grip.Position - (CFrame.Angles(math.rad(-10),0,0)).Position).Magnitude < 0.1 then
+									drink = true
+								else
+									drink = false
+								end
+							end
+						end
+					elseif string.upper(anim)  == 'OPEN' then
+						if Tool:FindFirstChild("Handle")  and weld.l and weld.l.Part1 then
+							Tool.Grip = Tool.Grip:Lerp(CFrame.new() * CFrame.new(Tool:FindFirstChild("Handle").Position,weld.l.Part1.Position).Rotation,0.3) 	
+						else
+							Tool.Grip = Tool.Grip:Lerp(CFrame.new() * CFrame.Angles(math.rad(75),math.rad(-15),math.rad(-10)),0.3)
+						end
+					end
+				end
+			else
+				Activated = false
+				enabled = false
+				openreset()
+				stopopensound()
+				drink = false
+				Tool:Deactivate()
+				if Tool:FindFirstAncestorWhichIsA('Model') and Tool:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid') then
+					amount = amount - 0.5
+				end
+				if weld.r then
+					weld.r.Enabled = false
+				end
+				if weld.l then
+					weld.l.Enabled = false
+				end
+			end
+		end
+	end))
+	--[[if Tool then
+		Tool.GripForward = Vector3.new(-.976,0,-0.217)
+		Tool.GripPos = Vector3.new(0.03,0,0)
+		Tool.GripRight = Vector3.new(.217,0,-.976)
+		Tool.GripUp = Vector3.new(0,1,0)
+	end]]
+	enabled = true
+	stopopensound()
+end
+function unEquipped()
+	anim = 'idle'
+	openreset()
+	drink = false
+	Activated = false
+	--[[if Tool then
+		Tool.GripForward = Vector3.new(-.976,0,-0.217)
+		Tool.GripPos = Vector3.new(0.03,0,0)
+		Tool.GripRight = Vector3.new(.217,0,-.976)
+		Tool.GripUp = Vector3.new(0,1,0)
+	end]]
+	enabled = false
+	if not Tool:FindFirstAncestorWhichIsA("Model") or (Tool:FindFirstAncestorWhichIsA("Model") and not Tool:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid")) then
+		if weld.l then
+			weld.l.C0 = CFrame.new(-1.5,0,0)
+		end
+		if weld.r then
+			weld.r.C0 = CFrame.new(1.5,0,0)
+		end
+		if not open then
+			Tool.Grip = CFrame.Angles(0,0,math.rad(-15))
+		else
+			Tool.Grip = CFrame.new()
+		end
+	end
+	stopopensound()
+end
+--<<Event>>--
+script.Parent.Deactivated:connect(Deactivated)
+script.Parent.Activated:connect(onActivated)
+script.Parent.Equipped:connect(onEquipped)
+script.Parent.Unequipped:connect(unEquipped)]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{0793A536-4EB4-46AB-B2F6-B5AABBC18F79}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">BloxyColaScript</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="Part" referent="RBXDAE06FADD9FB4F729BE800044BFE5E79">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">1</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>18.562252</X>
+					<Y>12.289854</Y>
+					<Z>53.4999733</Z>
+					<R00>-0.999999523</R00>
+					<R01>-9.04471017e-06</R01>
+					<R02>2.48451997e-05</R02>
+					<R10>-8.99407678e-06</R10>
+					<R11>1</R11>
+					<R12>-1.47936089e-05</R12>
+					<R20>-2.47880726e-05</R20>
+					<R21>-1.48334029e-05</R21>
+					<R22>-1.00000012</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4291677645</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>1</X>
+					<Y>1.20000005</Y>
+					<Z>1</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBXAE0115280EAE4654838AF69614A98CE4">
+				<Properties>
+					<token name="MeshType">5</token>
+					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=10470609</url></Content>
+					<Content name="TextureId"><url>http://www.roblox.com/asset/?id=10470600</url></Content>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>1.20000005</X>
+						<Y>1.20000005</Y>
+						<Z>1.20000005</Z>
+					</Vector3>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Mesh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBXFFF76C85DE0C480FA516906CF1C8C859">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>http://www.roblox.com/asset/?id=10722059</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">DrinkSound</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX5B315DCCDE8343A8B79862C8587245A1">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>http://www.roblox.com/asset/?id=10721950</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">OpenSound</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

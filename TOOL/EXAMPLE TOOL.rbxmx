@@ -1,0 +1,783 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX3C814E73914F42CDAF4C85F2FC2D6209">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>-1</Y>
+				<Z>0</Z>
+				<R00>-0.258819044</R00>
+				<R01>-0.965925813</R01>
+				<R02>4.22219593e-08</R02>
+				<R10>-0</R10>
+				<R11>-4.37113883e-08</R11>
+				<R12>-1</R12>
+				<R20>0.965925813</R20>
+				<R21>-0.258819044</R21>
+				<R22>1.13133396e-08</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>137.379974</X>
+					<Y>2.00000167</Y>
+					<Z>-40.5799904</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>0</R11>
+					<R12>1.00000048</R12>
+					<R20>0</R20>
+					<R21>-1.00000048</R21>
+					<R22>0</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Weld Animated Tool Example</string>
+			<int64 name="SourceAssetId">17253184616</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBXC159ADA171504AA5A41CBCF06DF8915C">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--//Knife Reimagined.Lua//--
+--//Written By @Solivion back in mid-2023//--
+--<<Services>--
+local TweenService = game:GetService("TweenService")					  --Move Service V.0.1
+local RunService = game:GetService("RunService")						  --You Can't Run
+local Debris = game:GetService("Debris")							      --Time Limted Real
+--<<Variables>>--
+local CurActi = false				--Are We Currently Doing Something?
+local CurrentState = "Unequipped"	--What Are We Doing?
+local CurrentAnim = "None"			--What Are We Doing Season 2: Electric Boogaloo
+local CurrentFrame = 1				--How To Do So?
+local FoundNearestGuy = false		--Are You Alone?
+local DaNearestOne = nil				--Stab, Muaheheh😈😈😈
+local AnimSpeedLmao = 1				--Bro Gone Insane
+local DoesUseCustomAnimation = false --Nah, Jit Trippin. You'll have to Code That In Yourself Pal.
+local LastestSlash = tick()			--I Dind't Get The Point Of Adding This
+local StoredTick = tick()			--When did we Start Charging Again, Oh Yeah It's In Here.
+local LowestChargeRequirement = 2	--Or I'll Turn Ur Effort Into Vain
+local DefaultDamage = 10				--Damage without Charging
+local BurnDamage = 2					--You Get The Point, It Isn't Used Lmao.
+local DamagePerCharge = 2			--It's That Straight Forward.
+local MaxCharge = 10					--Absolute Insanity
+local CurrentDamage = DefaultDamage	--How Much We Deal While Hitting Someone This Moment
+local Debounce = {}
+local LastestAnim = tick()	
+
+--<<Real Object>>--
+local Knife = script:FindFirstAncestorWhichIsA('Tool')
+if not Knife then return end
+local dmg = function(v)
+	if not table.find(Knife:FindFirstChild('Handle'):GetTouchingParts(), v) then
+		return -- registered
+	end
+	if CurrentAnim ~= 'Throw' and CurrentAnim ~= 'Swing' and CurrentState ~= 'Firing' and CurrentState ~= 'Swinging' then
+		return
+	end
+
+	if not Debounce[v] then
+		Debounce[v] = true
+	else
+		return
+	end
+	if v:FindFirstAncestorWhichIsA('Model') and v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid') and not Debounce[v:FindFirstAncestorWhichIsA('Model')] then
+		Debounce[v:FindFirstAncestorWhichIsA('Model')] = true
+		local soun = Instance.new('Sound', v)
+		soun.SoundId = 'rbxassetid://3656471947'
+		soun.PlaybackSpeed = 1 + math.random(-2000,2000)/10000
+		soun:Play()
+		Debris:AddItem(soun, 2)
+		v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health = v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health - CurrentDamage * Random.new():NextInteger(2,3)
+		if v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health <= 0 or v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid'):GetState() == Enum.HumanoidStateType.Dead then
+			local sounvic = Instance.new('Sound', v)
+			sounvic.SoundId = 'rbxassetid://12222253'
+			sounvic.PlaybackSpeed = 1 + math.random(-2000,2000)/10000
+			sounvic:Play()
+			Debris:AddItem(sounvic, 2)
+		end
+	else
+		return
+	end
+end
+if Knife ~= nil and Knife:FindFirstChild('Handle') then
+	--print('tua')
+	Knife:FindFirstChild('Handle').Touched:Connect(dmg)
+	Knife:FindFirstChild('Handle').TouchEnded:Connect(dmg)
+	Knife:FindFirstChild('Handle').LocalSimulationTouched:Connect(dmg)
+end
+--<<Storage>>--
+local AnimationFrames = {
+	--More Like Equipping Animation ngl
+	Idle = {
+		Frame1 = {
+			RightShoulder = {CFrame.new(1, 0, 0.5) * CFrame.Angles(math.rad(45), math.rad(-15),  math.rad(0)), 0.5};
+			GripWeld = {CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(-180), math.rad(-180)), 0.45}
+		},
+		Frame2 = {
+			RightShoulder = {CFrame.new(1.25, 0, -0.5) * CFrame.Angles(math.rad(66.5), math.rad(-7.5), math.rad(0)), 0.25};
+			GripWeld = {CFrame.new(0, -0.5, 0) * CFrame.Angles(math.rad(90), 0, 0), 0.45}
+		},
+		Frame3 = {
+			RightShoulder = {CFrame.new(1.5, 0, -0.5) * CFrame.Angles(math.rad(90),  math.rad(0), math.rad(0)), 0.1};
+			GripWeld = {CFrame.new(0, -1, 0) * CFrame.Angles(0, 0, 0), 0.45},
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},
+			Neck = {CFrame.new(0, 1.5, 0) *CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.45}
+		}
+	},
+	--More Like Lunge lmao
+	Swing = {
+		Frame1 = {
+			RightShoulder =	{CFrame.new(2, 0.5, 0.5) * CFrame.fromEulerAngles(-15.5, -30, 90), 0.2};
+			GripWeld = {CFrame.new(-0.25, -1, 0) * CFrame.fromEulerAngles(-66, -90, 15), 0.3};
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, -45, 0), 0.25},
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, -45, 0), 0.25},
+			Neck = {CFrame.new(0, 1.5, 0) *CFrame.Angles(math.rad(0),math.rad(-90),math.rad(10)),0.3}
+		},
+		Frame2 = {
+			RightShoulder =	{CFrame.new(2, 0.5, 0) * CFrame.fromEulerAngles(-15.5, 0, 90), 0.2};
+			GripWeld = {CFrame.new(0, -1, 0) * CFrame.fromEulerAngles(90, -105, 0), 0.25};
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, 90, 0), 0.3},
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, 90, 0), 0.3},
+			--Neck = {CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.3}
+		},
+		Frame3 = {
+			RightShoulder =	{CFrame.new(1.5, 0, -0.5)* CFrame.fromEulerAngles(math.rad(90), math.rad(0), math.rad(0),Enum.RotationOrder.XYZ), 0.2};
+			GripWeld = {CFrame.new(0, -1, 0) * CFrame.fromEulerAngles(0, 0, 0,Enum.RotationOrder.XYZ), 0.25};
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0) , math.rad(0), math.rad(0),Enum.RotationOrder.XYZ), 0.1},
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0) , math.rad(0), math.rad(0),Enum.RotationOrder.XYZ), 0.1},
+			Neck = {CFrame.new(0, 1.5, 0) *CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.01}
+		}
+	},
+	-- Hmm, Loop.
+	Charging = {
+		Frame1 = {},
+	},
+	-- Swoosh
+	Throw = {
+		Frame1 = {},
+		Frame2 = {},
+		Frame3 = {}
+	}
+}
+local WeldStorage = {
+	RightArm = nil,
+	LeftArm = nil,
+	Head = nil,
+	Root = nil,
+	RightLeg = nil,
+	LeftLeg = nil
+}
+--<<Function>>--
+function reset()
+	for i,v in Knife:children() do
+		if v:IsA("Weld") then
+			v:Destroy()
+		end
+		table.clear(WeldStorage)	
+	end
+end
+function tween(speed, easingstyle, easingdirection, loopcount, reverseafterfinish, delaytime, WHAT, goal)
+	local info = TweenInfo.new(speed, easingstyle, easingdirection, loopcount, reverseafterfinish, delaytime)
+	local goals = goal
+	local anim = TweenService:Create(WHAT, info, goals)
+	anim:Play()
+end
+function ReplicateWeld(BasePart,Where)
+	for i,v in BasePart:GetChildren() do
+		if v:IsA("Motor6D") then
+			local NewWeldForStuff = Instance.new("Weld", Where)
+			NewWeldForStuff.Name = string.gsub(v.Name," ","")
+			NewWeldForStuff.Part0 = v.Part0
+			NewWeldForStuff.Part1 = v.Part1
+			NewWeldForStuff.C1 = v.C1
+			NewWeldForStuff.C0 = v.C0
+			NewWeldForStuff.Enabled = v.Enabled
+			-- TODO: Register These Welds Into The Table
+
+			-- Register the newly created weld in the WeldStorage table
+			WeldStorage[string.gsub(v.Name, " ", "")] = NewWeldForStuff
+		end
+	end
+end
+function Init(What, Where) -- When And Why?
+	if What == "Weld" then
+		for i,thing in Where:GetChildren() do
+			if thing:IsA("Weld") then
+				thing:Destroy()      -- Remove
+			end
+		end
+		table.clear(WeldStorage)	
+		local Torso = Knife.Parent:FindFirstChild("UpperTorso")
+		local Hrp = Knife.Parent:FindFirstChild("HumanoidRootPart")
+		if not Torso then
+			Torso = Knife.Parent:FindFirstChild("Torso")
+		end
+		if Hrp then
+			ReplicateWeld(Hrp,Where)
+		end
+		if Torso then
+			ReplicateWeld(Torso,Where)
+		end
+	elseif What == "FlagstandEffect" then
+		
+	end
+end
+function Find(WHAT, parent)
+	local thing = parent:FindFirstChild(WHAT, true)
+	if thing then
+		return thing
+	else return nil end
+end
+local PlayAnim = pcall(function(WhichAnimation, HowLong)
+	if AnimationFrames[WhichAnimation] then
+		tween(AnimSpeedLmao)
+	end
+end)
+-- Function to play animation frames
+function playAnimation(animationName, TimeBetweenFrames)
+	if CurrentAnim ~= animationName then
+		local frames = AnimationFrames[animationName]
+
+		if not frames then
+			warn("Animation not found: " .. animationName)
+			return
+		end
+		local crt = 0
+		crt = tick()
+		LastestAnim = crt
+		for frameName, frameData in pairs(frames) do
+			if crt ~=LastestAnim then
+				break
+			end
+			for weldName, weldCFrame in pairs(frameData) do
+				if crt ~=LastestAnim then
+					break
+				end
+				local weld = WeldStorage[weldName]
+
+				if weld then
+					local cframe, tweenTime = unpack(weldCFrame)
+
+					-- You can use TweenService to animate the welds
+					local info = TweenInfo.new(tweenTime,Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+					local tween = TweenService:Create(weld, info, {C0 = cframe})
+					weld.C1 = CFrame.new(0,0,0)
+					tween:Play()
+					--tween.Completed:Wait()
+					CurrentAnim = animationName
+				elseif weldName == "GripWeld" then
+					local cframe, tweenTime = unpack(weldCFrame)
+
+					-- You can use TweenService to animate the welds
+					local info = TweenInfo.new(tweenTime,Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+					local tween = TweenService:Create(Knife, info, {Grip = cframe})
+					--weld.C1 = CFrame.new(0,0,0)
+					tween:Play()
+				
+				else
+					--warn("Weld not found: " .. weldName)
+				end
+			end
+			task.wait(TimeBetweenFrames)
+		end
+	end
+	
+end
+--<<Events>>--
+Knife.Equipped:Connect(function()
+	LastestAnim = tick()
+	Init("Weld", Knife)
+	for i,v in Knife:GetDescendants() do
+		if v:IsA('JointInstance') and (v.Name:upper():match('LEG') or v.Name:upper():match('HIP')) then
+			v.Enabled = false
+		end
+	end
+	playAnimation("Idle",0.2)
+	table.clear(Debounce)
+	CurrentAnim = "Idle"
+	CurrentState = "Idle"
+end)
+Knife.Unequipped:Connect(function()
+	LastestAnim = tick()
+	CurrentAnim = "None"
+	CurrentState = "Unequipped"
+	table.clear(Debounce)
+	reset()
+end)
+Knife.Activated:Connect(function()
+	--task.desynchronize() -- Please Don't Worry About The Warning
+	CurActi = true
+	if CurrentState == "Idle" then
+		CurrentDamage = DefaultDamage
+		CurrentState = "Swinging"
+		table.clear(Debounce)
+		playAnimation("Swing",0.1)
+		CurrentAnim = "Swing"
+		if CurActi then
+			CurrentState = "Ready"
+			task.wait(0.15)
+			if CurrentAnim ~= "Charging" then
+				playAnimation("Idle",0.1)
+				CurrentState = "Idle"
+			end
+		elseif not CurActi then -- No Charge Throw
+			playAnimation("Idle",0.1)
+			CurrentState = "Idle"
+		end
+	elseif CurrentState == "Ready" then
+		CurrentState = "Charge"
+		playAnimation("Charging",0.1)
+		CurrentAnim = "Charging"
+		StoredTick = tick()
+	end
+	--task.synchronize()   -- Line Up!
+end)
+Knife.Deactivated:Connect(function()
+	--task.desynchronize()
+	if CurrentState == "Charge" then
+		CurActi = false
+		CurrentDamage = DefaultDamage + (DamagePerCharge * math.clamp(tick() - StoredTick, LowestChargeRequirement, MaxCharge))
+		playAnimation("Throw",0.1)
+		CurrentState = "Firing"
+		CurrentAnim = "Throw"
+		task.wait(1)
+		playAnimation("Idle",0.1)
+		table.clear(Debounce)
+		CurrentState = "Idle"
+		CurrentDamage = DefaultDamage
+	end
+	--task.synchronize()
+end)]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{EFD5B747-1CAA-420B-A8E9-59C706EC5FFF}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Knife Reimagined</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="Part" referent="RBX883996688C184D4AB5ACCA159A3C6A31">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">3</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>130.590576</X>
+					<Y>3.5</Y>
+					<Z>-43.6937218</Z>
+					<R00>0.999961853</R00>
+					<R01>-1.32711264e-08</R01>
+					<R02>-0.00872655213</R02>
+					<R10>0.00872655213</R10>
+					<R11>5.38029852e-08</R11>
+					<R12>0.999961853</R12>
+					<R20>-1.28011024e-08</R20>
+					<R21>-1</R21>
+					<R22>5.39167431e-08</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">false</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4279308561</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">1056</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0.00999999978</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>0.149999991</X>
+					<Y>1.90000105</Y>
+					<Z>0.699999988</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Sound" referent="RBX6C1E6F9A0E374EB2A0DAD8C884FB206E">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1.5</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>http://www.roblox.com/asset?id=153647529</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Swoosh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="SpecialMesh" referent="RBX537186780B264A35B4DC7046BF4CA9AC">
+				<Properties>
+					<token name="MeshType">5</token>
+					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=121944778</url></Content>
+					<Content name="TextureId"><url>http://www.roblox.com/asset/?id=172752354</url></Content>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>0.699999988</X>
+						<Y>0.699999988</Y>
+						<Z>0.699999988</Z>
+					</Vector3>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Mesh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX46C62243F00846FD898100AE9DE0C927">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1.20000005</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://153647514</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Equip</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX8205397571C849A89F10329E4D8545FE">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://2782131222</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Stab</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX72466A0C5D3F4751AA85C2F9A643924E">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://769464514</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Unequip</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Attachment" referent="RBXA925C470104D491C990B7DA0BB95DE46">
+				<Properties>
+					<CoordinateFrame name="CFrame">
+						<X>0</X>
+						<Y>0.700000107</Y>
+						<Z>0.150000006</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="Visible">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Attachment2</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Attachment" referent="RBX454DA51A19274284B3C354949EC139BF">
+				<Properties>
+					<CoordinateFrame name="CFrame">
+						<X>0</X>
+						<Y>-0.199999943</Y>
+						<Z>0.150000006</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="Visible">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Attachment</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Trail" referent="RBX1B62425291B14592833DB7476A3CF94E">
+				<Properties>
+					<Ref name="Attachment0">RBX454DA51A19274284B3C354949EC139BF</Ref>
+					<Ref name="Attachment1">RBXA925C470104D491C990B7DA0BB95DE46</Ref>
+					<float name="Brightness">1</float>
+					<ColorSequence name="Color">0 1 1 1 0 1 1 1 1 0 </ColorSequence>
+					<bool name="Enabled">false</bool>
+					<bool name="FaceCamera">false</bool>
+					<float name="Lifetime">0.150000006</float>
+					<float name="LightEmission">0</float>
+					<float name="LightInfluence">1</float>
+					<float name="MaxLength">0</float>
+					<float name="MinLength">0.100000001</float>
+					<Content name="Texture"><null></null></Content>
+					<float name="TextureLength">1</float>
+					<token name="TextureMode">0</token>
+					<NumberSequence name="Transparency">0 0.8125 0 1 1 0 </NumberSequence>
+					<NumberSequence name="WidthScale">0 1 0 1 1 0 </NumberSequence>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Trail</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBXBD1760159B9F43CE8F263592F2EFFCC5">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://160432334</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.100000001</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Hitmarker</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX17145BA1D24F42F0985890F1A2B3B961">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">3.20000005</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>http://www.roblox.com/asset/?id=58831920</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Hit</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBXFF153DB8E6EF4531982E8458EBF3884A">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">10</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxassetid://843338638</url></Content>
+					<double name="TimePosition">0</double>
+					<float name="Volume">0.5</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Spray</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

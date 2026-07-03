@@ -1,0 +1,2357 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Folder" referent="RBXD12E4270DDC140979F054386CDB3EA79">
+		<Properties>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">STATE AND HEALTH SYSTEM</string>
+			<int64 name="SourceAssetId">18984279600</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Model" referent="RBXC7632B2830D34462BD975643A6FCD8AA">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">RBXE19D746150AF40A586494F1BB3358D05</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData">
+					<CFrame>
+						<X>-11.9639797</X>
+						<Y>2.87002468</Y>
+						<Z>2.47488403</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CFrame>
+				</OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Noob</string>
+				<int64 name="SourceAssetId">18984279600</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Part" referent="RBXFE1F9E8F8A914F6C9D170C219A7D7D61">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">0</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">4</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-1.58877599</X>
+						<Y>-0.474485993</Y>
+						<Z>0.00942999963</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">true</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4294298928</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>2</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Head</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="SpecialMesh" referent="RBX49321517D73D4C59B5AF3ADC7DCF8E0A">
+					<Properties>
+						<token name="MeshType">0</token>
+						<Content name="MeshId"><null></null></Content>
+						<Content name="TextureId"><null></null></Content>
+						<Vector3 name="Offset">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+						</Vector3>
+						<Vector3 name="Scale">
+							<X>1.25</X>
+							<Y>1.25</Y>
+							<Z>1.25</Z>
+						</Vector3>
+						<Vector3 name="VertexColor">
+							<X>1</X>
+							<Y>1</Y>
+							<Z>1</Z>
+						</Vector3>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Mesh</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBXE661D233B1244906A81F47AFE2D0A108">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>0.600000024</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">HatAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBX47010BFB30164204AE947FF1ED0721A4">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>0.600000024</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">HairAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBXA1D5A0BF06BD4618A58396ECE88F90A2">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>-0.600000024</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">FaceFrontAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBXC7474361DA764BDA8703DCEF5AB86C48">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">FaceCenterAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Decal" referent="RBXBD178822B28D4CAD94054A165B1F4432">
+					<Properties>
+						<bool name="AutoLocalize">true</bool>
+						<Color3 name="Color3">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<Content name="MetalnessMap"><null></null></Content>
+						<Content name="NormalMap"><null></null></Content>
+						<float name="Rotation">0</float>
+						<Content name="RoughnessMap"><null></null></Content>
+						<Content name="Texture"><url>rbxassetid://144080495</url></Content>
+						<Content name="TexturePack"><null></null></Content>
+						<string name="TexturePackMetadata"></string>
+						<float name="Transparency">0</float>
+						<Vector2 name="UVOffset">
+							<X>0</X>
+							<Y>0</Y>
+						</Vector2>
+						<Vector2 name="UVScale">
+							<X>1</X>
+							<Y>1</Y>
+						</Vector2>
+						<int name="ZIndex">1</int>
+						<token name="Face">5</token>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">face</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Part" referent="RBXE19D746150AF40A586494F1BB3358D05">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">0</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-1.58877599</X>
+						<Y>-1.97448599</Y>
+						<Z>0.00942999963</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">0</float>
+					<float name="LeftParamB">0</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">0</float>
+					<float name="RightParamB">0</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">1</float>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>2</X>
+						<Y>2</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">HumanoidRootPart</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="Motor6D" referent="RBX30581C330FDF47B9A66B1444EC89EDD1">
+					<Properties>
+						<float name="DesiredAngle">0</float>
+						<float name="MaxVelocity">0.100000001</float>
+						<CoordinateFrame name="C0">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+							<R00>-1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>0</R11>
+							<R12>1</R12>
+							<R20>0</R20>
+							<R21>1</R21>
+							<R22>-0</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+							<R00>-1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>0</R11>
+							<R12>1</R12>
+							<R20>0</R20>
+							<R21>1</R21>
+							<R22>-0</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<Ref name="Part0">RBXE19D746150AF40A586494F1BB3358D05</Ref>
+						<Ref name="Part1">RBX40DA861AB3504B9489F0E9C9CB72BD47</Ref>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">RootJoint</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Part" referent="RBXFB93EC5B4CD14776A2920EF730DC5F1C">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">0</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">4</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-3.08877611</X>
+						<Y>-1.97448599</Y>
+						<Z>0.00942999963</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4294298928</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">3</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>1</X>
+						<Y>2</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Left Arm</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="Attachment" referent="RBX31EBD531A0F7476794AF9568BF73EEB7">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>1</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">LeftShoulderAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Part" referent="RBX750E82A4D91643E0A0E951B076985614">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">0</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-2.08877611</X>
+						<Y>-3.97448587</Y>
+						<Z>0.00942999963</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4288986439</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">3</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>1</X>
+						<Y>2</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Left Leg</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Part" referent="RBX0FA12A1A11DB447783344C3A98CC69CF">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">0</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">4</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-0.0887759924</X>
+						<Y>-1.97448599</Y>
+						<Z>0.00942999963</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4294298928</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">3</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>1</X>
+						<Y>2</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Right Arm</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="Attachment" referent="RBXBADAA28346544FE4A84826B1C2B91307">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>1</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">RightShoulderAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Part" referent="RBXB590E4ADA4B248CF887BA4AB5B0A139C">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">0</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-1.08877599</X>
+						<Y>-3.97448587</Y>
+						<Z>0.00942999963</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4288986439</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">3</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>1</X>
+						<Y>2</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Right Leg</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Part" referent="RBX40DA861AB3504B9489F0E9C9CB72BD47">
+				<Properties>
+					<token name="shape">1</token>
+					<token name="formFactorRaw">0</token>
+					<bool name="Anchored">false</bool>
+					<bool name="AudioCanCollide">true</bool>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">4</token>
+					<token name="BottomSurfaceInput">0</token>
+					<CoordinateFrame name="CFrame">
+						<X>-1.58877599</X>
+						<Y>-1.97448599</Y>
+						<Z>0.00942999963</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">true</bool>
+					<bool name="CanQuery">true</bool>
+					<bool name="CanTouch">true</bool>
+					<bool name="CastShadow">true</bool>
+					<string name="CollisionGroup">Default</string>
+					<int name="CollisionGroupId">0</int>
+					<Color3uint8 name="Color3uint8">4279069100</Color3uint8>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<bool name="EnableFluidForces">true</bool>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<float name="LeftParamA">0</float>
+					<float name="LeftParamB">0</float>
+					<token name="LeftSurface">2</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<bool name="Massless">false</bool>
+					<token name="Material">256</token>
+					<string name="MaterialVariantSerialized"></string>
+					<CoordinateFrame name="PivotOffset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+						<R00>1</R00>
+						<R01>0</R01>
+						<R02>0</R02>
+						<R10>0</R10>
+						<R11>1</R11>
+						<R12>0</R12>
+						<R20>0</R20>
+						<R21>0</R21>
+						<R22>1</R22>
+					</CoordinateFrame>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">0</float>
+					<float name="RightParamB">0</float>
+					<token name="RightSurface">2</token>
+					<token name="RightSurfaceInput">0</token>
+					<int name="RootPriority">0</int>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">3</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>2</X>
+						<Y>2</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Torso</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="Decal" referent="RBX4B993AB6220E45F6B3B5B3771A89AB93">
+					<Properties>
+						<bool name="AutoLocalize">true</bool>
+						<Color3 name="Color3">
+							<R>1</R>
+							<G>1</G>
+							<B>1</B>
+						</Color3>
+						<Content name="MetalnessMap"><null></null></Content>
+						<Content name="NormalMap"><null></null></Content>
+						<float name="Rotation">0</float>
+						<Content name="RoughnessMap"><null></null></Content>
+						<Content name="Texture"><null></null></Content>
+						<Content name="TexturePack"><null></null></Content>
+						<string name="TexturePackMetadata"></string>
+						<float name="Transparency">0</float>
+						<Vector2 name="UVOffset">
+							<X>0</X>
+							<Y>0</Y>
+						</Vector2>
+						<Vector2 name="UVScale">
+							<X>1</X>
+							<Y>1</Y>
+						</Vector2>
+						<int name="ZIndex">1</int>
+						<token name="Face">5</token>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">roblox</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Motor6D" referent="RBX236BDF891CC047A29E17F67BFBD61642">
+					<Properties>
+						<float name="DesiredAngle">0</float>
+						<float name="MaxVelocity">0.100000001</float>
+						<CoordinateFrame name="C0">
+							<X>1</X>
+							<Y>0.5</Y>
+							<Z>0</Z>
+							<R00>0</R00>
+							<R01>0</R01>
+							<R02>1</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>-0</R12>
+							<R20>-1</R20>
+							<R21>0</R21>
+							<R22>0</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>-0.5</X>
+							<Y>0.5</Y>
+							<Z>0</Z>
+							<R00>0</R00>
+							<R01>0</R01>
+							<R02>1</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>-0</R12>
+							<R20>-1</R20>
+							<R21>0</R21>
+							<R22>0</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<Ref name="Part0">RBX40DA861AB3504B9489F0E9C9CB72BD47</Ref>
+						<Ref name="Part1">RBX0FA12A1A11DB447783344C3A98CC69CF</Ref>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Right Shoulder</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Motor6D" referent="RBXC8D0E1DA4B084FC0B13807461793908C">
+					<Properties>
+						<float name="DesiredAngle">0</float>
+						<float name="MaxVelocity">0.100000001</float>
+						<CoordinateFrame name="C0">
+							<X>1</X>
+							<Y>-1</Y>
+							<Z>0</Z>
+							<R00>0</R00>
+							<R01>0</R01>
+							<R02>1</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>-0</R12>
+							<R20>-1</R20>
+							<R21>0</R21>
+							<R22>0</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>0.5</X>
+							<Y>1</Y>
+							<Z>0</Z>
+							<R00>0</R00>
+							<R01>0</R01>
+							<R02>1</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>-0</R12>
+							<R20>-1</R20>
+							<R21>0</R21>
+							<R22>0</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<Ref name="Part0">RBX40DA861AB3504B9489F0E9C9CB72BD47</Ref>
+						<Ref name="Part1">RBXB590E4ADA4B248CF887BA4AB5B0A139C</Ref>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Right Hip</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Motor6D" referent="RBXD60D63DD8B284D6EAADB5E6DD2307655">
+					<Properties>
+						<float name="DesiredAngle">0</float>
+						<float name="MaxVelocity">0.100000001</float>
+						<CoordinateFrame name="C0">
+							<X>0</X>
+							<Y>1</Y>
+							<Z>0</Z>
+							<R00>-1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>0</R11>
+							<R12>1</R12>
+							<R20>0</R20>
+							<R21>1</R21>
+							<R22>-0</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>0</X>
+							<Y>-0.5</Y>
+							<Z>0</Z>
+							<R00>-1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>0</R11>
+							<R12>1</R12>
+							<R20>0</R20>
+							<R21>1</R21>
+							<R22>-0</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<Ref name="Part0">RBX40DA861AB3504B9489F0E9C9CB72BD47</Ref>
+						<Ref name="Part1">RBXFE1F9E8F8A914F6C9D170C219A7D7D61</Ref>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Neck</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Motor6D" referent="RBX9FE2DEEB897B4AD08484AC95FEC8BF21">
+					<Properties>
+						<float name="DesiredAngle">0</float>
+						<float name="MaxVelocity">0.100000001</float>
+						<CoordinateFrame name="C0">
+							<X>-1</X>
+							<Y>0.5</Y>
+							<Z>0</Z>
+							<R00>0</R00>
+							<R01>0</R01>
+							<R02>-1</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>1</R20>
+							<R21>0</R21>
+							<R22>0</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>0.5</X>
+							<Y>0.5</Y>
+							<Z>0</Z>
+							<R00>0</R00>
+							<R01>0</R01>
+							<R02>-1</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>1</R20>
+							<R21>0</R21>
+							<R22>0</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<Ref name="Part0">RBX40DA861AB3504B9489F0E9C9CB72BD47</Ref>
+						<Ref name="Part1">RBXFB93EC5B4CD14776A2920EF730DC5F1C</Ref>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Left Shoulder</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Motor6D" referent="RBXBAF52ACDB2F34F27924C924DF4E83309">
+					<Properties>
+						<float name="DesiredAngle">0</float>
+						<float name="MaxVelocity">0.100000001</float>
+						<CoordinateFrame name="C0">
+							<X>-1</X>
+							<Y>-1</Y>
+							<Z>0</Z>
+							<R00>0</R00>
+							<R01>0</R01>
+							<R02>-1</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>1</R20>
+							<R21>0</R21>
+							<R22>0</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>-0.5</X>
+							<Y>1</Y>
+							<Z>0</Z>
+							<R00>0</R00>
+							<R01>0</R01>
+							<R02>-1</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>1</R20>
+							<R21>0</R21>
+							<R22>0</R22>
+						</CoordinateFrame>
+						<bool name="Enabled">true</bool>
+						<Ref name="Part0">RBX40DA861AB3504B9489F0E9C9CB72BD47</Ref>
+						<Ref name="Part1">RBX750E82A4D91643E0A0E951B076985614</Ref>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Left Hip</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBX4DE5121545C241149E56D4A1305A451F">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>-1</Y>
+							<Z>-0.5</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">WaistFrontAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBX6C47CCD2181846218D7260A0EBCDB0AE">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>-1</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">WaistCenterAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBXD424DF74CF154D9F89426C6322FA5006">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>-1</Y>
+							<Z>0.5</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">WaistBackAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBX2F02A06FB711427796C754F20FD71AAC">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>1</X>
+							<Y>1</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">RightCollarAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBX0B69BC9E5BED4413A6741F688F6AD58B">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>1</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">NeckAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBXAF96EA5256194F178CAB44306FA0BE90">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>-1</X>
+							<Y>1</Y>
+							<Z>0</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">LeftCollarAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBXDE4DE06CB09548F4A54D63685451622A">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>-0.5</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">BodyFrontAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="Attachment" referent="RBX888EDFF9EEF344E4AC3B0055629021D6">
+					<Properties>
+						<CoordinateFrame name="CFrame">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0.5</Z>
+							<R00>1</R00>
+							<R01>0</R01>
+							<R02>0</R02>
+							<R10>0</R10>
+							<R11>1</R11>
+							<R12>0</R12>
+							<R20>0</R20>
+							<R21>0</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<bool name="Visible">false</bool>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">BodyBackAttachment</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Humanoid" referent="RBXB608C3277C344F41AE76464600E416C4">
+				<Properties>
+					<bool name="AutoJumpEnabled">true</bool>
+					<bool name="AutoRotate">true</bool>
+					<bool name="AutomaticScalingEnabled">true</bool>
+					<bool name="BreakJointsOnDeath">true</bool>
+					<token name="CollisionType">0</token>
+					<token name="DisplayDistanceType">0</token>
+					<string name="DisplayName"></string>
+					<bool name="EvaluateStateMachine">true</bool>
+					<float name="HealthDisplayDistance">100</float>
+					<token name="HealthDisplayType">0</token>
+					<float name="Health_XML">100</float>
+					<float name="HipHeight">0</float>
+					<Vector3 name="InternalBodyScale">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<float name="InternalHeadScale">1</float>
+					<float name="JumpHeight">7.19999981</float>
+					<float name="JumpPower">50</float>
+					<float name="MaxHealth">100</float>
+					<float name="MaxSlopeAngle">89</float>
+					<float name="NameDisplayDistance">100</float>
+					<token name="NameOcclusion">2</token>
+					<bool name="RequiresNeck">true</bool>
+					<token name="RigType">0</token>
+					<bool name="UseJumpPower">true</bool>
+					<float name="WalkSpeed">16</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Humanoid</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="BodyColors" referent="RBX4F97E31528E246EC8757559B46C49988">
+				<Properties>
+					<Color3 name="HeadColor3">
+						<R>0.960784376</R>
+						<G>0.80392164</G>
+						<B>0.188235313</B>
+					</Color3>
+					<Color3 name="LeftArmColor3">
+						<R>0.960784376</R>
+						<G>0.80392164</G>
+						<B>0.188235313</B>
+					</Color3>
+					<Color3 name="LeftLegColor3">
+						<R>0.643137276</R>
+						<G>0.741176486</G>
+						<B>0.278431386</B>
+					</Color3>
+					<Color3 name="RightArmColor3">
+						<R>0.960784376</R>
+						<G>0.80392164</G>
+						<B>0.188235313</B>
+					</Color3>
+					<Color3 name="RightLegColor3">
+						<R>0.643137276</R>
+						<G>0.741176486</G>
+						<B>0.278431386</B>
+					</Color3>
+					<Color3 name="TorsoColor3">
+						<R>0.0509803966</R>
+						<G>0.411764741</G>
+						<B>0.674509823</B>
+					</Color3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Body Colors</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Script" referent="RBX1D26FA729C724B569C68F55418E08A60">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[local chr = script:FindFirstAncestorOfClass('Model')
+local hum = chr:FindFirstChildOfClass('Humanoid') or chr:WaitForChild('Humanoid') or Instance.new("Humanoid", chr)
+local clonedir = game:FindFirstChildOfClass('ServerStorage'):FindFirstChild(chr.Name) or chr:Clone()
+if clonedir and not clonedir:FindFirstAncestorOfClass('ServerStorage') then
+	clonedir.Parent = game:FindFirstChildOfClass('ServerStorage')
+end
+hum.Died:Once(function()
+	local clon = clonedir:Clone()
+	clon.Parent = chr.Parent
+	clon:PivotTo(chr:GetPivot())
+	chr:Destroy()
+	script:Destroy()
+end)
+script.Parent = game:FindFirstChildOfClass('ServerScriptService')]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{CCDE60D9-6E1D-4046-AB4F-2B83591F2818}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Respawn Script(Put In Character)</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Script" referent="RBXB7579B7232854749B0FB65F3F06AF5FE">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[local RequiredServerStorage = game:FindFirstChildOfClass('ServerStorage') or game:FindFirstChildOfClass('ReplicatedStorage')
+local Remote = RequiredServerStorage:FindFirstChild('GAME_EVENT_TRIGGER')
+repeat wait() Remote = RequiredServerStorage:FindFirstChild('GAME_EVENT_TRIGGER') if Remote then break end until Remote
+if Remote then Remote:Fire('Integrate', script.Parent) end]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{61EDB187-3D4E-45A9-B421-972ECF1A4F8F}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">activateHSengine</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="LocalScript" referent="RBXD26612E36D464E988B6F1A05CE23B745">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--roblox generative ai, turn on export data in main script to use
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+
+-- Function to create a GUI for displaying attributes
+local function createAttributeDisplay(player)
+    local character = player.Character or player.CharacterAdded:Wait()
+    local attributes = character:GetAttributes()
+    
+    -- Create a ScreenGui
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "AttributeDisplay"
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+
+    -- Function to update the GUI
+    local function updateGui()
+        -- Clear existing children
+        for _, child in screenGui:GetChildren() do
+            child:Destroy()
+        end
+
+        -- Create a TextLabel for each attribute
+        local yOffset = 0
+        for attributeName, attributeValue in attributes do
+            if typeof(attributeValue) == "string" then
+                local textLabel = Instance.new("TextLabel")
+                textLabel.Size = UDim2.new(0, 200, 0, 50)
+                textLabel.Position = UDim2.new(0, 0, 0, yOffset)
+                textLabel.Text = attributeName .. ": " .. attributeValue
+                textLabel.Parent = screenGui
+                yOffset = yOffset + 50
+            elseif typeof(attributeValue) == "number" then
+                local frame = Instance.new("Frame")
+                frame.Size = UDim2.new(0, 200, 0, 50)
+                frame.Position = UDim2.new(0, 0, 0, yOffset)
+                frame.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
+                frame.Parent = screenGui
+
+                local bar = Instance.new("Frame")
+                bar.Size = UDim2.new(attributeValue / 100, 0, 1, 0)  -- Assuming the value is out of 100
+                bar.BackgroundColor3 = Color3.new(0, 1, 0)
+                bar.Parent = frame
+
+                local textLabel = Instance.new("TextLabel")
+                textLabel.Size = UDim2.new(1, 0, 1, 0)
+                textLabel.Text = attributeName
+                textLabel.BackgroundTransparency = 1
+                textLabel.Parent = frame
+
+                yOffset = yOffset + 50
+            end
+        end
+    end
+
+    -- Initial GUI update
+    updateGui()
+
+    -- Connect attribute changed event
+    character.AttributeChanged:Connect(function(attributeName)
+        attributes = character:GetAttributes()
+        updateGui()
+    end)
+end
+
+-- Bind to PlayerAdded event
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+        createAttributeDisplay(player)
+    end)
+end)
+
+-- Iterate through all existing players
+for _, player in Players:GetPlayers() do
+    player.CharacterAdded:Connect(function()
+        createAttributeDisplay(player)
+    end)
+end]]></ProtectedString>
+				<bool name="Disabled">true</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{50C8B843-60EC-4D8B-866C-26FCD432920B}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">{UI}AttributeDisplayScript[StarterPlayerScripts]</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="Script" referent="RBXD0E622D4024B40FA9C313E518325D465">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--By Solivion, mainly inspired by those IDV, FTF type games(Which is why the 'incapacitated' state exists seperately from the downed state), This is just the state engine.
+-- Sounds In The 'Soundcloud' Table Are Mostly Used, Excluding 'scream' and 'yap', That's for the funzies, remove it if you want to.
+--Patched Prompt Related Bugs
+
+--Functions usage at line 618+, edit it as you will
+local StartUp_Container: Instance = workspace -- the instances the characters contained as children gets integrated into system as of starting up, if you didn't update the default code
+
+local Debug: boolean = false
+local DefaultSpeedSetting: number = 16 -- if number is 0 to 2 then it'll count as a speed multipler instead 
+local Soundcloud: {number} = {DOWNED = 4516507682, Scream = 8395374561 ,yap = 9091395418 , TRAUMA = 7076366171, TRAUMA_LEVEL_EXCEED = 1845391028}
+local Respawn: boolean = true -- default true
+local Max_Health: number? = nil -- default 100
+local Starter_Health: number? = nil -- default 100
+local Down_Recover_Time: number? = nil -- default 10
+local Carry_Keybind: Enum.KeyCode? = nil -- default Q
+local Recover_Keybind: Enum.KeyCode? = nil -- default E
+local DamageSpeedIncrease_Multiplier: number? = nil -- default 1
+local UpdateRate: number? = 1/30 -- Rate Limit Cuz Who Needs Infinite Ping From The Constant Updates, Not even I could notice much difference
+local ExportData: boolean? = true -- Set Attributes And Stuff, Good For Seperated UI System
+
+--<<Core, You get the context>>--
+if UpdateRate == nil then UpdateRate = 1/240 end
+if DefaultSpeedSetting < 2 then DefaultSpeedSetting = 16 * DefaultSpeedSetting end
+type Characters = Model?
+type HealthState = number
+type States = ('Downed' | 'Normal' | 'Incapacitated' | 'Dead')
+type Actions = ('Running' | 'Walking' | 'Crouching' | 'Crawling')
+type Interactions = ('Carrying' | 'Rescuing' | 'Healing')
+type Handler = thread?
+type Event = RBXScriptConnection?
+type CharacterData = {CharacterInstance: Characters, Data: {Current_State: States, Current_Health: HealthState, Current_Action: Actions, StateChangedTick: number, RescuePrompt: ProximityPrompt?, CarryPrompt: ProximityPrompt?, Downed_Health: HealthState, Max_Health: HealthState, Interactions: {Interactions}, Fast_Recovery_Attempts: HealthState?, Recovery_Attempts: HealthState?, Self_Recovered: boolean?}, Handlers: {Health_Handler: Handler, State_Animation_Handler: Handler}, Events: {Removal_Connection: Event, Action_Change_Event: Event, Health_Changed: Event?}}
+local Debris: Debris, ServerStorage: ServerStorage, ReplicatedStorage: ReplicatedStorage, Players: Players = game:FindFirstChildOfClass('Debris'), game:FindFirstChildOfClass('ServerStorage'), game:FindFirstChildOfClass('ReplicatedStorage'), game:FindFirstChildOfClass('Players')
+local Running: boolean = false
+local RunningTick: number = 0
+local MajorOperationProcessing: boolean = false
+local Dataset: {[Model?]: CharacterData} = {}
+local ConnectedChats: {[Player?]: RBXScriptConnection} = {}
+local EventTrigger: BindableEvent? = (ServerStorage or ReplicatedStorage):FindFirstChild('GAME_EVENT_TRIGGER')
+if not EventTrigger then local new = Instance.new('BindableEvent') new.Name = 'GAME_EVENT_TRIGGER' new.Parent = (ServerStorage or ReplicatedStorage) EventTrigger = new end
+
+function PlaySound(SoundName,ToWhere: Instance?)
+	local Mainplayfunction = function(hmm)
+		hmm.PlaybackSpeed = math.random(100-20,100+20)/100
+		hmm:Play()
+	end
+	if ToWhere == nil then
+		return
+	end
+	if ToWhere and ToWhere:FindFirstChild(SoundName) and ToWhere:FindFirstChild(SoundName):IsA("Sound") then
+		Mainplayfunction(ToWhere:FindFirstChild(SoundName))
+	elseif ToWhere and not ToWhere:FindFirstChild(SoundName) then
+		if Soundcloud[SoundName] then
+			local sound = Instance.new("Sound")
+			local Where = ToWhere
+			sound.Parent = Where
+			sound.SoundId = typeof(Soundcloud[SoundName]) == 'string' and Soundcloud[SoundName] or 'http://www.roblox.com/asset/?id='..tostring(Soundcloud[SoundName])
+			sound.Name = SoundName
+			sound:Play()
+		else
+			warn("Sound >"..SoundName.."< Not Found In Database")
+		end
+	end
+end
+function LerpNum(start: number, goal: number, alpha: number): number
+	return start + (goal - start) * alpha
+end
+function Debug_Display(...) if Debug then print(...) end end
+function StartUp(Bulk_Integrate: {Instance}?) if not MajorOperationProcessing and not Running then CleanUp() Running = true RunningTick = tick()  else warn('Already_Running') end if Bulk_Integrate and Running then for i,v in Bulk_Integrate do if v:IsA('Model') and v:FindFirstChildOfClass('Humanoid') then Integrate_Character(v) end end end end
+function Shutdown() if not MajorOperationProcessing and Running then CleanUp() Running = false RunningTick = tick() else warn('Already_Shutdown') end end
+function IsType(Value: any, TypeName: ('States' | 'Actions' | 'Interactions')): boolean?
+	if not Value or not TypeName then return end
+	if TypeName == 'Actions' then
+		if Value == 'Running' or Value == 'Walking' or Value == 'Crouching' or Value == 'Crawling' then return true end
+	elseif TypeName == 'States' then
+		if Value == 'Downed' or Value == 'Normal' or Value == 'Incapacitated' or Value == 'Dead' then return true end
+	elseif TypeName == 'Interactions' then
+		if Value == 'Carrying' or Value == 'Rescuing' or Value == 'Healing' then return true end
+	end
+	return false
+end
+function CreateNewData(Character: Characters?): CharacterData?
+	if not Running then return end
+	local NewDataset: CharacterData = {
+		Character = Character,
+		Data = {
+			Current_State = 'Normal',
+			Current_Health = Starter_Health or Max_Health or 100,
+			Max_Health = Max_Health or 100,
+			StateChangedTick = tick(),
+			Current_Action = 'Running',
+			Downed_Health = Max_Health or 100,
+			Fast_Recovery_Attempts = (Max_Health or 100)/5,
+			Recovery_Attempts = (Max_Health or 100)/2,
+			Interactions = {}
+		},
+		Events = {},
+		Handlers = {}
+	}
+	return NewDataset
+end
+function CleanUp()
+	MajorOperationProcessing = true
+	for i,v: CharacterData in pairs(Dataset) do
+		v.Data.Current_State = 'Dead'
+		v.Data.Current_Health = 0
+		if v.Data.RescuePrompt then
+			v.Data.RescuePrompt:Destroy()
+		end
+		for i,v: RBXScriptConnection in pairs(v.Events) do v:Disconnect() end
+		for i,v: thread in pairs(v.Handlers) do coroutine.close(v) end
+		if v.CharacterInstance then if v.CharacterInstance:FindFirstChildOfClass('Humanoid') then v.CharacterInstance:FindFirstChildOfClass('Humanoid'):ChangeState(Enum.HumanoidStateType.Dead) v.CharacterInstance:FindFirstChildOfClass('Humanoid').Health = 0 else v.CharacterInstance:Destroy() end end
+	end
+	Dataset = {}
+	MajorOperationProcessing = false
+end
+function CleanUp_Specific(Character: Characters, RemoveCharacter: boolean?)
+	local v: CharacterData = Dataset[Character]
+	if v then
+		Dataset[Character].Data.Current_State = 'Dead'
+		Dataset[Character].Data.Current_Health = 0
+		if Dataset[Character].Data.RescuePrompt then
+			Dataset[Character].Data.RescuePrompt:Destroy()
+		end
+		ShutdownEvents(Character)
+		ShutdownHandlers(Character)
+		if (RemoveCharacter) and v.CharacterInstance then if v.CharacterInstance:FindFirstChildOfClass('Humanoid') then v.CharacterInstance:FindFirstChildOfClass('Humanoid'):ChangeState(Enum.HumanoidStateType.Dead) v.CharacterInstance:FindFirstChildOfClass('Humanoid').Health = 0 v.CharacterInstance:FindFirstChildOfClass('Humanoid').PlatformStand = true local isplr = Players:GetPlayerFromCharacter(Character) if Respawn and isplr then task.delay(5, function() if Running and (tick() - RunningTick >= 5) and (isplr.Character == Character or not isplr.Character or not isplr.Character:FindFirstChild('HumanoidRootPart')) then isplr:LoadCharacter() end end) end Debris:AddItem(v.CharacterInstance, 5) else v.CharacterInstance:Destroy() end end
+		Dataset[Character] = nil
+	end
+end
+function DeductHealth(Character: Characters, Amount: HealthState)
+	if not Character or not Amount then return end
+	if not Amount then Amount = 0 end
+	local Data: CharacterData = Dataset and Character and Dataset[Character]
+	if Character and Data and Dataset[Character].Data and Dataset[Character].Data.Current_Health then
+		if Dataset[Character].Data.Current_Health ~= Dataset[Character].Data.Current_Health or Dataset[Character].Data.Current_Health < 0 then
+			Dataset[Character].Data.Current_Health = 0
+		end
+		if Dataset[Character].Data.Current_State == 'Normal' then
+			if Amount < 0 and Dataset[Character].Data.Current_Health >= Dataset[Character].Data.Max_Health then Dataset[Character].Data.Downed_Health = math.clamp(Dataset[Character].Data.Downed_Health - Amount, 0, Dataset[Character].Data.Max_Health) end
+			Dataset[Character].Data.Current_Health = Dataset[Character].Data.Current_Health - Amount
+			if Dataset[Character].Data.Current_Health <= 0 then
+				SetState(Character, 'Downed')
+			end
+			Debug_Display(Character.Name.. ' Health is now '.. tostring(Dataset[Character].Data.Current_Health))
+		else
+			if Amount < 0 and Dataset[Character].Data.Fast_Recovery_Attempts > 0 and Dataset[Character].Data.Current_State == 'Downed' and (tick() - Dataset[Character].Data.StateChangedTick) < 2 and (Dataset[Character].Data.Downed_Health - Amount) > (Dataset[Character].Data.Max_Health or Max_Health or 100) then Dataset[Character].Data.Current_Health = (Dataset[Character].Data.Max_Health or Max_Health or 100)/10 Dataset[Character].Data.Downed_Health = (Dataset[Character].Data.Max_Health or Max_Health or 100) * (.2 + Dataset[Character].Data.Fast_Recovery_Attempts/Dataset[Character].Data.Max_Health * 15) Dataset[Character].Data.Fast_Recovery_Attempts = Dataset[Character].Data.Fast_Recovery_Attempts - 1 SetState(Character, 'Normal') end
+			Dataset[Character].Data.Downed_Health = Dataset[Character].Data.Downed_Health - Amount
+			Debug_Display(Character.Name.. ' Downed_Health is now '.. tostring(Dataset[Character].Data.Downed_Health))
+		end
+	end
+end
+function SetState(Character: Characters, State: States)
+	if not Character or not State or not IsType(State, 'States') then return end
+	if Character and Dataset[Character] and Dataset[Character].Data then
+		Debug_Display(Character.Name..' Changed State To: '..State)
+		Dataset[Character].Data.Current_State = State
+	end
+end
+function SetAction(Character: Characters, Action: Actions)
+	if not Character or not Action or not IsType(Action, 'Actions') then return end
+	if Character and Dataset[Character] and Dataset[Character].Data then
+		Debug_Display(Character.Name..' Changed Action To: '..Action)
+		Dataset[Character].Data.Current_Action = Action
+	end
+end
+function AssignInteraction(Character: Characters, Interaction: Interactions, Type: boolean?)
+	if not Character or not Interaction or not IsType(Interaction, 'Interactions') then return end
+	if Character and Dataset[Character] and Dataset[Character].Data and Dataset[Character].Data.Interactions then
+		if Type then
+			if not table.find(Dataset[Character].Data.Interactions, Interaction) then
+				Debug_Display(Character.Name..' Has Been Assigned with Status: '..Interaction)
+				table.insert(Dataset[Character].Data.Interactions, Interaction)
+			end
+		else
+			if table.find(Dataset[Character].Data.Interactions, Interaction) then
+				Debug_Display(Character.Name..' Has Been Unassigned of Status: '..Interaction)
+				table.remove(Dataset[Character].Data.Interactions, table.find(Dataset[Character].Data.Interactions, Interaction))
+			end
+		end
+	end
+end
+function CheckInteraction(Character: Characters, Interaction: Interactions, Type: boolean?): boolean
+	if not Character or not Interaction or not IsType(Interaction, 'Interactions') then return true end
+	if Character and Dataset[Character] and Dataset[Character].Data and Dataset[Character].Data.Interactions then
+		if Type then
+			if not table.find(Dataset[Character].Data.Interactions, Interaction) then
+				return false
+			end
+		else
+			if table.find(Dataset[Character].Data.Interactions, Interaction) then
+				return false
+			end
+		end
+	end
+	return true
+end
+function CreatePrompt(Character: Characters): ProximityPrompt?
+	if not Running or not Character then return end
+	if Dataset[Character] and Dataset[Character].Data and Dataset[Character].Data.Recovery_Attempts > 0 then
+		if Dataset[Character].Data.CarryPrompt then Dataset[Character].Data.CarryPrompt:Destroy() end
+		if Dataset[Character].Data.RescuePrompt then Dataset[Character].Data.RescuePrompt:Destroy() end
+		local StartTick = tick() StartTick = tick()
+		local NewPrompt: ProximityPrompt = Instance.new('ProximityPrompt')
+		NewPrompt.ObjectText = 'Rescue' NewPrompt.ActionText = Character.Name
+		NewPrompt.HoldDuration = math.huge
+		if Recover_Keybind then
+			NewPrompt.KeyboardKeyCode = Recover_Keybind
+		end
+		Dataset[Character].Data.RescuePrompt = NewPrompt
+		local AlsoNewPrompt: ProximityPrompt = Instance.new('ProximityPrompt')
+		AlsoNewPrompt.ObjectText = 'Carry' AlsoNewPrompt.ActionText = Character.Name
+		AlsoNewPrompt.HoldDuration = math.huge
+		AlsoNewPrompt.KeyboardKeyCode = Carry_Keybind or Enum.KeyCode.Q
+		AlsoNewPrompt.UIOffset = Vector2.new(0, 75)
+		AlsoNewPrompt.HoldDuration = math.huge
+		Dataset[Character].Data.CarryPrompt = AlsoNewPrompt
+		local Raypar = RaycastParams.new()
+		Raypar.FilterType = Enum.RaycastFilterType.Exclude
+		Raypar.RespectCanCollide = true
+		Raypar.IgnoreWater = true
+		local lastCarry: number = 0
+		local WhoCarry: Model?
+		local Charhum: Humanoid? = Character:FindFirstChildOfClass('Humanoid')
+		local Charroot: BasePart? = Character:FindFirstChildOfClass('Humanoid') and Character:FindFirstChildOfClass('Humanoid').RootPart or Character.PrimaryPart or Character:FindFirstChildOfClass('BasePart')
+		local CarryCoroute: thread?
+		local BeingCarried = false
+		local HelpNeeded = Dataset[Character].Data.Current_State == 'Incapacitated' and 2 or Down_Recover_Time or 10
+		local HelpReceived = 0
+		local Helper: number = 0
+		local HelperTables: { [Model?]: number } = {}
+		local CarrierTables: { [Model?]: number} = {}
+		local CarrierAttempts: {thread} = {}
+		local CarrierThread: {Characters: thread} = {}
+		Raypar.FilterDescendantsInstances = {Character, WhoCarry}
+		local function StopHealers()
+			for i,v in pairs(HelperTables) do
+				if i and CheckInteraction(i, 'Healing', true) then
+					AssignInteraction(i, 'Healing', false)
+				end
+			end
+			HelperTables = {}
+		end
+		if AlsoNewPrompt then
+			local function Release()
+				if not BeingCarried then return end
+				if Character and NewPrompt and AlsoNewPrompt then
+					NewPrompt.Enabled = true
+					AlsoNewPrompt.ObjectText = 'Carry'
+					AlsoNewPrompt.ActionText = Character.Name
+				end
+				if WhoCarry then AssignInteraction(WhoCarry, 'Carrying', false) end
+				StopHealers()
+				BeingCarried = false
+				lastCarry = tick()
+				if Character and Charroot and Dataset[Character] and (Dataset[Character].Data.Current_State == 'Downed' or Dataset[Character].Data.Current_State == 'Normal') then
+					if Character and Character:FindFirstChildOfClass('Humanoid') then Character:FindFirstChildOfClass('Humanoid').AutoRotate = true end
+					Charroot.Anchored = false
+					if Charhum then
+						Charhum.PlatformStand = false
+						Charhum:ChangeState(Enum.HumanoidStateType.Running)
+					end
+				end
+				if CarryCoroute then
+					pcall(function()
+						coroutine.close(CarryCoroute)
+					end)
+					CarryCoroute = nil
+				end
+			end
+			if HelpNeeded == 2 then AlsoNewPrompt.ClickablePrompt = false AlsoNewPrompt.RequiresLineOfSight = true AlsoNewPrompt.HoldDuration = 0 AlsoNewPrompt.MaxActivationDistance = 0 end
+			if HelpNeeded ~= 2 then
+				AlsoNewPrompt.RequiresLineOfSight = false
+				AlsoNewPrompt.PromptButtonHoldBegan:Connect(function(who)
+					if not NewPrompt then return end
+					if BeingCarried and who and who.Character == WhoCarry then
+						Release()
+					else
+						if BeingCarried or (tick() - lastCarry) < .5 or not AlsoNewPrompt.Enabled or who.Character == Character or CheckInteraction(who.Character, 'Carrying', true) or HelpNeeded == 2 or not who.Character or not Dataset[who.Character] then return end
+						local valid: boolean = true
+						local curtick: number = tick() curtick = tick()
+						CarrierTables[who.Character] = curtick
+						local Attempt: thread Attempt = coroutine.create(function()
+							while task.wait(UpdateRate) and (tick() - curtick < .6) and Helper < 3 and AlsoNewPrompt.Enabled == true and not tostring(Helper):match('.22') and not BeingCarried and who and who.Character and CheckInteraction(who.Character, 'Carrying', false) and CarrierTables[who.Character] == curtick and valid and Dataset[who.Character] do
+								if	Dataset[who.Character].Data.Current_State ~= 'Normal' or not Character or Dataset[Character].Data.Current_State ~= 'Downed' then
+									break
+								end
+							end
+							valid = false
+							CarrierTables[who.Character] = nil
+							if table.find(CarrierAttempts, Attempt) then table.remove(CarrierAttempts, table.find(CarrierAttempts, Attempt)) end
+						end)
+						if not BeingCarried and not table.find(CarrierAttempts, Attempt) and who and who.Character and CarrierTables[who.Character] == curtick then
+							table.insert(CarrierAttempts, Attempt)
+							coroutine.resume(Attempt)
+						end
+						if CarrierThread[who.Character] then
+							task.cancel(CarrierThread[who.Character])
+						end
+						CarrierThread[who.Character] = task.spawn(function()
+							task.wait(.5)
+							if who and not BeingCarried and table.find(CarrierAttempts, Attempt) and valid and CarrierTables[who.Character] == curtick and who.Character and who.Character:FindFirstChildOfClass('Humanoid') and Dataset[who.Character] and Helper < 3 and not tostring(Helper):match('.22') then
+								if CarryCoroute then
+									coroutine.close(CarryCoroute)
+									CarryCoroute = nil
+								end
+								for i,v in pairs(CarrierThread) do
+									if i ~= who.Character then
+										task.cancel(v)
+										CarrierThread[i] = nil
+									end
+								end
+								BeingCarried = true
+								NewPrompt.Enabled = false
+								WhoCarry = who.Character
+								if WhoCarry then AssignInteraction(WhoCarry, 'Carrying', true) end
+								if Character:FindFirstChildOfClass('Humanoid') then Character:FindFirstChildOfClass('Humanoid').AutoRotate = false end
+								Raypar.FilterDescendantsInstances = {Character, WhoCarry}
+								for i,v in CarrierAttempts do
+									coroutine.close(v)
+								end
+								AlsoNewPrompt.ObjectText = 'Release'
+								CarrierAttempts = {}
+								local cur = tick() cur = tick()
+								lastCarry = cur
+								CarryCoroute = coroutine.create(function()
+									if not WhoCarry then return end
+									StopHealers()
+									local RootA = WhoCarry and WhoCarry:FindFirstChildOfClass('Humanoid').RootPart
+								--	local vel = RootA and RootA.Velocity
+									if Charroot then Charroot.Anchored = true end
+									if Charhum then
+										Charhum.PlatformStand = true
+									end
+									local last = tick()
+									while task.wait(UpdateRate) and BeingCarried and RootA and Charroot and Character and WhoCarry and Dataset[Character] and Dataset[WhoCarry] and Dataset[Character].Data.Current_State == 'Downed' and Dataset[WhoCarry].Data.Current_State == 'Normal' and lastCarry == cur do
+										--vel = vel:Lerp(RootA and RootA.Velocity.Unit or Vector3.new(), 0.2)
+										--RootA.CanCollide = false
+										local dt = tick() - last
+										last = tick()
+										local DoesItHitWall = workspace:Raycast(WhoCarry:GetPivot().Position, -RootA.CFrame.LookVector * Charroot.Size.Z/2 + (-RootA.CFrame.LookVector * ((RootA.Size.Z/2) + .1)), Raypar)
+										local InverseDoesItHitWall
+										if not DoesItHitWall then
+											InverseDoesItHitWall = workspace:Raycast(WhoCarry:GetPivot().Position -RootA.CFrame.LookVector * Charroot.Size.Z/2 + (-RootA.CFrame.LookVector * ((RootA.Size.Z/2) + .1)), -(-RootA.CFrame.LookVector * Charroot.Size.Z/2 + (-RootA.CFrame.LookVector * ((RootA.Size.Z/2) + .1))), Raypar)
+										end
+										AlsoNewPrompt.ActionText = Character.Name..'<{'..Dataset[Character].Data.Downed_Health..string.rep('!', math.floor((Dataset[Character].Data.Max_Health - Dataset[Character].Data.Downed_Health)/25))..'}>'
+										Character:PivotTo(Character:GetPivot():Lerp(WhoCarry:GetPivot() * CFrame.Angles(0,math.rad(180),0) + (-RootA.CFrame.LookVector * (DoesItHitWall and DoesItHitWall.Distance or InverseDoesItHitWall and ((RootA.Size.Z/2) + .1 + Charroot.Size.Z/2 - InverseDoesItHitWall.Distance) or (RootA.Size.Z/2) + .1 + Charroot.Size.Z/2)),1 - .0000025 ^ dt))
+									--[[	Character:MoveTo(WhoCarry:GetPivot() + RootA.CFrame.LookVector * RootA.Size.Z/2 + RootA.CFrame.RightVector * RootA.Size.X/2.1 + vel/2)
+										if Charroot then	Charroot.CFrame = WhoCarry:GetPivot() + RootA.CFrame.LookVector * RootA.Size.Z/2 + RootA.CFrame.RightVector * RootA.Size.X/2.1 + vel/2 end]]
+									end
+									Release()
+								end)
+								if CarryCoroute and lastCarry == cur then
+									coroutine.resume(CarryCoroute)
+								end
+							end
+						end)
+					end
+				end)
+				AlsoNewPrompt.PromptButtonHoldEnded:Connect(function(who)
+					CarrierTables[who.Character] = nil
+				end)
+			end
+			AlsoNewPrompt.Destroying:Connect(function() if NewPrompt and NewPrompt:IsDescendantOf(Character) then pcall(function() Debris:AddItem(NewPrompt, .1) NewPrompt:Destroy() end) end end)
+		end
+		NewPrompt.RequiresLineOfSight = false
+		NewPrompt.Destroying:Connect(function() if AlsoNewPrompt and AlsoNewPrompt:IsDescendantOf(Character) then pcall(function() Debris:AddItem(AlsoNewPrompt, .1) AlsoNewPrompt:Destroy() end) end end)
+		coroutine.resume(coroutine.create(function()
+			local LastTick = tick()
+			while task.wait(UpdateRate) and Running and Character and Dataset[Character] and Dataset[Character].Data and Dataset[Character].Data.Current_State ~= 'Dead' and Dataset[Character].Data.Current_State ~= 'Normal' and NewPrompt and HelpNeeded > HelpReceived do
+				Helper = math.clamp(Helper, 0, math.huge)
+				local Delta = tick() - LastTick
+				LastTick = tick()
+				--[[HelpReceived += Delta * Helper]]
+				if Helper > 0 then
+					for i,v in pairs(HelperTables) do
+						if i and not CheckInteraction(i, 'Healing', true) then HelperTables[i] = nil else
+						if i == Character or Dataset[i] and Dataset[i].Data.Current_State == 'Normal' then
+							local Num = i == Character and (tick() - v)/(2 + math.clamp(Dataset[Character].Data.Max_Health/5 - Dataset[Character].Data.Fast_Recovery_Attempts,0,Dataset[Character].Data.Max_Health/5)) or tick() - v
+							HelpReceived += Num
+							Dataset[Character].Data.Downed_Health = Dataset[Character].Data.Downed_Health + Num/2
+							HelperTables[i] = tick()
+						else
+							HelperTables[i] = nil
+							Helper -= i == Character and .22 or 1
+							if AlsoNewPrompt then
+								if Helper >= 3 or HelperTables[Character] or CheckInteraction(Character, 'Healing', true) then
+									AlsoNewPrompt.Enabled = false
+								else
+									AlsoNewPrompt.Enabled = true
+								end
+							end
+						end end
+					end
+				else
+					HelpReceived = math.clamp(HelpReceived - Delta/(9 - math.clamp ((Dataset[Character].Data.Max_Health - (Dataset[Character].Data.Recovery_Attempts * 2))/Dataset[Character].Data.Max_Health,0,1) * 7), 0, math.huge)
+				end
+				if not BeingCarried then
+					NewPrompt.ObjectText = 'Rescue['..string.sub(HelpReceived, 0, 7)..'/'..HelpNeeded..']'
+					NewPrompt.ActionText = Character.Name..'['..string.sub(Helper, 0, 7)..']'
+				end
+			end
+			if HelpNeeded <= HelpReceived then
+				if Dataset[Character] then
+					if (tick() - StartTick) < 2 and HelpNeeded > 2 then
+						Dataset[Character].Data.Fast_Recovery_Attempts = Dataset[Character].Data.Fast_Recovery_Attempts - 1
+					end
+					Dataset[Character].Data.Recovery_Attempts = Dataset[Character].Data.Recovery_Attempts + 1
+					Dataset[Character].Data.Current_Health = math.clamp(Dataset[Character].Data.Downed_Health/1.5 + Helper*1.5,0,Dataset[Character].Data.Max_Health)
+					Dataset[Character].Data.Downed_Health = math.clamp(Dataset[Character].Data.Downed_Health/1.25 + Helper*3,0,Dataset[Character].Data.Max_Health)
+				end
+				SetState(Character, 'Normal')
+			end
+			StopHealers()
+			for i,v in pairs(CarrierThread) do
+				task.cancel(v)
+			end
+			if NewPrompt then	NewPrompt:Destroy() end
+			if AlsoNewPrompt then	AlsoNewPrompt:Destroy() end
+		end))
+		NewPrompt.PromptButtonHoldBegan:Connect(function(who)
+			if (who.Character == Character and HelpNeeded == 2) or HelperTables[who.Character] or not Dataset[who.Character] or (Dataset[who.Character].Data.Current_State ~= 'Normal' and who.Character ~= Character) then return end
+			if (CheckInteraction(who.Character, 'Rescuing', true) and HelpNeeded == 2) or (CheckInteraction(who.Character, 'Healing', true) and HelpNeeded ~= 2)  then return end
+			Helper += who.Character == Character and .22 or 1
+			HelperTables[who.Character] = tick()
+			if who.Character then if HelpNeeded ~= 2 then AssignInteraction(who.Character, 'Healing', true) else AssignInteraction(who.Character, 'Rescuing', true) end end
+			if AlsoNewPrompt then
+				if Helper >= 3 or HelperTables[Character] then
+					AlsoNewPrompt.Enabled = false
+				else
+					AlsoNewPrompt.Enabled = true
+				end
+			end
+		end)
+		NewPrompt.PromptButtonHoldEnded:Connect(function(who)
+			if (who.Character == Character and HelpNeeded == 2) or not HelperTables[who.Character] then return end
+			Helper -= who.Character == Character and .22 or 1
+			HelperTables[who.Character] = nil
+			if who.Character then if HelpNeeded ~= 2 then AssignInteraction(who.Character, 'Healing', false) else AssignInteraction(who.Character, 'Rescuing', false) end end
+			if AlsoNewPrompt then
+				if Helper < 3 and not HelperTables[Character] then
+					AlsoNewPrompt.Enabled = true
+				else
+					AlsoNewPrompt.Enabled = false
+				end
+			end
+		end)
+		if Character then
+			if NewPrompt then	NewPrompt.Parent = Character:FindFirstChildOfClass('Humanoid') and Character:FindFirstChildOfClass('Humanoid').RootPart or Character:FindFirstChildOfClass('BasePart') or Character.PrimaryPart end
+			if AlsoNewPrompt and AlsoNewPrompt.MaxActivationDistance > 0 then	AlsoNewPrompt.Parent = NewPrompt.Parent end
+		else
+			if NewPrompt then	pcall(Debris:AddItem(NewPrompt,1)) end
+			if AlsoNewPrompt then	pcall(Debris:AddItem(AlsoNewPrompt,1)) end
+		end
+		return NewPrompt, AlsoNewPrompt
+	else
+		if Dataset[Character] and Dataset[Character].Data and Dataset[Character].Data.Recovery_Attempts <= 0 then
+			SetState(Character, 'Dead')
+		end
+	end
+	return
+end
+function ShutdownEvents(Character: Characters, Reconnect: boolean?)
+	if Character and Dataset[Character] and Dataset[Character].Events then
+		local Set: CharacterData = Dataset[Character]
+		for i,v: RBXScriptConnection in pairs(Set.Events) do v:Disconnect() end
+		if Reconnect and Running then -- Rewire Thread
+			if Dataset[Character].CharacterInstance ~= Character then Dataset[Character].CharacterInstance = Character end
+			if Set and Set.CharacterInstance and Character == Set.CharacterInstance and Character then
+				Dataset[Character].Events.Removal_Connection = Character.Destroying:Once(function()
+					CleanUp_Specific(Character)
+				end)
+				Dataset[Character].Events.Action_Change_Event = Character:GetAttributeChangedSignal('__ACTION'):Connect(function()
+					if Character:GetAttribute('__ACTION') and IsType(Character:GetAttribute('__ACTION'), 'Actions') then
+						SetAction(Character, Character:GetAttribute('__ACTION'))
+					end
+				end)
+				if Set.CharacterInstance:FindFirstChildOfClass('Humanoid') then
+					Dataset[Character].Health_Changed = Set.CharacterInstance:FindFirstChildOfClass('Humanoid').HealthChanged:Connect(function(hp)
+						if hp == Set.CharacterInstance:FindFirstChildOfClass('Humanoid').MaxHealth or Set.CharacterInstance:FindFirstChildOfClass('Humanoid'):GetState() == Enum.HumanoidStateType.Dead then return end
+						DeductHealth(Character,Set.CharacterInstance:FindFirstChildOfClass('Humanoid').MaxHealth - hp)
+						Set.CharacterInstance:FindFirstChildOfClass('Humanoid').Health = Set.CharacterInstance:FindFirstChildOfClass('Humanoid').MaxHealth
+					end)
+				end
+			end 
+		end
+	end
+end
+function ShutdownHandlers(Character: Characters, Reconnect: boolean?)
+	if Character and Dataset[Character] and Dataset[Character].Handlers then
+		local Set: CharacterData = Dataset[Character]
+		for i,v: thread in pairs(Set.Handlers) do coroutine.close(v) end
+		if Dataset[Character].CharacterInstance ~= Character then Dataset[Character].CharacterInstance = Character end
+		if Reconnect and Running and Dataset[Character].CharacterInstance == Character then -- Rewire Thread
+			Dataset[Character].Handlers.State_Animation_Handler = coroutine.create(function()
+				-- Fill em'
+			end)
+			Dataset[Character].Handlers.Health_Handler = coroutine.create(function()
+				local LastState: States = Dataset[Character] and Dataset[Character].Data and Dataset[Character].Data.CurrentState or 'Normal'
+				local LastHealth: HealthState = (Dataset[Character] and Dataset[Character].Data and (Dataset[Character].Data.Current_Health or Dataset[Character].Data.Max_Health)) or 100
+				local LastDowned: HealthState = LastHealth
+				local MaxHealth: HealthState = Dataset[Character] and Dataset[Character].Data and (Dataset[Character].Data.Max_Health or Dataset[Character].Data.Current_Health) or 100
+				local SpeedBuff: HealthState = 0
+				local SavedRunningTick: number = RunningTick SavedRunningTick = RunningTick
+				local Entry: CharacterData = Dataset[Character]
+				local LastTick: number = tick()
+				local DeltaTime: number = 0
+				local TaskEnd = false
+				while task.wait(UpdateRate) and not TaskEnd and Dataset[Character] and RunningTick == SavedRunningTick and Running and Character and LastState ~= nil do
+					Entry = Character and Dataset[Character]
+					DeltaTime = tick() - LastTick
+					LastTick = tick()
+					if ExportData then
+						Character:SetAttribute('AfterHit_Speedbuff', SpeedBuff * 100)
+						Character:SetAttribute('State', LastState)
+						Character:SetAttribute('Health', LastHealth)
+						Character:SetAttribute('Downed_Duration_Left', LastDowned)
+					end
+					if Dataset[Character] and Entry then
+						if Dataset[Character].Data and Dataset[Character].CharacterInstance then
+							Dataset[Character].Data.Current_Health = math.clamp(Dataset[Character].Data.Current_Health, -MaxHealth, MaxHealth)
+							Dataset[Character].Data.Downed_Health = math.clamp(Dataset[Character].Data.Downed_Health, -MaxHealth, MaxHealth)
+							if Dataset[Character].Data.Current_State ~= 'Dead' and Dataset[Character].Data.Current_State ~= 'Incapacitated' then
+								if LastState ~= Dataset[Character].Data.Current_State then
+									if LastState == 'Incapacitated' then
+										SpeedBuff = 2
+										SetAction(Character, 'Running')
+										Dataset[Character].Data.Current_Health = Dataset[Character].Data.Downed_Health
+									end
+									LastState = Dataset[Character].Data.Current_State
+									Dataset[Character].Data.StateChangedTick = tick()
+								end
+								local Current_Health = Dataset[Character].Data.Current_Health
+								if Current_Health <= 0 and LastState == 'Normal' then if Character:FindFirstChildOfClass('Humanoid') then Character:FindFirstChildOfClass('Humanoid'):ChangeState(Enum.HumanoidStateType.Ragdoll) end SetState(Character, 'Downed') end
+								if LastState == 'Downed' then Dataset[Character].Data.Downed_Health = Dataset[Character].Data.Downed_Health - (DeltaTime * MaxHealth/270) end
+								if Dataset[Character].Data.Downed_Health <= 0 and Current_Health <= 0 and LastState == 'Downed' then SetState(Character, 'Incapacitated') LastState = 'Dead' end
+								local DeltaHealth = LastHealth - Current_Health
+								local DefaultSpeed = (Dataset[Character].Data.Current_Action == 'Crawling' or Dataset[Character].Data.Current_State == 'Downed') and (6 - (Dataset[Character].Data.Current_State == 'Downed' and (Dataset[Character].Data.Downed_Health/MaxHealth * 3) or 0)) or Dataset[Character].Data.Current_Action == 'Crouching' and 12 or Dataset[Character].Data.Current_Action == 'Walking' and 16 or Dataset[Character].Data.Current_Action == 'Running' and 20
+								local SpeedPercentage = 100
+								if DefaultSpeedSetting then	DefaultSpeed = (DefaultSpeedSetting/16 or 1) * DefaultSpeed end
+								for i,v in Dataset[Character].Data.Interactions do
+									if not IsType(v, 'Interactions') then
+										table.remove(Dataset[Character].Data.Interactions, v)
+									else
+										if v == 'Rescuing' then SpeedPercentage = 0 end
+										if v == 'Healing' then SpeedPercentage -= 25 end
+										if v == 'Carrying' then SpeedPercentage -= 5 end
+									end
+								end
+								if LastHealth > 0 and Current_Health <= 0 then CreatePrompt(Character) PlaySound('DOWNED', Character.PrimaryPart) if Character.Name == 'Solivion' then PlaySound('Scream', Character.PrimaryPart) end end
+								if LastHealth > MaxHealth/2 and Current_Health <= MaxHealth/2 then PlaySound('TRAUMA', Character.PrimaryPart) end
+								if LastDowned > MaxHealth/2 and Dataset[Character].Data.Downed_Health <= MaxHealth/2 then PlaySound('TRAUMA_LEVEL_EXCEED', Character.PrimaryPart) end
+								LastHealth = Current_Health
+								LastDowned = Dataset[Character].Data.Downed_Health or Current_Health
+								DefaultSpeed = SpeedPercentage/100 * DefaultSpeed
+								SpeedBuff = math.clamp(SpeedBuff + (DeltaHealth/MaxHealth) * (DamageSpeedIncrease_Multiplier or 1), 0, 1)
+								if Dataset[Character].CharacterInstance and SpeedBuff >= 0 then
+									if SpeedBuff > 0 then	SpeedBuff = SpeedBuff - DeltaTime/10 end
+									if Dataset[Character].CharacterInstance:FindFirstChildOfClass('Humanoid') then
+										local TargetSpeed = DefaultSpeed - (DefaultSpeed/4 * (1 - Current_Health/MaxHealth)) + DefaultSpeed * SpeedBuff
+										local Lerped = LerpNum(Dataset[Character].CharacterInstance:FindFirstChildOfClass('Humanoid').WalkSpeed, TargetSpeed, 1 - (0.000015 ^ DeltaTime))
+										Dataset[Character].CharacterInstance:FindFirstChildOfClass('Humanoid').WalkSpeed = Lerped or TargetSpeed
+									end
+								end
+							else
+								local Current_Health = Dataset[Character].Data.Current_Health
+								LastHealth = Dataset[Character].Data.Downed_Health or Current_Health
+								LastDowned = LastHealth
+								if Dataset[Character].Data.Downed_Health <= 0 and Current_Health <= 0 then SetState(Character, 'Dead') LastState = 'Incapacitated' end
+								if Current_Health > 0 and Dataset[Character].Data.Downed_Health > 0 then SetState(Character, 'Normal') else Dataset[Character].Data.Downed_Health = Dataset[Character].Data.Downed_Health - (DeltaTime * (MaxHealth/90 - math.clamp ((Dataset[Character].Data.Max_Health - (Dataset[Character].Data.Recovery_Attempts * 2))/Dataset[Character].Data.Max_Health,0,1) * 89)) end -- Only one and a half minute
+								if LastState ~= Dataset[Character].Data.Current_State then
+									LastState = Dataset[Character].Data.Current_State
+									if LastState ~= 'Dead' then
+										Dataset[Character].Data.Downed_Health = MaxHealth or 100 or Current_Health
+										Dataset[Character].Data.Current_Health = 0
+										CreatePrompt(Character) -- restraint
+									else
+										Dataset[Character].Data.Downed_Health = 0
+										Dataset[Character].Data.Current_Health = 0
+									end
+									Dataset[Character].Data.StateChangedTick = tick()
+									SpeedBuff = 0
+									local Humanoid: Humanoid? = Dataset[Character].CharacterInstance:FindFirstChildOfClass('Humanoid')
+									if Humanoid then
+										Humanoid.WalkSpeed = 0
+										Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+									end
+								end
+							end
+							if LastState == 'Dead' then Debug_Display(Character.Name..' Has Been Eliminated') task.delay(wait(), function() CleanUp_Specific(Character, true) end) TaskEnd = true break end
+						end
+					end
+				end
+			end)
+			if Running and Character then
+				if Dataset[Character].Handlers.State_Animation_Handler then coroutine.resume(Dataset[Character].Handlers.State_Animation_Handler) end
+				if Dataset[Character].Handlers.Health_Handler then coroutine.resume(Dataset[Character].Handlers.Health_Handler) end
+			end
+		end
+	end
+end
+function Integrate_Character(Character: Characters)
+	if not Character then return end
+	if Dataset[Character] then CleanUp_Specific(Character) end
+	local DATAPACK = CreateNewData(Character)
+	Dataset[Character] = DATAPACK
+	local plr = Players:GetPlayerFromCharacter(Character)
+	if plr and plr.Name == 'Solivion' then
+		if ConnectedChats[plr] then
+			ConnectedChats[plr]:Disconnect()
+		end
+		ConnectedChats[plr] = plr.Chatted:Connect(function()
+			if plr.Character and plr.Character.PrimaryPart then
+				PlaySound('yap', plr.Character.PrimaryPart)
+			end
+		end)
+	end
+	ShutdownEvents(Character, true)
+	ShutdownHandlers(Character, true)
+	Debug_Display('Character_Intergrated, '.. Character:GetFullName())
+end
+
+local FinalContainerInstance: Instance | Workspace = (StartUp_Container or workspace) if not FinalContainerInstance then warn('No Instance Is Available For Use') return end
+--[[Usage]]--
+StartUp(FinalContainerInstance:GetChildren())
+FinalContainerInstance.DescendantAdded:Connect(function(CHILD)
+	if CHILD:IsA('Model') and CHILD:FindFirstChildOfClass('Humanoid') then
+		Integrate_Character(CHILD)
+	end
+end)
+game.Close:Connect(Shutdown)
+if ServerStorage and EventTrigger then
+	EventTrigger.Event:Connect(function(Target, First_Value, ...)
+		Debug_Display('Signal Received')
+		if Target and First_Value then
+			Debug_Display('Required Value Received')
+			if Dataset[Target] then
+				DeductHealth(Target, First_Value)
+			else
+				if Target and typeof(Target) == 'string' then
+					if Target:upper():match('CLEAN_SPECIFIC') then
+						CleanUp_Specific(First_Value,...)
+					elseif Target:upper():match('DAMAGE') then
+						DeductHealth(First_Value, ...)
+					elseif Target:upper():match('SETSTATE') then
+						SetState(First_Value,...)
+					elseif Target:upper():match('SETACTION') then
+						SetAction(First_Value,...)
+					elseif Target:upper():match('CLEAN') then
+						CleanUp()
+					elseif Target:upper():match('END') then
+						Shutdown()
+					elseif Target:upper():match('START') then	
+						StartUp()
+					elseif Target:upper():match('INTEGRATE') then	
+						Integrate_Character(First_Value)
+					end
+				end
+			end
+		end
+	end)
+end]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{E0311956-85A1-42A1-B7FF-5DF83F0163EB}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">HEATH&amp;STATE_ENGINE</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

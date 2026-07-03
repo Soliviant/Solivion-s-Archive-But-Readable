@@ -1,0 +1,2251 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX102DA34B06314B829D02318A69CAA253">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>-1</Y>
+				<Z>0</Z>
+				<R00>-0.258819044</R00>
+				<R01>-0.965925813</R01>
+				<R02>4.22219593e-08</R02>
+				<R10>-0</R10>
+				<R11>-4.37113883e-08</R11>
+				<R12>-1</R12>
+				<R20>0.965925813</R20>
+				<R21>-0.258819044</R21>
+				<R22>1.13133396e-08</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip">A Great Alternative For Bricks!</string>
+			<Content name="TextureId"><url>http://www.roblox.com/asset/?id=11412135498</url></Content>
+			<token name="LevelOfDetail">1</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">1</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">0.884603143</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>-2.86000156</X>
+					<Y>19.4291611</Y>
+					<Z>-29.2125015</Z>
+					<R00>0</R00>
+					<R01>0</R01>
+					<R02>1</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>-0</R12>
+					<R20>-1</R20>
+					<R21>0</R21>
+					<R22>0</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize">AQAAAAYAAABPcmlnaW4CGAAAAFNvbGl2aW9uJ3MgUmVhbCBLbmlmZSBWMg==</BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Knife</string>
+			<int64 name="SourceAssetId">17358140878</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBXC86785529AFD489E896C0A0FFBD78AB9">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--//RealKnife.Lua//--
+--//Written By @Solivion//--
+-- Redundant Checks Here Are Just Perfect --
+-- This is made specially for normal sized R6, R15 may look degraded in terms of animation --
+-- made a while back for no reason. So uhh enjoy --
+
+--<<Services>--
+local TweenService = game:GetService("TweenService")					  --Move Service V.0.1
+local RunService = game:GetService("RunService")						  --You Can't Run
+local Debris = game:GetService("Debris")							      --Time Limted Real
+local SoundService = game:GetService("SoundService")					  -- Storage Room
+local PhysicsService = game:GetService("PhysicsService")				  --FyShic Srvis
+local PlayerService = game:GetService("Players")						  --PlayrServ!ce
+--<<Global Stuff>>--
+_G.ToolCooldown = false
+_G.CooldownLeft = 0
+--<<Variables>>--
+local Tool = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag') or script:FindFirstAncestorWhichIsA('Model') or script:FindFirstAncestorWhichIsA('Instance')
+local Slashing = false	
+local CurActi = false				
+local CurrentState = "Unequipped"	
+local CurrentAnim = "None"			
+local LastestSlash = tick()			
+local StoredTick = tick()			
+local DefaultDamage = 5			--Damage without Charging
+local CurrentDamage = DefaultDamage	
+local CanDmg = false					
+local Mockery = false				
+local Doeshavepremadehandle = true
+local CurrentAnimSequence = 1
+local LastestHealth = 100
+local SavedHealthNow = 0
+local Curspd = 18
+local TotalCursedDamage = 0
+local PowerfulSlash = false
+local NeedToWait = false
+local Trail = true
+local Mislay = false
+--<<Settings>>--
+--Script Edition--
+local ArmorPiercing = true
+--//If ArmorPiercing is true. Ignore ForceField//--
+local HaveIFrame = true  -- Disabling Doesn't Work Btw, The Script Doesn't Really Allow That.
+--//IFrame//--
+local EnemyBleed = true -- Using Percentaged Damage Solution. Slowly Damages Player, Can Stack.
+--//Bleed Damage//--
+-->GENERAL SETTINGS<--
+local OneShotSaver = false			-- If Not Enabled, Will Cause IFrame To Kill You When Ur Hp Hits 0, IFrameActi Won't Prevent IFrame Death Either. Best To Prevent One-Hit or Spawn-Kill
+local HumanoidName = nil  			--The Most Ineffective Way To Get Humanoid frfr, But If You're Using Custom Humanoid That Should Be Fine. Just Replace Nil With Ur Humanoid name. It's Global Use Btw. So If You Replace 'nil' with "Humanoid". It Will Only Search For Humanoid Via Name EVERY HIT.
+local PerformanceWise = true		    --Who Would Want It To Look Laggy, me Included.
+local LowQualityAfterImage = true    --Less Lag
+local MaxCharge = 10					--Absolute Insanity
+local LowestChargeRequirement = 2	--Or It'll Turn Ur Effort Into Vain
+local DamagePerCharge = 2			--It's That Straight Forward.
+local PitchOffset = 20				--How hi, How lo sound could be pitched
+local AllowPercentagedDamage =  true 		--Maybe The World Isn't That Cruel Afterall
+local Character							-- Apparently Should Be Left Alone
+local DropOpponentstoolOnRagdoll = false	-- Removed
+local DropOpponentsLootOnKill = true		-- Removed
+local Curseable = true					-- Removed
+local DebugMode = false					-- Debug
+local Glitch = true						-- Removed
+local MislayChance = 20					-- You Dropped The Knife, So You Get A New One. visual appeal
+
+if not script:GetAttribute("Enable_Glitchy_Effect") then
+	script:SetAttribute("Enable_Glitchy_Effect",Glitch)	-- Nope, U Need It
+end
+if script:GetAttribute("Use_This_Setting") and script:GetAttribute("Use_This_Setting") == true then
+	if script:GetAttribute("MaxCharge") then
+		MaxCharge = script:GetAttribute("MaxCharge")
+	end
+	if script:GetAttribute("LowestChargeRequirement") then
+		LowestChargeRequirement = script:GetAttribute("LowestChargeRequirement")
+	end
+	if script:GetAttribute("DamagePerCharge") then
+		DamagePerCharge = script:GetAttribute("DamagePerCharge")
+	end
+	if script:GetAttribute("SoundPitchOffset") then
+		PitchOffset = script:GetAttribute("SoundPitchOffset")
+	end
+	if script:GetAttribute("AllowPercentagedDamage") then
+		AllowPercentagedDamage = script:GetAttribute("AllowPercentagedDamage")
+	end
+	if script:GetAttribute("DropOpponentsLootsOnKill") then
+		DropOpponentsLootOnKill = script:GetAttribute("DropOpponentsLootsOnKill")
+	end
+	if script:GetAttribute("DropOpponentsToolOnRagdoll") then
+		DropOpponentstoolOnRagdoll = script:GetAttribute("DropOpponentsToolOnRagdoll")
+	end
+	if script:GetAttribute("PerformanceWise") then
+		PerformanceWise = script:GetAttribute("PerformanceWise")
+	end
+	if script:GetAttribute("ArmorPiercing") then
+		ArmorPiercing = script:GetAttribute("ArmorPiercing")
+	end
+	if script:GetAttribute("HumanoidName") then
+		HumanoidName = script:GetAttribute("HumanoidName")
+	end
+	if script:GetAttribute("OneShotSaver") then
+		OneShotSaver = script:GetAttribute("OneShotSaver")
+	end
+	if script:GetAttribute("Enable_Glitchy_Effect") then
+		Glitch = script:GetAttribute("Enable_Glitchy_Effect")
+	end
+	if script:GetAttribute("DebugMode") then
+		DebugMode = script:GetAttribute("DebugMode")
+	end
+	script:SetAttribute("Use_This_Setting", nil)
+end
+if not _G.Glitch then
+	_G.Glitch = Glitch
+end
+--<<Real Object>>--
+local Knife = Tool			--Appearently Not Coming In With Restoring Feature.
+--<<Misc>>--
+function DebugCheck(Which)
+	if DebugMode == true and Which then
+		if script:GetAttribute("MaxCharge") then
+			MaxCharge = script:GetAttribute("MaxCharge")
+		end
+		if script:GetAttribute("LowestChargeRequirement") then
+			LowestChargeRequirement = script:GetAttribute("LowestChargeRequirement")
+		end
+		if script:GetAttribute("DamagePerCharge") then
+			DamagePerCharge = script:GetAttribute("DamagePerCharge")
+		end
+		if script:GetAttribute("SoundPitchOffset") then
+			PitchOffset = script:GetAttribute("SoundPitchOffset")
+		end
+		if script:GetAttribute("AllowPercentagedDamage") then
+			AllowPercentagedDamage = script:GetAttribute("AllowPercentagedDamage")
+		end
+		if script:GetAttribute("DropOpponentsLootsOnKill") then
+			DropOpponentsLootOnKill = script:GetAttribute("DropOpponentsLootsOnKill")
+		end
+		if script:GetAttribute("DropOpponentsToolOnRagdoll") then
+			DropOpponentstoolOnRagdoll = script:GetAttribute("DropOpponentsToolOnRagdoll")
+		end
+		if script:GetAttribute("Curseable") then
+			Curseable = script:GetAttribute("Curseable")
+		end 
+		if script:GetAttribute("PerformanceWise") then
+			PerformanceWise = script:GetAttribute("PerformanceWise")
+		end
+		if script:GetAttribute("ArmorPiercing") then
+			ArmorPiercing = script:GetAttribute("ArmorPiercing")
+		end
+		if script:GetAttribute("HumanoidName") then
+			HumanoidName = script:GetAttribute("HumanoidName")
+		end
+		if script:GetAttribute("OneShotSaver") then
+			OneShotSaver = script:GetAttribute("OneShotSaver")
+		end
+		if script:GetAttribute("Enable_Glitchy_Effect") then
+			Glitch = script:GetAttribute("Enable_Glitchy_Effect")
+		end
+		KnifeDurabillity = "Not Real"
+	else
+		DebugWarn("Please Enable Debug Mode In Studio To Allow Mid-Game Modification")
+	end
+end
+function Destruct(Object:Instance)
+	Object:Destroy()
+	if Object ~= nil then
+		Object:Remove()
+	end
+end
+function CFrameAngles(X,Y,Z)
+	return CFrame.Angles(math.rad(X),math.rad(Y),math.rad(Z))		-- Why Didn't I Thought Of This Earlier.						
+end
+local EasyTween = function(itemtotween,property,value,tweentime,easingstyle,easingdirection)
+	local info = TweenInfo.new(tweentime,Enum.EasingStyle[easingstyle],Enum.EasingDirection[easingdirection],0,false,0)
+	local goal = {}
+	goal[property] = value
+	return game:GetService("TweenService"):Create(itemtotween,info,goal)
+end
+function Encryption(unencryptedName, BeEncryptedOrUnEncrypt_YesOrNo)		-- My Special Method For Encrypting Symbols
+	if BeEncryptedOrUnEncrypt_YesOrNo == true then				--Encrypt
+		-- Replace '.' with '0' and remove spaces (replace '_' with '')
+		local Encryptedname = string.gsub(unencryptedName, '%.', '0')
+		Encryptedname = string.gsub(Encryptedname, ' ', '_')
+		return Encryptedname
+	else															--UbEncrypt
+		-- Replace '.' with '0' and remove spaces (replace '_' with '')
+		local Encryptedname = string.gsub(unencryptedName, '0', '.')
+		Encryptedname = string.gsub(Encryptedname, '_', ' ')
+		return Encryptedname
+	end
+end
+--<<Storage>>--
+local TableFullOFAttributesCuzWhyNot = {}
+local Debounce = {
+	"Solivion"						--I'll always have infinite debounce finding a friend			
+}
+local OnlyCheckOnce = {				-- For Performance Sake
+	
+}
+local AnimationFrames = {
+	--Transition To Idle
+	Idle = {
+		Frame1 = {
+			LeftShoulder = {CFrame.new(-1.5, 0, 0) * CFrame.Angles(math.rad(0),  math.rad(0), math.rad(0)), 0.5};
+			RightShoulder = {CFrame.new(1, 0, 0.5) * CFrame.Angles(math.rad(45), math.rad(-15),  math.rad(0)), 0.5};
+			GripWeld = {CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(-180), math.rad(-180)), 0.45}
+		},
+		Frame2 = {
+			RightShoulder = {CFrame.new(1.25, 0, -0.5) * CFrame.Angles(math.rad(66.5), math.rad(-7.5), math.rad(0)), 0.25};
+			GripWeld = {CFrame.new(0, -0.5, 0) * CFrame.Angles(math.rad(90), math.rad(0), math.rad(0)), 0.45}
+		},
+		Frame3 = {
+			LeftShoulder = {CFrame.new(-1.5, 0, 0) * CFrame.Angles(math.rad(0),  math.rad(0), math.rad(0)), 0.1};
+			RightShoulder = {CFrame.new(1.5, 0, -0.5) * CFrame.Angles(math.rad(90),  math.rad(0), math.rad(0)), 0.1};
+			GripWeld = {CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(45)), 0.45},
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},
+			Root = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},-- R15 version of rootjoint
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0), math.rad(0), math.rad(0)), 0.3},
+			Neck = {CFrame.new(0, 1.5, 0) *CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.45}
+		}
+	},
+	--More Like Lunge lmao
+	Swing = {
+		Frame1 = {
+			RightShoulder =	{CFrame.new(2, 0.5, 0.5) * CFrame.fromEulerAngles(-15.5, -30, 90), 0.15};
+			--GripWeld = {CFrame.new(-0.25, -1, 0) * CFrame.Angles(math.rad(-66) ,math.rad(-90), math.rad(15)), 0.01};
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, -45, 0), 0.15},
+			Root = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, -45, 0), 0.15},
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, -45, 0), 0.15},
+			Neck = {CFrame.new(0, 1.5, 0) *CFrame.Angles(math.rad(0),math.rad(-90),math.rad(10)),0.15}
+		},
+		Frame2 = {
+			RightShoulder =	{CFrame.new(2, 0.5, 0) * CFrame.fromEulerAngles(-15.5, 0, 90), 0.15};
+			--GripWeld = {CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(90), math.rad(-105), math.rad(0)), 0.1};
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, 90, 0), 0.15},
+			Root = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, 90, 0), 0.15},
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(0, 90, 0), 0.15},
+			--Neck = {CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.3}
+		},
+		Frame3 = {
+			RightShoulder =	{CFrame.new(1.5, 0, -0.5)* CFrame.fromEulerAngles(math.rad(90), math.rad(0), math.rad(0),Enum.RotationOrder.XYZ), 0.15};
+			GripWeld = {CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(90), math.rad(0), math.rad(0)), 0.15};
+			RootJoint = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0) , math.rad(0), math.rad(0),Enum.RotationOrder.XYZ),0.15},
+			Root = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0) , math.rad(0), math.rad(0),Enum.RotationOrder.XYZ), 0.15},
+			RootHip = {CFrame.new(0, 0, 0) * CFrame.fromEulerAngles(math.rad(0) , math.rad(0), math.rad(0),Enum.RotationOrder.XYZ), 0.15},
+			Neck = {CFrame.new(0, 1.5, 0) *CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)),0.15}
+		}
+	},
+	Stab = {-- It goes randomly, Something like 3-1-2
+		Frame1 = {
+			RightShoulder = {CFrame.new(1.25, 1, -2.5) * CFrameAngles(-60, 3, -150),0.1},
+			RootJoint = {CFrameAngles(20, 0, 0) * CFrame.new(0,0,0),0.15},
+			Root = {CFrameAngles(20, 0, 0) * CFrame.new(0,0,0),0.15},
+			RootHip = {CFrameAngles(20, 0, 0) * CFrame.new(0,0,0),0.15},
+			GripWeld = {CFrame.new(0, -0.5, 0)*CFrameAngles(-30, 0, 40),0.2}
+		},
+		Frame2 = {
+			RightShoulder = {CFrame.new(-0.5, 0, -1.5) * CFrameAngles(-45, -75, -70),0.2},
+			RootJoint = {CFrameAngles(-20, 0, 0) * CFrame.new(0,0,0),0.15},
+			Root = {CFrameAngles(-20, 0, 0) * CFrame.new(0,0,0),0.15},
+			RootHip = {CFrameAngles(-20, 0, 0) * CFrame.new(0,0,0),0.15},
+			GripWeld = {CFrame.new(0, -0.5, 0)*CFrameAngles(-45, 160, 80),0.2}
+		},
+		Frame3 = {
+			RightShoulder = {CFrame.new(0.75, 0, 0.5) * CFrameAngles(45, -75, -70),0.1},
+			RootJoint = {CFrameAngles(-5, 0, 0) * CFrame.new(0,0,0),0.15},
+			Root = {CFrameAngles(-5, 0, 0) * CFrame.new(0,0,0),0.15},
+			RootHip = {CFrameAngles(-5, 0, 0) * CFrame.new(0,0,0),0.15},
+			GripWeld = {CFrame.new(0, -0.5, 0)*CFrameAngles(-80, 180, 60),0.2}
+		},
+	},
+	-- Hmm, FreezeFrame.
+	Charging = {
+		Frame1 = {
+			RightShoulder = {CFrame.new(1.5, 1.5, 0.5) * CFrameAngles(45,157.5,-180), MaxCharge/20}; -- Man I dunno Why It Goes To CFrame.new(1.5, 1.5, 0.5) * CFrame.Angles(40.789, 149.638, 159.058)
+			RootJoint = {CFrame.new(0, 0, 0) * CFrameAngles(10, -22.5, -10), MaxCharge/20},
+			RootHip = {CFrame.new(0, 0, 0) * CFrameAngles(10, -22.5, -10), MaxCharge/20},
+			Root = {CFrame.new(0, 0, 0) * CFrameAngles(10, -22.5, -10), MaxCharge/20},
+			Neck = {CFrame.new(0, 1.5, 0) * CFrameAngles(-10, 22.5, 10), MaxCharge/20},
+			GripWeld = {CFrame.new(0, -1, 0) * CFrameAngles(0, 25, 35),MaxCharge/20}
+		},
+	},
+	-- This Is Not Throw, You Just Don't Have To Get Why I Didn't Change That.
+	Throw = {
+		Frame1 = {
+			RightShoulder = {CFrame.new(1.5, 0.5, 1) * CFrameAngles(75, -10, 45),0.5},
+			GripWeld = {CFrame.new(0, -1, 0) * CFrameAngles(75, -40, 35),0.5},
+			RootJoint = {CFrame.new(0.2, 0, 0) * CFrameAngles(20, -25, 10), 0.5},
+			RootHip = {CFrame.new(0.2, 0, 0) * CFrameAngles(20, -25, 10), 0.5},
+			Root = {CFrame.new(0.2, 0, 0) * CFrameAngles(20, -25, 10), 0.5}
+		},
+		Frame2 = {
+			RightShoulder = {CFrame.new(-0.5, -0.5, -1) * CFrameAngles(-60, 120, -5), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			GripWeld = {CFrame.new(0, -1, 0) * CFrameAngles(43, -40, -45), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			RootJoint = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			Root = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			RootHip = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5}
+		},
+		Frame3 = {
+			RightShoulder = {CFrame.new(0,  0, -1-(math.abs( math.clamp((tick() - StoredTick)*2,1,10)))) * CFrameAngles(75, 30, -7),0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			GripWeld = {CFrame.new(0, -1, 0) * CFrameAngles(45 + (math.abs( math.clamp((tick() - StoredTick)*2,1,10))), -45- (math.abs( math.clamp((tick() - StoredTick)*2,1,10))), 9),0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			RootJoint = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			RootHip = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			Root = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5}
+		} -- You Can Actually Add Your own Animation lol, And Yeah. The Animator Is pretty Bad. It quite has a playing pattern tho. It's probably 3-1-2
+	},
+	Silence = {
+		Frame1 = {-- Supposedly First Frame
+			LeftShoulder = {CFrame.new(-0.5, -0.25, -1) * CFrameAngles(0, -100, -120),0.1},
+			RightShoulder = {CFrame.new(1, -0.25, -1.5) * CFrameAngles(75.604, 161.731, 100.292),0.1},
+			GripWeld = {CFrame.new(-0.25, -1.2, -0.1) * CFrameAngles(30, -15, -50),0.1},
+			RootJoint = {CFrame.new(0, 0, 0) * CFrameAngles(0, -75, 0), 0.1},
+			RootHip = {CFrame.new(0, 0, 0) * CFrameAngles(0, -75, 0), 0.1},
+			Root = {CFrame.new(0, 0, 0) * CFrameAngles(0, -75, 0), 0.1}
+		},
+		Frame2 = {-- Supposedly Second Frame
+			RightShoulder = {CFrame.new(1, 0.5, -1.5) * CFrameAngles(40.604, 65.731, 40.708), 0.1},
+			LeftShoulder = {CFrame.new(-0.5, 0.5, -1.5) * CFrameAngles(0, -100, -55),0.1},
+			GripWeld = {CFrame.new(-0.25, -1, -0.3) * CFrameAngles(65, 45, 0), 0.1},
+			RootJoint = {CFrame.new(0, 0, 0) * CFrameAngles(15, 165, 0), 0.1},
+			Root = {CFrame.new(0, 0, 0) * CFrameAngles(15, 165, 0), 0.1},
+			RootHip = {CFrame.new(0, 0, 0) * CFrameAngles(15, 165, 0), 0.1}
+		},
+		Frame3 = {-- Supposedly Third Frame
+			LeftShoulder = {CFrame.new(-0.5, 0.5, -1.5) * CFrameAngles(0, -110, -75),0.1},
+			RightShoulder = {CFrame.new(1, 0.5, -1.5) * CFrameAngles(40.604, 65.731, 40.708), 0.1},
+			GripWeld = {CFrame.new(-0.25, -1.5, 0) * CFrameAngles(30, 30, -30),0.1},
+			RootJoint = {CFrame.new(0, 0, 0) * CFrameAngles(15, 45, 0), 0.1},
+			RootHip = {CFrame.new(0, 0, 0) * CFrameAngles(15, 45, 0), 0.1},
+			Root = {CFrame.new(0, 0, 0) * CFrameAngles(15, 45, 0), 0.1}
+		} -- You Can Actually Add Your own Animation lol, And Yeah. The Animator Is pretty Bad. Don't Move To The Next Frame Too Early, I Warned You.
+	}
+}
+local WeldStorage = { --Example Of How It Will Look Like: RightShoulder = Knife.RightShoulder
+	RightArm = nil,
+	LeftArm = nil,
+	Head = nil,
+	Root = nil,
+	RightLeg = nil,
+	LeftLeg = nil
+}
+local EncryptedSoundtable = {
+	Equip = "rbxassetid://153647514",
+	glassbreak0wav = "rbxassetid://12222005",
+	Hit = "http://www.roblox.com/asset/?id=58831920",
+	Hitmarker = "rbxassetid://160432334",
+	Kid_saying_Ouch0wav =  "rbxassetid://12222058",
+	Spray = "rbxassetid://843338638",
+	Stab = "rbxassetid://2782131222",
+	Swoosh = "http://www.roblox.com/asset?id=153647529",
+	Unequip = "rbxassetid://769464514",
+	bass0wav = "rbxassetid://12221944",
+	button0wav = "rbxassetid://12221967",
+	clickfast0wav = "rbxassetid://12221976",
+	electronicpingshort0wav = "rbxassetid://12221990",
+	snap0wav = "rbxassetid://12222140",
+	splat0wav = "rbxassetid://12222152",
+	swoosh0wav = "rbxassetid://12222200",
+	uuhhh0wav = "rbxassetid://12222242",
+	Rocket_shot0wav = "rbxassetid://12222084",
+	Launching_rocket0wav = "rbxassetid://12222065",
+	Nokia_3310 = "rbxassetid://7990171197",
+	Curse_Hit = "rbxassetid://9047207931",
+	Deep_Impact = "rbxassetid://9125402735",
+	Blade_Stab = "rbxassetid://2017482557",
+	Sword_Stab = "rbxassetid://4471648128",
+	Woosh = "rbxassetid://5797621927"
+}-- Please Note That Some Symbols Are Encrypted, 0 is a . and _ is Space
+
+local NormalSoundTable ={
+	{Name = "Equip", SoundId = "rbxassetid://153647514"},
+	{Name = "Hit", SoundId = "http://www.roblox.com/asset/?id=58831920"},
+	{Name = "Hitmarker", SoundId = "rbxassetid://160432334"},
+	{Name = "Kid saying Ouch.wav", SoundId = "rbxassetid://12222058"},
+	{Name = "Spray", SoundId = "rbxassetid://843338638"},
+	{Name = "Stab", SoundId = "rbxassetid://2782131222"},
+	{Name = "Swoosh", SoundId = "http://www.roblox.com/asset?id=153647529"},
+	{Name = "Unequip", SoundId = "rbxassetid://769464514"},
+	{Name = "bass.wav", SoundId = "rbxassetid://12221944"},
+	{Name = "button.wav", SoundId = "rbxassetid://12221967"},
+	{Name = "clickfast.wav", SoundId = "rbxassetid://12221976"},
+	{Name = "electronicpingshort.wav", SoundId = "rbxassetid://12221990"},
+	{Name = "snap.wav", SoundId = "rbxassetid://12222140"},
+	{Name = "splat.wav", SoundId = "rbxassetid://12222152"},
+	{Name = "swoosh.wav", SoundId = "rbxassetid://12222200"},
+	{Name = "uuhhh.wav", SoundId = "rbxassetid://12222242"}
+}-- These Are The UnEncrypted Version, This Has Been Added After The Encrypted Version. This is used for initializing the sound. God Why Do I Feel So Dumb.
+local transparencySequence = NumberSequence.new({
+	NumberSequenceKeypoint.new(0, 0.75),   -- Start with 0 transparency
+	NumberSequenceKeypoint.new(1, 1)    -- End with 1 transparency
+})
+local SecuredItems = {}
+--<<Function>>--
+--//Miscallenious Fuction//--
+
+function ApplyAttribute(Object)
+	Object:SetAttribute("Origin",script.Name.."(Solivion's Knife Script V2)")
+end
+function DebugText(Text:string)
+	if DebugMode == true then
+		print("->"..Text)
+	end
+end
+function DebugWarn(Text:string)
+	if DebugMode == true then
+		warn("-->>"..Text)
+	end
+end
+function AccurateMathRandom(Min:number,Max:number)		-- This Is What MathRandom Should Really Be, Seriously?
+	return math.random(Min*100,Max*100)/100
+end
+local function IsThisAPart(StuffUWant2Checkc) -- Me 2 Lazyyyyyyy
+	if	string.find(string.lower(StuffUWant2Checkc.ClassName), "part") or StuffUWant2Checkc:IsA("UnionOperation") or StuffUWant2Checkc:IsA("BasePart") or StuffUWant2Checkc:IsA("MeshPart") or StuffUWant2Checkc:IsA("WedgePart") then
+		return true;
+	end
+	return false;
+end
+local function GenerateKeycode() -- The Code Isn't That Hard To Crack.
+	local code = ""
+	local characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:',.<>/?"
+	local numCharacters = #characters
+
+	for i = 1, math.random(1,20) do -- You can adjust the length of the keycode as needed
+		local charIndex = math.random(1, numCharacters)
+		code = code .. characters:sub(charIndex, charIndex)
+	end
+	return code
+end
+
+local function IsDescendantOf(object, ancestor)	--I felt so dumb writing this.
+	local objectPath = object:GetFullName()
+	local ancestorPath = ancestor:GetFullName()
+
+	return string.find(objectPath, ancestorPath..".") == 1
+end
+
+function GetHumanoid(From:Model)
+	if not From then return nil end
+	if HumanoidName == nil then
+		if From:FindFirstChildOfClass("Humanoid") then
+			return From:FindFirstChildOfClass("Humanoid")
+		else
+			return nil
+		end
+	else
+		if From:FindFirstChild(HumanoidName) then
+			return From:FindFirstChild(HumanoidName)
+		else
+			return nil
+		end
+	end
+end
+--//Ragdoll Function//--
+
+local function ApplyChaosEffect(Char:Model) -- Just Fly Around
+	if not Char:GetAttribute("Real") and Char ~= Character and GetHumanoid(Char) and (GetHumanoid(Char):GetState() == Enum.HumanoidStateType.Dead or GetHumanoid(Char).Health <= 0 ) then
+		Char:SetAttribute("Real",true)
+	else
+		return
+	end
+	if PerformanceWise then
+		if GetHumanoid(Char) and (GetHumanoid(Char):GetState() == Enum.HumanoidStateType.Dead or GetHumanoid(Char).Health <= 0 ) then
+			local whereexplode = Char:FindFirstChildOfClass("Part")
+			if whereexplode ~= nil then
+				Debris:AddItem(Char,5)
+				local Bang = Instance.new("Explosion",workspace)
+				Bang.Position = whereexplode.Position
+				Bang.DestroyJointRadiusPercent = 0
+				Bang.BlastPressure = 1
+				Bang.BlastRadius = 20
+				Bang.Hit:Connect(function(Which,Where)
+					if not Which:IsDescendantOf(Character) and GetHumanoid(Which.Parent) and not Which:IsDescendantOf(Char) then
+						GetHumanoid(Which.Parent):ChangeState(Enum.HumanoidStateType.Physics)
+						local PushForce = Instance.new("BodyVelocity",Which)
+						PushForce.Velocity = (Bang.Position - Which.Position).unit * - (Bang.BlastRadius - Where) * (Bang.BlastPressure)
+						PushForce.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+						Debris:AddItem(PushForce,0.2)
+						task.wait((Bang.BlastRadius - Where)/10)
+						if PushForce then
+							Destruct(PushForce)
+						end
+						if Which and Which.Parent and GetHumanoid(Which.Parent) then GetHumanoid(Which.Parent):ChangeState(Enum.HumanoidStateType.GettingUp) end
+					end
+				end)
+				Char:BreakJoints()
+			end
+		end
+		return -- Performance Wise
+	end
+	if not workspace:FindFirstChild("FolderForKillEffectsLOL") then
+		local NewFolder = Instance.new("Folder",workspace)
+		NewFolder.Name = "FolderForKillEffectsLOL"
+		ApplyAttribute(NewFolder)
+		DebugText([[
+		*-- SolyMyle :> --*
+		]]
+		)
+	end
+	if GetHumanoid(Char) and (GetHumanoid(Char):GetState() == Enum.HumanoidStateType.Dead or GetHumanoid(Char).Health <= 0 ) then
+		if workspace:FindFirstChild("FolderForKillEffectsLOL") then
+			Char.Parent = workspace:FindFirstChild("FolderForKillEffectsLOL")  --Incase Anyone Deleted The Folder
+		end
+		for i,v in pairs(Char:GetDescendants())  do
+			if (v:IsA("BasePart") or v:IsA("MeshPart")) and not v:FindFirstChildOfClass("BodyForce") then
+				local part = v
+				local downForce = - part:GetMass() * workspace.Gravity
+				local force = -downForce
+				local bodyForce = Instance.new("BodyForce")
+				bodyForce.Force = Vector3.new(0,force,0)
+				bodyForce.Parent = part
+				bodyForce.Name = "Forceless"
+				--	EasyTween(v,"Transparency", 1, math.random(5,10),"Sine","In"):Play()
+				ApplyAttribute(bodyForce)
+			end
+			if v:IsA("Script") or v:IsA("LocalScript") then
+				Destruct(v)
+			end
+		end
+		Debris:AddItem(Char,60)
+	end
+end
+
+function DamageHumanoid(WhichHumanoid,Damage:number)
+	if WhichHumanoid:IsA("Humanoid") then
+		if not ArmorPiercing then
+			WhichHumanoid:TakeDamage(math.abs(Damage))
+		else
+			WhichHumanoid.Health = WhichHumanoid.Health - math.abs(Damage) 
+		end
+		ApplyChaosEffect(WhichHumanoid.Parent)
+	else-- Apply Ur Own Logic
+		
+	end
+end
+function Ragdoll(Who, RagdollTime)
+	if Who == nil or (Who:GetAttribute("IsRagdoll") == true and GetHumanoid(Who) and GetHumanoid(Who):GetState() == Enum.HumanoidStateType.Physics) then
+		return 
+	end
+	RagdollTime = math.abs(RagdollTime)
+	if GetHumanoid(Who) then
+		local WhosHumanoid = GetHumanoid(Who)
+		Who:SetAttribute("IsRagdoll", true)
+		WhosHumanoid:ChangeState(Enum.HumanoidStateType.Physics)
+		WhosHumanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+		WhosHumanoid:SetStateEnabled(Enum.HumanoidStateType.Running, false)
+		WhosHumanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+		WhosHumanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, false)
+	end
+	if DebugMode == true then
+		DebugText("Ragdolled "..Who.Name)
+	end
+	for index,joint in pairs(Who:GetDescendants()) do
+		if joint:IsA("Motor6D") then
+			local socket = Instance.new("BallSocketConstraint")
+			local a1 = Instance.new("Attachment")
+			local a2 = Instance.new("Attachment")
+			a1.Parent = joint.Part0
+			a2.Parent = joint.Part1
+			socket.Parent = joint.Parent
+			socket.Attachment0 = a1
+			socket.Attachment1 = a2
+			a1.CFrame = joint.C0
+			a2.CFrame = joint.C1
+			socket.LimitsEnabled = true
+			socket.TwistLimitsEnabled = true
+			socket.Name = joint.Name.."FakeAhhJoints"
+			local Nocollide = Instance.new("NoCollisionConstraint")
+			Nocollide.Parent = joint.Parent
+			Nocollide.Part1 = joint.Part1
+			Nocollide.Part0 = joint.Part0
+			Nocollide.Name = joint.Name
+			ApplyAttribute(a1)
+			ApplyAttribute(Nocollide)
+			ApplyAttribute(a2)
+			ApplyAttribute(socket)
+			if not joint.Parent:FindFirstChild(socket.Name) then
+				Debris:AddItem(a1, RagdollTime)
+				Debris:AddItem(a2,RagdollTime)
+				Debris:AddItem(socket,RagdollTime)
+				Debris:AddItem(Nocollide, RagdollTime)
+			end
+			if joint.Enabled == true then
+				joint:SetAttribute("WasOn",true)
+			else
+				joint:SetAttribute("WasOn",false)
+			end
+			joint.Enabled = false
+		elseif joint:IsA("Weld") or joint:IsA("Snap") or joint:IsA("Glue") then -- Nope, Leave these guys alone.
+			if joint.Enabled == true then
+				joint:SetAttribute("WasOn",true)
+			else
+				joint:SetAttribute("WasOn",false)
+			end
+			joint.Enabled = true
+		elseif joint:IsA("Part") or joint:IsA("BasePart") or joint:IsA("MeshPart") or joint:IsA("WedgePart") or joint:IsA("UnionOperation") then
+			if joint.CanCollide == true then
+				joint:SetAttribute("WasOn",true)
+			else
+				joint:SetAttribute("WasOn",false)
+			end
+			joint.CanCollide = true
+			joint.CanTouch = true
+		elseif joint:IsA("Script") or joint:IsA("LocalScript") then
+			if joint.Enabled == true then
+				joint:SetAttribute("WasOn",true)
+			else
+				joint:SetAttribute("WasOn",false)
+			end
+			joint.Enabled = false
+		end
+	end
+	task.wait(RagdollTime) -- Instead Of Wait
+	if Who == nil then
+		return 
+	end
+	if Who ~= nil then
+		for index,joint in pairs(Who:GetDescendants()) do
+			if joint:IsA("Motor6D") or joint:IsA("Weld") or joint:IsA("Snap") or joint:IsA("Glue") or joint:IsA("Script") or joint:IsA("LocalScript") then
+				if joint:GetAttribute("WasOn") == true then
+					joint.Enabled = true
+				else
+					joint.Enabled = false
+				end
+			elseif joint:IsA('BallSocketConstraint') or joint:IsA("NoCollisionConstraint") then
+				Destruct(joint)
+			elseif joint:IsA("Part") or joint:IsA("BasePart") or joint:IsA("MeshPart") then
+				if joint:GetAttribute("WasOn") == true then
+					joint.CanCollide = true
+				else
+					joint.CanCollide = false
+				end
+			end
+			if joint:GetAttribute("WasOn") then
+				joint:SetAttribute("WasOn",nil)
+			end
+		end
+		if   Who ~= nil and GetHumanoid(Who) then
+			local ShortReal = GetHumanoid(Who)
+			--if Who:FindFirstChildOfClass("Humanoid") and Who:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Physics then
+			ShortReal:ChangeState(Enum.HumanoidStateType.Running)
+			ShortReal:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+			ShortReal:SetStateEnabled(Enum.HumanoidStateType.Running, true)
+			ShortReal:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+			ShortReal:SetStateEnabled(Enum.HumanoidStateType.Freefall, true)
+			--else
+			--	Who:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Physics) --Lmao
+			--	Who:SetAttribute("IsRagdoll", true)
+			--end
+			--UnRagdolled
+			Who:SetAttribute("IsRagdoll", nil)
+		end
+	end
+	
+end
+
+--//Main Knife Function//--
+function IHoupeUDyeInnAhFier(Fnaf3:Model, Haw_Lhong:number)-- Not Really A Fire But Bleed
+	if Fnaf3 ~= Character then
+		local BleedBleederBleedest = script:Clone()
+		BleedBleederBleedest:SetAttribute("Die",true)
+		BleedBleederBleedest.Name = GenerateKeycode()
+		BleedBleederBleedest.Parent = Fnaf3
+		Debris:AddItem(BleedBleederBleedest,Haw_Lhong)
+	end
+end
+function reset()
+	for i,v in Knife:children() do
+		if v:IsA("Weld") or v:IsA("Sound") then
+			Destruct(v)
+		elseif string.find(v.Name,"(SOL_IF_SYS_PRT_01)",1,false) then
+			Destruct(v)
+		end
+		table.clear(WeldStorage)	
+	end
+end
+function tween(speed, easingstyle, easingdirection, loopcount, reverseafterfinish, delaytime, WHAT, goal)
+	local info = TweenInfo.new(speed, easingstyle, easingdirection, loopcount, reverseafterfinish, delaytime)
+	local goals = goal
+	local anim = TweenService:Create(WHAT, info, goals)
+	anim:Play()
+end
+function ReplicateWeld(BasePart,Where)
+	for i,v in BasePart:GetChildren() do
+		if v:IsA("Motor6D") and not WeldStorage[string.gsub(v.Name, " ", "")] then
+			local NewWeldForStuff = Instance.new("Weld", Where)
+			NewWeldForStuff.Name = string.gsub(v.Name," ","")
+			NewWeldForStuff.Part0 = v.Part0
+			NewWeldForStuff.Part1 = v.Part1
+			if string.find(NewWeldForStuff.Name,"Root",1,false) then
+				NewWeldForStuff.C1 = CFrameAngles(0,0,0) * CFrame.new(0,0,0)
+			else
+				NewWeldForStuff.C1 = v.C1
+			end
+			
+			NewWeldForStuff.C0 = v.C0
+			NewWeldForStuff.Enabled = v.Enabled
+			-- TODO: Register These Welds Into The Table
+			--Also
+			ApplyAttribute(NewWeldForStuff)
+			-- Register the newly created weld in the WeldStorage table
+			WeldStorage[string.gsub(v.Name, " ", "")] = NewWeldForStuff
+		end
+	end
+end
+local groupName = _G.AfterImageCollisionGroupName or GenerateKeycode()
+function Init(What, Where) -- When And Why?
+	if Knife:IsA("Tool") then
+		if What == "Weld" then
+			for i,thing in Where:GetChildren() do
+				if thing:IsA("Weld") then
+					Destruct(thing)      -- Remove
+				end
+			end
+			table.clear(WeldStorage)	
+			local Torso = Character:FindFirstChild("Torso")
+			local Hrp = Character:FindFirstChild("HumanoidRootPart")
+			if not Torso then
+				for i, v in Character:GetChildren() do
+					if v:IsA("MeshPart") then
+						ReplicateWeld(v,Where)
+					end
+				end
+			end
+			if Hrp then
+				ReplicateWeld(Hrp,Where)
+			end
+			if Torso then
+				ReplicateWeld(Torso,Where)
+			end
+			for i, v in Character:GetChildren() do
+				if v:IsA("Part") then
+					ReplicateWeld(v,Where)
+				end
+			end
+		elseif What == "FlagstandEffect" then
+			local effect = Instance.new("Part", Knife)
+			effect.Size = Vector3.new(1.5,1.5,1.5)
+			effect.Anchored = true
+			effect.CanCollide = false
+			effect.BrickColor = BrickColor.White()
+			effect.CastShadow = false
+			effect.Shape = Enum.PartType.Ball
+			effect.CFrame = Where
+			effect.Material = Enum.Material.ForceField
+			ApplyAttribute(effect)
+			coroutine.wrap(function()
+				local xrandom = math.random(-10,10)
+				local yrandom = math.random(-10,10)
+				local zrandom = math.random(-10,10)
+				for i = 1,10 do
+					effect.CFrame = effect.CFrame * CFrame.fromEulerAnglesYXZ(xrandom/30, yrandom/30, zrandom/30)
+					effect.Transparency = effect.Transparency + 0.1
+					effect.Size = effect.Size + Vector3.new(0.1,0.1,0.1)
+					RunService.Stepped:Wait()
+				end
+				Destruct(effect)
+			end)()
+		elseif What == "BrokenStuds" then
+			local Broke = Instance.new("Highlight", GetHandle())
+			Broke.OutlineTransparency = 1
+			EasyTween(Broke,"FillTransparency",1,0.5,"Sine","In"):Play()
+			Broke.Adornee = GetHandle()
+			ApplyAttribute(Broke)
+			task.wait(0.5)
+			Destruct(Broke)
+		elseif What == "Sound" then							-- Sound Effects
+			for i,Things in pairs(Knife:GetDescendants()) do
+				if Things:IsA("Sound")
+				then
+					Destruct(Things)
+				end				
+			end
+			for i, v in ipairs(NormalSoundTable) do
+				local sound = Instance.new("Sound")
+				local Where = GetHandle()
+				sound.Parent = Where
+				sound.SoundId = v.SoundId
+				sound.Name = v.Name
+				ApplyAttribute(sound)
+			end
+		end
+	elseif Knife:IsA("Model") then
+		if What == "Miss" then
+			if PerformanceWise then
+				return -- no
+			end
+			if not LowQualityAfterImage  then
+				if not PhysicsService:IsCollisionGroupRegistered(groupName) and _G.AfterImageCollisionGroupName == nil then
+					DebugText("Creating >>" .. groupName .. "<< Collision Group")
+					PhysicsService:RegisterCollisionGroup(groupName)
+					for _, group in ipairs(game:GetService("PhysicsService"):GetRegisteredCollisionGroups()) do
+						game:GetService("PhysicsService"):CollisionGroupSetCollidable(groupName, group.name, false)
+					end
+					_G.AfterImageCollisionGroupName = groupName
+				end
+
+				Character.Archivable = true
+				local ShadowChar = Character:Clone()
+				
+				Debris:AddItem(ShadowChar,5)
+				--	Character.Name = Character.Name .. "_" .. Character.Name .. "_Give_Me_Your_Answer_To"
+				if ShadowChar then
+					ShadowChar.Name = GenerateKeycode().."(High Quality Version)"
+					if ShadowChar:FindFirstChildOfClass("Tool") then
+						Destruct(ShadowChar:FindFirstChildOfClass("Tool"))
+					end
+					--	Debris:AddItem(ShadowChar, 5) -- 5 seconds delay before cleaning up
+					ShadowChar.Parent = workspace
+					script.Destroying:Connect(function()
+						Destruct(ShadowChar)
+					end)
+					if ShadowChar ~= nil then
+						ApplyAttribute(ShadowChar)
+					end
+					for i, v in pairs(ShadowChar:GetDescendants()) do
+						if v:IsA("Tool") then
+							Destruct(v)
+						end
+						if( v:IsA("Part") or v:IsA("MeshPart") )and v.Parent and not v.Parent:IsA("Tool") then
+							local forallpart = AccurateMathRandom(1, 3)
+							local Woosh = v
+							if Woosh.Parent:IsA("Tool") then
+								Debris:AddItem(Woosh.Parent, 5)
+								Woosh.Parent = ShadowChar
+							end
+							EasyTween(Woosh,"Transparency",1,AccurateMathRandom(0.5,1),"Sine","In"):Play()
+							Woosh.Anchored = true
+							Woosh.CanCollide = false
+							Woosh.CastShadow = false
+							Woosh.CollisionGroup = groupName
+							-- Woosh.Material = Enum.Material.ForceField
+							ApplyAttribute(Woosh)
+							coroutine.wrap(function()
+								for i = 1, 20 do
+									Woosh.CFrame = Woosh.CFrame + Vector3.new(0, forallpart / 10, 0)
+									Woosh.Transparency = Woosh.Transparency + 0.05
+									-- Woosh.Size = Woosh.Size + Vector3.new(forallpart/10,forallpart/10,forallpart/10)
+									RunService.Stepped:Wait()
+									Debris:AddItem(ShadowChar,5)
+								end
+								Destruct(Woosh)
+								if not ShadowChar:FindFirstChildOfClass("Part") then
+									Destruct(ShadowChar)
+								end
+								task.wait(5)
+								if not ShadowChar:FindFirstChildOfClass("Part") then
+									Destruct(ShadowChar)
+								end
+								Destruct(ShadowChar)
+							end)()
+						elseif not v:IsA("SpecialMesh") and not v:IsA("Part") and not v:IsA("MeshPart") and not v:IsA("Shirt") and not v:IsA("Pants") and not v:IsA("Humanoid") and not v:IsA("Accessory") then
+							Destruct(v)
+						else
+							v.Name = GenerateKeycode()
+						end
+					end
+
+					-- Add the ShadowChar to Debris
+
+				end
+			else
+				Character.Archivable = true
+				local ShadowChar = Character:Clone()
+				if ShadowChar then
+					Debris:AddItem(ShadowChar,5)
+					ShadowChar.Parent = workspace
+					ShadowChar.Name = GenerateKeycode().."(Low Quality Version)"
+					script.Destroying:Connect(function()
+						Destruct(ShadowChar)
+					end)
+					if ShadowChar ~= nil then
+						ApplyAttribute(ShadowChar)
+					end
+					for i,v in pairs(ShadowChar:GetDescendants()) do
+						if v:IsA("Part") or v:IsA("MeshPart") then
+							local forallpart = AccurateMathRandom(1,3)
+							local Woosh = v
+							Woosh.Anchored = true
+							Woosh.CanCollide = false
+							Woosh.CastShadow = false
+							--Woosh.Material = Enum.Material.ForceField
+							ApplyAttribute(Woosh)
+							coroutine.wrap(function()
+								for i = 1,20 do
+									Woosh.CFrame = Woosh.CFrame + Vector3.new(0,forallpart/10,0)
+									Woosh.Transparency = Woosh.Transparency + 0.05
+									-- Woosh.Size = Woosh.Size + Vector3.new(forallpart/10,forallpart/10,forallpart/10)
+									RunService.Stepped:Wait()
+									Debris:AddItem(ShadowChar,5)
+								end
+								Destruct(Woosh)
+								if not ShadowChar:FindFirstChildOfClass("Part") then
+									Destruct(ShadowChar)
+								end
+							end)()
+						elseif not v:IsA("SpecialMesh") and not v:IsA("Part") and not v:IsA("MeshPart") then
+							Destruct(v)
+						else
+							Destruct(v)
+						end
+					end
+				end
+			end
+			
+		end
+	end
+
+	
+end
+function DisableWeld(The)
+	if WeldStorage[The] then
+		WeldStorage[The].Enabled = false
+	end
+end
+function EnableWeld(The)
+	if WeldStorage[The] then
+		WeldStorage[The].Enabled = true
+	end
+end
+function GetHandle()
+	if Knife:IsA("Tool") then
+		if not Knife:FindFirstChild("Handle") then -- DID U DISTRUCT THE INDESTRUCTABLE!!???
+			Knife.Name = GenerateKeycode().."_Tool"
+			script.Name = GenerateKeycode().."_Script"
+			if AccurateMathRandom(1,2) < 0.2 then
+				Knife.Name = Knife.Name.."?"
+			end
+			if AccurateMathRandom(1,2) < 0.3 then
+				script.Name = script.Name.."?"
+			end
+			Knife.ToolTip = GenerateKeycode().."?"
+			Knife.TextureId = "rbxassetid://5648412667"
+			Doeshavepremadehandle = false
+			local newhandle = Instance.new("Part",Knife)
+			newhandle.Name = "Handle"
+			newhandle.Size = Vector3.new(0.265, AccurateMathRandom(2,4), 1.035)
+			newhandle.CanCollide = true
+			newhandle.CanTouch = true
+			newhandle.EnableFluidForces = false
+			local newmesh = Instance.new("SpecialMesh",newhandle)
+			newmesh.MeshType = Enum.MeshType.FileMesh
+			newmesh.Name = GenerateKeycode().."_RegeneratedMesh"
+			newmesh.MeshId = "http://www.roblox.com/asset/?id=121944778"
+			newmesh.TextureId = "http://www.roblox.com/asset/?id=172752354"
+			newmesh.Scale = Vector3.new(0.885, AccurateMathRandom(8,10)/10, 0.885)
+			if Trail then
+				local newAtt1 = Instance.new("Attachment",newhandle)
+				newAtt1.Name = GenerateKeycode().."_FirstAtt"
+				newAtt1.CFrame = CFrame.new(0, -0.162, 0.111)
+				local newAtt2 = Instance.new("Attachment",newhandle)
+				newAtt2.Name = GenerateKeycode().."_SecondAtt"
+				newAtt2.CFrame = CFrame.new(0, 1, 0.111)
+				local TheTrail = Instance.new("Trail",newhandle)
+				TheTrail.Attachment0 = newAtt1
+				TheTrail.Attachment1 = newAtt2
+				TheTrail.Name = GenerateKeycode()
+				TheTrail.Transparency = transparencySequence
+				TheTrail.LightEmission = 1
+				TheTrail.Lifetime = 0.15
+			end
+			--<HEI STOP DELETIGN HANDL OKY?>-
+			warn([[I Restored Da Handle
+			--]]..game.Players:GetNameFromUserIdAsync(1233413367).."--")
+			return newhandle
+		else
+			return Knife:FindFirstChild("Handle")
+		end
+	elseif Knife:IsA("Model") and GetHumanoid(Knife) then
+		if Knife:FindFirstChild("HumanoidRootPart") then
+			return Knife:FindFirstChild("HumanoidRootPart")
+		elseif Knife:FindFirstChild("Head") and not Knife:FindFirstChild("HumanoidRootPart") then
+			return Knife:FindFirstChild("Head")
+		end
+	end
+end
+function EnTrail()
+	if GetHandle():FindFirstChildOfClass("Trail") and Trail then
+		GetHandle():FindFirstChildOfClass("Trail").Enabled = true
+	end
+end
+function UnTrail()
+	if GetHandle():FindFirstChildOfClass("Trail") and Trail then
+		GetHandle():FindFirstChildOfClass("Trail").Enabled = false
+	end
+end
+function PlaySound(SoundName)
+	--getOrCreateSound(SoundName)
+	local Mainplayfunction = function(hmm)
+		hmm.PlaybackSpeed = math.random(100-PitchOffset,100+PitchOffset)/100
+		hmm:Play()
+	end
+	if GetHandle() and GetHandle():FindFirstChild(SoundName) and GetHandle():FindFirstChild(SoundName):IsA("Sound") then
+		Mainplayfunction(GetHandle():FindFirstChild(SoundName))
+	elseif GetHandle() and not GetHandle():FindFirstChild(SoundName) then
+		--DebugText("Checking Encryted Table For Sound:"..tostring(Encryption(SoundName,true)) )
+		if EncryptedSoundtable[Encryption(SoundName,true)] then
+			local sound = Instance.new("Sound")
+			local Where = GetHandle()
+			sound.Parent = Where
+			sound.SoundId = EncryptedSoundtable[Encryption(SoundName,true)]
+			sound.Name = SoundName
+			sound:Play()
+			ApplyAttribute(sound)
+		else
+			DebugWarn("Sound >"..SoundName.." or "..Encryption(SoundName,true).."< Not Found In Database")
+		end
+	end
+end
+function WeldKnife(Object,Maybe)
+	if Maybe == "Ragdoll Knife" then
+		if PerformanceWise then
+			return -- no
+		end
+		local KnifeAttached = GetHandle():Clone()
+		for i,v in pairs(KnifeAttached:GetDescendants())  do
+			if not v:IsA("SpecialMesh") then
+				Destruct(v)
+			else
+				v.Name = "ClonedKnifeMesh"
+			end
+		end
+		KnifeAttached.Name = "Ragdoll Knife"
+		KnifeAttached.CanCollide = false
+		KnifeAttached.CanTouch = false
+		KnifeAttached.CanQuery = false
+		KnifeAttached.Massless = true
+		KnifeAttached.EnableFluidForces = false
+		KnifeAttached.Parent = workspace
+		KnifeAttached.Transparency = 0
+		if DropOpponentstoolOnRagdoll then
+			local weldknife = Instance.new("Weld", KnifeAttached)
+			weldknife.C0 = Object.CFrame:toObjectSpace(KnifeAttached.CFrame)
+			weldknife.Part0 = Object
+			weldknife.Name = "Attachment"
+			weldknife.Part1 = KnifeAttached
+			weldknife.C1 = CFrame.lookAt(-KnifeAttached.CFrame.UpVector, Object.CFrame.Position) * CFrame.new(0,0,0)
+		end
+	elseif Maybe:IsA("Part") then
+		for i,v in pairs(Maybe:GetDescendants())  do
+			if not v:IsA("SpecialMesh") then
+				Destruct(v)
+			else
+				v.Name = "ClonedKnifeMesh"
+			end
+		end
+		local weldthething = Instance.new("Weld", Maybe)
+		weldthething.C0 = Object.CFrame:toObjectSpace(Maybe.CFrame)
+		weldthething.C1 = CFrame.lookAt(-Maybe.CFrame.UpVector, Object.CFrame.Position) * CFrame.new(0,0,0)
+		weldthething.Part0 = Object
+		weldthething.Name = "Attacher"
+		weldthething.Part1 = Maybe
+		Maybe.CanCollide = false
+		Maybe.CanTouch = false
+		Maybe.CanQuery = false
+		Maybe.Massless = true
+	end
+end
+-- Function to find the first weld with a partial name match in a part's descendants
+local function findWeldWithPartialName(part, partialName)
+	for _, descendant in ipairs(part:GetDescendants()) do
+		if descendant:IsA("Weld") and string.find(descendant.Name, partialName, 1, true) then
+			return descendant
+		end
+	end
+	return nil
+end
+
+-- Function to play animation frames
+function playAnimation(animationName, TimeBetweenFrames)
+	if CurrentAnim ~= animationName then
+		local frames = AnimationFrames[animationName]
+
+		if not frames then
+			DebugWarn("Animation not found: " .. animationName)
+			return
+		end
+
+		for frameName, frameData in pairs(frames) do
+			for weldName, weldCFrame in pairs(frameData) do
+				local weld = findWeldWithPartialName(Knife, weldName) or WeldStorage[weldName]
+				CurrentAnim = animationName
+				if weld then
+					if weldName ~= "LeftShoulder" then
+						EnableWeld(weldName)
+					end
+					local cframe, tweenTime = unpack(weldCFrame)
+					-- You can use TweenService to animate the welds
+					local info = TweenInfo.new(tweenTime, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+					local tween = TweenService:Create(weld, info, {C0 = cframe})
+					if weld.Name ~= "RootJoint" and weld.Name ~= "Root" and not string.find(weld.Name, "Root", 1, true) then
+						weld.C1 = CFrame.new(0, 0, 0)
+					elseif weld.Name ~= "RootJoint" and weld.Name ~= "Root" and string.find(weld.Name, "Root", 1, true) then
+						weld.C1 = CFrame.new(0, 0, 0)
+					elseif weld.Name == "Root"	 then
+						weld.C1 = CFrame.new(0, 1, 0)
+					else
+						if weld.C1 == CFrameAngles(-90, -180, 0)  then
+							weld.C1 = CFrame.new(0, 0, 0) * CFrameAngles(0, 0, 0)
+						end
+					end
+					if weld.Name == "Neck" and Character:FindFirstChild("UpperTorso") then
+						weld.C1 = CFrame.new(0, 0.2, 0)
+					else
+						weld.C1 = weld.Name == "Root" and CFrame.new(0, 1.1, 0) or CFrame.new(0, 0, 0)
+					end
+					if weld.Name == "Root"	 then
+						weld.C1 = CFrame.new(0, 1.1, 0)
+					end
+					tween:Play()
+				elseif weldName == "GripWeld" then
+					local cframe, tweenTime = unpack(weldCFrame)
+					-- You can use TweenService to animate the welds
+					local info = TweenInfo.new(tweenTime, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+					local tween = TweenService:Create(Knife, info, {Grip = cframe})
+					-- weld.C1 = CFrame.new(0, 0, 0)
+					tween:Play()
+				elseif weldName == "Root" then
+					EnableWeld(weldName)
+					local cframe, tweenTime = unpack(weldCFrame)
+					weld = findWeldWithPartialName(Knife, weldName)
+					if weld and not Knife:FindFirstChild("RootJoint") then
+						local info = TweenInfo.new(tweenTime, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
+						local tween = TweenService:Create(weld, info, {C0 = cframe})
+						tween:Play()
+					else
+						if weld ~= nil then
+							local info = TweenInfo.new(tweenTime, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
+							local tween = TweenService:Create(weld, info, {C0 = cframe})
+							tween:Play()
+						else
+							DebugWarn("RootJoint Found or No Root Weld")
+						end
+					end
+				else
+					DebugWarn("Weld >" .. weldName .. "< not found")
+				end
+			end
+			task.wait(TimeBetweenFrames)
+		end
+	end
+end
+--//Extra Function//--
+
+local function onDescendantAdded(descendant)
+	-- Set collision group for any part descendant
+	if descendant:IsA("BasePart") then
+		descendant.CollisionGroup = "Characters"
+	end
+end
+
+function Death()
+	if not Character then
+		return
+	end
+	if Character and GetHumanoid(Character).Health > 0 then
+		DebugText("Character Health Valid! Moving Forward")
+	else
+		DebugText("Character Health Invalid! Breaking Joints")
+		GetHumanoid(Character):ChangeState(Enum.HumanoidStateType.Dead)
+		for i,v in Character:GetDescendants() do
+			if IsThisAPart(v) == true or v:IsA("Part") then
+				local forallpart = AccurateMathRandom(1,3)
+				local Woosh = v
+				Woosh.Anchored = true
+				Woosh.CanCollide = false
+				Woosh.CastShadow = false
+				--Woosh.Material = Enum.Material.ForceField
+				ApplyAttribute(Woosh)
+				coroutine.wrap(function()
+					for i = 1,20 do
+						Woosh.Transparency = Woosh.Transparency + 0.05
+						Woosh.Size = Woosh.Size + Vector3.new(forallpart/10,forallpart/10,forallpart/10)
+						RunService.Stepped:Wait()
+						Debris:AddItem(Character,5)
+					end
+					Destruct(Woosh)
+					if not Character:FindFirstChildOfClass("Part") then
+						Destruct(Character)
+					end
+				end)()
+			end
+
+		end
+	end
+end
+--<<Events>>--
+if not Tool then return end
+if Tool and Tool:IsA("Model") and GetHumanoid(Tool) and script:GetAttribute("Die") then -- Fier
+	if not EnemyBleed then
+		script.Enabled = false
+		return
+	end
+	repeat 
+		local hum = GetHumanoid(Tool)
+		if EnemyBleed and hum then 
+			DamageHumanoid(hum,(AccurateMathRandom(0.1,0.2)*(hum.MaxHealth/100)))
+		end 
+		wait(math.random(10,20)/100)
+		if script.Destroying then
+			break
+		end
+	until false or script.Destroying
+elseif Tool:IsA("Model") and GetHumanoid(Tool) and not script:GetAttribute("Die") then
+	if not HaveIFrame then
+		script.Enabled = false
+		return
+	end
+	if HaveIFrame == true then
+		DebugText("Script Adapting To IFrame System")
+		local Character = Tool
+		local IFrameActi = false
+		local IsIFrameOnCooldown = false
+		local SavedHealthNow = 0
+		local IsOnALongDown = false
+		local OnTheRun = false
+		local LastBreath = false
+		if not OneShotSaver then
+			LastBreath = true	-- Die on Death 💀💀💀
+		end
+		if not PerformanceWise then
+			for i,v in Character:GetDescendants() do
+				if  ( not v:IsA("BasePart") and v.Parent == Character) and not v:IsA("Tool") and v ~= script then
+					v.Name = GenerateKeycode()
+				end
+			end
+		end
+
+		if Character and GetHumanoid(Character) and GetHumanoid(Character):GetState() ~= Enum.HumanoidStateType.Dead then -- I_Frame
+			--if (not GetHumanoid(Character) or (GetHumanoid(Character) and (GetHumanoid(Character).Health <= 0 or GetHumanoid(Character):GetState() == Enum.HumanoidStateType.Dead ) )) and not IFrameActi then
+			--	Character:BreakJoints()
+			--	Death()
+			--	return 
+			--end
+			function allowdeath()
+				if OneShotSaver then
+					if LastBreath then
+						GetHumanoid(Character):SetStateEnabled(Enum.HumanoidStateType.Dead,true)
+					end
+				else
+					GetHumanoid(Character):SetStateEnabled(Enum.HumanoidStateType.Dead,true)
+				end
+
+
+			end
+			function disallowdeath()
+				if OneShotSaver then
+					if not LastBreath then
+						GetHumanoid(Character):SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+						if GetHumanoid(Character).Health < GetHumanoid(Character).MaxHealth/10 then
+							GetHumanoid(Character).Health = GetHumanoid(Character).MaxHealth/10 -- 10 Percent 
+						end
+					end
+				else
+					GetHumanoid(Character):SetStateEnabled(Enum.HumanoidStateType.Dead,false)
+				end
+			end
+
+
+			LastestHealth = GetHumanoid(Character).MaxHealth
+			GetHumanoid(Character).HealthChanged:Connect(function(HowMuchHealthNow)
+				if IFrameActi and LastestHealth > HowMuchHealthNow and not IsOnALongDown  then
+					--DebugText("Unattended Damage Healed")
+
+					if Character:FindFirstChildOfClass("ForceField") then
+						for i ,v in Character:GetChildren() do
+							if v:IsA("ForceField") then
+								if v:GetAttribute("Durabillity") then
+									v:SetAttribute("Durabillity",v:GetAttribute("Durabillity")-(LastestHealth - GetHumanoid(Character).Health))	
+									if v:GetAttribute("Durabillity") <= 0 then
+										Destruct(v)
+									end
+								else
+									v:SetAttribute("Durabillity",GetHumanoid(Character).MaxHealth - (LastestHealth - GetHumanoid(Character).Health))
+								end
+							end
+						end
+
+						GetHumanoid(Character).Health = LastestHealth
+						Init("Miss",nil)
+						DebugText("//SHEILDED//")
+						local Activated = Instance.new("Highlight")
+						Activated.Parent = Character
+						Activated.Adornee = Character
+						Activated.Name = "IFrameFlashes"
+						--Activated.FillColor = Color3.new(0, 255, 255)
+						--ApplyAttribute(Activated)
+						Activated.FillTransparency = 0
+						Activated.OutlineTransparency = 0
+						EasyTween(Activated,"FillTransparency", 1, 0.5,"Sine","In"):Play()
+						EasyTween(Activated,"OutlineTransparency", 1, 0.5,"Sine","In"):Play()
+						PlaySound("Launching_rocket0wav")
+						task.wait(1)
+						if Activated then
+							Destruct(Activated)
+						end
+
+					end
+
+				elseif not IFrameActi and LastestHealth > HowMuchHealthNow and not IsIFrameOnCooldown and not IsOnALongDown then
+					--if (GetHumanoid(Character) and (GetHumanoid(Character).Health <= 0 or GetHumanoid(Character):GetState() == Enum.HumanoidStateType.Dead ) ) and not LastBreath then
+					--	Death()
+					--	return
+					--	end
+					if GetHumanoid(Character).Health <= 0 and (not IFrameActi or IsOnALongDown) then
+						if not LastBreath then
+							OnTheRun = true
+							disallowdeath()
+							GetHumanoid(Character):ChangeState(Enum.HumanoidStateType.Jumping)
+							GetHumanoid(Character).Health = GetHumanoid(Character).MaxHealth/50 -- 2 Percent , I'm So Kind
+							DebugText(string.upper(Character.Name).." IS ON THE RUN: DEATH PREVENTION WILL END AFTER THIS PERIOD")
+						else
+							DebugText(string.upper(Character.Name).." WAS HIT WHILE IN LAST BREATH")
+							allowdeath()
+							GetHumanoid(Character):ChangeState(Enum.HumanoidStateType.Dead)
+							wait(1)
+							for i,v in Character:GetDescendants() do
+								if v:IsA("Script") or v:IsA("LocalScript") or v:IsA("BoolValue") then
+									Destruct(v)
+								end
+							end
+							Death()
+							return
+						end
+					elseif GetHumanoid(Character).Health > 0 then
+						if not LastBreath then
+							allowdeath()
+						else
+							disallowdeath()
+						end
+						DebugText(Character.Name.." Has Been Hit")
+					end
+					SavedHealthNow = HowMuchHealthNow
+					IFrameActi = true
+					IsIFrameOnCooldown = true
+					LastestHealth = SavedHealthNow
+					--DebugText("Saved Health At ".. LastestHealth)
+					--GetHumanoid(Character).Health = LastestHealth
+					PlaySound("Rocket_shot0wav")
+					local coward = Instance.new("ForceField")
+					coward.Name = "IFrame"
+					coward.Visible = false
+					coward.Parent = Character
+					local Activated = Instance.new("Highlight")
+					Activated.Name = "IFrame"
+					Activated.FillColor = Color3.new(0, 255, 255)
+					Activated.OutlineColor = Color3.new(0, 255, 255)
+					Activated.Parent = Character
+					Activated.FillTransparency = 0
+					coward.Destroying:Connect(function()
+						if OnTheRun then
+							OnTheRun = false
+							LastBreath = true
+							DebugText(string.upper(Character.Name) .." IS ON LAST BREATH: Getting Hit Under 0 HP With Last Breath Will Not Be Shielded!")
+							allowdeath()
+						end
+						if coward:GetAttribute("Durabillity") and coward:GetAttribute("Durabillity") <= 0 then
+							DebugWarn(Character.Name.."_Shield Broken, IFrame Currently On Cooldown..")
+							if Activated then
+								Destruct(Activated)
+							end
+							if LastBreath then
+								allowdeath()
+							end
+							GetHumanoid(Character):ChangeState(Enum.HumanoidStateType.Ragdoll)
+							local Root = Character:FindFirstChild("HumanoidRootPart")
+							if Root then
+								local NewForceBacklol = Instance.new("BodyVelocity")
+								NewForceBacklol.Velocity = Root.CFrame.LookVector * -30
+								NewForceBacklol.Name = "Break"
+								NewForceBacklol.Parent = Root
+								Debris:AddItem(NewForceBacklol,0.2)
+							end
+							IFrameActi = false
+							IsIFrameOnCooldown = true
+							IsOnALongDown = true
+							task.wait(AccurateMathRandom(7,10))
+							IsIFrameOnCooldown = false
+							IsOnALongDown = false
+						end
+					end)
+					ApplyAttribute(Activated)
+					ApplyAttribute(coward)
+
+					EasyTween(Activated,"FillTransparency",0.5,1,"Linear","In"):Play()
+					task.wait(0.5)
+					task.wait((LastestHealth - SavedHealthNow)*0.1)-- It Doesn't Work :Skull:
+
+					DebugText("//Initializing_SHEILD//")
+					task.wait(AccurateMathRandom(3,5))			
+					DebugText("//SHIELD ENDED/")-- Stupid Ahh Cooldown System
+					EasyTween(Activated,"FillTransparency", 1, 0.25,"Sine","In"):Play()
+					EasyTween(Activated,"OutlineTransparency", 1, 0.25,"Sine","In"):Play()
+					if coward and Activated and not IsOnALongDown  then
+						DebugWarn(string.upper(Character.Name).."_SHIELD NOT BROKEN")
+						task.wait(0.25)
+						if Activated then
+							Destruct(Activated)
+						else
+							return
+						end
+						if coward then
+							Destruct(coward)
+						else
+							return
+						end
+						if not IsOnALongDown then
+							IFrameActi = false
+							task.wait(AccurateMathRandom(0.1,0.2))	
+							IsIFrameOnCooldown = false
+						end 
+					end
+
+				elseif not IFrameActi and LastestHealth < HowMuchHealthNow then
+					LastestHealth = HowMuchHealthNow
+					DebugText("New Health Registered")
+				end	
+
+				--	Death()
+			end)
+		end
+
+	else
+		DebugText("IFrame Disabled!")
+		return
+	end
+	
+elseif Knife:IsA("Tool") then
+	-- Nevermind, It seems I can't do a counter system using a seperated code here
+	if Character and GetHumanoid(Character) then
+		GetHumanoid(Character).HealthChanged:Connect(function(HowMuchHealthNow)
+			if CurrentState == "Swinging" or CurrentAnim == "Throwing" and LastestHealth > HowMuchHealthNow then
+				DebugText("Clash!")
+				SavedHealthNow = HowMuchHealthNow
+				CurrentState = "Nil"
+				UnTrail()
+				if Character:FindFirstChild("HumanoidRootPart") then
+					local Bounce = Instance.new("BodyVelocity",Character:FindFirstChild("HumanoidRootPart"))
+					Bounce.Force = -Character:FindFirstChild("HumanoidRootPart").CFrame.LookVector
+					Bounce.Name = "Ouch"
+					ApplyAttribute(Bounce)
+					Debris:AddItem(Bounce,1)
+				end
+				task.wait(LastestHealth - SavedHealthNow)
+				playAnimation("Idle")
+				CurrentState = "Idle"
+				GetHumanoid(Character).Health = LastestHealth
+			elseif LastestHealth < HowMuchHealthNow and CurrentState ~= "Swinging" and CurrentAnim ~= "Throwing" then
+				--LastestHealth = HowMuchHealthNow
+			end
+		end)
+	end
+end
+if Knife:IsA("Tool") then
+	DebugText("Tool Registered")
+else
+	DebugText("Tool Not Registered")
+	return
+end
+Tool.Equipped:Connect(function()			-- Gang Gang, Yes Yes Yes, mmm icecream so good, Brr, Gang Gang...
+	if not Character then						-- Nope, You Cannot Reclaim The knife from Others.
+		Character = Knife.Parent
+	elseif Character then
+		if Knife.Parent ~= Character then
+			if not workspace:FindFirstChild(Character.Name) then
+				Character = Knife.Parent
+			end
+			Knife.Parent = workspace
+		end
+	end
+	if Character and Character:FindFirstChild('RightHand') and Character:FindFirstChild('RightHand'):FindFirstChild('RightGrip') then
+		pcall(function() Character:FindFirstChild('RightHand'):FindFirstChild('RightGrip').C0 = CFrame.Angles(-90, 0, 0) end)
+	end
+	Curspd = 18
+	Init("Sound", Knife)
+	Init("Weld", Knife)
+	UnTrail() -- Nope, not yet
+	PlaySound("Equip")
+	CurrentState = "Idle"
+	if Character:FindFirstChild('RightHand') and Character:FindFirstChild('RightHand'):FindFirstChild('RightGrip') then
+		pcall(function() Character:FindFirstChild('RightHand'):FindFirstChild('RightGrip').C0 = CFrame.Angles(-90, 0, 0) end)
+	end
+	playAnimation("Idle",0.2)
+	if Character:FindFirstChild('RightHand') and Character:FindFirstChild('RightHand'):FindFirstChild('RightGrip') then
+		pcall(function() Character:FindFirstChild('RightHand'):FindFirstChild('RightGrip').C0 = CFrame.Angles(-90, 0, 0) end)
+	end
+	CurrentAnim = "Idle"
+	LastestSlash = tick()
+	StoredTick = tick()
+	if GetHumanoid(Character) and not Character:FindFirstChild("UpperTorso") then
+		for i,v in Knife:GetChildren() do
+			if v.Name ~= "RightShoulder" and v.Name ~= "RootJoint" and v.Name ~= "Neck" then
+				DisableWeld(v.Name)
+			end
+		end
+	elseif GetHumanoid(Character) and Character:FindFirstChild("UpperTorso") then
+		for i,v in Knife:GetChildren() do
+			if v.Name ~= "RightShoulder" and v.Name ~= "Root" and v.Name ~= "Neck" then
+				DisableWeld(v.Name)
+			end
+		end
+	end
+	if GetHumanoid(Character) then
+		LastestHealth = GetHumanoid(Character).Health
+	end
+	if not Character:FindFirstChild(script.Name.. "(SOL_IF_SYS_PRT_01)") and not Character:FindFirstChild(script.Name.. "(SOL_IF_SYS_PRT_01)?") and not Character:FindFirstChild("SOL_IF_SYS_PRT_01") and not Character:FindFirstChild("SOL_IF_SYS_PRT_01?") and HaveIFrame == true then
+		local IFrame = script:Clone()
+		IFrame.Name = script.Name.. "(SOL_IF_SYS_PRT_01)"
+		ApplyAttribute(IFrame)
+		IFrame.Parent = Character
+		IFrame:ClearAllChildren()
+	end
+	--DisableWeld("RootJoint")
+	--DisableWeld("Neck")
+end)
+Tool.Unequipped:Connect(function()		-- Gone, You r Done
+	CanDmg = false
+	CurrentAnim = "None"
+	CurrentState = "Unequipped"
+	reset()
+	UnTrail()
+end)
+Tool.Activated:Connect(function() 		-- State Changer V0.1
+	if Tool.Enabled == false then
+		return
+	end
+	if CurrentState ~= "Firing" and CurrentState ~= "Charging" then
+	--task.desynchronize() -- Please Don't Worry About The Warning, It's unusable without actors n' stuff
+	CurActi = true
+	if tick() - LastestSlash >= 3 then
+		CurrentAnimSequence = 1
+	end 
+	if GetHumanoid(Character) then
+		GetHumanoid(Character).WalkSpeed = Curspd
+	end
+	if CurrentState == "Idle" and CurrentAnim ~= "Charging" and CurrentAnim ~= "Throwing" and CurrentAnim == "Idle" and not Slashing then
+		table.clear(Debounce)
+		table.clear(OnlyCheckOnce)
+		EnableWeld("Root")
+		EnableWeld("RootHip")
+		EnableWeld("RootJoint")
+		EnableWeld("Neck")
+		LastestSlash = tick()
+		CanDmg = true
+		CurrentState = "Swinging"
+		LastestHealth = GetHumanoid(Character).Health
+		
+		if Slashing and _G.ToolCooldown == false then
+			return	
+		else
+			_G.ToolCooldown = true
+			Slashing = true	
+			EnTrail()
+		end	
+		PlaySound("Swoosh")
+		if CurrentAnimSequence == 1 then
+			playAnimation("Swing",0.15)
+			NeedToWait = true
+			CurrentAnim = "Swing"
+			CurrentAnimSequence = 2
+		elseif CurrentAnimSequence == 2 then
+			playAnimation("Stab",0.125)
+			CurrentAnim = "Stab"
+			CurrentAnimSequence = 1
+		end
+		if CurActi and CurrentAnimSequence == 2 then -- GateKeep Lol
+			CurrentState = "Ready"
+			Slashing = false	
+			task.wait(0.5)
+			if CurrentAnim ~= "Charging" and CurrentState ~= "Charging" and CurrentState ~= "Firing" then -- Listen Up, The State May Have Changed.
+				CurrentState = "Idle"
+				playAnimation("Idle",0.1)
+				UnTrail()
+				_G.ToolCooldown = false
+				--DisableWeld("RootHip")
+				--DisableWeld("RootJoint")
+				--DisableWeld("Neck")
+			end
+		elseif not CurActi or CurrentAnimSequence == 1 then -- No Charge Throw After Stabbing, And Stabbing Won't Extend.
+			if CurrentAnim ~= "Charging" and CurrentState ~= "Ready" and CurrentState ~= "Firing" then
+				CurrentState = "Idle"
+				playAnimation("Idle",0.1)
+				_G.ToolCooldown = false
+				UnTrail()
+				--DisableWeld("RootHip")
+				--DisableWeld("RootJoint")
+				--DisableWeld("Neck")
+			end
+			end
+			if NeedToWait then
+				task.wait(0.1)
+				Slashing = false	
+				NeedToWait = false
+			else
+				Slashing = false	
+			end
+	elseif CurrentState == "Ready"  then
+		if CurrentState ~= "Idle" and CurrentState ~= "Firing" and CurrentState ~= "Swinging" then
+			CanDmg = true
+			CurrentState = "Charge"
+			StoredTick = tick()
+			LastestHealth = GetHumanoid(Character).Health
+			Slashing = false	
+			playAnimation("Charging",0.1)
+			CurrentAnim = "Charging"
+			if GetHumanoid(Character) then
+				GetHumanoid(Character).WalkSpeed = (Curspd/10) *	9	
+			end
+			UnTrail()
+			PlaySound("clickfast.wav")
+			
+			
+		end
+		
+		end
+
+	end
+	--task.synchronize()   -- Line Up!
+end)
+Tool.Deactivated:Connect(function()
+	CurActi = false
+	--task.desynchronize()
+	local ChargedPower = (tick() - StoredTick)*6.5
+	if CurrentState == "Charge" and ChargedPower >= LowestChargeRequirement then
+		EnTrail()
+		table.clear(Debounce)
+		table.clear(OnlyCheckOnce)
+		local Boost = AccurateMathRandom(DamagePerCharge*ChargedPower,DamagePerCharge*ChargedPower+2)
+		if GetHumanoid(Character) then
+			GetHumanoid(Character).WalkSpeed = Curspd + math.clamp(Boost,LowestChargeRequirement*DamagePerCharge,MaxCharge*DamagePerCharge)
+		end
+		CurrentState = "Firing"
+		PlaySound("swoosh.wav")
+		playAnimation("Throw",0.1)
+		CurrentAnim = "Throw"
+		if GetHumanoid(Character) then
+			GetHumanoid(Character).WalkSpeed = Curspd
+		end
+		task.wait(1)
+		-- Incase He Broke Knife
+		if not CanDmg or GetHandle().Transparency == 1  then -- Yeah, This Thing Is Supposed Be Throwed, But I'm Too Lazy.
+			PlaySound("bass.wav")
+			CanDmg = true
+		else
+			if AccurateMathRandom(1,100) <= MislayChance then
+				PlaySound("splat.wav")
+				local DroppedKnifeLifeTime = math.random(50,100)/10
+				local DroppedKnife = GetHandle():Clone()
+				DroppedKnife.Name = "DroppedKnife"
+				DroppedKnife.CanCollide = true
+				DroppedKnife.Parent = workspace
+				DroppedKnife.Material = Enum.Material.CorrodedMetal
+				DroppedKnife:SetAttribute("Already_Attached",false)
+				--DroppedKnife.Color = BrickColor.Black() -- It doesn't work :(
+				for i,v in DroppedKnife:children() do
+					if not v:IsA("SpecialMesh") then
+						Destruct(v)
+					elseif v:IsA("SpecialMesh") then
+						--v.TextureId = "rbxassetid://1"
+					end
+				end
+				EasyTween(DroppedKnife,"Transparency", 1, DroppedKnifeLifeTime , "Sine", "In"):Play()
+				DroppedKnife.Touched:Connect(function(PartTouched)
+					if PartTouched.Parent and GetHumanoid(PartTouched.Parent) and DroppedKnife.Transparency < 1 and PartTouched.Parent ~= Character and not DroppedKnife:FindFirstChildOfClass("Weld") and DroppedKnife:GetAttribute("Already_Attached")  ~= true then
+						if GetHandle():FindFirstChild("Kid saying Ouch.wav") then
+							local ouch = GetHandle():FindFirstChild("Kid saying Ouch.wav"):Clone()
+							ouch.Parent = PartTouched
+							ouch:Play()
+							ApplyAttribute(ouch)
+							Debris:AddItem(ouch,1)
+						end
+						DamageHumanoid(GetHumanoid(PartTouched.Parent), DroppedKnifeLifeTime*(1-DroppedKnife.Transparency))
+						WeldKnife(DroppedKnife, PartTouched)
+						DroppedKnife:SetAttribute("Already_Attached",true)
+					end
+				end)
+				Debris:AddItem(DroppedKnife, DroppedKnifeLifeTime)
+				if DroppedKnife.Transparency == 1 then
+					Destruct(DroppedKnife)
+				end
+			end
+		end
+		GetHandle().Transparency = 0
+		CurrentState = "Idle"
+		playAnimation("Idle",0.1)
+		UnTrail()
+		_G.ToolCooldown = false
+		--DisableWeld("RootHip")
+		--DisableWeld("Neck")
+		--DisableWeld("RootJoint")
+		CurrentDamage = DefaultDamage
+	elseif  CurrentState == "Charge" and ChargedPower < LowestChargeRequirement and ChargedPower > LowestChargeRequirement/2 then
+		CurrentState = "Idle"
+		PlaySound("electronicpingshort.wav")
+		playAnimation("Idle",0.1)
+		UnTrail()
+		_G.ToolCooldown = false
+	elseif CurrentState == "Charge" and ChargedPower < LowestChargeRequirement and ChargedPower < LowestChargeRequirement/2 then
+		CurrentState = "Firing"
+		Knife.Enabled = false
+		table.clear(Debounce)
+		table.clear(OnlyCheckOnce)
+		Slashing = true
+		_G.ToolCooldown = true
+		EnTrail()
+		PowerfulSlash = true
+		local Forward = Instance.new("BodyVelocity")
+		local Root = Character:FindFirstChild("HumanoidRootPart") or Character:FindFirstChild("Torso")
+		if Root then
+			DebugText("Root was Set To "..Root:GetFullName())
+			Forward.Parent = Root
+			Forward.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+			Forward.Velocity = Root.Velocity * 2
+			Forward.Name = GenerateKeycode()
+		end
+		PlaySound("Woosh")
+		DebugText("S I L E N C E")
+		DefaultDamage = DefaultDamage * 2
+		Slashing = true
+		if GetHandle() and GetHandle():FindFirstChildOfClass("Trail") then
+			GetHandle():FindFirstChildOfClass("Trail").Enabled = true
+		end
+		EnableWeld("LeftShoulder")
+		playAnimation("Silence",0.095) -- I played It A Bit Early To Make It synce And runs Smoothly In A Line.
+		CurrentAnim = "Silence" -- S I L E N C E
+		CurrentAnimSequence = 1	
+		if Forward then
+			Destruct(Forward)
+		end
+		playAnimation("Idle",0.1)
+		CurrentState = "Idle"
+		Slashing = false
+		DefaultDamage = DefaultDamage/2
+		UnTrail()
+		if GetHandle() and GetHandle():FindFirstChildOfClass("Trail") then
+			GetHandle():FindFirstChildOfClass("Trail").Enabled = false
+		end
+		_G.ToolCooldown = false	
+		Knife.Enabled = true
+		PowerfulSlash = false
+		DisableWeld("LeftShoulder")
+	end
+	--task.synchronize()
+end)
+
+--// Sorry These Functions Are Not Organized //--
+
+
+
+function Prop(hit)
+--[[	local character = hit.Parent
+	local player = Players:GetPlayerFromCharacter(character)
+	if player then
+		ApplyChaosEffect(player, Tool.Position)
+	end]]
+	if not table.find(OnlyCheckOnce,hit) then --Performance
+		table.insert(OnlyCheckOnce, hit)
+		local char = hit.Parent
+		if char ~= nil and char:IsA("Tool") and char:FindFirstChildOfClass("Part") and char ~= Knife and char.Parent ~= Knife and char ~= Character and char.Parent ~= Character and not char:IsDescendantOf(Character) and not char:IsDescendantOf(Knife) then -- Top 10 Myle's joke Mechanic lmao.
+			if char:GetAttribute("Durabillity") then
+				char:SetAttribute("Durabillity",char:GetAttribute("Durabillity")-1)
+				if char:GetAttribute("Durabillity") <= 0 then
+					char.Enabled = false
+					Destruct(char)
+				end
+			elseif not char:GetAttribute("Durabillity") then
+				char:SetAttribute("Durabillity",math.random(50,100)-1)
+			end
+			return nil
+		elseif char ~= nil and char:IsA("Tool") and not char:FindFirstChildOfClass("Part")and char ~= Knife then
+			char.Enabled = false
+			task.wait(AccurateMathRandom(1,2))
+			return nil
+		end
+		if char ~= Character and char ~= workspace and char ~= nil and not hit:IsDescendantOf(Character) and not Character:IsAncestorOf(hit) then
+			if not char:IsA("Tool") then
+				repeat 
+				if char.Parent ~= nil and not GetHumanoid(char) then
+					char = char.Parent
+					RunService.Heartbeat:Wait()
+				end
+			until char == nil or char == workspace or GetHumanoid(char) or char:IsA("Tool")
+			end
+			
+			if char == workspace or char == nil then
+				return nil
+			end
+			if GetHumanoid(char) and GetHumanoid(char).Health ~= 0 and GetHumanoid(char):GetState() ~= Enum.HumanoidStateType.Dead and char ~= Character and (CurrentState == "Swinging" or CurrentState == "Firing" or (GetHandle():FindFirstChildOfClass("Trail") and GetHandle():FindFirstChildOfClass("Trail").Enabled == true)) and not table.find(Debounce,char) and CanDmg == true then
+				table.insert(Debounce,char)
+				GetHumanoid(char).BreakJointsOnDeath = false
+				--GetHumanoid(char).Name = "Humanoid("..tostring(GetHumanoid(char):GetState()) ..")"
+				local Fairness = (GetHumanoid(char).MaxHealth/100)
+				if not AllowPercentagedDamage then
+					Fairness = 1
+				end
+				
+				if CurrentState == "Firing" or CurrentState == "Charging" or CurrentAnim == "Throwing" then
+					local ChargedPower = math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge)
+					DebugText("With The Charge Power Of ".. ChargedPower.. "... You hit "..char.Name)
+					if ChargedPower < 8 then
+						PlaySound("Blade Stab")
+					elseif ChargedPower == 8 then
+						PlaySound("Sword Stab")
+					elseif ChargedPower > 8 then
+						PlaySound("snap.wav")
+					end
+					CurrentDamage = DefaultDamage + (DamagePerCharge * ChargedPower) -- You Get The Point, The Charging part.
+					if ChargedPower > 8 then
+						Init("FlagstandEffect", GetHandle().CFrame)
+						GetHandle().Transparency = 1
+						CanDmg = false -- Ur Knife Broke
+						UnTrail()
+					end
+					if (not char:FindFirstChildOfClass("ForceField") and not ArmorPiercing) or ArmorPiercing then
+						if char:GetAttribute("Weakness") and char:GetAttribute("Weakness") >= 100 then
+							Mockery = true
+							char:SetAttribute("Weakness", 0)
+							WeldKnife(hit,"Ragdoll Knife")
+							--Debris:AddItem(KnifeAttached,ChargedPower + 5)
+							--Debris:AddItem(weldknife, ChargedPower)
+						elseif char:GetAttribute("Weakness") and char:GetAttribute("Weakness")  < 100 then
+							if char:GetAttribute("Weakness") + ChargedPower * 6 >= 100 then
+								Mockery = true
+								char:SetAttribute("Weakness", 0)
+								WeldKnife(hit,"Ragdoll Knife")
+							else
+								char:SetAttribute("Weakness", char:GetAttribute("Weakness") + ChargedPower * 6)
+							end
+						end
+					end
+					
+				else
+					CurrentDamage = DefaultDamage + math.clamp((tick() - LastestSlash)*5, 1, 5) -- My Style, I dislike velocity quite a bit.
+					PlaySound("Stab")
+					
+				end
+				local PercentagedDamage = CurrentDamage*Fairness
+				if char:GetAttribute("Weakness") then
+					if not Mockery then
+						CurrentDamage = CurrentDamage + (char:GetAttribute("Weakness")/20) -- I found out not dividing it is overpowered, So I Made It 20.
+						TotalCursedDamage = char:GetAttribute("Weakness")/20
+					else
+						CurrentDamage = CurrentDamage + 120/15
+						TotalCursedDamage = 120/15
+					end
+				else
+					TotalCursedDamage = 0
+				end
+				for i,v in char:GetChildren() do
+					if v:IsA("ForceField") and not ArmorPiercing then -- Bro thought He'd Unbreakabel
+						if not v:GetAttribute("Durabillity") then
+							v:SetAttribute("Durabillity",GetHumanoid(char).MaxHealth - PercentagedDamage*2.5)
+							PercentagedDamage = 0
+							CurrentDamage = 0
+							return
+						elseif v:GetAttribute("Durabillity") then
+							v:SetAttribute("Durabillity",tonumber(v:GetAttribute("Durabillity")) - PercentagedDamage*2)
+							PercentagedDamage = 0
+							CurrentDamage = 0
+							if tonumber(v:GetAttribute("Durabillity")) <= 0 or v:GetAttribute("Durabillity") ~= tonumber(v:GetAttribute("Durabillity")) then
+								v.Name = "[Broken]"
+								v.Parent = Character
+								PlaySound("glassbreak.wav")
+								Destruct(v)
+								v:Remove()
+								PercentagedDamage = 0
+								CurrentDamage = 0
+							else
+								return
+								-- No, Ur Not Doing Anything Until ForceField breaks, And Only (Health = Health - Amount) can actually break this, Due To ForceField Being The Sibling Of The Humanoid
+							end
+						end
+					end
+					if v:IsA("ForceField") and ArmorPiercing then
+						v:SetAttribute("Durabillity",0)
+						Destruct(v)
+					end
+				end
+				--DebugText("Damaged "..char.Name.. " By "..PercentagedDamage.." While ".. CurrentState)
+				
+				--[[local GsubbedCharName = replaceInvalidCharacters(Character.Name, false)
+				if not char:GetAttribute(GsubbedCharName .."_Dmg_Dealt") then
+					char:SetAttribute(GsubbedCharName.."_Dmg_Dealt",tonumber(PercentagedDamage) or 0)
+				else
+					char:SetAttribute(GsubbedCharName.."_Dmg_Dealt", tonumber(char:GetAttribute(GsubbedCharName.."_Dmg_Dealt"))  + PercentagedDamage)
+				end]]
+				--It's Not Working
+				DebugText("CurrentDamage Is ->"..CurrentDamage-TotalCursedDamage)
+				IHoupeUDyeInnAhFier(char, AccurateMathRandom(5,7))
+				DamageHumanoid(GetHumanoid(char),math.clamp(PercentagedDamage,((DefaultDamage+TotalCursedDamage)*Fairness),(DefaultDamage+(MaxCharge*DamagePerCharge)+TotalCursedDamage)*Fairness))
+				--Ragdoll(char,CurrentDamage/AccurateMathRandom(1,3)/10)
+				if TotalCursedDamage ~= 0 and TotalCursedDamage ~= nil then
+					DebugText("Also Comes With A Cherry On Top By Weakness Bonus ->"..TotalCursedDamage)
+					DebugText("The Whole Damage is ->"..math.clamp(CurrentDamage,((DefaultDamage+TotalCursedDamage)*1),(DefaultDamage+(MaxCharge*DamagePerCharge)+TotalCursedDamage)*1))
+				end
+				if Mockery then
+					Mockery = false
+					if GetHumanoid(char):GetState() ~= Enum.HumanoidStateType.Physics and not char:GetAttribute("IsRagdoll") then
+						Ragdoll(char,(CurrentDamage - DefaultDamage)/2) -- Downed By How Much You Charged
+						coroutine.wrap(function()
+							for i = 1,math.random(80,140) do
+								GetHumanoid(char).WalkToPoint = Vector3.new(char:FindFirstChildOfClass("Part").Position.x + AccurateMathRandom(-15,15),0,char:FindFirstChildOfClass("Part").Position.z + AccurateMathRandom(-15,15))
+								RunService.Stepped:wait()
+							end
+						end)
+					end
+					if char:FindFirstChild("HumanoidRootPart") then
+						local Vec = GetHandle().CFrame.LookVector * 5
+						----DebugText("Applied Angular Impulse to "..char.Name.." with "..tostring(Vec))
+						--Instance.new("Part").CFrame:VectorToObjectSpace(Instance.new("Part").Position)
+						--Vec was tostring(Character:FindFirstChild("HumnaoidRootPart").CFrame:VectorToObjectSpace(char:FindFirstChild("HumanoidRootPart").Position))
+						--char:FindFirstChild("HumanoidRootPart"):ApplyAngularImpulse(Character:FindFirstChild("HumnaoidRootPart").CFrame:VectorToObjectSpace(char:FindFirstChild("HumanoidRootPart").Position))
+						char:FindFirstChild("HumanoidRootPart"):ApplyAngularImpulse(GetHandle().CFrame.LookVector)
+					end
+				else
+					if AccurateMathRandom(1,2)+ CurrentDamage/10 > (DefaultDamage*1.7) * (GetHumanoid(char).Health/ GetHumanoid(char).MaxHealth) and not (char:GetAttribute("Cursed") or char:GetAttribute("Weakness")) then
+						Ragdoll(char,2+ CurrentDamage/10 - (DefaultDamage*1.5) * (GetHumanoid(char).Health/ GetHumanoid(char).MaxHealth))
+					end
+				end
+				ApplyChaosEffect(char)
+				GetHumanoid(char).BreakJointsOnDeath = false
+				GetHumanoid(char).StateChanged:Connect(function(_,Newe)
+					if Newe == Enum.HumanoidStateType.Dead or GetHumanoid(char):GetState() == Enum.HumanoidStateType.Dead then
+						ApplyChaosEffect(char)
+					end
+				end)
+			end
+			
+		end
+	end
+end
+local tab: {BasePart} = {}
+function createHitboxPart(cframe1: CFrame, cframe2: CFrame, Size: number?)
+	-- Calculate the midpoint between the two CFrames
+	local midpoint = cframe2.Position + (cframe1.Position - cframe2.Position) / 2
+	-- Calculate the size of the hitbox
+	local distance = (cframe1.Position - cframe2.Position).Magnitude
+	local size = Size and Vector3.new(Size.Y, Size.Z, distance * 1.5) or Vector3.new(2, 2, distance * 1.1)
+	-- Create the hitbox part
+	local hitboxPart = Instance.new("Part")
+	hitboxPart.Size = size
+	hitboxPart.Anchored = true
+	hitboxPart.CFrame = CFrame.new(midpoint, cframe2.Position)
+	table.insert(tab, hitboxPart)
+	Debris:AddItem(hitboxPart, 1)
+
+	return hitboxPart
+end
+Knife.Activated:Connect(function()
+	local lappar = OverlapParams.new()
+	lappar.FilterDescendantsInstances = {Character, tab}
+	lappar.RespectCanCollide = true
+	lappar.FilterType = Enum.RaycastFilterType.Exclude
+	local last = GetHandle().CFrame
+	while task.wait(.01) and CurActi and (CurrentState == 'Swinging' or CurrentState == 'Throwing' or CurrentState == 'Firing' or CurrentAnim == 'Silence' or CurrentAnim == 'Throw') do
+		local ahhyes = createHitboxPart(last, GetHandle().CFrame, GetHandle().Size)
+		coroutine.resume(coroutine.create(function()
+			if ahhyes then
+				local con = workspace:GetPartsInPart(ahhyes, lappar)
+				for i,v in con do
+					Prop(v)
+				end
+			end
+		end))
+		last = GetHandle().CFrame
+	end
+end)
+Knife.Deactivated:Connect(function()
+	local lappar = OverlapParams.new()
+	lappar.FilterDescendantsInstances = {Character, tab}
+	lappar.RespectCanCollide = true
+	lappar.FilterType = Enum.RaycastFilterType.Exclude
+	local last = GetHandle().CFrame
+	while task.wait(.01) and not CurActi and (CurrentState == 'Swinging' or CurrentState == 'Throwing' or CurrentState == 'Firing' or CurrentAnim == 'Silence' or CurrentAnim == 'Throw') do
+		local ahhyes = createHitboxPart(last, GetHandle().CFrame, GetHandle().Size)
+		coroutine.resume(coroutine.create(function()
+			if ahhyes then
+				local con = workspace:GetPartsInPart(ahhyes, lappar)
+				for i,v in con do
+					Prop(v)
+				end
+			end
+		end))
+		last = GetHandle().CFrame
+	end
+end)
+if Knife:FindFirstChild("Handle") then
+	Knife:FindFirstChild("Handle").Touched:Connect(Prop)
+	Knife:FindFirstChild("Handle").TouchEnded:Connect(Prop)
+	--Knife:FindFirstChild("Handle").LocalSimulationTouched:Connect(Prop)
+else
+	DebugText("Reloaded_" ..GetHandle().Name)	
+	GetHandle().Touched:Connect(Prop)
+	GetHandle().TouchEnded:Connect(Prop)
+	--GetHandle().LocalSimulationTouched:Connect(Prop)
+end
+
+script.AttributeChanged:Connect(DebugCheck)
+--Solivion's Knife V2, Or Nokia Or Whatever-- 
+--I Don't Really Built In Durabillity, Cause It's 'RealKnife'... I don't really know what it is. But Yeah Whatever.--
+--Language: Lua--
+--STARTED--
+--9/6/2023--
+while RunService.Heartbeat:Wait() do
+	if not PerformanceWise then
+		local MustFind = Knife:FindFirstChild("Root")
+		if MustFind and Character:FindFirstChild("HumanoidRootPart") then
+			local Velocity = Character:FindFirstChild("HumanoidRootPart").CFrame:VectorToObjectSpace(Character:FindFirstChild("HumanoidRootPart").Velocity)
+			if  Knife:FindFirstChild("Root") and Knife:FindFirstChild("Root").Name == "Root" then
+				Knife:FindFirstChild("Root").C1 = Knife:FindFirstChild("Root").C1:lerp(CFrame.fromEulerAnglesXYZ(-Velocity.z/60,0,Velocity.x/60) * CFrame.new(0,0.75,0),0.1)
+			else
+				if Knife:FindFirstChild("Root")  then
+					Knife:FindFirstChild("Root").C1 = Knife:FindFirstChild("Root").C1:lerp(CFrame.fromEulerAnglesXYZ(-Velocity.z/60,0,Velocity.x/60),0.1)
+				end
+				
+			end
+			
+		elseif	MustFind and not Character:FindFirstChild("HumanoidRootPart") then
+			local VelocityPart = MustFind.Part1
+			local Velocity = VelocityPart.CFrame:VectorToObjectSpace(VelocityPart.Velocity)
+			if  Knife:FindFirstChild("Root") and Knife:FindFirstChild("Root").Name == "Root" then
+				Knife:FindFirstChild("Root").C1 = Knife:FindFirstChild("Root").C1:lerp(CFrame.fromEulerAnglesXYZ(-Velocity.z/60,0,Velocity.x/60) * CFrame.new(0,0.75,0),0.1)
+			else
+				if Knife:FindFirstChild("Root")  then
+					Knife:FindFirstChild("Root").C1 = Knife:FindFirstChild("Root").C1:lerp(CFrame.fromEulerAnglesXYZ(-Velocity.z/60,0,Velocity.x/60),0.1)
+				end
+			end
+		end
+		if Knife:FindFirstChild("RootJoint") and Character:FindFirstChild("HumanoidRootPart") then
+			local Vel = Character:FindFirstChild("HumanoidRootPart").CFrame:vectorToObjectSpace(Character:FindFirstChild("HumanoidRootPart").Velocity)
+			Knife:FindFirstChild("RootJoint").C1 = Knife:FindFirstChild("RootJoint").C1:lerp(CFrame.fromEulerAnglesXYZ(-Vel.z/60,0,Vel.x/60),0.1)
+		end
+	else
+		break
+	end
+end
+-- BackStab Hitbox[Canned]😭😭😭😭😭
+--[[
+if Character:FindFirstChild("HumanoidRootPart") then
+		for i,v in Character:GetChildren() do
+			if v.Name == "AbsolutelyRealisticHitbox" then
+				Destruct(v)
+			end
+		end
+		local AnyoneInFront = {}
+		local DaHitBox = Character:FindFirstChild("HumanoidRootPart"):Clone
+		DaHitBox:ClearAllChildren()
+		DaHitBox.Name = "AbsolutelyRealisticHitbox"
+		ApplyAttribute(DaHitBox)
+		DaHitBox.Transparency = 1
+		DaHitBox.Size = Vector3.new(2, 2, 2.5)
+		DaHitBox.CanTouch = true
+		DaHitBox.CanCollide = false
+		DaHitBox.CastShadow = false
+		local DaWeld = Instance.new("Weld", DaHitBox)
+		DaWeld.Name = "AbsoluteWeld"
+		DaWeld.Part1 = DaHitBox
+		DaWeld.Part0 = Character:FindFirstChild("HumanoidRootPart")
+		DaWeld.C0 = CFrame.new(0, 0, -1.75)
+		if CurActi then
+			coroutine.wrap(function()
+				while RunService.Stepped:wait() and CurActi do
+					if GetHumanoid(Character).Health < LastestHealth then
+						for _,v in ipairs(workspace:GetPartsInPart(DaHitBox)) do
+							if v.Parent:FindFirstChildOfClass("Humanoid") and not table.find(AnyoneInFront, v.Parent) then
+								table.insert(AnyoneInFront, v.Parent)
+							end
+						end
+					end
+					for i,funny in AnyoneInFront do
+						if funny:FindFirstChild("HumanoidRootPart") then
+							local velocity = Instance.new("BodyVelocity", funny:FindFirstChild("HumanoidRootPart"))
+							velocity.MaxForce = Vector3.new(math.huge,0,math.huge)
+							velocity.Velocity = funny:FindFirstChild("HumanoidRootPart").CFrame.lookVector * -math.random(10,15)
+							game.Debris:AddItem(velocity, 0.2)
+						end
+						if funny:FindFirstChildOfClass("Humanoid") then
+							funny:FindFirstChildOfClass("Humanoid"):TakeDamage(AccurateMathRandom(20-DefaultDamage, 20+DefaultDamage))
+						end
+					end
+					if Character:FindFirstChild("HumanoidRootPart") then
+						local velocity = Instance.new("BodyVelocity", Character:FindFirstChild("HumanoidRootPart"))
+						velocity.MaxForce = Vector3.new(math.huge,0,math.huge)
+						velocity.Velocity = Character:FindFirstChild("HumanoidRootPart").CFrame.lookVector * -math.random(10,15)
+						game.Debris:AddItem(velocity, 0.2)
+					end
+				end
+
+			end)
+		end
+	end
+	]]
+
+script.Destroying:Connect(function()
+	PlaySound("Nokia_3310")
+	local exp = Instance.new("Explosion",Character)
+	exp.Name = "Boom"
+	exp.Position = GetHandle().Position
+	exp.BlastRadius = 20
+	exp.BlastPressure = 1
+	exp.DestroyJointRadiusPercent = 0
+	exp.Hit:Connect(function(Part,Where)
+		if not Part:IsDescendantOf(Character) then
+			Part:SetAttribute("Bombed")
+			Part:BreakJoints()
+			Part:breakJoints()
+			Part.Parent = workspace
+		end
+	end)
+	for i,v in pairs(Character:GetDescendants())  do
+		if v:GetAttribute("Origin") ~= nil and v ~= script and not v:IsDescendantOf(Knife) then
+			Destruct(v)
+		end
+	end
+end)
+
+
+--//Solivion//--
+--[[LEGACY VERSION]]--
+--10/7/2023/--
+--[[
+                                                                ,╥
+                                                              ,K▒
+                                                            ,║░╢
+                                                          ~╢░░╜
+                                                        «▒░░░┘
+                                   ,~«[║▒░░░░░▒║H╥«,  ╥░░░░░╛
+                                ~@░░░░░░░▒╨║╨▒░░░░░░░░░░░░░`
+                              «░░░░░░╝`         `*╢░░░░░░░`
+                             ╢░░░░░░▒               ║░░░░`
+                            ╒░░░░░░░▒                └░░
+                             ░░░░░░░░▒┐               `
+                             `╢░░░░░░░░▒╖,
+                               `║░░░░░░░░░░╗┐
+                                  `╝░░░░░░░░░░▒╖,
+                                      └╢░░░░░░░░░▒╖,
+                                         `*╢░░░░░░░░║,
+                           ,╢                "╢░░░░░░░,
+                          ╒░░╖                 `░░░░░░▒
+                         ╔░░░░╖                 ░░░░░░╛
+                        ]░░░░░░▒«,           ,╒║░░░░░`
+                       @░░░░░░░░░░░╢]╥«««╥╥@░░░░░░╝`
+                      ╢░░░░░╜"┴║░░░░░░░░░░░░░▒╝^`
+                    ,╢░░░░┘
+                   ,░░░▒"
+                  ╒░░╣`
+                 ╔░╝
+                ╗╛
+               "
+]]]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{9799DAF3-ADE4-4B55-B76E-FE0128FB1E3E}</string>
+				<BinaryString name="AttributesSerialize"><![CDATA[EgAAABYAAABBbGxvd1BlcmNlbnRhZ2VkRGFtYWdlAwENAAAAQXJtb3JQaWVyY2luZwMBCQAA
+AEN1cnNlYWJsZQMADwAAAERhbWFnZVBlckNoYXJnZQYAAAAAAAAAQAkAAABEZWJ1Z01vZGUD
+AA0AAABEZWZhdWx0RGFtYWdlBgAAAAAAABRAGAAAAERyb3BPcHBvbmVudHNMb290c09uS2ls
+bAMBGgAAAERyb3BPcHBvbmVudHNUb29sT25SYWdkb2xsAwAVAAAARW5hYmxlX0dsaXRjaHlf
+RWZmZWN0AwAMAAAASHVtYW5vaWROYW1lAgAAAAALAAAASU5TVFJVQ1RJT04CXgAAAElmIFlv
+dSBXYW50IFRvIEFjdHVhbGx5IFVzZSBUaGUgU2V0dGluZyBGcm9tIEhlcmUgVGhlbiBEb24n
+dCBGb3JnZXQgVG8gRW5hYmxlIFVzZV9UaGlzX1NldHRpbmcXAAAATG93ZXN0Q2hhcmdlUmVx
+dWlyZW1lbnQGAAAAAAAAAEAJAAAATWF4Q2hhcmdlBgAAAAAAACRADAAAAE9uZVNob3RTYXZl
+cgMBDwAAAFBlcmZvcm1hbmNlV2lzZQMBEAAAAFNvdW5kUGl0Y2hPZmZzZXQGAAAAAAAANEAQ
+AAAAVXNlX1RoaXNfU2V0dGluZwMAEwAAAFdSSVRURU5fQllfU09MSVZJT04CFQAAAEkndmUg
+ZmluYWxseSBkb25lIGl0IQ==]]></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">RealKnife</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

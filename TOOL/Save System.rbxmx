@@ -1,0 +1,1419 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Flag" referent="RBX50194F7140FD42D29720C10A411A45ED">
+		<Properties>
+			<int name="TeamColor">194</int>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">false</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Save System</string>
+			<int64 name="SourceAssetId">17253225750</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="FlagStand" referent="RBXEF79D039160D488A9908EA3AEB4349D3">
+			<Properties>
+				<int name="TeamColor">194</int>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">1</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">1</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>4</X>
+					<Y>1</Y>
+					<Z>2</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="Script" referent="RBXD2B2698BAA04440384DE3E54097A989E">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--!native
+--!strict
+
+--<<CREDITS>>--
+--//Written By @Solivion//--
+--//Ideas By @Melon5926//--
+
+--<<VARIABLES>>--
+type StateType = ("Basic" | "Loading" | "Saving" | "Choosing")
+
+--//Basics_In_Variable//--
+local FLAG = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag') -- Tool
+if not FLAG then
+	script:Destroy()
+end
+local Players: Players = game:FindFirstChildOfClass("Players")
+local PhysicsService: PhysicsService = game:FindFirstChildOfClass("PhysicsService")
+local CollisionGroupName = 'Viewer'
+if not PhysicsService:IsCollisionGroupRegistered(CollisionGroupName) then
+	PhysicsService:RegisterCollisionGroup(CollisionGroupName)
+end
+PhysicsService:CollisionGroupSetCollidable(CollisionGroupName,CollisionGroupName, false)
+for i,v in ipairs(PhysicsService:GetRegisteredCollisionGroups())  do
+	PhysicsService:CollisionGroupSetCollidable(CollisionGroupName,v.name, false)
+end
+local FlagAttachmentList = {CFrame.new(-2.5, 0, 0),CFrame.new(-2, 0, 0),CFrame.new(-1.5, 0, 0),CFrame.new(-1, 0, 0),CFrame.new(-0.5, 0, 0),CFrame.new(0, 0, 0),CFrame.new(0.5, 0, 0),CFrame.new(1, 0, 0),CFrame.new(1.5, 0, 0),CFrame.new(2, 0, 0),CFrame.new(2.5, 0, 0)}
+local PhysicalFlag: {BasePart?} = {}
+local SavedPos: {any} = {} -- Ex: ["Checkpoint Name"] = {CF = CFrame.new(), Des = "?", Colour = BrickColor.Red}
+local SaveDirectory: Instance = game:FindFirstChildOfClass("ServerStorage") -- Save To ServerStorage For Permanent Save, Set It To Save To The Flag For Chaos To Ensue.
+local Char: Model?
+local Player: Player?
+local AltChar: Model?
+local Viewing: boolean = false
+local FirstTime: {Player} = {}
+local LatestSave: number = 0
+local LatestPos: CFrame = CFrame.new()
+local LatestTick: number = tick()
+local CurrentlySelectedSave: number = 1
+local Active: boolean = false
+local State: StateType = 'Basic' -- For The Sake Of Less Bugs, We Have This 'Basic' State Machine Ahh
+local MainOption:  StateType = 'Saving'
+local Before: StateType = 'Basic' -- Yadda yadda
+--<<SETTINGS>>--
+--//Tool Setting, This Setting Does Determine Majorities Of The Tool System//--
+local Tool_Checkpoint_Selection = true -- disabling this will only teleport to the latest position, also disabling the gui in the process.
+local CHECKPOINT_VIEW = true -- if the setting above isn't false, then make a copy of player character and, move the original character to checkpoint. once done move it back and remove the clone
+
+--<<Filter>>--
+local bypassTable = {
+	a = { 'ɐ', 'ᵃ', 'ₐ', '𝔞', '𝖆', '𝓪', '𝒶', '𝕒', 'ａ', 'ą', '﻿ａ', '₳', 'å', 'ⓐ'},
+	A = { 'ᗩ','ᴀ', '🅰', '卂'},
+	b = { 'ᵇ', 'ᵦ', '𝔟', '𝖇', '𝓫', '𝒷', '𝕓', 'ｂ', 'ᗷ', 'ҍ', 'ｂ', '乃', 'ⓑ'},
+	B = {'ʙ', '🅱', '฿', 'ß'},
+	c = {'ᶜ', '𝒸', '𝖈', '𝓬', '𝒸', '𝕔', 'ｃ', 'ɔ', 'ç', 'ᑢ', '﻿ｃ', 'ⓒ'},
+	C = {'ᴄ', '匚', '₵', '¢', '🅲'},
+	d = { 'Ԁ', 'ᗬ', 'ᵈ', '𝒹', '𝓭', '𝒹', '𝕕', 'ｄ', 'Ԁ', 'ｄ', 'ⓓ'},
+	D = {'ᴅ', '𝖉', 'ᗪ', 'ᕲ', 'Ð', '🅳',},
+	e = { 'ᵉ', 'ₑ', '𝔢', '𝖊', '𝓮', '𝑒', '𝕖', 'ｅ', 'ǝ', 'ҽ', 'ｅ', '𝓮', 'ê', 'ⓔ'},
+	E = {'ᴇ', '🅴', 'ᘿ'},
+	f = { 'ᶠ', '𝒻', '𝖋', '𝓯', '𝒻', '𝕗', 'ｆ', 'ɟ', 'ƒ', 'ｆ', '𝒻', 'ⓕ'},
+	F = {'ꜰ', '🅵', '£', 'ᖴ',},
+	g = {'𝔤', '𝖌', '𝓰', '𝑔', '𝕘', 'ｇ', 'ɓ', 'ց', 'ｇ'},
+	G = {'ɢ','₲', 'ᘜ'},
+	h = {'ₕ', 'ʰ', '𝔥', '𝖍', '𝓱', '𝒽', '𝕙', 'ｈ', 'ɥ', 'հ', 'ｈ', 'ⓗ'},
+	H = {'ʜ', 'ᕼ', '卄', 'Ⱨ', '🅷'},
+	i = {'ⁱ', 'ᵢ', '𝔦', '𝖎', '𝓲', '𝑖', '𝕚', 'ｉ', 'ı', 'ɨ', 'Ꭵ', 'ï', 'ｉ'},
+	I = {'ɪ', '丨', 'ł', },
+	j = { 'ʲ', 'ⱼ', '𝔧', '𝖏', '𝓳', '𝒿', '𝕛', 'ｊ', 'ɾ', 'ᒚ', 'ʝ', 'ｊ', 'ⱼ', 'ⓙ'},
+	J = { '🅹','ᴊ',},
+	k = { 'ᵏ', 'ₖ', '𝔨', '𝖐', '𝓴', '𝑘', '𝕜', 'ｋ',  'ʞ', 'ҟ', 'ｋ',   'ⓚ', },
+	K = {'ᴋ','қ','ҝ','₭','🅺'},
+	l = {'丨', 'ˡ', 'ₗ', '𝔩', '𝖑', '𝓵', '𝓁', '𝕝', 'ｌ', 'ˡ', 'ｌ', 'ⓛ'},
+	L = {'ʟ', 'Ⱡ', '🅻', 'ᒪ',},
+	m = { 'ᵐ', 'ₘ', '𝔪', '𝖒', '𝓶', '𝓂', '𝕞', 'ｍ', 'ɱ', 'ｍ', '₥', 'm', 'ⓜ'},
+	M = {'ᴍ', 'ᗰ', 'ᘻ', '🅼', '爪',},
+	n = {'ⁿ', 'ₙ', '𝔫', '𝖓', '𝓷', '𝓃', '𝕟', 'ռ', 'ｎ', 'ᑎ', 'ղ', 'ｎ', 'ñ', 'ⓝ'},
+	N = {'ɴ', '₦', '🅽'},
+	o = {'ᴏ', 'ᵒ', 'ₒ', '𝔬', '𝖔', '𝓸', '𝑜', '𝕠', 'ｏ', 'o', 'օ', 'ᘜ', 'ｏ', 'ø'},
+	p = {'ǫ', 'ᵖ', 'ₚ', '𝔭', '𝖕', '𝓹', '𝓅', '𝕡', 'ｐ', 'ᑭ', 'ᑭ', 'ｐ', 'ｐ', 'ⓟ', },
+	P = {'Ᵽ', 'Ᵽ', 'թ', '🅿'},
+	q = {'ᵠ', 'ᑫ', 'ｑ', 'ɋ', 'ｑ', 'զ', 'q', 'ⓠ', },
+	Q = {'🆀'},
+	r = { 'ʳ', 'ᵣ', 'r', 'ⓡ' , 'ɹ','𝔯','𝖗','𝓇','𝓻','ｒ','𝔯', '𝖗', '𝓻', '𝓇', '𝕣', 'ｒ', '᥅', 'ǂ', 'ꭈׁׅ', 'ꋪ', 'ʀ', 'ɹ', 'r⃣', 'r⃞', '🅁', 'ɿ', 'r̵̰̝͉̘̲̺̘͇̘͌͒', '🆁', 'ᵣ', 'ʳ', 'ⓡ', 'г', 'ɾ', 'ʀ', 'Ꮢ', 'ཞ', 'r', '𝐫', '𝗿', '𝘳', '𝙧', '𝚛', 'Я', 'я', 'Ɽ', '尺', '【r】', '『r』', '≋r≋', '░r░', '(っ◔◡◔)っ ♥ r ♥', 'ｒ　桜煙仮', 'ｒ　（桜煙仮）', '【﻿ｒ】', '˜”*°•.˜”*°• r •°*”˜.•°*”˜', '[̲̅r]', 'r҉', 'ɾ', 'ᖇ', 'r̶', 'r̴', 'r̷', 'r̲', 'r̳', 'r̾', 'r', 'r͎', 'r͓̽'},
+	R = {'ʀ','🆁', 'Ɽ','Ř'},
+	s = { 'ˢ', 'ˢ', 'ₛ', '𝔰', '𝖘', '𝓼', '𝓈', '𝕤', 'ｓ', 'ˢ', 'ʂ', 'ｓ'},
+	S = { '₴',},
+	t = { 'ᵗ', 'ᵗ', 'ₜ', '𝔱', '𝖙', '𝓽', '𝓉', '𝕥', 'ｔ', 'ｔ', 'ｔ',  't', 't', 'ⓣ'},
+	T = {'ᴛ', '🆃',},
+	u = {'ᴜ', 'ᵘ', 'ᵤ', '𝔲', '𝖚', '𝓾', '𝑢', '𝕦', 'u', 'ｕ', 'մ', '﻿ｕ', 'u', 'ⓤ'},
+	U = {'ᴜ', '🆄',},
+	v = {'ᵛ', 'ᵥ', '𝔳', '𝖛', '𝓿', '𝓋', '𝕧', 'ｖ'},
+	V = {'ᴠ', 'Ⅴ', 'v', 'ᐯ', },
+	w = { 'ʷ', '𝖜', '𝓌', '𝕨', '𝔀', '𝕨', 'ｗ' ,'w', 'w', 'ⓦ', '🅦', 'w', 'ｗ', 'ɰ', 'Ⱳ', 'w', 'ⓦ', '🅦'},
+	W = {'ᴡ', 'ᗯ', 'ᘺ',},
+	x = { 'ˣ', 'ˣ', 'ₓ', '𝖝', '𝓍', '𝔁', '𝔁', '𝕩', 'ｘ', '⚔', '×', '×', '×', 'ҳ', 'ⓧ', '🅧', '×',},
+	X = {'᙭', 'Ӿ',},
+	y = { 'ʸ', 'ᵧ', '𝖞', '𝓎', '𝔂', '𝔂', '𝕪', 'ｙ', 'ｙ', 'վ', 'ｙ', 'y', 'ⓨ'},
+	Y = {'ʏ', '🅨', '¥', 'Ɏ', 'ү', 'Ｙ', 'ʏ',},
+	z = { 'ᶻ', '𝓏', '𝓏', '𝕫', '𝔃', '𝕫', 'ｚ', 'ɀ', 'ｚ', '乙', 'Ⱬ', 'ⓩ', '🅩'},
+	Z = {'ᴢ',}
+}
+function revertBypass(originalString: string)
+	local reverseSubstitutionTable = {}
+
+	for originalChar, variations in pairs(bypassTable) do
+		for _, variation in ipairs(variations) do
+			reverseSubstitutionTable[variation] = originalChar
+		end
+	end
+
+	--local revertedString = ""
+	--local revertedString2 = ""
+	local revertedString3 = originalString
+	--[[for i = 1, #originalString do
+		local char = originalString:sub(i, i)
+		revertedString = revertedString .. (reverseSubstitutionTable[char] or char)
+	end]]
+
+	for i = 1, #originalString do
+		local char = originalString:sub(i, i)
+		--local omgitthere
+		--local whatinput
+		for originalChar, variations in pairs(bypassTable) do
+			for i,v in variations  do
+				revertedString3 = revertedString3:gsub(v, originalChar)
+				--[[if char:match(v) or v:match(char) or tostring(char) == v or char == v or tostring(char) == tostring(v)  or char == tostring(v) then
+					omgitthere = true
+					whatinput = originalChar
+				end]]
+			end
+			--[[if omgitthere or table.find(variations,tostring(char) ) or tostring(char) == originalChar or char == variations or variations[char] then
+				omgitthere = true
+				whatinput = originalChar
+			end]]
+		end
+		--[[if omgitthere then
+			revertedString2 = revertedString2..whatinput
+		else
+			revertedString2 = revertedString2..char
+		end]]
+	end
+
+	--print(revertedString2)
+	return revertedString3--..'('..revertedString..')'
+end
+local substitutionTable = {
+	a = {'e', 'h', 'x'},
+	b = {'v', 'p', 'd'},
+	c = {'s', 'k', 'z'},
+	d = {'b', 'p', 't'},
+	e = {'a', 'i', 'y'},
+	f = {'ph', 'v', 'g'},
+	g = {'j', 'k', 'q'},
+	h = {'n', 'eh', ''},
+	i = {'e', 'iv', 'y'},
+	j = {'g', 'h', 'ja'},
+	k = {'c', 'g', 'kh'},
+	l = {'el', 'ao', 'w'},
+	m = {'mn', 'um', 'mw'},
+	n = {'m', 'h', 'b'},
+	o = {'a', 'u', 'w'},
+	p = {'b', 'd', 'h'},
+	q = {'k', 'g', 'j'},
+	r = {'l', 'v', 'w'},
+	s = {'c', 'z', 'x'},
+	t = {'d', 'r', 'th'},
+	u = {'o', 'a', 'au'},
+	v = {'w', 'vh'},
+	w = {'v', 'e', 'u'},
+	x = {'z', 's', 'c'},
+	y = {'e', 'i', 'ia'},
+	z = {'s', 'x', 'c'},
+	[' '] = {' ', ' ', ' '}, -- Space character
+	['@'] = {'eh', 'ad', 'at'}, -- At character
+	['&'] = {'nd', 'and', 'ane'}, -- Yadda yadda
+	-- Add more substitutions as needed
+}
+function obscureString(inputString: string)
+	local obscuredString = ""
+
+	for i = 1, #inputString do
+		local char = inputString:sub(i, i)
+
+		-- Randomly decide whether to apply substitution
+		if math.random() < 0.3 then
+			local substitutes = substitutionTable[char:lower()]
+			if char == char:lower() then -- Convert to lowercase for case-insensitivity 
+				if substitutes and #substitutes > 0 then
+					-- Randomly choose a substitution from the table
+					char = substitutes[math.random(#substitutes)]
+				end
+			else
+				if substitutes and #substitutes > 0 then
+					-- Randomly choose a substitution from the table
+					char = string.upper(substitutes[math.random(#substitutes)]) 
+				end
+			end
+
+		end
+
+		obscuredString = obscuredString .. char
+	end
+
+	return obscuredString
+end
+--<<VARIABLE 2: ELECTRIC BOOGALOO>>--
+local AllTheWeld: {JointInstance?} = {}
+local AllTheConnection: {RBXScriptConnection?} = {}
+local AllTheTween: {Tween?} = {}
+local Anim = {
+	['Throw'] = {
+		
+	},
+	['Swing'] = {
+
+	},
+	['Save'] = {
+
+	},
+	['Pick_Up'] = {
+
+	},
+	['Take_Out_Flag'] = {
+
+	},
+	['Equip'] = {
+
+	},
+	['Unequip'] = {
+
+	},
+	['View_Map'] = {
+
+	},
+} -- Be my guest. You May Want To Animate it
+
+local CreateNewFlag = function(Parent: Instance?, Color: (Color3 | BrickColor)?)
+	if not Color then Color = Color3.new() end
+	if Color and typeof(Color) == 'BrickColor' then
+		Color = Color.Color
+	end
+	
+	local Part = Instance.new("Part")
+	Part.Anchored = true
+	Part.BottomSurface = Enum.SurfaceType.Smooth
+	Part.TopSurface = Enum.SurfaceType.Smooth
+	Part.Color = Color3.fromRGB(99, 95, 98)
+	Part.Material = Enum.Material.Metal
+	Part.Size = Vector3.new(5.244999885559082, 0.14499998092651367, 2.1399998664855957)
+	Part.CFrame = CFrame.new(81.2900390625, 2.622499942779541, 4.4049973487854, 0, 0, 1, 1, 0, 0, 0, 1, 0)
+	Part.Shape = Enum.PartType.Cylinder
+
+	local Wedge = Instance.new("WedgePart")
+	Wedge.BottomSurface = Enum.SurfaceType.Smooth
+	Wedge.Color = Color or Color3.fromRGB(196, 40, 28)
+	Wedge.Material = Enum.Material.Fabric
+	Wedge.Size = Vector3.new(0.04999999701976776, 0.9499999284744263, 2.3349997997283936)
+	Wedge.CFrame = CFrame.new(81.29562377929688, 3.804999351501465, 5.649425029754639, 1, 0, 0, 0, -1, 0, 0, 0, -1)
+	Wedge.Parent = Part
+
+	local Wedge1 = Instance.new("WedgePart")
+	Wedge1.BottomSurface = Enum.SurfaceType.Smooth
+	Wedge1.Color = Color or Color3.fromRGB(196, 40, 28)
+	Wedge1.Material = Enum.Material.Fabric
+	Wedge1.Size = Vector3.new(0.04999999701976776, 0.9499999284744263, 2.3349997997283936)
+	Wedge1.CFrame = CFrame.new(81.29562377929688, 4.749999046325684, 5.649425029754639, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+	Wedge1.Parent = Part
+
+	local Wedge2 = Instance.new("Weld")
+	Wedge2.Name = "Wedge"
+	Wedge2.C0 = CFrame.new(0, -0.9449996948242188, 0, -1, 0, 0, 0, -1, 0, 0, 0, 1)
+	Wedge2.Parent = Wedge1
+
+	local Wedge3 = Instance.new("Weld")
+	Wedge3.Name = "Wedge"
+	Wedge3.C0 = CFrame.new(2.1274993419647217, 1.2444276809692383, 0.005584716796875, 0, 1, 0, 0, 0, -1, -1, 0, 0)
+	Wedge3.Parent = Part
+
+	Wedge2.Part1 = Wedge
+	Wedge2.Part0 = Wedge1
+
+	Wedge3.Part1 = Wedge1
+	Wedge3.Part0 = Part
+	
+	if Parent then
+		Part.Parent = Parent
+	end
+	return Part
+end
+local TAG = function(NewInstance: Instance)
+	NewInstance:SetAttribute(FLAG.Name.. "_INSTANCE")
+end
+local VIEW
+VIEW = function(Operation: string, Where: CFrame?)
+	if not CHECKPOINT_VIEW or not Tool_Checkpoint_Selection then
+		return
+	end
+	if not Char then
+		return
+	end
+	if not Operation then
+		return
+	end
+	if string.match(string.upper(Operation),'INITIATE') or string.match(string.upper(Operation),'INITIALIZE') then
+		if not Where then
+			return
+		end
+		if not AltChar then
+			LatestPos = Char:GetPivot()
+			if Char then
+				if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').SeatPart ~= nil then
+					Char:FindFirstChildOfClass('Humanoid').Jump = true
+					Char:FindFirstChildOfClass('Humanoid').SeatPart = nil
+					Char:FindFirstChildOfClass('Humanoid'):SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+				end
+				Char:PivotTo(Where)
+				Char.Archivable = true
+				AltChar = Char:Clone()
+				if AltChar and AltChar:FindFirstChildOfClass('Tool') then
+					AltChar:FindFirstChildOfClass('Tool'):Destroy()
+				end
+				if AltChar and AltChar:FindFirstChildOfClass('Flag') then
+					AltChar:FindFirstChildOfClass('Flag'):Destroy()
+				end
+				local function func(v: Instance)
+					if v:IsA("Tool") or v:IsA("Flag") then
+						if SaveDirectory and not SaveDirectory:FindFirstChild('Alt_Backpack') then
+							Instance.new('Folder',SaveDirectory).Name = 'Alt_Backpack'
+						end
+						if AltChar and SaveDirectory and SaveDirectory:FindFirstChild('Alt_Backpack') and not SaveDirectory:FindFirstChild('Alt_Backpack'):FindFirstChild(AltChar.Name) then
+							Instance.new('Folder',SaveDirectory:FindFirstChild('Alt_Backpack')).Name = AltChar.Name
+						end
+						if AltChar and SaveDirectory and SaveDirectory:FindFirstChild('Alt_Backpack') and SaveDirectory:FindFirstChild('Alt_Backpack'):FindFirstChild(AltChar.Name) then
+							if v then
+								v.Archivable = true
+								local AltTool = SaveDirectory:FindFirstChild('Alt_Backpack'):FindFirstChild(AltChar.Name):FindFirstChild(v.Name) or v:Clone()
+								AltTool.Parent = AltChar
+								local ac: RBXScriptConnection?
+								local dac: RBXScriptConnection?
+								local function lilchecking()
+									if not AltTool or not AltTool:IsDescendantOf(AltChar) or not v or not v:IsDescendantOf(Char) then if ac then ac:Disconnect() end if dac then dac:Disconnect() end if AltTool then AltTool:Destroy() end end
+								end
+								ac = v.Activated:Connect(function()
+									if AltChar and AltTool then AltTool:Activate() end
+								end)
+								dac = v.Deactivated:Connect(function()
+									if AltChar and AltTool then AltTool:Deactivate() end
+								end)
+								v.Unequipped:Once(function()
+									if ac then ac:Disconnect() end if dac then dac:Disconnect() end if AltTool then if AltChar and SaveDirectory and SaveDirectory:FindFirstChild('Alt_Backpack') and SaveDirectory:FindFirstChild('Alt_Backpack'):FindFirstChild(AltChar.Name) then AltTool.Parent = SaveDirectory:FindFirstChild('Alt_Backpack'):FindFirstChild(AltChar.Name) else AltTool:Destroy() end end
+								end)
+							end
+						end
+					elseif v:IsA("BasePart") or v:IsA("Texture") or v:IsA("Decal") or v:IsA("ImageHandleAdornment") then
+						v:SetAttribute("Transparency",v.Transparency) 
+						v.Transparency = 1
+						local Incase: RBXScriptConnection?
+						Incase	= v:GetPropertyChangedSignal('Transparency'):Connect(function()
+							if AltChar then
+								v:SetAttribute("Transparency",v.Transparency)
+								v.Transparency = 1
+							else
+								if Incase then
+									Incase:Disconnect()
+									Incase = nil
+								end
+							end
+						end)
+						if v:IsA("BasePart") then
+							v:SetAttribute("CanCollide",v.CanCollide)
+							v.CanCollide = false
+							v:SetAttribute("CanTouch",v.CanTouch)
+							v.CanTouch = false
+							v:SetAttribute("CanQuery",v.CanQuery)
+							v.CanQuery = false
+							v:SetAttribute("CollisionGroup",v.CollisionGroup)
+							v.CollisionGroup = CollisionGroupName
+							local Incase2: RBXScriptConnection?
+							Incase2= v:GetPropertyChangedSignal('CanCollide'):Connect(function()
+								if AltChar then
+									v:SetAttribute("CanCollide",v.CanCollide)
+									v.CanCollide = false
+								else
+									if Incase2 then
+										Incase2:Disconnect()
+										Incase2 = nil
+									end
+								end
+							end)
+							local Incase3: RBXScriptConnection?
+							Incase3 = v:GetPropertyChangedSignal('CanTouch'):Connect(function()
+								if AltChar then
+									v:SetAttribute("CanTouch",v.CanTouch)
+									v.CanTouch = false
+								else
+									if Incase3 then
+										Incase3:Disconnect()
+										Incase3 = nil
+									end
+								end
+							end)
+							local Incase4: RBXScriptConnection?
+							Incase4 = v:GetPropertyChangedSignal('CanQuery'):Connect(function()
+								if AltChar then
+									v:SetAttribute("CanQuery",v.CanQuery)
+									v.CanQuery = false
+								else
+									if Incase4 then
+										Incase4:Disconnect()
+										Incase4 = nil
+									end
+								end
+							end)
+							local Incase5: RBXScriptConnection?
+							Incase5 = v:GetPropertyChangedSignal('CanQuery'):Connect(function()
+								if AltChar then
+									v:SetAttribute("CollisionGroup",v.CollisionGroup)
+									v.CollisionGroup = CollisionGroupName
+								else
+									if Incase5 then
+										Incase5:Disconnect()
+										Incase5 = nil
+									end
+								end
+							end)
+							table.insert(AllTheConnection, Incase2)
+							table.insert(AllTheConnection, Incase3)
+							table.insert(AllTheConnection, Incase4)
+							table.insert(AllTheConnection, Incase5)
+						end
+						table.insert(AllTheConnection, Incase)
+					elseif v:IsA("GuiMain") or v:IsA("ScreenGui") or v:IsA("BillboardGui") or v:IsA("SurfaceGui") or v:IsA("ParticleEmitter") or v:IsA('Trail') then	
+						v:SetAttribute('Enabled',v.Enabled)
+						v.Enabled = false
+						local nope: RBXScriptConnection?
+						nope = v:GetPropertyChangedSignal('Enabled'):Connect(function()
+							if AltChar then
+								v:SetAttribute("Enabled",v.Enabled)
+								v.Enabled = false
+							else
+								if nope then
+									nope:Disconnect()
+									nope = nil
+								end
+							end
+						end)
+						table.insert(AllTheConnection, nope)
+					elseif v:IsA("Sound") then	
+						v:SetAttribute('Volume',v.Volume)
+						v.Volume = 0
+						local stfu: RBXScriptConnection?
+						stfu = v:GetPropertyChangedSignal('Volume'):Connect(function()
+							if AltChar then
+								v:SetAttribute("Volume",v.Volume)
+								v.Volume = 0
+							else
+								if stfu then
+									stfu:Disconnect()
+									stfu = nil
+								end
+							end
+						end)
+						table.insert(AllTheConnection, stfu)
+					elseif v:IsA("Light") then	
+						v:SetAttribute('Brightness',v.Brightness)
+						v.Brightness = 0
+						local shutitoff: RBXScriptConnection?
+						shutitoff = v:GetPropertyChangedSignal('Brightness'):Connect(function()
+							if AltChar then
+								v:SetAttribute("Brightness",v.Brightness)
+								v.Brightness = 0
+							else
+								if shutitoff then
+									shutitoff:Disconnect()
+									shutitoff = nil
+								end
+							end
+						end)
+						table.insert(AllTheConnection, shutitoff)
+					elseif v:IsA("ForceField") or v:IsA('Explosion') then	
+						v:SetAttribute('Visible',v.Visible)
+						v.Visible = false
+						local shutitoff: RBXScriptConnection?
+						shutitoff = v:GetPropertyChangedSignal('Visible'):Connect(function()
+							if AltChar then
+								v:SetAttribute("Visible",v.Visible)
+								v.Visible = false
+							else
+								if shutitoff then
+									shutitoff:Disconnect()
+									shutitoff = nil
+								end
+							end
+						end)
+						table.insert(AllTheConnection, shutitoff)
+					end
+				end
+				for i,v in pairs(Char:GetDescendants()) do
+					func(v)
+				end
+				if AltChar and Players and Players:GetPlayerFromCharacter(Char) then
+					local Chatter: RBXScriptConnection?
+					Chatter = Players:GetPlayerFromCharacter(Char).Chatted:Connect(function(Message,ToWho)
+						if AltChar then
+							if game:FindFirstChildOfClass('Chat') and game:FindFirstChildOfClass('TextService') and AltChar and AltChar:FindFirstChild('Head') and (not ToWho and game:FindFirstChildOfClass('Chat'):CanUserChatAsync(Players:GetPlayerFromCharacter(Char).UserId)) or (ToWho and game:FindFirstChildOfClass('Chat'):CanUsersChatAsync(Players:GetPlayerFromCharacter(Char).UserId,ToWho.UserId)) then
+								if AltChar:GetAttribute('Curse') then Message = obscureString(Message) end game:FindFirstChildOfClass('Chat'):Chat(AltChar:FindFirstChild('Head'), (game:FindFirstChildOfClass('TextService'):FilterStringAsync(revertBypass(Message),Players:GetPlayerFromCharacter(Char).UserId ):GetNonChatStringForBroadcastAsync() or Message) , Enum.ChatColor.White)
+							end
+						else
+							if Chatter then
+								Chatter:Disconnect()
+								Chatter = nil
+							end
+						end
+					end)
+					table.insert(AllTheConnection, Chatter)
+				end
+					if Char and Char:FindFirstChildOfClass('Humanoid') and AltChar and AltChar:FindFirstChildOfClass('Humanoid') then
+						local Sync: RBXScriptConnection?
+						Sync = AltChar:FindFirstChildOfClass('Humanoid').HealthChanged:Connect(function(Health)
+							if not Char or not AltChar then
+								if Sync then
+									Sync:Disconnect()
+									Sync = nil
+									if VIEW then
+										VIEW('end_task')
+									end
+								end	
+							end
+							if Char:FindFirstChildOfClass('Humanoid') then
+								Char:FindFirstChildOfClass('Humanoid').Health = Health
+							end
+						end)
+						table.insert(AllTheConnection, Sync)
+				end
+
+				local b = Char.DescendantAdded:Connect(func)
+				if b then table.insert(AllTheConnection, b) end
+				if AltChar then
+					AltChar.Parent = workspace
+					if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').SeatPart ~= nil then
+						Char:FindFirstChildOfClass('Humanoid').Jump = true
+					end
+					AltChar:PivotTo(LatestPos)
+					if AltChar:FindFirstChildOfClass('Humanoid') and AltChar:FindFirstChildOfClass('Humanoid').RootPart then
+						--AltChar:FindFirstChildOfClass('Humanoid').RootPart.Anchored = true
+						AltChar:FindFirstChildOfClass('Humanoid'):MoveTo(LatestPos.Position)
+					end
+					--if AltChar:FindFirstChildOfClass('Humanoid') and AltChar:FindFirstChildOfClass('Humanoid').RootPart then
+						--AltChar:FindFirstChildOfClass('Humanoid').RootPart.Anchored = false
+					--end
+					coroutine.resume(coroutine.create(function()
+						while task.wait(.01) and AltChar and Char do
+							AltChar:FindFirstChildOfClass('Humanoid'):MoveTo(LatestPos.Position)
+							if SavedPos and CurrentlySelectedSave and SavedPos[CurrentlySelectedSave] and SavedPos[CurrentlySelectedSave].CFrame and Char and  Char:FindFirstChildOfClass('Humanoid') and Char:GetPivot() ~= SavedPos[CurrentlySelectedSave].CFrame  then
+								if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').SeatPart ~= nil then
+									Char:FindFirstChildOfClass('Humanoid').Jump = true
+									Char:FindFirstChildOfClass('Humanoid').SeatPart = nil
+									Char:FindFirstChildOfClass('Humanoid'):SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+								end
+								Char:PivotTo(SavedPos[CurrentlySelectedSave].CFrame--[[Char:GetPivot():Lerp(SavedPos[CurrentlySelectedSave].CFrame,0.3)]])
+							end
+						end
+						Char:FindFirstChildOfClass('Humanoid'):SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+					end))
+				end
+				if Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').RootPart then
+					Char:FindFirstChildOfClass('Humanoid').RootPart.Anchored = true
+				end
+			end
+		end
+	elseif string.match(string.upper(Operation),'MODIFY_LOCATION') then
+		if not Where then
+			return
+		end
+		if not AltChar then
+			return
+		end
+		if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').SeatPart ~= nil then
+			Char:FindFirstChildOfClass('Humanoid').Jump = true
+		end
+		Char:PivotTo(Where)
+	elseif string.match(string.upper(Operation),'END_TASK') then
+		for i,v in AllTheConnection do
+			if v and typeof(v) == 'RBXScriptConnection' then
+				v:Disconnect()
+				--table.remove(AllTheConnection,i)
+			end
+		end
+		for i,v in pairs(Char:GetDescendants()) do
+			if v:GetAttribute("Transparency") then
+				v.Transparency = v:GetAttribute("Transparency")
+			end
+			if v:GetAttribute("CanCollide") then
+				v.CanCollide = v:GetAttribute("CanCollide")
+			end
+			if v:GetAttribute("CanTouch") then
+				v.CanTouch = v:GetAttribute("CanTouch")
+			end
+			if v:GetAttribute("CanQuery") then
+				v.CanQuery = v:GetAttribute("CanQuery")
+			end
+			if v:GetAttribute("CollisionGroup") then
+				v.CollisionGroup = v:GetAttribute("CollisionGroup")
+			end
+			if v:GetAttribute("Enabled") then
+				v.Enabled = v:GetAttribute("Enabled")
+			end
+			if v:GetAttribute("Visible") then
+				v.Visible = v:GetAttribute("Visible")
+			end
+			if v:GetAttribute("Volume") then
+				v.Volume = v:GetAttribute("Volume")
+			end
+			if v:GetAttribute("Brightness") then
+				v.Brightness = v:GetAttribute("Brightness")
+			end
+		end
+		--[[if LatestPos then
+			Char:PivotTo(LatestPos)
+		else
+			if AltChar then
+				LatestPos = AltChar:GetPivot()
+				Char:PivotTo(AltChar:GetPivot())
+			end
+		end]]
+		if AltChar then
+			LatestPos = AltChar:GetPivot()
+			if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').SeatPart ~= nil then
+				Char:FindFirstChildOfClass('Humanoid').Jump = true
+			end
+			Char:PivotTo(AltChar:GetPivot())
+		else
+			if LatestPos then
+				if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').SeatPart ~= nil then
+					Char:FindFirstChildOfClass('Humanoid').Jump = true
+				end
+				Char:PivotTo(LatestPos)
+			end
+		end
+		if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').RootPart then
+			Char:FindFirstChildOfClass('Humanoid').RootPart.Anchored = false
+		end
+		if AltChar and SaveDirectory and SaveDirectory:FindFirstChild('Alt_Backpack') and SaveDirectory:FindFirstChild('Alt_Backpack'):FindFirstChild(AltChar.Name) then
+			SaveDirectory:FindFirstChild('Alt_Backpack'):FindFirstChild(AltChar.Name):Destroy()
+		end
+		if AltChar then
+			AltChar:Destroy()
+			AltChar = nil
+		end
+	end
+end
+local TP = function(Id: number)
+	if State == 'Loading' then
+		if not Tool_Checkpoint_Selection then
+			Id = #SavedPos
+		end
+		if State ~= 'Loading' then
+			return
+		end
+		if SavedPos[Id] and SavedPos[Id].CFrame then
+			if Char ~= nil and Char.Parent ~= nil and Char:IsA("Model") then
+				if Char and Char:FindFirstChildOfClass('Humanoid') and Char:FindFirstChildOfClass('Humanoid').SeatPart ~= nil then
+					Char:FindFirstChildOfClass('Humanoid').Jump = true
+				end
+				Char:PivotTo(SavedPos[Id].CFrame)
+			end
+		end
+	end
+end
+local SAVE = function(Pos: CFrame | Vector3, Name: string?, Des: string?, Colour: BrickColor?)
+	if State ~= 'Saving' then
+		return
+	end
+	if not Char then
+		return
+	end
+	State = 'Saving'
+	local SaveFlagAttachments: {any} = {}
+	local SaveFlag = CreateNewFlag(workspace, BrickColor.random())
+	if game:FindFirstChildOfClass('Debris') then
+		game:FindFirstChildOfClass('Debris'):AddItem(SaveFlag,60)
+	end
+	SaveFlag.Anchored = true
+	SaveFlag.Parent = workspace
+	SaveFlag:PivotTo(Char:GetPivot() * CFrame.Angles(0,0,math.rad(90)) + Vector3.new(0,2.5,0))
+	for i,v in FlagAttachmentList do
+		local attachment = Instance.new('Attachment', SaveFlag)
+		attachment.CFrame = v
+		attachment.Visible = false
+		local serial = #SaveFlagAttachments + 1
+		SaveFlagAttachments[serial] = {}
+		SaveFlagAttachments[serial].Attachment = attachment
+		SaveFlagAttachments[serial].LastPosition = attachment.WorldPosition
+	end
+	local SaveRayPar = RaycastParams.new()
+	SaveRayPar.FilterDescendantsInstances = PhysicalFlag
+	SaveRayPar.IgnoreWater = true
+	SaveRayPar:AddToFilter(Char)
+	SaveRayPar:AddToFilter(FLAG)
+	SaveRayPar:AddToFilter(SaveFlag)
+	SaveRayPar.RespectCanCollide = true
+	SaveRayPar.FilterType = Enum.RaycastFilterType.Exclude
+	table.insert(PhysicalFlag, SaveFlag)
+	local RaycastSalt: RaycastResult
+	for i = 1, 20 do
+		for num,v in pairs(SaveFlagAttachments) do
+			RaycastSalt = workspace:Raycast(v.Attachment.WorldPosition,v.LastPosition - v.Attachment.WorldPosition, SaveRayPar) or workspace:Raycast(v.LastPosition,v.Attachment.WorldPosition - v.LastPosition, SaveRayPar) -- or workspace:Raycast(v.Attachment.WorldPosition,Vector3.new(0,-0.5,0), SaveRayPar)
+			if RaycastSalt then
+				break
+			end
+		end
+		if RaycastSalt then
+			break
+		end
+		SaveFlag.CFrame = SaveFlag.CFrame + Vector3.new(0,-0.5,0)
+		task.wait(0.025)
+	end
+	table.clear(SaveFlagAttachments)
+	for i,v in pairs(SaveFlagAttachments)  do 
+		if v and v.Attachment then
+			v.Attachment:Destroy()
+		end
+		v = nil
+	end
+	if RaycastSalt then
+		SaveFlag.Anchored = true
+		FLAG.ToolTip = 'Successfully Saved'
+	else
+		SaveFlag.Anchored = false
+		if game:FindFirstChildOfClass('Debris') then
+			game:FindFirstChildOfClass('Debris'):AddItem(SaveFlag,1)
+		else
+			coroutine.resume(coroutine.create(function()
+				task.wait(1)
+				if SaveFlag then SaveFlag:Destroy() end
+			end))
+		end
+		for i,v in pairs(SaveFlag:GetDescendants()) do
+			if v and v:IsA('BasePart') and game:FindFirstChildOfClass('TweenService') then	game:FindFirstChildOfClass('TweenService'):Create(v,TweenInfo.new(1), {Transparency = 1}):Play() end
+		end
+		if game:FindFirstChildOfClass('TweenService') then	game:FindFirstChildOfClass('TweenService'):Create(SaveFlag,TweenInfo.new(1), {Transparency = 1}):Play() end
+		FLAG.ToolTip = 'Saving Unsuccessful, Please make sure you are standing on a solid ground'
+		return
+	end
+	local SaveDT = os.date()
+	local Directory_Slot: number = #SavedPos + 1
+	if not SavedPos[Directory_Slot] then SavedPos[Directory_Slot] = {} end
+	local Directory = SavedPos[Directory_Slot]
+	Directory.CFrame = (typeof(Pos) == 'CFrame' and Pos) or (typeof(Pos) == 'Vector3' and CFrame.new(Pos)) or CFrame.new()
+	Directory.Serial = Directory_Slot
+	Directory.Date = SaveDT
+	Directory.FlagPart = SaveFlag
+	if Name then
+		Directory.Name = Name
+	else
+		Directory.Name = Checkpoint_Placeholder_Name
+	end
+	if Des then
+		Directory.Description = Des
+	end
+	if Colour then
+		Directory.Colour = Colour 
+	else
+		Directory.Colour = BrickColor.random() 
+	end
+	--Export File To [SaveDirectory]
+	if not SaveDirectory then
+		return
+	end
+	if SaveDirectory and not SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE") then
+		local Folder = Instance.new('Folder')
+		Folder.Parent = SaveDirectory
+		Folder.Name = FLAG.Name.. "_SAVE"
+		TAG(Folder)
+	end
+	if SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE") and not SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name) then
+		local Folder = Instance.new('Folder')
+		Folder.Parent = SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE")
+		Folder.Name = (Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name
+		TAG(Folder)
+	end
+	if SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE") and SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name) then
+		local SaveFile = Instance.new('CFrameValue')
+		SaveFile.Parent = SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name)
+		SaveFile.Name = tostring(Directory_Slot) or tostring(#SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name):GetChildren() + 1)
+		LatestSave = tonumber(SaveFile.Name)
+		if Name ~= nil then
+			SaveFile:SetAttribute('Name',Name)
+		else
+			SaveFile:SetAttribute('Name',Checkpoint_Placeholder_Name)
+		end
+		if Pos ~= nil then
+			if typeof(Pos) == 'Vector3' then
+				SaveFile.Value = CFrame.new(Pos)
+			elseif typeof(Pos) == 'CFrame' then
+				SaveFile.Value = Pos
+			end
+		else
+			SaveFile.Value = Char:GetPivot()
+		end
+		if Des ~= nil then
+			SaveFile:SetAttribute("Description", Des)
+		end
+		if Directory.Colour then
+			SaveFile:SetAttribute("Colour", Directory.Colour)
+		else
+			if Colour ~= nil then
+				SaveFile:SetAttribute("Colour", Colour)
+			else
+				SaveFile:SetAttribute("Colour", BrickColor.random())
+			end
+		end
+		SaveFile:SetAttribute('Date', SaveDT)
+		SaveFile:SetAttribute('Serial', tonumber(Directory_Slot or SaveFile.Name))
+		TAG(SaveFile)
+	end
+	State = 'Saving'
+	FLAG.ToolTip = 'Saved!'
+end
+local WELD = function(Operation: string, Weld: string?)
+	if string.match(string.upper(Operation),'INITIATE') then
+		for i,v in Char:GetDescendants() do
+			if v:IsA("Motor6D") then
+				local Replica = Instance.new('Weld')
+				Replica.Part0 = v.Part0
+				Replica.Part1 = v.Part1
+				Replica.C0 = v.C0
+				Replica.C1 = v.C1
+				Replica.Enabled = false
+				Replica.Parent = v.Parent
+				table.insert(AllTheWeld, Replica)
+			end
+		end
+	elseif string.match(string.upper(Operation),'ENABLE') then
+		if not Weld then
+			return
+		end
+		if table.find(AllTheWeld, Weld) and AllTheWeld[table.find(AllTheWeld, Weld)] and AllTheWeld[table.find(AllTheWeld, Weld)]:IsA("JointInstance") then
+			AllTheWeld[table.find(AllTheWeld, Weld)].Enabled = true -- if you want it to detect every single weld with the name provided as an variable 'Weld', please instead use 'for i, v in AllTheWeld' or sort weld with same name as a sub table.
+		end
+	elseif string.match(string.upper(Operation),'DISABLE') then
+		if not Weld then
+			return
+		end
+		if table.find(AllTheWeld, Weld) and AllTheWeld[table.find(AllTheWeld, Weld)] and AllTheWeld[table.find(AllTheWeld, Weld)]:IsA("JointInstance") then
+			AllTheWeld[table.find(AllTheWeld, Weld)].Enabled = false
+		end
+	elseif string.match(string.upper(Operation),'END_TASK') then
+		for i,v in AllTheWeld do
+			if v and typeof(v) == 'Instance' and v:IsA("JointInstance") then
+				v:Destroy()
+				--table.remove(AllTheWeld, i)
+			end
+		end
+		table.clear(AllTheWeld)
+	end
+end
+local ANIMFRAME = function(Name: string, Frame: number)
+	if table.find(Anim,Name) and Anim[table.find(Anim,Name)] and Anim[table.find(Anim,Name)][Frame] then
+		for i,v in pairs(Anim[table.find(Anim,Name)][Frame]) do
+			if table.find(AllTheWeld,i) and game:FindFirstChildOfClass('TweenService') and AllTheWeld[table.find(AllTheWeld,i)] then
+				local Tween = game:FindFirstChildOfClass('TweenService'):Create(AllTheWeld[table.find(AllTheWeld,i)], (typeof(v) == 'CFrame' and TweenInfo.new(0.5)) or TweenInfo.new(v.time or 0.5, v.easingStyle or Enum.EasingStyle.Linear, v.easingDirection or Enum.EasingDirection.Out),{C0 = (typeof(v) == 'CFrame' and v) or v.CFrame or CFrame.new()} )
+				table.insert(AllTheTween, Tween)
+				Tween.Completed:Connect(function(PBS)
+					if PBS == Enum.PlaybackState.Completed or PBS == Enum.PlaybackState.Cancelled then
+						if Tween and table.find(AllTheTween, Tween) then
+							table.remove(AllTheTween,table.find(AllTheTween, Tween))
+						end
+					end
+				end)
+			end
+		end
+	end
+end
+local ANIMATE = function(Name: string)
+	if table.find(Anim,Name) and Anim[table.find(Anim,Name)] then
+		-- DIY
+	end
+end
+local LOAD = function()
+	State = 'Loading'
+	table.clear(SavedPos)
+	if SaveDirectory and SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE") and SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name) then
+		for i,v in SaveDirectory:FindFirstChild(FLAG.Name.. "_SAVE"):FindFirstChild((Players and Players:GetPlayerFromCharacter(Char) and Players:GetPlayerFromCharacter(Char).Name) or Char.Name):GetChildren() do
+			if v:IsA('CFrameValue') then
+				--if not table.find(SavedPos,v.Name) then
+					--table.insert(SavedPos,v.Name) -- inserted, is there any now?
+				--if table.find(SavedPos,v.Name) and SavedPos[table.find(SavedPos,v.Name)] then
+						if not SavedPos[(v:GetAttribute("Serial") and v:GetAttribute("Serial")) or (#SavedPos + 1)] then	SavedPos[(v:GetAttribute("Serial") and v:GetAttribute("Serial")) or (#SavedPos + 1)] = {} end
+						local Directory = (v:GetAttribute("Serial") and SavedPos[v:GetAttribute("Serial")]) or SavedPos[#SavedPos + 1] or SavedPos[table.find(SavedPos,v.Name)]
+						Directory.CFrame = v.Value -- Guranteed To Be Provided By CFrameValue Itself
+						if v:GetAttribute("Name") then
+							Directory.Name = v:GetAttribute("Name")
+						end
+						if v:GetAttribute("Description") then
+							Directory.Description = v:GetAttribute("Description")
+						end
+						if v:GetAttribute("Colour") then
+							Directory.Colour = v:GetAttribute("Colour")
+						end
+						if v:GetAttribute("Date") then
+							Directory.Date = v:GetAttribute("Date")
+						end
+						if v:GetAttribute("Serial") then
+							Directory.Serial = v:GetAttribute("Serial")
+						end
+					--end
+				--end
+			end
+		end
+	end
+	State = Before
+end
+FLAG.Equipped:Connect(function()
+	--if FLAG:FindFirstAncestorOfClass('Model') ~= Char then
+	Before = State
+	if (FLAG:FindFirstAncestorOfClass('Model') ~= Char) and AltChar then
+		VIEW('end_task')
+		WELD('end_task')
+	end
+	FLAG = script:FindFirstAncestorWhichIsA("Tool") or script:FindFirstAncestorWhichIsA("Flag") or script:FindFirstAncestorWhichIsA("HopperBin")
+	Char = FLAG:FindFirstAncestorOfClass('Model')
+	if Players and Players:GetPlayerFromCharacter(Char) then
+		Player = Players:GetPlayerFromCharacter(Char)
+		if not table.find(FirstTime,Players:GetPlayerFromCharacter(Char)) then
+			table.insert(FirstTime,Players:GetPlayerFromCharacter(Char))
+			task.wait(.01)
+			FLAG.ToolTip = 'All System By @Solivion'
+			task.wait(.01) -- wait.
+			FLAG.ToolTip = 'Idea By @Melon5926'
+			task.wait(.01)
+		end
+	else
+		Player = nil
+	end
+	LOAD()
+	FLAG.ToolTip = 'Save Imported!'
+	WELD('INITIATE')
+	--end
+end)
+FLAG.Unequipped:Connect(function()
+	Before = State
+	for i,v in AllTheTween do
+		if v and typeof(v) == 'Tween' then
+			v:Cancel()
+		end
+		--table.remove(AllTheTween,i)
+	end
+	WELD('end_task')
+end)
+FLAG.Activated:Connect(function()
+	LatestTick = tick()
+	Active = true
+	coroutine.resume(coroutine.create(function()
+		while Active and game:GetService('RunService').Heartbeat:Wait() do
+			local Elapsed = tick() - LatestTick
+			if Elapsed > 1 and Elapsed <= 10 then
+				local Timeloop = math.cos(Elapsed * 2)
+				if FLAG then
+					if State == 'Choosing' then
+						if Timeloop > 0 then
+							if MainOption == 'Loading' and not SavedPos[1] then
+								FLAG.ToolTip = "You haven't saved, Please Continue to the 'Saving' State First"
+								FLAG:Deactivate()
+							else
+								FLAG.ToolTip = '(CONFIRM) Continue To State ('..MainOption..')?'
+							end
+						else
+							if MainOption == 'Loading' and not SavedPos[1] then
+								FLAG.ToolTip = "You haven't saved, Please Continue to the 'Saving' State First"		
+								FLAG:Deactivate()
+							else
+								FLAG.ToolTip = '(CANCEL) Cancel Choice ('..MainOption..')?'
+							end
+						end
+					elseif State == 'Loading' then
+						if AltChar then
+							if Timeloop > 0 then
+								FLAG.ToolTip = '(CONFIRM) '..CurrentlySelectedSave..' For Teleportation?'
+							else
+								FLAG.ToolTip = '(CANCEL) Viewing For '..CurrentlySelectedSave..'?'
+							end
+						else
+							if Timeloop > 0 then
+								FLAG.ToolTip = '(CONFIRM) '..CurrentlySelectedSave..' For Viewing?'
+							else
+								FLAG.ToolTip = '(CANCEL) Return To "Choosing" From '..State
+							end
+						end
+					elseif State == 'Saving' then
+						if Timeloop > 0 then
+							FLAG.ToolTip = '(CONFIRM) Save?'
+						else
+							FLAG.ToolTip = '(CANCEL) Return To "Choosing" From '..State
+						end
+					elseif State == 'Basic' then
+						if Timeloop > 0 then
+							FLAG.ToolTip = 'CONFIRM('..State..')'..", When This Pop Up: It means you're Proceeding When Deactivating The Tool"
+						else
+							FLAG.ToolTip = 'CANCEL('..State..')'..", When This Pop Up: It means cancelling the operation or go back to choosing state"
+						end
+					else
+						if Timeloop > 0 then
+							FLAG.ToolTip = 'CONFIRM('..State..')'
+						else
+							FLAG.ToolTip = 'CANCEL('..State..')'
+						end
+					end
+				end
+			else
+				if FLAG then
+					if State == 'Choosing' then
+						FLAG.ToolTip = 'Choosing STATE: '..MainOption
+						if MainOption == 'Loading' and not SavedPos[1] then
+							FLAG.ToolTip = FLAG.ToolTip.."[Unavailable: No Save]"
+						end
+					elseif State == 'Loading' then
+						if SavedPos[CurrentlySelectedSave] then
+							FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+						else
+							FLAG.ToolTip = 'No Available Save'
+						end
+					elseif State == 'Saving' then
+						FLAG.ToolTip = 'Please Continue Holding To Continue.'
+					elseif State == 'Basic' then
+						FLAG.ToolTip = 'Confirm and Cancel(Deny) Will appear after 1 second of tool activation, Clicking is used for selecting options'
+					else
+						FLAG.ToolTip = 'STATE: '--[[..tostring(Elapsed)]]..'('..State..')'
+					end
+				end
+			end
+		end
+	end))
+end)
+FLAG.Deactivated:Connect(function()
+	if not Active then
+		if FLAG then
+			if State == 'Choosing' then
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+				if MainOption == 'Loading' and not SavedPos[1] then
+					FLAG.ToolTip = FLAG.ToolTip.."[Unavailable: No Save]"
+				end
+			elseif State == 'Loading' then
+				FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+				if State == 'Loading' and not SavedPos[1] then
+					FLAG.ToolTip = FLAG.ToolTip.."[No Save!]"
+				end
+			elseif State == 'Saving' then
+				FLAG.ToolTip = 'Save Checkpoint?'
+			else
+				FLAG.ToolTip = 'STATE: '--[[..tostring(Elapsed)]]..'('..State..')'
+			end
+		end
+		return
+	end
+	Active = false
+	local Elapsed = tick() - LatestTick
+	LatestTick = tick()
+	if Elapsed <= 1 then
+		if State == 'Loading' then
+			if (CurrentlySelectedSave + 1) > #SavedPos then
+				CurrentlySelectedSave = 1
+			else
+				CurrentlySelectedSave = math.clamp(CurrentlySelectedSave + 1, 1, #SavedPos)
+			end
+			if SavedPos[CurrentlySelectedSave] then	VIEW('modify_location',SavedPos[CurrentlySelectedSave].CFrame) end
+		elseif State == 'Saving' then
+			if FLAG then
+				FLAG.ToolTip = 'Please Hold The Tool To Continue. ('..State..')'
+			end
+		elseif State == 'Choosing' then
+			if MainOption == 'Loading' then
+				MainOption = 'Saving'
+			elseif MainOption == 'Saving' then
+				MainOption = 'Basic'
+			elseif MainOption == 'Basic' then
+				MainOption = 'Loading'
+			end
+			FLAG.ToolTip = 'Choosing STATE: '..MainOption
+		end
+	else
+		if State == 'Loading' then
+			if string.match(string.upper(FLAG.ToolTip) ,'CANCEL') then
+				if AltChar then
+					VIEW('end_task')
+					FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+				else
+					State = 'Choosing'
+					FLAG.ToolTip = 'Choosing STATE: '..MainOption
+				end
+			elseif string.match(string.upper(FLAG.ToolTip) ,'CONFIRM') then
+				if AltChar then
+					VIEW('end_task')
+					TP(CurrentlySelectedSave)
+					CurrentlySelectedSave = 1
+					State = 'Loading'
+				else
+					if SavedPos[CurrentlySelectedSave] and not AltChar then
+						VIEW('initiate',SavedPos[CurrentlySelectedSave].CFrame)
+						FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+					end
+				end
+			end
+		elseif State == 'Saving' then
+			if string.match(string.upper(FLAG.ToolTip) ,'CANCEL') then
+				State = 'Choosing'
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+				if MainOption == 'Loading' and not SavedPos[1] then
+					FLAG.ToolTip = FLAG.ToolTip.."[Unavailable: No Save]"
+				end
+			elseif string.match(string.upper(FLAG.ToolTip) ,'CONFIRM') then
+				-- Flag configuration pop up gui. nvm im lazy
+				FLAG.ToolTip = 'Saved!'
+				if Char then SAVE(Char:GetPivot()) else  SAVE(FLAG:GetPivot()) end-- mayb reload data 
+			end
+		elseif State == 'Choosing' then
+			if string.match(string.upper(FLAG.ToolTip) ,'CANCEL') then
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+				if MainOption == 'Loading' and not SavedPos[1] then
+					FLAG.ToolTip = FLAG.ToolTip.."[Unavailable: No Save]"
+				end
+			elseif string.match(string.upper(FLAG.ToolTip) ,'CONFIRM') then
+				--[[if MainOption == 'Loading' then
+					State = 'Loading'
+				elseif MainOption == 'Saving' then
+					State = 'Saving'
+				end]]
+				if MainOption == 'Loading' and not SavedPos[1] then
+					if not SavedPos[1] then
+						FLAG.ToolTip = "This State Is Currently Unavailable As There's No Save"
+					end
+					CurrentlySelectedSave = 1
+				else
+					CurrentlySelectedSave = 1
+					State = MainOption
+				end
+			end
+		elseif State == 'Basic' then
+			if string.match(string.upper(FLAG.ToolTip) ,'CONFIRM') then
+				MainOption = 'Saving'
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+				State = 'Choosing'
+			end
+		end
+		if FLAG then
+			if State == 'Choosing' then
+				FLAG.ToolTip = 'Choosing STATE: '..MainOption
+				if MainOption == 'Loading' and not SavedPos[1] then
+					FLAG.ToolTip = FLAG.ToolTip.."[Unavailable: No Save]"
+				end
+			elseif State == 'Loading' then
+				FLAG.ToolTip = 'Choosing Checkpoint: '..CurrentlySelectedSave
+				if State == 'Loading' and not SavedPos[1] then
+					FLAG.ToolTip = FLAG.ToolTip.."[No Save!]"
+				end
+			elseif State == 'Saving' then
+				FLAG.ToolTip = 'Save Checkpoint?'
+			else
+				FLAG.ToolTip = 'STATE: '--[[..tostring(Elapsed)]]..'('..State..')'
+			end
+		end
+	end
+end)
+local Last = 'ewggh2wh3b343bcty34h2g442t'
+FLAG:GetPropertyChangedSignal('ToolTip'):Connect(function()
+	local Gui: (GuiMain | Instance)? = (Player and Player:FindFirstChildOfClass('PlayerGui') and (Player:FindFirstChildOfClass('PlayerGui'):FindFirstChild('Save_GUI') or Instance.new('GuiMain',Player:FindFirstChildOfClass('PlayerGui'))))
+	if Gui ~= nil then
+		Gui.Name = 'Save_GUI'
+	end
+	if FLAG.ToolTip ~= Last and not FLAG.ToolTip:match(Last) and not Last:match(FLAG.ToolTip) then
+		Last = FLAG.ToolTip
+		local tip = FLAG.ToolTip
+		if Gui and Char and not Char:FindFirstChild(tip) then
+			--[[local Tip = Instance.new('Hint',workspace)
+			Tip.Name = FLAG.ToolTip
+			Tip.Text = FLAG.ToolTip
+			game:GetService('Debris'):AddItem(Tip,1)]]
+			if not Gui:FindFirstChildOfClass('Frame') then
+				local Frame = Instance.new('Frame', Gui)
+				Frame.Size = UDim2.fromScale(1,1)
+				Frame.BackgroundTransparency = 1
+			end
+			if Gui:FindFirstChildOfClass('Frame') then
+				local Connect1: RBXScriptConnection?
+				local Connect2: RBXScriptConnection?
+				local Dis = function()
+					if Connect2 then
+						Connect2:Disconnect()
+						Connect2 = nil
+					end
+					if Connect1 then
+						Connect1:Disconnect()
+						Connect1 = nil
+					end
+				end
+				local ThisFrame = Gui:FindFirstChildOfClass('Frame')
+				local TheTime = tick()
+				ThisFrame.Name = tip
+				local prioritything = 0 or #ThisFrame:GetChildren()
+				ThisFrame.DescendantAdded:Connect(function(d)
+					prioritything = prioritything + 1
+				end)
+				local Textlabel = Instance.new('TextLabel',ThisFrame)
+				Textlabel.Text = tip
+				Textlabel.Size = UDim2.fromScale(1,0.1)
+				Textlabel.TextScaled = true
+				Textlabel.BackgroundTransparency = 1
+				Textlabel.Size = UDim2.fromScale(0,0.1)
+				Textlabel.Position = UDim2.fromScale(0.5,0.9)
+				Textlabel.ClipsDescendants = true
+				Textlabel.RichText = false
+				local Coroute: thread?
+				Coroute = coroutine.create(function()
+					Textlabel.TextScaled = false
+					Textlabel.TextWrapped = false
+					Textlabel.TextSize = Textlabel.TextSize * 2
+					while Gui and Textlabel and task.wait(.01) and (tick() - TheTime) < 2 do
+						Textlabel.Size = UDim2.fromScale(math.clamp((tick() - TheTime) * 1.5,0,1),0.1)
+						Textlabel.Position = Textlabel.Position:Lerp(UDim2.fromScale(0.5 - Textlabel.Size.X.Scale/2 ,0.75 - prioritything * 0.05),0.3) 
+						if (tick() - TheTime) >= 1 then
+							Textlabel.TextTransparency = (tick() - TheTime) - 1
+						end
+					end
+					if Textlabel then Textlabel:Destroy() end
+					Dis()
+				end)
+				coroutine.resume(Coroute)
+				Connect2 = Gui.Destroying:Once(function()
+					if Coroute then
+						coroutine.close(Coroute)
+						Coroute = nil
+					end
+					if Textlabel then Textlabel:Destroy() end
+					Dis()
+				end)
+			end
+		end
+	end
+end)]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{E64AF5E0-1B33-43CA-B101-55A60A56D17A}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Script[Save System]</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

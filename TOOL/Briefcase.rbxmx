@@ -1,0 +1,285 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX94B73DE1AE2440C68C6C26BDE54B8BFC">
+		<Properties>
+			<bool name="CanBeDropped">false</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">false</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Briefcase thingy</string>
+			<int64 name="SourceAssetId">17557201957</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBX2B9939C3C15B4896BDBA016DB609AE9C">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--{>~Solivion~<}--
+--[Im Hatin' It]--
+
+--<<7/5/2024 Patch, Added Settings And Server Lag Independant System>>--
+
+--Settings
+local MaxSpeed: number = 7 -- Max Velocity Speed
+local OverlapDamage: number = 5 -- Damage Upon Overlapping With The Handle, Incase The Velocity Wasn't Sealing The Deal
+local ImpactDamage: number = 5 -- Damage Upon Handle Hitting
+local DeltaExponential: number = -23 -- tick speed, the lower the faster
+local UpdateRate = nil -- Update Rate, Will Affect Delta
+
+--Core
+local SoundTable: {string} = { 
+	Fist_Pounds_Table_Wooden = "rbxassetid://9113631914",
+	Curse_Hit = "rbxassetid://9047207931",
+	Deep_Impact = "rbxassetid://9125402735",
+}
+
+local Tool: Tool? = script:FindFirstAncestorOfClass("Tool")
+local Handle: BasePart? = Tool and Tool:FindFirstChild("Handle")
+if not Handle and not Tool:FindFirstChild('Handle') then Handle = Instance.new("Part") Handle.Parent = Tool Handle.Name = "Handle" Handle.Material = Enum.Material.Fabric Handle.Size = Vector3.new(0.25, 0.75, 0.5) * 5 Handle.Color = Color3.new(0.192157, 0.0627451, 0) end
+
+local RayPar = RaycastParams.new()
+local OverPar = OverlapParams.new()
+local PickUpPrompt: ProximityPrompt?
+local Thrown: boolean = false
+local ThrownTick: number = tick() - 420
+local ThrownCoroutine: thread?
+
+OverPar.FilterType = Enum.RaycastFilterType.Exclude
+OverPar.RespectCanCollide = true
+OverPar.FilterDescendantsInstances = {Tool}
+
+RayPar.FilterType = Enum.RaycastFilterType.Exclude
+RayPar.RespectCanCollide = true
+RayPar.IgnoreWater = true
+RayPar.FilterDescendantsInstances = {Tool}
+
+function PlaySound(SoundName,ToWhere)
+	--getOrCreateSound(SoundName)
+	local Mainplayfunction = function(hmm)
+		hmm.PlaybackSpeed = math.random(100-20,100+20)/100
+		hmm:Play()
+	end
+	if ToWhere == nil then
+		ToWhere = Handle
+	end
+	if ToWhere and FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound') then
+		Mainplayfunction(FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound'))
+	elseif ToWhere and not FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound') then
+		--DebugText("Checking Encryted Table For Sound:"..tostring(Encryption(SoundName,true)) )
+		if SoundTable[SoundName] then
+			local sound = Instance.new("Sound")
+			local Where = ToWhere
+			sound.Parent = Where
+			sound.SoundId = SoundTable[SoundName]
+			sound.Name = SoundName
+			sound:Play()
+		else
+			warn("Sound >"..SoundName.."< Not Found In Database")
+		end
+	end
+end
+
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				return v
+			end
+		end
+	end
+end
+
+local function calculateBounceAngle(rayDirection: Vector3, raycastResult: RaycastResult) : Vector3
+	local normal = raycastResult.Normal
+	local dotProduct = rayDirection:Dot(normal) 
+	local reflection = rayDirection - 2 * dotProduct * normal
+	return reflection :: Vector3
+end
+
+local DetectNearby = function(Character: Model, Dis: number?)
+	local ClosestTarget
+	local ClosestDis = Dis or 5
+	for i,v in workspace:GetDescendants() do
+		if v:FindFirstChildOfClass("Humanoid") and v:FindFirstChildOfClass("Humanoid").Health > 0 and v:IsA("Model") then
+			if FindFirstChildOfNameAndClass(v,"Head","BasePart") ~= nil and Character and FindFirstChildOfNameAndClass(Character,"Head","BasePart") and FindFirstChildOfNameAndClass(Character,"Head","BasePart").CFrame.LookVector:Dot (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - FindFirstChildOfNameAndClass(Character,"Head","BasePart").Position) >= -0.1 then
+				local Parameter = RaycastParams.new()
+				Parameter.IgnoreWater = true
+				Parameter.RespectCanCollide = true
+				Parameter.FilterType = Enum.RaycastFilterType.Exclude
+				Parameter.FilterDescendantsInstances = {Character, v}
+				if not workspace:Raycast(Character.PrimaryPart.Position,FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Character.PrimaryPart.Position, Parameter) and not workspace:Raycast(FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Character.PrimaryPart.Position - FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Parameter) and (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Character.PrimaryPart.Position).Magnitude < ClosestDis and v ~= Character then
+					ClosestTarget = v
+					ClosestDis = (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Character.PrimaryPart.Position).Magnitude
+				end
+			end
+		end
+	end
+	return ClosestTarget, ClosestDis
+end
+
+function Throw()
+	local Char = Tool:FindFirstAncestorWhichIsA("Model")
+	if Char and not PickUpPrompt and not Thrown and (tick()-ThrownTick) > 3 and Handle and Tool then
+		local LockedTarget, Distance = DetectNearby(Char, 69)
+		if not LockedTarget then return end
+		if ThrownCoroutine then coroutine.close(ThrownCoroutine) end
+		ThrownCoroutine = coroutine.create(function()
+			RayPar.FilterDescendantsInstances = {Char, Tool--[[, LockedTarget]]}
+			OverPar.FilterDescendantsInstances = {Char, Tool--[[, LockedTarget]]}
+			local LastTick = tick()
+			local AimLocked:Model? = LockedTarget
+			local Velocity = Vector3.new() -- no gravity reee
+			local Rotation = CFrame.Angles(0,0,0)
+			local CloneHandle = Handle:Clone()
+			local FlySFX = Instance.new('Sound', CloneHandle)
+			FlySFX.SoundId = 'rbxassetid://99274458'
+			FlySFX.Looped = true
+			FlySFX:Play()
+			RayPar:AddToFilter(CloneHandle)
+			CloneHandle.Parent = workspace
+			CloneHandle.Anchored = true
+			local Lastpos = CloneHandle.Position
+			local AttachmentPos: {CFrame: Vector3?} = {}
+			local Part = CloneHandle
+			local function AddToPos(LocalCFrame: CFrame)
+				if AttachmentPos and LocalCFrame then
+					AttachmentPos[LocalCFrame] = Part.CFrame:ToObjectSpace(LocalCFrame).Position
+				end
+			end
+			AddToPos(CFrame.new())AddToPos(CFrame.new(Part.Size.X/2,0,0))AddToPos(CFrame.new(-Part.Size.X/2,0,0))AddToPos(CFrame.new(0,Part.Size.Y/2,0))AddToPos(CFrame.new(0,-Part.Size.Y/2,0))AddToPos(CFrame.new(0,0,Part.Size.Z/2))AddToPos(CFrame.new(0,0,-Part.Size.Z/2))AddToPos(CFrame.new(Part.Size.X/2, -Part.Size.Y/2, 0))AddToPos(CFrame.new(-Part.Size.X/2, -Part.Size.Y/2, 0))AddToPos(CFrame.new(Part.Size.X/2, Part.Size.Y/2, 0))AddToPos(CFrame.new(-Part.Size.X/2, Part.Size.Y/2, 0))AddToPos(CFrame.new(Part.Size.X/2, 0, Part.Size.Z/2))AddToPos(CFrame.new(-Part.Size.X/2, 0, Part.Size.Z/2))AddToPos(CFrame.new(Part.Size.X/2, 0, -Part.Size.Z/2))AddToPos(CFrame.new(-Part.Size.X/2, 0, -Part.Size.Z/2))AddToPos(CFrame.new(0, Part.Size.Y/2, Part.Size.Z/2))AddToPos(CFrame.new(0, -Part.Size.Y/2, Part.Size.Z/2))AddToPos(CFrame.new(0, Part.Size.Y/2, -Part.Size.Z/2))AddToPos(CFrame.new(0, -Part.Size.Y/2, -Part.Size.Z/2))AddToPos(CFrame.new(Part.Size.X/2, Part.Size.Y/2, Part.Size.Z/2))AddToPos(CFrame.new(Part.Size.X/2, Part.Size.Y/2, -Part.Size.Z/2))AddToPos(CFrame.new(Part.Size.X/2, -Part.Size.Y/2, Part.Size.Z/2))AddToPos(CFrame.new(Part.Size.X/2, -Part.Size.Y/2, -Part.Size.Z/2))AddToPos(CFrame.new(-Part.Size.X/2, Part.Size.Y/2, Part.Size.Z/2))AddToPos(CFrame.new(-Part.Size.X/2, Part.Size.Y/2, -Part.Size.Z/2))AddToPos(CFrame.new(-Part.Size.X/2, -Part.Size.Y/2, Part.Size.Z/2))AddToPos(CFrame.new(-Part.Size.X/2, -Part.Size.Y/2, -Part.Size.Z/2))
+			Handle:Destroy()
+			ThrownTick = tick()
+			Thrown = true
+			Tool.Parent = game:FindFirstChildOfClass("ServerStorage")
+			while task.wait(UpdateRate) and LockedTarget and LockedTarget:FindFirstChildOfClass('Humanoid') and LockedTarget:FindFirstChildOfClass('Humanoid').Health > 0 and Thrown and CloneHandle do
+				local Delta = tick() - LastTick
+				local InterpolationSpeed = 1 - (10 ^ DeltaExponential) ^ Delta
+				LastTick = tick()
+				FlySFX.Volume = Velocity.Magnitude/1.5
+				FlySFX.PlaybackSpeed = Velocity.Magnitude * 1.25
+				ThrownTick = tick()
+				Velocity = Velocity:Lerp((LockedTarget:GetPivot().Position - CloneHandle.Position).Unit * MaxSpeed * 100 * Delta, 0.05 * InterpolationSpeed)
+				Lastpos = CloneHandle.Position
+				Rotation = Rotation*CFrame.Angles(math.rad(-15 * Velocity.Magnitude * InterpolationSpeed),0,0)
+				CloneHandle.CanCollide = false
+				CloneHandle.CFrame = CFrame.new(CloneHandle.Position + Velocity * InterpolationSpeed, CloneHandle.Position + Velocity * InterpolationSpeed + Vector3.new(Velocity.X, 0, Velocity.Z)) * Rotation
+				if (CloneHandle.Position - CloneHandle.Position + Velocity * InterpolationSpeed + Vector3.new(Velocity.X, 0, Velocity.Z)).Magnitude >= (MaxSpeed * 1000 * Delta) then CloneHandle.Position = Lastpos break end
+				--local CheckWall = workspace:Raycast(Lastpos, CloneHandle.Position - Lastpos, RayPar) or workspace:Raycast(CloneHandle.Position,Lastpos - CloneHandle.Position, RayPar)
+				coroutine.resume(coroutine.create(function()
+					local Debounce = {}
+					local also = workspace:GetPartsInPart(Part, OverPar)
+					coroutine.resume(coroutine.create(function() for i,v in also do if (not Char or Char and not v:IsDescendantOf(Char)) and v:FindFirstAncestorOfClass("Model") and v:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid") then v:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid"):TakeDamage(OverlapDamage * InterpolationSpeed) end end end))
+					for i,v in pairs(AttachmentPos)  do
+					local CheckWall: RaycastResult? 
+					local CurOffsetPos = Part.CFrame:ToObjectSpace(i).Position-- print(v - CurOffsetPos)
+					CheckWall = workspace:Raycast(v, CurOffsetPos - v, RayPar) or workspace:Raycast(CurOffsetPos,v - CurOffsetPos, RayPar) --workspace:Raycast(v, CurOffsetPos - v, RayPar) or workspace:Raycast(CurOffsetPos - Part.Velocity, Part.Velocity, RayPar) or workspace:Raycast(CurOffsetPos, v - CurOffsetPos, RayPar) or workspace:Raycast(CurOffsetPos, -Part.Velocity, RayPar) or workspace:Raycast(v, Part.Position - v, RayPar) or workspace:Raycast(Part.Position, v - Part.Position, RayPar) or workspace:Raycast(CurOffsetPos, Part.Position - CurOffsetPos, RayPar) or workspace:Raycast(Part.Position, CurOffsetPos - Part.Position, RayPar)
+					if CheckWall and not table.find(Debounce, CheckWall.Instance) then
+						table.insert(Debounce, CheckWall.Instance)
+						--repeat 
+							--CheckWall = workspace:Raycast(CurOffsetPos, v - CurOffsetPos, RayPar) or workspace:Raycast(v, CurOffsetPos - v, RayPar) or workspace:Raycast(CurOffsetPos, Part.Position - CurOffsetPos, RayPar) or workspace:Raycast(Part.Position, CurOffsetPos - Part.Position, RayPar) or workspace:Raycast(Part.Position, v - Part.Position, RayPar) or workspace:Raycast(v, Part.Position - v, RayPar) 
+							--if CheckWall and CheckWall.Instance.Parent and CheckWall.Instance:IsA('BasePart') then
+							local CollidedPart = Instance.new('Part', workspace)
+							CollidedPart.Transparency = 1
+							CollidedPart.CanCollide = false
+							CollidedPart.CanTouch = false
+							CollidedPart.CanQuery = false
+							game:FindFirstChildOfClass('Debris'):AddItem(CollidedPart, 5)
+							RayPar:AddToFilter(CollidedPart)
+							if CheckWall.Instance and CheckWall.Instance ~= Handle then if CheckWall.Instance:isA('BasePart') and CheckWall.Instance.Anchored == false then PlaySound('Curse_Hit', CollidedPart) CheckWall.Instance.Velocity = CheckWall.Instance.Velocity + Velocity else PlaySound('Deep_Impact', CollidedPart) end Velocity = calculateBounceAngle(Velocity, CheckWall) if CheckWall.Instance:IsA("BasePart") then if CheckWall.Instance.Anchored == false then Velocity = Velocity + CheckWall.Instance.Velocity end if CheckWall.Instance:FindFirstAncestorOfClass("Model") and CheckWall.Instance:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid") then  CheckWall.Instance:FindFirstAncestorOfClass("Model"):FindFirstChildOfClass("Humanoid"):TakeDamage(Velocity.Magnitude * Handle:GetMass() * ImpactDamage) PlaySound('Fist_Pounds_Table_Wooden', CheckWall.Instance) end end end
+							--else
+							--	break
+							--end
+						--until not CheckWall
+					end
+						AddToPos(i)
+						
+					end	table.clear(Debounce)
+				end))
+			end
+			CloneHandle.Position = Lastpos
+			CloneHandle.CanCollide = true
+			CloneHandle.Anchored = false
+			if FlySFX then FlySFX:Destroy() end
+			if not PickUpPrompt then PickUpPrompt = Instance.new("ProximityPrompt") PickUpPrompt.Parent = CloneHandle PickUpPrompt.ActionText = "Pick Up" PickUpPrompt.ObjectText = Tool.Name PickUpPrompt.MaxActivationDistance = CloneHandle.Size.Magnitude * 2 PickUpPrompt.HoldDuration = 0 PickUpPrompt.Triggered:Connect(function(Who) if Tool and CloneHandle and PickUpPrompt.Enabled == true and Who.Character and (Who.Character:GetPivot().Position - CloneHandle.Position).Magnitude < PickUpPrompt.MaxActivationDistance then Handle = CloneHandle CloneHandle.Parent = Tool Tool.Parent = Who:FindFirstChildOfClass('Backpack') Thrown = false ThrownTick = tick() PickUpPrompt:Destroy() PickUpPrompt = nil end end) end
+		end)
+		if ThrownCoroutine then coroutine.resume(ThrownCoroutine) end
+	end
+end
+
+Tool.Activated:Connect(function()
+	Throw()
+end)
+--Funny Script I wrote without parallel thread(GONE WRONG)(3AM CHALLENGE)(WORKING 100% 2024)(MOBILE)--
+--I heard there was a briefcase that is so tactical it floats and follow the target in the air in some game so I made dis--]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{A2A4AAA7-FBAB-481A-A985-EB67C1C1EBCC}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Script[Briefcase thingy]</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

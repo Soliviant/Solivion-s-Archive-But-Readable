@@ -1,0 +1,1587 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX02C728A4A1534F719DF631E4C43DCC62">
+		<Properties>
+			<bool name="CanBeDropped">false</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">false</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">0.105999976</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>-1.88298035</X>
+					<Y>0.5</Y>
+					<Z>16.8650417</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Sparkler</string>
+			<int64 name="SourceAssetId">17313650969</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Actor" referent="RBX7402039D50E744A6A0F0B8AF02FABEDC">
+			<Properties>
+				<token name="LevelOfDetail">0</token>
+				<CoordinateFrame name="ModelMeshCFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<Vector3 name="ModelMeshSize">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<token name="ModelStreamingMode">0</token>
+				<bool name="NeedsPivotMigration">false</bool>
+				<Ref name="PrimaryPart">null</Ref>
+				<float name="ScaleFactor">1</float>
+				<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Actor</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="Script" referent="RBX5D4D4610044E41A9A5BF43853058B438">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[--<{By Solivion, This item either needs a fire source tool to pair with or just force it}>--
+--[[//
+Controls:
+This tool require mobile support, as normally mobile can only register tapping. These controls requires long-duration of tool activation to determine more actions
+
+>>Under 1 Sec: Switch Sparkler(If The Current One Has Already Been Lit, It will be thrown away)
+>>1-2 Sec: Light Up/ Cancel Request(More About This Below)/ Throw away if already lit
+>>2-5 Sec: Gift Request(You can give the Sparkler to someone else, Their hand must not be occupied with any tool, 10 Second choice countdown, Can be cancelled between 1sec to 5 sec tool activation)
+>>5 Sec+: Nothing
+//]]--
+
+--<<Services>>--
+local Debris = game:FindFirstChildOfClass('Debris')
+local TweenService = game:FindFirstChildOfClass('TweenService')
+local Players = game:FindFirstChildOfClass('Players')
+
+repeat task.wait(.01) if (script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag')) and script:FindFirstAncestorWhichIsA('Actor') then break end until (script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag')) and script:FindFirstAncestorWhichIsA('Actor')
+
+--<<Settings>>--
+local Amountleft: number = _G.ForceSparklerAmount or math.random(5,7)
+local Colour: Color3 = _G.ForceSparklerColour or BrickColor.Random().Color
+local DurabillityPerStick: number = _G.ForceSparklerDurabillity or 100
+local ForceFireSourceAsTrue: boolean = true
+local GiftingPermission = true
+local GiftingRequestTimeout = (not GiftingPermission and 0) or _G.ToolGiftingRequestTimeLimit or 10
+
+if script:GetAttribute('NewInstance') then
+	if script:GetAttribute('Amountleft') then
+		Amountleft = script:GetAttribute('Amountleft')
+		script:SetAttribute('Amountleft',nil)
+	end
+	if script:GetAttribute('Colour') then
+		Colour = script:GetAttribute('Colour')
+		script:SetAttribute('Colour',nil)
+	end
+	if script:GetAttribute('DurabillityPerStick') then
+		DurabillityPerStick = script:GetAttribute('DurabillityPerStick')
+		script:SetAttribute('DurabillityPerStick',nil)
+	end
+	script:SetAttribute('NewInstance', nil)
+end
+--<<Variables>>--
+type AnimationName = ('Null'|'Handing'|'Lighting'|'Idle'|'Throw'|'Unequip'|'Giving'|'Receiving'|'Switching')
+
+local HadFixed: {Model?} = {}
+local Character: Model?
+local CharacterInventory: (Backpack | Folder | Model)?
+local Tool: (Flag | Tool)? = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag')
+local Handle: BasePart? = Tool:FindFirstChild('Handle')
+local GlowPart: BasePart?
+local GlowAttachment: Attachment?
+local GlowLight: PointLight?
+local GlowLight_Weld: Weld?
+local Left_Arm_Weld: Weld?
+local Right_Arm_Weld: Weld?
+local LastAnimTick: number = tick()
+local EquipTick: number = tick()
+local TimerStarted: number = tick()
+local ActionTick: number = tick()
+local AnimTick: number = tick()
+local CurrentAnimation: AnimationName = 'Null'
+local Active: boolean = false
+local Equipped: boolean = false
+local InfoDropper: Folder?
+local CanBeEquipped: boolean = true
+local HasFireSource: boolean | Tool = ForceFireSourceAsTrue
+local CurrentlySelectedIndex: number = 0
+local CapturedTime: number = 0
+local SparklerDetail: {
+	{Origin: Instance,
+	FireColour: Color3,
+	OriginalOwner: string,
+	HolderList: string,
+	Lightened: boolean,
+	Durabillity: number,}
+} = {}
+local EffectInstance = {}
+local R15LockWeld = {}
+local ToolTimeCapturerCoroutine: thread?
+local RequestCoroutine: thread?
+local SparklerEffectCoroutine: {[string]: thread?} = {}
+local ToolAnimationCoroutine: thread?
+local GivenCharacter: Model?
+local GivingRequestTick: number = tick()
+local GivenAcceptRequestConnection: RBXScriptConnection?
+local GivenDeclineRequestConnection: RBXScriptConnection?
+local GivenInfoConnection: RBXScriptConnection?
+local GivenInfoDropper: Folder?
+local GivenAcceptOption: Flag?
+local GivenDeclineOption: Flag?
+local GivenRequestCountdown: number = 0 --(not GiftingPermission and 0) or GiftingRequestTimeout
+
+if not Tool then print('bruh') return end
+local Actor = script:GetActor()
+--<<Util>>--
+function SYNC()
+	if Actor then	task.synchronize() end
+end
+function DSYN()
+	if Actor then	task.desynchronize() end
+end
+local function calculateBounceAngle(rayDirection: Vector3, raycastResult: RaycastResult) : Vector3
+	local normal = raycastResult.Normal
+	local dotProduct = rayDirection:Dot(normal)
+	local reflection = rayDirection - 2 * dotProduct * normal
+	return reflection :: Vector3
+end
+
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	if script:FindFirstAncestorOfClass("Actor") then
+		DSYN()
+	end
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if script:FindFirstAncestorOfClass("Actor") then
+			DSYN()
+		end
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				if script:FindFirstAncestorOfClass("Actor") then
+					SYNC()
+				end
+				return v
+			end
+		end
+	end
+end
+
+function LockR15Arm(Character: Model)
+	for i,v in pairs(Character:GetDescendants())  do
+		if (v.Name:match('Hand') or v.Name:match('LowerArm')) and v:IsA('BasePart') then
+			if v:FindFirstChildOfClass('Motor6D') and not table.find(R15LockWeld, v:FindFirstChildOfClass('Motor6D')) then
+				local mt = v:FindFirstChildOfClass('Motor6D')
+				if mt.Enabled == true then
+					mt.Enabled = false
+					table.insert(R15LockWeld, mt)
+					local Replace = Instance.new('Weld', mt.Parent)
+					Replace.Name = mt.Name
+					Replace.Part1 = mt.Part1
+					Replace.Part0 = mt.Part0
+					Replace.C0 = mt.C0
+					Replace.C1 = mt.C1
+					table.insert(R15LockWeld, Replace)
+				end
+			end
+		end
+	end --r6ify
+end
+
+function UnlockR15()
+	SYNC()
+	for i,v in ipairs(R15LockWeld) do
+		if v:IsA('Motor6D') then
+			v.Enabled = true
+		else
+			v:Destroy()
+		end
+	end
+	table.clear(R15LockWeld)
+end
+
+function AreCFramesLooselyEqual(cframe1: CFrame, cframe2: CFrame)
+	--[[tolerance = tolerance or 0.01 -- Default tolerance if not specified
+
+	-- Extract position and orientation from both CFrames
+	local pos1, ori1 = cframe1.p, cframe1 - cframe1.p
+	local pos2, ori2 = cframe2.p, cframe2 - cframe2.p
+
+	-- Check position difference
+	local posDiff = (pos1 - pos2).magnitude
+	if posDiff > tolerance then
+		return false -- Position difference is greater than tolerance
+	end
+
+	-- Check orientation difference by converting to Euler angles and comparing
+	local oriDiff = (ori1:ToEulerAnglesXYZ() - ori2:ToEulerAnglesXYZ()).Magnitude
+	-- Convert tolerance from degrees to radians for orientation comparison
+	local oriTolerance = math.rad(tolerance * 0.1) -- Assuming 0.1 degrees as tolerance for orientation
+	if oriDiff > oriTolerance then
+		return false -- Orientation difference is greater than tolerance
+	end
+
+	return true <<-- (GPT and Assistant)s' Solution]]
+	if (cframe1.Position - cframe2.Position).Magnitude < 0.001 and cframe1.LookVector:Dot(cframe2.LookVector) >= 0.999 then
+		return true
+	else
+		return false
+	end
+end
+
+local function GenerateKeycode(): string -- The Code Isn't That Hard To Crack.
+	if script:FindFirstAncestorWhichIsA("Actor") then
+		DSYN()
+	end
+	local code: string = ""
+	local characters: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:',.<>/?~\\"
+	local numCharacters: number = #characters
+
+	for i = 1, math.random(10,20) do -- You can adjust the length of the keycode as needed
+		local charIndex = math.random(1, numCharacters)
+		code = code .. characters:sub(charIndex, charIndex)
+	end
+	if script:FindFirstAncestorWhichIsA("Actor") then
+		SYNC()
+	end
+	return code
+end
+
+--<<System>>--
+function ClampIndex()
+	DSYN()
+	if CurrentlySelectedIndex > #SparklerDetail then
+		SwitchIndex(#SparklerDetail)
+	elseif CurrentlySelectedIndex < 0 then
+		SwitchIndex(0)
+	end
+end
+
+function Classic_Flagstand_Effect(Coordinate: CFrame?, Size: number?, Parent: Instance?, Amount: number?, Fade_Duration: number?, Colour: Color3?, Material: Enum.Material?, Motion: Vector3?, ShrinkOrExpand: ('Shrink' | 'Expand')?, Size_Rate: number?, Filter: {Instance?}?, Enable_Gravity: boolean?)
+	DSYN()
+	local RaycastParam = RaycastParams.new()
+	RaycastParam.RespectCanCollide = true
+	RaycastParam.IgnoreWater = true
+	RaycastParam.FilterType = Enum.RaycastFilterType.Exclude
+	if not Coordinate then Coordinate = Tool:GetPivot()end if not Size then Size = 5 end if not Parent then Parent = workspace end if not Amount then	Amount = 3 end if not Fade_Duration then Fade_Duration = 10 end if not Colour then Colour = Color3.new(1, 1, 1) end if not Material then Material = Enum.Material.Neon end if not Motion then Motion = Vector3.new() end if not ShrinkOrExpand then ShrinkOrExpand = 'Expand' end if not Size_Rate then Size_Rate = 1/4 end if Colour and typeof(Colour) == 'BrickColor' then Colour = Colour.Color end if not Filter then Filter = {} end
+	SYNC()
+	if Motion ~= Vector3.new() then
+		RaycastParam.FilterDescendantsInstances = {}
+		if Character then RaycastParam:AddToFilter(Character) end -- Character
+		RaycastParam:AddToFilter(Tool) -- Bat
+		RaycastParam:AddToFilter(Filter) -- Casted Instance
+		RaycastParam:AddToFilter(EffectInstance) -- Previous Effect
+		--[[for i,v in Filter do
+			RaycastParam:AddToFilter(v)
+		end]]
+	end
+	for i = 1,Amount do
+		SYNC()
+		local effect = Instance.new("FlagStand", Parent)
+		local coroute
+		local GravityStack = 0
+		local hit:RaycastResult?
+		local lastpos: Vector3? = Coordinate.Position or GenHandle.Position or Tool:GetPivot().Position
+		local corouteDis: RBXScriptConnection?
+		local breakApart = (Motion ~= Vector3.new() and Enable_Gravity and Vector3.new(Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1))) or Vector3.new()
+		effect.Size = (Size and Vector3.new(Size,Size,Size)) or Vector3.new(5,5,5)
+		effect.Anchored = true
+		effect.CanCollide = false
+		effect.CanTouch = false
+		effect.CanQuery = false
+		effect.CastShadow = false
+		effect.Color = Colour or Color3.new(1, 1, 1)
+		effect.CFrame = Coordinate or CFrame.new()
+		effect.Material = Material or Enum.Material.Neon
+		RaycastParam:AddToFilter(effect)
+		table.insert(EffectInstance, effect)
+		Debris:AddItem(effect, (Fade_Duration*0.05) * 1.05)
+		coroute = coroutine.create(function()
+			SYNC()
+			local altr = Fade_Duration
+			local lastamtick = tick()
+			while task.wait(.01) and altr > 0 do
+				DSYN()
+				local delta = tick() - lastamtick
+				local speed = 1 - .000001 ^ delta
+				altr = altr - delta
+				lastamtick = tick()
+				DSYN()
+				if effect then
+					SYNC()
+					--print('ea')
+					effect.CFrame = (effect.CFrame + (Motion/1.25 + breakApart/1.25) * speed )* CFrame.fromEulerAnglesYXZ(Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3)
+					effect.Transparency = effect.Transparency + 1 * speed/Fade_Duration
+					if ShrinkOrExpand == 'Expand' then
+						effect.Size = effect.Size + effect.Size * Size_Rate * speed/Fade_Duration  --Vector3.new((Size/10)/Fade_Duration,(Size/10)/Fade_Duration,(Size/10)/Fade_Duration)
+					elseif ShrinkOrExpand == 'Shrink' then
+						effect.Size = effect.Size - effect.Size * Size_Rate * speed/Fade_Duration
+					end
+				end
+				DSYN()
+				if not hit and Motion ~= Vector3.new() and Enable_Gravity then
+					DSYN()
+					hit = workspace:Raycast(effect.Position, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(effect.Position, -(Motion/1.25 + breakApart/1.25),RaycastParam) or workspace:Raycast(lastpos, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(lastpos, effect.Position - lastpos,RaycastParam) or workspace:Raycast(effect.Position,lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos - Motion, (effect.Position - lastpos) + Motion,RaycastParam) or workspace:Raycast(lastpos + Motion, (effect.Position - lastpos) - Motion,RaycastParam) or workspace:Raycast(lastpos, lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos + Motion, (lastpos - effect.Position) - Motion,RaycastParam) or workspace:Raycast(lastpos - Motion, (lastpos - effect.Position) + Motion,RaycastParam) or workspace:Raycast(lastpos,-Motion,RaycastParam) or workspace:Raycast(effect.Position,Motion,RaycastParam) or workspace:Raycast(lastpos,Motion,RaycastParam) or workspace:Raycast(effect.Position,-Motion,RaycastParam) or workspace:Raycast(effect.Position,effect.Position - lastpos,RaycastParam)
+					if hit then
+						if hit.Material == Enum.Material.Water then
+							if table.find(EffectInstance, effect) then
+								table.remove(EffectInstance, table.find(EffectInstance, effect))
+							end
+							SYNC()effect:Destroy()
+						else
+							SYNC()
+							local cloneeffect = effect:Clone()
+							RaycastParam:AddToFilter(cloneeffect)
+							if table.find(EffectInstance, effect) then
+								table.remove(EffectInstance, table.find(EffectInstance, effect))
+							end
+							table.insert(EffectInstance, cloneeffect)
+							effect:Destroy()
+							effect = nil
+							cloneeffect.Parent = workspace
+							cloneeffect.Shape = Enum.PartType.Cylinder
+							if hit.Instance:IsA("BasePart") then
+								if cloneeffect then
+									cloneeffect.Anchored = false
+								end
+								local w = Instance.new('Weld', cloneeffect)
+								w.Part1 = cloneeffect or hit.Instance
+								w.Part0 = hit.Instance or cloneeffect
+								w.C0 = hit.Instance.CFrame:ToObjectSpace(CFrame.new(hit.Position) * CFrame.Angles(math.rad(90),0,0)  * CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation + Vector3.new(0,0.01,0))
+								if w.Part1 == w.Part0 then
+									if cloneeffect then
+										cloneeffect.Anchored = true
+									end
+									if w then
+										w:Destroy()
+									end
+								else
+									if cloneeffect then
+										cloneeffect.Anchored = false
+									end
+								end
+							else
+								cloneeffect.Anchored = true 
+								cloneeffect.CFrame = CFrame.new(hit.Position) * CFrame.Angles(math.rad(90),0,0)  * CFrame.new(hit.Position,hit.Position + hit.Normal).Rotation
+							end
+							cloneeffect.Size = Vector3.new(0.01,cloneeffect.Size.X * 2 + ((cloneeffect.Size.X + cloneeffect.Size.Y) * cloneeffect.Size.Z) - 0.01,cloneeffect.Size.X * 2 + ((cloneeffect.Size.Y + cloneeffect.Size.Y) * cloneeffect.Size.Z) - 0.01)
+							if TweenService then
+								TweenService:Create(cloneeffect, TweenInfo.new(10 * (1 - cloneeffect.Transparency),Enum.EasingStyle.Sine,Enum.EasingDirection.Out),{Transparency = 1, Size = cloneeffect.Size * 0.75}):Play()
+							end
+							if Debris then Debris:AddItem(cloneeffect,10) task.delay(9, function() if table.find(EffectInstance, cloneeffect) then
+										table.remove(EffectInstance, table.find(EffectInstance, cloneeffect))
+									end end) end
+						end
+					elseif not hit then
+						DSYN()
+						lastpos = effect.Position
+						if Enable_Gravity then
+							if Motion.Y < (-0.5 * 25) then
+
+								Motion = Motion + Vector3.new(0,0.1,0) -- slow rec as it inverse accelerates
+								GravityStack = GravityStack - 1
+							else -- until gravity balanced out
+								Motion = Motion + Vector3.new(0,-0.25,0) -- high gain as it accelerates
+								GravityStack = GravityStack + 1
+							end	
+						end
+					end
+				elseif not hit and Motion ~= Vector3.new() and not Enable_Gravity then
+					hit = workspace:Raycast(effect.Position, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(effect.Position, -(Motion/1.25 + breakApart/1.25),RaycastParam) or workspace:Raycast(lastpos, Motion/1.25 + breakApart/1.25,RaycastParam) or workspace:Raycast(lastpos, effect.Position - lastpos,RaycastParam) or workspace:Raycast(effect.Position,lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos - Motion, (effect.Position - lastpos) + Motion,RaycastParam) or workspace:Raycast(lastpos + Motion, (effect.Position - lastpos) - Motion,RaycastParam) or workspace:Raycast(lastpos, lastpos - effect.Position,RaycastParam) or workspace:Raycast(lastpos + Motion, (lastpos - effect.Position) - Motion,RaycastParam) or workspace:Raycast(lastpos - Motion, (lastpos - effect.Position) + Motion,RaycastParam) or workspace:Raycast(lastpos,Motion,RaycastParam) or workspace:Raycast(effect.Position,-Motion,RaycastParam) or workspace:Raycast(effect.Position,effect.Position - lastpos,RaycastParam)
+					if hit and hit.Instance and hit.Material ~= Enum.Material.ForceField and (not hit.Instance:IsDescendantOf(Tool) or (Character and not hit.Instance:IsDescendantOf(Character))) then
+						Motion = calculateBounceAngle(Motion,hit)
+						if hit.Instance and hit.Instance:FindFirstAncestorOfClass('Model') and hit.Instance:FindFirstAncestorOfClass('Model'):FindFirstChildOfClass('Humanoid') then
+							SYNC()
+							hit.Instance:FindFirstAncestorOfClass('Model'):FindFirstChildOfClass('Humanoid').Health = hit.Instance:FindFirstAncestorOfClass('Model'):FindFirstChildOfClass('Humanoid').Health - hit.Instance:FindFirstAncestorOfClass('Model'):FindFirstChildOfClass('Humanoid').MaxHealth/150
+							DSYN()
+						end
+					end
+				end
+				DSYN()
+				if (i >= Fade_Duration) or (hit and Enable_Gravity) or not effect then
+					coroute = nil
+					if corouteDis then
+						SYNC()
+						corouteDis:Disconnect()
+						corouteDis = nil
+					end
+					if effect then
+						if table.find(EffectInstance, effect) then
+							table.remove(EffectInstance, table.find(EffectInstance, effect))
+						end
+						SYNC()
+						effect:Destroy()
+					end
+					break
+				end
+				DSYN()
+				if (i >= Fade_Duration) or not effect or (hit and Enable_Gravity) then
+					return
+				end
+			end
+		end)
+		coroutine.resume(coroute)
+		corouteDis = Tool.Destroying:Connect(function()
+			DSYN()
+			if coroute then
+				SYNC() coroutine.close(coroute)
+			end
+			DSYN()
+			if effect then
+				SYNC() effect:Destroy()
+			end
+		end)
+	end
+end
+
+function UpdateHandle()
+	SYNC()
+	Tool.Name = 'Sparkler(x'..#SparklerDetail..')['..CurrentlySelectedIndex..']'
+	if Handle == nil then
+		Handle = Instance.new('Part', Tool)
+		Handle.Name = 'Handle'
+		if GlowAttachment then
+			GlowAttachment:Destroy()
+			GlowAttachment = nil
+		end
+		if GlowLight then
+			GlowLight:Destroy()
+			GlowLight = nil
+		end
+		if GlowPart then
+			GlowPart:Destroy()
+			GlowPart = nil
+		end
+		if GlowLight_Weld then
+			GlowLight_Weld:Destroy()
+			GlowLight_Weld = nil
+		end
+		GlowAttachment = Instance.new('Attachment', Handle)
+		GlowLight = Instance.new('PointLight', GlowAttachment)
+		GlowLight.Shadows = true
+		GlowLight.Range = 0
+		GlowLight.Enabled = false
+		GlowLight.Brightness = 0
+	end
+	if not Handle then return end
+	if CurrentlySelectedIndex < 1 or not SparklerDetail[CurrentlySelectedIndex] then
+		Handle.Transparency = 1
+	elseif SparklerDetail and SparklerDetail[CurrentlySelectedIndex] then
+		Handle.Transparency = 0
+		Handle.Size = Vector3.new( 0.075, SparklerDetail[CurrentlySelectedIndex].Durabillity/40, 0.075)
+		Handle.Color = Color3.new(0.294118, 0.294118, 0.294118) or SparklerDetail[CurrentlySelectedIndex].FireColour
+		if GlowAttachment then
+			GlowAttachment.CFrame = CFrame.new(0,Handle.Size.Y/2,0)
+		else
+			GlowAttachment = Instance.new('Attachment', Handle)
+		end
+		if GlowLight then
+			GlowLight.Color = SparklerDetail[CurrentlySelectedIndex].FireColour
+		else
+			GlowLight = Instance.new('PointLight', GlowAttachment)
+			GlowLight.Shadows = true
+			GlowLight.Range = 0
+			GlowLight.Enabled = false
+			GlowLight.Brightness = 0
+			GlowLight.Color = SparklerDetail[CurrentlySelectedIndex].FireColour
+		end
+	end
+end
+
+function SwitchIndex(TargetIndex: number?)
+	SYNC()
+	Tool.Enabled = false
+	DSYN()
+	if not TargetIndex then
+		CurrentAnimation = 'Switching'
+		TargetIndex = CurrentlySelectedIndex + 1
+		if TargetIndex > #SparklerDetail then
+			TargetIndex = 0
+		end
+		
+	end
+	if SparklerDetail[CurrentlySelectedIndex] and SparklerDetail[CurrentlySelectedIndex].Lightened == true then
+		CurrentAnimation = 'Throw'
+		SYNC()
+		local Thrown = Handle:Clone()
+		Thrown:ClearAllChildren()
+		Thrown.CanCollide = true
+		Thrown.CFrame = Tool:GetPivot()
+		Thrown.Velocity = Character.PrimaryPart.CFrame.LookVector * 20
+		Thrown.Parent = workspace
+		DSYN()
+		--Thrown away, Discarded due to already being lit
+		table.remove(SparklerDetail,CurrentlySelectedIndex)
+		task.wait(0.1)
+	end
+	task.wait(0.1)
+	CurrentAnimation = 'Idle'
+	CurrentlySelectedIndex = TargetIndex
+	SYNC()
+	UpdateHandle()
+	Tool.Enabled = true
+end
+
+function AddToInventory(Origin: Instance?, FireColour: Color3?, OriginalOwner: string?, HolderList: string?, Lightened: boolean?, Durabillity: number?)
+	--DSYN()
+	local InfoTable = {
+		Origin = Origin or script:GetAttribute('Origin') or Tool,
+		FireColour = FireColour or script:GetAttribute('FireColour') or Colour,
+		OriginalOwner = OriginalOwner or script:GetAttribute('OriginalOwner') or "Yourself",
+		HolderList = HolderList or script:GetAttribute('HolderList') or '',
+		Lightened = Lightened or script:GetAttribute('Lightened') or false,
+		Durabillity = Durabillity or script:GetAttribute('Durabillity') or DurabillityPerStick,
+	}
+	table.insert(SparklerDetail, InfoTable)
+end
+
+if not script:GetAttribute('Clone') and not script:GetAttribute('NewInstance') then
+	for i = 1, Amountleft do
+		DSYN()
+		AddToInventory()
+		if Amountleft == 1 and SparklerDetail[1].Lightened == true then
+			SwitchIndex(1)
+		end
+	end
+else
+	if not script:FindFirstAncestorWhichIsA('Actor') then
+		local newactor = Instance.new('Actor', Tool)
+		newactor.Name = 'Sparkler_Actor'
+		script.Parent = newactor
+		if not Handle and not script.Parent.Parent:FindFirstChild('Handle') and not Tool:FindFirstChild('Handle') and not FindFirstChildOfNameAndClass(Tool, 'Handle', 'BasePart') then
+			SYNC()
+			local NewHandle = Instance.new('Part', Tool)
+			NewHandle.Name = 'Handle'
+			Handle = NewHandle
+		end
+		AddToInventory()
+		for i,v in pairs(script:GetAttributes()) do
+			script:SetAttribute(i, nil)
+		end
+	end
+end
+
+InfoDropper = FindFirstChildOfNameAndClass(Tool, 'InfoDropbox', 'Folder')
+if not InfoDropper and not FindFirstChildOfNameAndClass(Tool, 'InfoDropbox', 'Folder') and GiftingPermission then
+	SYNC()
+	local StickInfoTransmitter = Instance.new("Folder", Tool)
+	StickInfoTransmitter.Name = 'InfoDropbox'
+	if GivenInfoConnection then
+		SYNC()
+		GivenInfoConnection:Disconnect()
+		GivenInfoConnection = nil
+	end
+	SYNC()
+	InfoDropper = StickInfoTransmitter
+end
+
+if InfoDropper then
+	function Receive(Added: Color3Value)
+		if not Added then return end
+		CurrentAnimation = 'Receiving'
+		AddToInventory(Added or script:GetAttribute('Origin') or Tool or workspace, Added.Value or Added:GetAttribute('FireColour'), Added:GetAttribute('OriginalOwner') or 'Somebody Else', Added:GetAttribute('HolderList') or '[REDACTED] ', Added:GetAttribute('Lightened') or true, Added:GetAttribute('Durabillity') or 100)
+		CurrentAnimation = (Equipped and (GivenRequestCountdown < 0 and 'Handing') or 'Idle') or 'Null'
+		SYNC()
+		Added:Destroy()
+		if Added:GetAttribute('Lightened') and Added:GetAttribute('Lightened') == true then
+			DSYN()
+			SwitchIndex(#SparklerDetail)
+		end
+	end
+	coroutine.resume(coroutine.create(function()
+		for i,v in InfoDropper:GetChildren() do
+			Receive(v)
+		end
+	end))
+	GivenInfoConnection = InfoDropper.ChildAdded:Connect(function(Added)
+		DSYN()
+		if Added and Added:IsA('Color3Value') then
+			Receive(Added)
+		end
+	end)
+end
+
+function CancelRequest()
+	DSYN()
+	CurrentAnimation = 'Idle'
+	GivingRequestTick = tick()
+	if GivenCharacter then
+		GivenCharacter = nil
+	end
+	if not RequestCoroutine then return end
+	DSYN()
+	if GivenDeclineRequestConnection then
+		pcall(function()
+			SYNC()
+			GivenDeclineRequestConnection:Disconnect()
+			GivenDeclineRequestConnection = nil
+		end)
+	end
+	DSYN()
+	if GivenAcceptRequestConnection then
+		pcall(function()
+			SYNC()
+			GivenAcceptRequestConnection:Disconnect()
+			GivenAcceptRequestConnection = nil
+		end)
+	end
+	DSYN()
+	if GivenRequestCountdown > 0 then
+		GivenRequestCountdown = 0
+	end
+	if GivenAcceptOption then
+		pcall(function()SYNC()
+		GivenAcceptOption:Destroy()
+		GivenAcceptOption = nil	 end)
+	end
+	if GivenDeclineOption then
+		--GivenDeclineOption:Destroy()
+		GivenDeclineOption = nil
+	end
+	DSYN()
+	if RequestCoroutine then
+		SYNC()
+		pcall(function() coroutine.close(RequestCoroutine) end)	
+		RequestCoroutine = nil
+	end
+	DSYN()
+	ClampIndex()
+end
+
+function Export_Current_Detail(Exporter: Instance)
+	DSYN()
+	if not Exporter then return end
+	SYNC()
+	Exporter:SetAttribute('FireColour', SparklerDetail[CurrentlySelectedIndex].FireColour)
+	Exporter:SetAttribute('HolderList', SparklerDetail[CurrentlySelectedIndex].HolderList..Character.Name)
+	Exporter:SetAttribute('OriginalOwner', SparklerDetail[CurrentlySelectedIndex].OriginalOwner)
+	Exporter:SetAttribute('Origin', SparklerDetail[CurrentlySelectedIndex].Origin:GetFullName())
+	Exporter:SetAttribute('Durabillity', SparklerDetail[CurrentlySelectedIndex].Durabillity)
+	Exporter:SetAttribute('Lightened', SparklerDetail[CurrentlySelectedIndex].Lightened)
+end
+
+function Light_Up(Thing: BasePart | Attachment, Size: number?, Referral_Directory: string?) -- Used For Litened up Lighter/sparkler
+	DSYN()
+	--Lighter EFfect By Yours Truly
+	if not Thing then
+		return
+	end
+	if not Size then
+		Size = (Thing:IsA('BasePart') and Thing.Size.X) or 0.1
+	end
+	if not Referral_Directory then
+		Referral_Directory = GenerateKeycode()
+		if SparklerEffectCoroutine[Referral_Directory] then
+			repeat 
+				Referral_Directory = GenerateKeycode()
+				if not SparklerEffectCoroutine[Referral_Directory] then
+					break
+				end
+			until not SparklerEffectCoroutine[Referral_Directory]
+		end
+	else
+		if SparklerEffectCoroutine[Referral_Directory] then
+			SYNC()
+			coroutine.close(SparklerEffectCoroutine[Referral_Directory])
+		end
+	end
+	SYNC()
+	local LightBall = Instance.new('Part',Thing)
+	LightBall.Shape = Enum.PartType.Ball
+	LightBall.Anchored = true
+	LightBall.Material = Enum.Material.Neon
+	LightBall.CanCollide = false
+	LightBall.CanTouch = false
+	LightBall.CanQuery = false
+	LightBall.Color = Color3.new(1,1,1)
+	LightBall.Size = Vector3.new(math.random(90,110)/100,math.random(5,10)/100,math.random(90,110)/100)
+	local LightBall2 = Instance.new('Part',Thing)
+	LightBall2.Shape = Enum.PartType.Ball
+	LightBall2.Anchored = true
+	LightBall2.Material = Enum.Material.ForceField
+	LightBall2.CanCollide = false
+	LightBall2.CanTouch = false
+	LightBall2.CanQuery = false
+	LightBall2.Transparency = 0.5
+	LightBall2.Color = Color3.new(1,1,1)
+	LightBall2.Size = Vector3.new(math.random(90,110)/100,math.random(5,10)/100,math.random(90,110)/100) * 2
+	local Light = Instance.new('PointLight', Thing)
+	Light.Shadows = true
+	local TriggerEndKey = true -- Switch To End The Fire Effect
+	local WorldposOrCF = Thing:IsA('BasePart') and 'CFrame' or 'WorldPos'
+	Classic_Flagstand_Effect(CFrame.new((WorldposOrCF == 'WorldPos' and Thing.WorldPosition) or Thing.Position), Size/5 + math.random(90,110)/100 * Size/8, workspace or Thing, math.random(5,10), 20, Color3.new(1,1,0), Enum.Material.Neon, Vector3.new(0,Size * 2, 0), 'Shrink', 1, {Thing}, true)
+	local Coroute: thread = coroutine.create(function()
+		while TriggerEndKey == true and Thing and (Thing:IsA('BasePart') or Thing.Parent:IsA('Terrain') or Thing.Parent:IsA('BasePart')) and Thing.Parent ~= nil and task.wait(0.05) do
+			DSYN()
+			local StartC = CFrame.new((WorldposOrCF == 'WorldPos' and Thing.WorldPosition) or Thing.Position)
+			local C1 = Color3.new(math.random(155,255),math.random(20,75),math.random(2,15))
+			local C2 = Color3.new(math.random(155,255),math.random(15,155),math.random(2,15))
+			local Vec = (Thing:IsA('Attachment') and Thing.Parent or Thing).CFrame.UpVector.Unit * 0.4
+			local C3 = Color3.new(math.random(10,25),math.random(10,25),math.random(25,155))
+			local C4 = Color3.new(math.random(155,255),math.random(15,155),math.random(2,15))
+			local C5 = Color3.new(math.random(155,255),math.random(15,155),math.random(2,15))
+			local Random0 = (math.random(90,110)/100)
+			local Random1 = (math.random(90,110)/100) * Size
+			local Random2 = (math.random(90,110)/100) * Size
+			local Random3 = (math.random(90,110)/100) * Size
+			local S1 = Vector3.new(math.random(90,110)/100,math.random(90,110)/100,math.random(90,110)/100)
+			local S2 = Vector3.new(math.random(90,110)/100,math.random(90,110)/100,math.random(90,110)/100) * 2
+			SYNC()
+			Classic_Flagstand_Effect(StartC, Size + math.random(90,110)/100 * Size, Thing, math.random(2,4), 10, C1, Enum.Material.ForceField, Vec, 'Shrink', 0.75 ^ Size, {Thing}, false)
+			Classic_Flagstand_Effect(StartC , Size + math.random(80,120)/100 * Size, Thing, math.random(1,2), 6, C2, Enum.Material.Neon, nil, 'Expand', Size)
+			Light.Range = Random0 * 8
+			Light.Color = C3
+			Light.Brightness  = Random1/1000
+			LightBall.Size = S1
+			LightBall.CFrame = StartC
+			LightBall.Color = C4
+			LightBall.Transparency = 1 - Random2
+			LightBall2.Size = S2 
+			LightBall2.CFrame = StartC
+			LightBall2.Color = C5
+			LightBall2.Transparency = 1 - Random3
+		end
+		if LightBall then	LightBall:Destroy() end
+		if LightBall2 then	LightBall2:Destroy() end
+		if Light then	Light:Destroy() end
+	end)
+	coroutine.resume(Coroute)
+	DSYN()
+	SparklerEffectCoroutine[Referral_Directory] = Coroute
+	return TriggerEndKey, SparklerEffectCoroutine[Referral_Directory]
+end
+
+function Gift_Request(Target_Character: Model?)
+	DSYN()
+	if CurrentlySelectedIndex <= 0 or not SparklerDetail[CurrentlySelectedIndex] then
+		return
+	end
+	if Target_Character == Character then
+		return
+	end
+	CancelRequest()
+	local CurrentTick = EquipTick
+	CurrentTick = tick()
+	if Target_Character and not Target_Character:FindFirstChildOfClass('Tool') and not Target_Character:FindFirstChildOfClass('Flag') then
+		GivenCharacter = Target_Character
+		GivingRequestTick = CurrentTick
+		ActionTick = CurrentTick
+		SYNC()
+		CurrentAnimation = 'Giving'
+		GivenAcceptOption = Instance.new('Flag', Target_Character)
+		GivenDeclineOption = Tool --Instance.new('Flag', Character)
+		GivenAcceptOption.Name = 'Accept'
+	--	GivenDeclineOption.Name = 'Deny'
+		GivenDeclineOption.ToolTip = 'Unequip To Cancel Request'
+		GivenAcceptOption.ToolTip = 'Unequip To Accept Gift'
+		--Debris:AddItem(GivenDeclineOption,9.9)
+		Debris:AddItem(GivenAcceptOption,10)
+		GivenAcceptRequestConnection = GivenAcceptOption.AncestryChanged:Once(function()
+			if (tick() - CurrentTick) >= 9.99 or ((Target_Character:FindFirstChildOfClass('Tool') or Target_Character:FindFirstChildOfClass('Flag')) and (Target_Character:FindFirstChildOfClass('Tool') or Target_Character:FindFirstChildOfClass('Flag')) ~= GivenAcceptOption) then
+				if Tool then SYNC() Tool.ToolTip = 'Denied' end
+				return
+			end
+			CurrentAnimation = 'Handing'
+			if Tool then Tool.ToolTip = 'Accepted' end
+			if Players:GetPlayerFromCharacter(Target_Character) then
+				if Players:GetPlayerFromCharacter(Target_Character):FindFirstChildOfClass('Backpack') and Players:GetPlayerFromCharacter(Target_Character):FindFirstChildOfClass('Backpack'):FindFirstChild('Sparkler') and Players:GetPlayerFromCharacter(Target_Character):FindFirstChildOfClass('Backpack'):FindFirstChild('Sparkler'):FindFirstChild('InfoDropbox') then
+					local Dropbox = Players:GetPlayerFromCharacter(Target_Character):FindFirstChildOfClass('Backpack'):FindFirstChild('Sparkler'):FindFirstChild('InfoDropbox')
+					local NewValue = Instance.new('Color3Value')
+					Export_Current_Detail(NewValue)
+					NewValue.Parent = Dropbox
+				else
+					if FindFirstChildOfNameAndClass(Target_Character, 'Sparkler', Tool.ClassName) then
+						local Dropbox = FindFirstChildOfNameAndClass(Target_Character, 'Sparkler', Tool.ClassName):FindFirstChild('InfoDropbox')
+						local NewValue = Instance.new('Color3Value')
+						Export_Current_Detail(NewValue)
+						NewValue.Parent = Dropbox
+					else
+						DSYN()
+						local Clone = script:Clone()
+						Clone:SetAttribute('Clone', true)
+						Clone:SetAttribute('NewInstance', true)
+						Clone:SetAttribute('AmountLeft', 1)
+						Export_Current_Detail(Clone)
+						local newTool: (Tool | Flag)? = Instance.new(Tool.ClassName) or Tool:Clone()
+						newTool.Parent = Debris
+						newTool:ClearAllChildren()
+						if newTool then
+							newTool.ToolTip = 'Gift From '..Character.Name
+							newTool.Name = 'Sparkler'
+							newTool.RequiresHandle = false
+							local Info_Box = Instance.new('Folder', newTool)
+							Info_Box.Name = 'InfoDropbox'
+							local Value = Instance.new('Color3Value', Debris)
+							Export_Current_Detail(Value)
+							Value.Parent = Info_Box
+							local Act = Instance.new('Actor', newTool) Act.Name = 'ACTOR_TEMP'
+							newTool.CanBeDropped = false
+							Clone.Parent = Act
+							newTool.Parent = Target_Character or Debris
+							if newTool.Parent == Debris then newTool:Destroy() end
+						end
+					end
+				end
+			else
+				if FindFirstChildOfNameAndClass(Target_Character, 'Sparkler', Tool.ClassName) then
+					local Dropbox = FindFirstChildOfNameAndClass(Target_Character, 'Sparkler', Tool.ClassName):FindFirstChild('InfoDropbox')
+					local NewValue = Instance.new('Color3Value')
+					Export_Current_Detail(NewValue)
+					NewValue.Parent = Dropbox
+				else
+					SYNC()
+					local Clone = script:Clone()
+					Clone:SetAttribute('Clone', true)
+					Clone:SetAttribute('NewInstance', true)
+					Clone:SetAttribute('AmountLeft', 1)
+					Export_Current_Detail(Clone)
+					local newTool: (Tool | Flag)? = Instance.new(Tool.ClassName) or Tool:Clone()
+					newTool.Parent = Debris
+					newTool:ClearAllChildren()
+					if newTool then
+						newTool.ToolTip = 'Gift From '..Character.Name
+						newTool.Name = 'Sparkler'
+						newTool.RequiresHandle = false
+						local Info_Box = Instance.new('Folder', newTool)
+						Info_Box.Name = 'InfoDropbox'
+						local Value = Instance.new('Color3Value', Debris)
+						Export_Current_Detail(Value)
+						Value.Parent = Info_Box
+						Value:SetAttribute('OriginalOwner', Character.Name)
+						local Act = Instance.new('Actor', newTool) Act.Name = 'ACTOR_TEMP'
+						newTool.CanBeDropped = false
+						Clone.Parent = Act
+						newTool.Parent = Target_Character or Debris
+						if newTool.Parent == Debris then newTool:Destroy() end
+					end
+				end
+			end
+			CancelRequest()
+			ClampIndex()
+			UpdateHandle()
+			table.remove(SparklerDetail,CurrentlySelectedIndex)
+		end)
+		GivenDeclineRequestConnection = GivenDeclineOption.AncestryChanged:Once(function()
+			CurrentAnimation = 'Idle'
+			if Tool then Tool.ToolTip = 'Cancelled' end
+			CancelRequest()
+		end)
+		RequestCoroutine = coroutine.create(function()
+			DSYN()
+			GivenRequestCountdown = GiftingRequestTimeout
+			while GivenCharacter == Target_Character and not Target_Character:FindFirstChildOfClass('Tool') and EquipTick <= GivingRequestTick and GivenDeclineOption and GivenAcceptOption and Target_Character and Character and Equipped and (Character:GetPivot().Position - Target_Character:GetPivot().Position).Magnitude <= 10 and GivingRequestTick == CurrentTick and GivenRequestCountdown > 0 and task.wait(0.1) do
+				DSYN()
+				GivenRequestCountdown = GiftingRequestTimeout - (tick() - CurrentTick)
+				if Tool then if CapturedTime > 0 and Active then SYNC() Tool.ToolTip = 'Requesting['..GivenRequestCountdown..']('..CapturedTime..')' else SYNC() Tool.ToolTip = 'Requesting['..GivenRequestCountdown..']' end end
+				DSYN() if GivenDeclineOption then SYNC()	GivenDeclineOption.ToolTip = 'Unequip To Decline Gift[Auto Decline In:'..GivenRequestCountdown..']' end
+			end
+			if Tool then SYNC() Tool.ToolTip = 'Denied' end
+			CancelRequest()
+		end)
+		if EquipTick <= GivingRequestTick and GivingRequestTick == CurrentTick then
+			SYNC()
+			coroutine.resume(RequestCoroutine)
+		end
+	end
+end
+
+function FindNearby()
+	DSYN()
+	if not Character then return end
+	local ClosestTarget
+	local ClosestDis = 10
+	for i,v in workspace:GetDescendants() do
+		DSYN()
+		if v:FindFirstChildOfClass("Humanoid") and v:FindFirstChildOfClass("Humanoid").Health > 0 and v:IsA("Model") then
+			if FindFirstChildOfNameAndClass(v,"Head","BasePart") ~= nil and Character and FindFirstChildOfNameAndClass(Character,"Head","BasePart") and FindFirstChildOfNameAndClass(Character,"Head","BasePart").CFrame.LookVector:Dot (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - FindFirstChildOfNameAndClass(Character,"Head","BasePart").Position) >= -0.1 then
+				local Parameter = RaycastParams.new()
+				Parameter.IgnoreWater = true
+				Parameter.RespectCanCollide = true
+				Parameter.FilterType = Enum.RaycastFilterType.Exclude
+				SYNC()
+				Parameter.FilterDescendantsInstances = {Character, v}
+				DSYN()
+				if not workspace:Raycast(Handle.Position,FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Handle.Position, Parameter) and not workspace:Raycast(FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Handle.Position - FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Parameter) and (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Handle.Position).Magnitude < ClosestDis and v ~= Character then
+					ClosestTarget = v
+					ClosestDis = (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Handle.Position).Magnitude
+				end
+			end 
+		end
+	end
+	return ClosestTarget
+end
+
+function Tool_Activation()
+	DSYN()
+	Active = true
+	local CurrentTick = EquipTick
+	CurrentTick = tick()
+	ActionTick = CurrentTick
+	if EquipTick > ActionTick or ActionTick ~= CurrentTick then --Unequipped Or Overlap
+		return
+	end
+	if ToolTimeCapturerCoroutine then
+		SYNC()
+		coroutine.close(ToolTimeCapturerCoroutine)
+		ToolTimeCapturerCoroutine = nil
+	end
+	ToolTimeCapturerCoroutine = coroutine.create(function()
+		DSYN()
+		CapturedTime = 0
+		TimerStarted = CurrentTick
+		while TimerStarted == CurrentTick and CapturedTime <= 10 and Active and ActionTick == CurrentTick and Equipped and EquipTick <= ActionTick and task.wait(0.1) do
+			DSYN()
+			if ActionTick == CurrentTick and TimerStarted == CurrentTick then	CapturedTime = tick() - TimerStarted if GivenCharacter then SYNC() Tool.ToolTip = 'Requesting['..GivenRequestCountdown..']('..CapturedTime..')' else SYNC() Tool.ToolTip = CapturedTime end end
+		end --max activation time is 10, don't wanna slowdown the server longer than that
+	end)
+	DSYN()
+	if EquipTick > ActionTick or ActionTick ~= CurrentTick then
+		return
+	end
+	if ToolTimeCapturerCoroutine and ActionTick == CurrentTick then SYNC()	coroutine.resume(ToolTimeCapturerCoroutine) end
+end
+
+function Tool_Deactivation()
+	DSYN()
+	if not Active or not Equipped or not Character then
+		Active = false
+		return
+	end
+	Active = false
+	local CurrentTick = EquipTick
+	CurrentTick = tick()
+	ActionTick = CurrentTick
+	if ActionTick < EquipTick or ActionTick ~= CurrentTick or not Equipped or Active or TimerStarted > CurrentTick then
+		return
+	else
+		TimerStarted = tick()
+		if	ToolTimeCapturerCoroutine  then
+			SYNC()
+			coroutine.close(ToolTimeCapturerCoroutine)
+			ToolTimeCapturerCoroutine = nil
+		end
+		SYNC()
+		Tool.ToolTip = 0
+	end
+	DSYN()
+	if EquipTick > CurrentTick then
+		return
+	end
+	if GivenRequestCountdown > 0 then
+		if CapturedTime >= 5 then
+			-- None
+		elseif CapturedTime >= 1 then
+			if EquipTick > CurrentTick then
+				return
+			end
+			CancelRequest()
+		end
+	else
+		if CapturedTime >= 5 then
+			--Cancel
+		elseif CapturedTime >= 3 then
+			if EquipTick > CurrentTick then
+				return
+			end
+			UpdateHandle()
+		elseif CapturedTime >= 2 then
+			if EquipTick > CurrentTick then
+				return
+			end
+			local Target = FindNearby()
+			if Target ~= nil then
+				if EquipTick > CurrentTick then
+					return
+				end
+				Gift_Request(Target)
+			else
+
+			end
+		elseif CapturedTime >= 1 and SparklerDetail[CurrentlySelectedIndex] and SparklerDetail[CurrentlySelectedIndex].Lightened == false then
+			DSYN()
+			local Torso: BasePart? = Character and FindFirstChildOfNameAndClass(Character, 'UpperTorso', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Torso', 'BasePart')
+			local Alt_Arm: BasePart? = Character and FindFirstChildOfNameAndClass(Character, 'LeftHand', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Left Arm', 'BasePart')
+			if not Alt_Arm or not Character or not CharacterInventory or CurrentlySelectedIndex <= 0 or not CurrentlySelectedIndex or not SparklerDetail[1] then return end
+			HasFireSource = ForceFireSourceAsTrue or FindFirstChildOfNameAndClass(Character,'Lighter','Tool') or FindFirstChildOfNameAndClass(Character,'Lighter','FireMatch') or (CharacterInventory ~= nil and (FindFirstChildOfNameAndClass(CharacterInventory,'Lighter','Tool') or FindFirstChildOfNameAndClass(CharacterInventory,'Lighter','FireMatch')))
+			if not HasFireSource or ActionTick < EquipTick or ActionTick ~= CurrentTick then return end
+			if HasFireSource and CurrentlySelectedIndex > 0 and Equipped then
+				local Container: Instance? = Character
+				if EquipTick > CurrentTick then
+					return
+				end
+				if typeof(HasFireSource) == 'Instance' and HasFireSource:IsA('Tool') then
+					SYNC()
+					local AltToolHandle = FindFirstChildOfNameAndClass(HasFireSource, 'Handle', 'BasePart')
+					if AltToolHandle then
+						Container = AltToolHandle
+						local AltHandle = AltToolHandle:Clone()
+						local AltHandWeld = Instance.new('Weld', AltHandle)
+						AltHandle.Parent = Character
+						AltHandWeld.Part1 = AltHandle
+						AltHandWeld.Part0 = Alt_Arm
+						AltHandWeld.C0 = CFrame.new(-Alt_Arm.Size.X/2, Alt_Arm.Size.Y/2, -Alt_Arm.Size.Z/2)
+						-- Function To Light The Candle
+						CurrentAnimation = 'Lighting'
+						SYNC()
+						Tool.Enabled = false
+						task.wait(0.3)
+						if EquipTick <= CurrentTick then
+							if SparklerDetail[CurrentlySelectedIndex] then
+								SparklerDetail[CurrentlySelectedIndex].Lightened = true
+							end
+						end
+						SYNC()
+						Tool.Enabled = true
+						CurrentAnimation = 'Idle'
+					else
+						Container = nil
+						HasFireSource:Destroy()
+					end
+				else
+					SYNC()
+					--Poorly Designed Lighter, Will make a Seperate Tool bout dis soon
+					local GenHandle = Instance.new('Part', Character)
+					GenHandle.Name = 'Lighter'
+					Container = GenHandle
+					local GenFlicker = Instance.new('Part', GenHandle)
+					local GenHandleFiller = Instance.new('Part', GenHandle)
+					local GenFillerWeld = Instance.new('Weld', GenHandleFiller)
+					local GenFlickerWeld = Instance.new('Weld', GenFlicker)
+					local GenHandlerWeld = Instance.new('Weld', GenHandle)
+					local GenFireHandleAttach = Instance.new('Attachment', GenHandle)
+					GenHandle.Color = Color3.new(0.666667, 0.333333, 0)
+					GenFlicker.Color = Color3.new(0.666667, 0.333333, 0)
+					GenHandleFiller.Color = Color3.new(0.596078, 0.596078, 0.596078)
+					GenHandleFiller.Material = Enum.Material.Metal
+					GenHandle.Material = Enum.Material.Wood
+					GenFlicker.Material = Enum.Material.Wood
+					GenHandle.Size = Vector3.new( 0.2, 0.6, 0.5)
+					GenFlicker.Size = Vector3.new( 0.2, 0.2, 0.5)
+					GenHandleFiller.Size = GenHandle.Size/1.2
+					GenFillerWeld.Part0 = GenHandle
+					GenFillerWeld.Part1 = GenHandleFiller
+					GenFillerWeld.C0 = CFrame.new( 0, GenHandle.Size.Y/1.75 - GenHandleFiller.Size.Y/2, 0)
+					GenFlickerWeld.Part0 = GenHandle
+					GenFlickerWeld.Part1 = GenFlicker
+					GenFlickerWeld.C0 = CFrame.new( 0, GenHandle.Size.Y/2 + GenFlicker.Size.Y/2, 0)
+					GenHandlerWeld.Part1 = GenHandle
+					GenHandlerWeld.Part0 = Alt_Arm
+					GenHandlerWeld.C0 = CFrame.new(Alt_Arm.Size.X/2, -Alt_Arm.Size.Y/2, -Alt_Arm.Size.Z/2 + GenHandle.Size.Y/2) * CFrame.Angles(math.rad(-90),0,0)
+					GenFireHandleAttach.CFrame = CFrame.new( 0, GenHandle.Size.Y/2, -GenHandle.Size.Z/4)
+					-- Function To Light The Candle
+					CurrentAnimation = 'Lighting'
+					SYNC()
+					Tool.Enabled = false
+					Classic_Flagstand_Effect(GenFireHandleAttach.WorldCFrame, 0.05 , workspace, math.random(5,10), 4, Color3.new(0.435294, 0.219608, 0), Enum.Material.Neon, Vector3.new(0,-2, 0), 'Shrink', 1, {Character}, true)
+					TweenService:Create(GenFlickerWeld, TweenInfo.new(math.random(5,15)/25), {C0 = CFrame.new( 0, GenHandle.Size.Y/2 + GenFlicker.Size.Y/2, GenHandle.Size.Z/2) * CFrame.Angles(math.rad(75),0,0)}):Play()
+					task.wait(math.random(5,15)/20)
+					Classic_Flagstand_Effect(GenFireHandleAttach.WorldCFrame, 0.3 , workspace, math.random(3,7), 20, Color3.new(1, 1, 1), Enum.Material.Neon, Vector3.new(0,GenHandle.CFrame.UpVector * 0.3 * 2, 0), 'Shrink', 1, {Character}, true)
+					DSYN()
+					local LightKey, Directory = Light_Up(GenFireHandleAttach, nil, 'Lighter')
+					task.wait(math.random(20,40)/50)
+					LightKey = false
+					if Directory then
+						SYNC()
+						coroutine.close(Directory)
+					end
+					if EquipTick <= CurrentTick then
+						if SparklerDetail[CurrentlySelectedIndex] then
+							SparklerDetail[CurrentlySelectedIndex].Lightened = true
+						end
+					end
+					SYNC()
+					Tool.Enabled = true
+					CurrentAnimation = 'Idle'
+					SYNC()
+					GenHandle:Destroy()
+				end
+			end
+		else
+			SwitchIndex()
+		end
+	end
+	DSYN()
+	if ActionTick ~= CurrentTick then --Overlap
+		return
+	end
+	CapturedTime = 0
+end
+
+function Tool_Equipped()
+	DSYN()
+	Character = Tool:FindFirstAncestorWhichIsA('Model')
+	if not Character then return end
+	DSYN()
+	--[[if Character and not table.find(HadFixed, Character) then
+		coroutine.resume(coroutine.create(function()
+			for i,v in Character:GetDescendants() do
+				DSYN()
+				if v.Name == 'RightGripAttachment' and v.CFrame ~= CFrame.new(v.CFrame.Position) * CFrame.Angles(math.rad(-90),0,0) then
+					SYNC()
+					v.CFrame = CFrame.new(v.CFrame.Position) * CFrame.Angles(math.rad(-90),0,0)
+					DSYN()
+				end
+			end
+			table.insert(HadFixed, Character)
+		end))
+	end]]
+	if not table.find(HadFixed, Character) and Character:FindFirstChildOfClass('Humanoid') and Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+		coroutine.resume(coroutine.create(function()
+			for i,v in Character:GetDescendants() do
+				if v.Name == 'RightGripAttachment' and v.CFrame ~= (CFrame.new(v.CFrame.Position) * CFrame.Angles(math.rad(-90),0,0)) then
+					v.CFrame = CFrame.new(v.CFrame.Position) * CFrame.Angles(math.rad(-90),0,0)
+				end
+			end
+			table.insert(HadFixed, Character)
+		end))
+	else
+		table.insert(HadFixed, Character)
+	end
+	SYNC()
+	if Players:GetPlayerFromCharacter(Character) then
+		CharacterInventory = Players:GetPlayerFromCharacter(Character):FindFirstChildOfClass('Backpack')
+	else
+		CharacterInventory = FindFirstChildOfNameAndClass(Character,'Backpack','Backpack') or FindFirstChildOfNameAndClass(Character,'Inventory','Backpack') or FindFirstChildOfNameAndClass(Character,'Backpack','Folder') or FindFirstChildOfNameAndClass(Character,'Inventory','Folder')
+	end
+	DSYN()
+	CurrentAnimation = 'Idle'
+	local ThisEquipTick = EquipTick
+	ThisEquipTick = tick()
+	LastAnimTick = tick()
+	Equipped = true
+	ActionTick = ThisEquipTick
+	AnimTick = ThisEquipTick
+	EquipTick = ThisEquipTick
+	UpdateHandle()
+	DSYN()
+	local Torso: BasePart? = Character and FindFirstChildOfNameAndClass(Character, 'UpperTorso', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Torso', 'BasePart')
+	local Left_Arm: BasePart? = Character and FindFirstChildOfNameAndClass(Character, 'LeftUpperArm', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Left Arm', 'BasePart')
+	local Right_Arm: BasePart? = Character and FindFirstChildOfNameAndClass(Character, 'RightUpperArm', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Right Arm', 'BasePart')
+	local LeftArmDefaultOffset = CFrame.new(-Torso.Size.X/1.35,0,0)
+	local RightArmDefaultOffset = CFrame.new(Torso.Size.X/1.35,0,0)
+	if not Left_Arm_Weld then
+		SYNC()
+		Left_Arm_Weld = Instance.new("Weld", Character)
+		Left_Arm_Weld.Name = 'LeftShoulder'
+		Left_Arm_Weld.Part0 = Torso
+		Left_Arm_Weld.Part1 = Left_Arm
+	else
+		SYNC()
+		Left_Arm_Weld.Parent = Character
+		Left_Arm_Weld.Part0 = Torso
+		Left_Arm_Weld.Part1 = Left_Arm
+	end
+	if not Right_Arm_Weld then
+		SYNC()
+		Right_Arm_Weld = Instance.new("Weld", Character)
+		Right_Arm_Weld.Name = 'RightShoulder'
+		Right_Arm_Weld.Part0 = Torso
+		Right_Arm_Weld.Part1 = Right_Arm
+	else
+		SYNC()
+		Right_Arm_Weld.Parent = Character
+		Right_Arm_Weld.Part0 = Torso
+		Right_Arm_Weld.Part1 = Right_Arm
+	end
+	if ToolAnimationCoroutine then
+		SYNC()
+		coroutine.close(ToolAnimationCoroutine)
+		ToolAnimationCoroutine = nil
+	end
+	SYNC()
+	ToolAnimationCoroutine = coroutine.create(function()
+		--print('animed')
+		while ThisEquipTick == AnimTick and CurrentAnimation ~= nil and Left_Arm_Weld and Left_Arm_Weld.Parent ~= nil and Right_Arm_Weld and Right_Arm_Weld.Parent ~= nil and task.wait(0.05) do
+			DSYN()
+			local DT = tick() - LastAnimTick
+			LastAnimTick = tick()
+			local LerpSpeed = 1 - (0.0000001 ^ DT)
+			if not Left_Arm_Weld or not Right_Arm_Weld then
+				return
+			end
+			if CurrentlySelectedIndex <= 0 or SparklerDetail[CurrentlySelectedIndex] == nil then
+				SYNC()
+				Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset, LerpSpeed)
+				Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset, LerpSpeed)
+				DSYN()
+				if AreCFramesLooselyEqual(Left_Arm_Weld.C0, LeftArmDefaultOffset) then
+					if Left_Arm_Weld.Enabled == true then	SYNC()Left_Arm_Weld.Enabled = false end
+				else
+					if Left_Arm_Weld.Enabled == false then	SYNC()Left_Arm_Weld.Enabled = true end
+				end
+				if AreCFramesLooselyEqual(Right_Arm_Weld.C0, RightArmDefaultOffset) then
+					if Right_Arm_Weld.Enabled == true then	SYNC()Right_Arm_Weld.Enabled = false end
+				else
+					if Right_Arm_Weld.Enabled == false then SYNC()Right_Arm_Weld.Enabled = true end
+				end
+				DSYN()
+				if GlowLight then
+					SYNC()
+					GlowLight.Enabled = false
+				end
+				if GlowLight_Weld then
+					SYNC()
+					GlowLight_Weld:Destroy()
+					GlowLight_Weld = nil
+				end
+				if GlowPart then
+					SYNC()
+					GlowPart:Destroy()
+					GlowPart = nil
+				end
+			else
+				if Right_Arm_Weld.Enabled == false then SYNC()Right_Arm_Weld.Enabled = true DSYN() end
+				if CurrentAnimation == 'Idle' then
+					SYNC()
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0,-SparklerDetail[CurrentlySelectedIndex].Durabillity/80,0), LerpSpeed)
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset, LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset * CFrame.Angles(math.rad(90),0,0), LerpSpeed)
+				elseif CurrentAnimation == 'Lighting' then
+					SYNC()
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0,-SparklerDetail[CurrentlySelectedIndex].Durabillity/80,0) * CFrame.new(Right_Arm.Size.X/8,-Right_Arm.Size.Y/4,-Right_Arm.Size.Z/4)  * CFrame.Angles(math.rad(-60), math.rad(-85), math.rad(125+180)), LerpSpeed)
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset * CFrame.Angles(math.rad(90),math.rad(-30),math.rad(15)) * CFrame.new(--[[Torso.Size.X / 2]]0,-Torso.Size.Y/2.5,0--[[Torso.Size.Y/2,Torso.Size.Z / 2]]), LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset * CFrame.Angles(math.rad(90),math.rad(30),math.rad(-30)) * CFrame.new(--[[-Torso.Size.X / 2]]0,-Torso.Size.Y/2,Torso.Size.Z / 2), LerpSpeed)
+				elseif CurrentAnimation == 'Throw' then
+					SYNC()
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0,-SparklerDetail[CurrentlySelectedIndex].Durabillity/80,0) * CFrame.Angles(math.rad(-140),0,0), LerpSpeed) 
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset, LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset * CFrame.new(0,-Torso.Size.Y/2,-Torso.Size.Z) * CFrame.Angles(math.rad(-45),0,0), LerpSpeed)
+				elseif CurrentAnimation == 'Null' then
+					SYNC()
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset, LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset, LerpSpeed)
+				elseif CurrentAnimation == 'Unequip' then
+					SYNC()
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset, LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset, LerpSpeed)
+				elseif CurrentAnimation == 'Giving' then
+					SYNC()
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset, LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset * CFrame.Angles(math.rad(90),math.rad(30),0) * CFrame.new(0,0,Torso.Size.Z / 2), LerpSpeed)
+				elseif CurrentAnimation == 'Handing' then
+					SYNC()
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset, LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset * CFrame.Angles(math.rad(90),math.rad(30),math.rad(90)) * CFrame.new(0,0,Torso.Size.Z / 2), LerpSpeed)
+				elseif CurrentAnimation == 'Receiving' then
+					SYNC()
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset * CFrame.Angles(math.rad(90),math.rad(-30),math.rad(-90)) * CFrame.new(0,0,Torso.Size.Z / 2), LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset * CFrame.Angles(math.rad(90),math.rad(30),math.rad(90)) * CFrame.new(0,0,Torso.Size.Z / 2), LerpSpeed)
+				elseif CurrentAnimation == 'Switching' then
+					SYNC()
+					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0,-SparklerDetail[CurrentlySelectedIndex].Durabillity/80,0) * CFrame.new(Right_Arm.Size.X/2,0,0) * CFrame.Angles(math.rad(150),0,0), LerpSpeed)
+					Left_Arm_Weld.C0 = Left_Arm_Weld.C0:Lerp(LeftArmDefaultOffset * CFrame.Angles(math.rad(-15),0,0), LerpSpeed)
+					Right_Arm_Weld.C0 = Right_Arm_Weld.C0:Lerp(RightArmDefaultOffset * CFrame.Angles(math.rad(-15),0,0), LerpSpeed)
+				end
+				DSYN()
+				if SparklerDetail[CurrentlySelectedIndex] and SparklerDetail[CurrentlySelectedIndex].Lightened == true then
+					if not GlowLight_Weld then
+						SYNC()
+						GlowLight_Weld = Instance.new('Weld',Tool)
+					end
+					DSYN()
+					if not GlowPart then
+						SYNC()
+						GlowPart = Instance.new('Part',Tool)
+						GlowPart.CanCollide = false
+						GlowPart.CanTouch = false
+						GlowPart.CanQuery = false
+						GlowPart.Material = Enum.Material.ForceField
+						GlowPart.Color = SparklerDetail[CurrentlySelectedIndex].FireColour
+						GlowPart.Shape = Enum.PartType.Ball
+						if GlowLight_Weld then
+							GlowLight_Weld.Part0 = Handle
+							GlowLight_Weld.Part1 = GlowPart
+						end
+						
+					end
+					if not GlowLight then
+						SYNC()
+						GlowLight = Instance.new('PointLight',GlowPart)
+					end
+					DSYN()
+					if GlowLight then
+						SYNC()
+						GlowLight.Enabled = true
+						GlowLight.Range = math.random(20,40)/9.5
+						GlowLight.Brightness =  math.random(175,225)/250
+					end
+					DSYN()
+					if GlowPart then
+						SYNC()
+						GlowPart.Transparency = 1 - math.random(10,20)/100
+						GlowPart.Size = Vector3.new(math.random(90,110)/100,math.random(90,110)/100,math.random(90,110)/100)
+					end
+					DSYN()
+					if GlowLight_Weld then
+						SYNC()
+						GlowLight_Weld.C0 = CFrame.new(0, Handle.Size.Y/2, 0)
+					end
+					DSYN()
+					SparklerDetail[CurrentlySelectedIndex].Durabillity = SparklerDetail[CurrentlySelectedIndex].Durabillity - DT * math.random(4,5)
+					Classic_Flagstand_Effect(Handle.CFrame + Handle.CFrame.UpVector * Handle.Size.Y/1.9, DT, workspace or Handle, math.random(3,6), math.random(3,5), SparklerDetail[CurrentlySelectedIndex].FireColour, Enum.Material.Neon, Vector3.new(math.random(-20,20)/80,math.random(-20,20)/40,math.random(-20,20)/80), 'Shrink', 1, {Character, Handle}, true)
+					Classic_Flagstand_Effect(Handle.CFrame + Handle.CFrame.UpVector * Handle.Size.Y/1.9, DT, workspace or Handle, math.random(1,2), math.random(3,7), SparklerDetail[CurrentlySelectedIndex].FireColour, Enum.Material.Neon, nil, 'Expand', math.random(2,3))
+					if SparklerDetail[CurrentlySelectedIndex].Durabillity <= 0 then
+						table.remove(SparklerDetail, CurrentlySelectedIndex)
+					end
+				else
+					if GlowLight then
+						SYNC()
+						GlowLight.Enabled = false
+					end
+					if GlowLight_Weld then
+						SYNC()
+						GlowLight_Weld:Destroy()
+						GlowLight_Weld = nil
+					end
+					if GlowPart then
+						SYNC()
+						GlowPart:Destroy()
+						GlowPart = nil
+					end
+				end
+				DSYN()
+				if AreCFramesLooselyEqual(Left_Arm_Weld.C0, LeftArmDefaultOffset) then
+					if Left_Arm_Weld.Enabled == true then	SYNC()Left_Arm_Weld.Enabled = false end
+				else
+					if Left_Arm_Weld.Enabled == false then	SYNC()Left_Arm_Weld.Enabled = true end
+				end
+			end
+			DSYN()
+			ClampIndex()
+			UpdateHandle()
+		end
+	end)
+	if ToolAnimationCoroutine and EquipTick == ThisEquipTick then
+		SYNC()
+		LockR15Arm(Character)
+		coroutine.resume(ToolAnimationCoroutine)
+	end
+end
+
+function Tool_Unequipped()
+	DSYN()
+	CurrentAnimation = 'Unequip'
+	CancelRequest()
+	SwitchIndex(0)
+	Character = nil
+	CharacterInventory = nil
+	Equipped = false
+	local ThisEquipTick = EquipTick
+	ThisEquipTick = tick()
+	EquipTick = ThisEquipTick
+	ActionTick = tick()
+	if ThisEquipTick == EquipTick then task.wait(0.3) end
+	if ThisEquipTick == EquipTick then
+		AnimTick = tick()
+		SYNC()
+		UnlockR15()
+		if Left_Arm_Weld then	Left_Arm_Weld:Destroy() Left_Arm_Weld = nil end
+		if Right_Arm_Weld then	Right_Arm_Weld:Destroy() Right_Arm_Weld = nil end
+	end
+end
+
+SYNC()
+Tool.Activated:Connect(Tool_Activation)
+Tool.Deactivated:Connect(Tool_Deactivation)
+Tool.Equipped:Connect(Tool_Equipped)
+Tool.Unequipped:Connect(Tool_Unequipped)
+
+--<<I thought This Was Actually Called 'ColdFireStick', Most of the translation error has since been replaced with 'Sparkler'>>--
+--[[@Solivion 2024]]--]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{F88F0F16-B12F-4ED2-8F78-9E2CB167524D}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Script[Sparkler]</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Part" referent="RBX8638CA7B12334972A3DECEC304BF47B2">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">1</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>4</X>
+					<Y>1</Y>
+					<Z>2</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

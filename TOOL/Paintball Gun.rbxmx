@@ -1,0 +1,691 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Tool" referent="RBX512D5ADE5F3747E096298137446B65F1">
+		<Properties>
+			<bool name="CanBeDropped">true</bool>
+			<bool name="Enabled">true</bool>
+			<CoordinateFrame name="Grip">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<bool name="ManualActivationOnly">false</bool>
+			<bool name="RequiresHandle">true</bool>
+			<string name="ToolTip"></string>
+			<Content name="TextureId"><null></null></Content>
+			<token name="LevelOfDetail">0</token>
+			<CoordinateFrame name="ModelMeshCFrame">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+				<R00>1</R00>
+				<R01>0</R01>
+				<R02>0</R02>
+				<R10>0</R10>
+				<R11>1</R11>
+				<R12>0</R12>
+				<R20>0</R20>
+				<R21>0</R21>
+				<R22>1</R22>
+			</CoordinateFrame>
+			<SharedString name="ModelMeshData">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<Vector3 name="ModelMeshSize">
+				<X>0</X>
+				<Y>0</Y>
+				<Z>0</Z>
+			</Vector3>
+			<token name="ModelStreamingMode">0</token>
+			<bool name="NeedsPivotMigration">false</bool>
+			<Ref name="PrimaryPart">null</Ref>
+			<float name="ScaleFactor">1</float>
+			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			<OptionalCoordinateFrame name="WorldPivotData">
+				<CFrame>
+					<X>2</X>
+					<Y>150.5</Y>
+					<Z>318.399994</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>-4.37113883e-08</R11>
+					<R12>-1</R12>
+					<R20>0</R20>
+					<R21>1</R21>
+					<R22>-4.37113883e-08</R22>
+				</CFrame>
+			</OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Paintball Gun</string>
+			<int64 name="SourceAssetId">111245194467926</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Script" referent="RBX3569BC45030A4C6689D16EDBF12EF30D">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[--By Solivion
+
+--10/3/2025 patch--
+
+--Fixed Aiming
+
+--<<Preload Variable To Silence>>--
+local Character: Model?
+local Handle: BasePart
+
+--<<Settings>>--
+local HadFixed = {}
+local AimTime = 0.75 -- Time that tooks to aim if nearaim wasn't set to true down below
+local nearaim = false --haha, no gun rotation needed. turning this off will require you to hold lmb for >>AimTime<< to aim at nearby target and also spinning their character.
+local aimnosight = false --aim through the walls?
+local nearaimspread = .75 -- spread incase it aims so it doesn't look too oddly locked
+local MaxCompare = 30 -- how many times the tool will determine the closest shooting target, Incase You Wouldn't Want Lag. But It Would Decrease The Chance Of Aiming At The Nearest
+local MaxBounce = 30 -- how many times the bullet will be able to bounce
+local MaxBullet: number = 10 -- Max Bullet Per Mag
+local ReloadTime: number = 3 -- 3 Accordding to SFX
+local RenewBulletTime: number = 0.3 -- 0.3 Accordding to SFX
+local CooldownPerBullet: number = 0.1
+
+--<<Services>>--
+local Debris: Debris = game:GetService('Debris')
+local TweenService: TweenService = game:GetService('TweenService')
+
+--<<Storage>>--
+local SoundLib = {
+	Click = 132464034, Pop = 835453268, Reload = 8302576808, Shot = 2811598570, Missed = 9113069142, Hit = 1489924400, HumHit = 4529474217
+}
+
+--<<Number 19: Mouse In Baked Beans>>--
+function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
+	local Found: boolean = false
+	if Where == nil then
+		return
+	end
+	for i,v in Where:GetChildren() do
+		if not Found then
+			if Where == nil then
+				Found = true
+				return nil
+			end
+			if v.Name:match(Name) and (v:IsA(Class) or v.ClassName:upper():match(Class:upper())) then
+				Found = true
+				return v
+			end
+		end
+	end
+end
+
+function PlaySound(SoundName: string,ToWhere: Instance?)
+	--getOrCreateSound(SoundName)
+	local Mainplayfunction = function(hmm)
+		hmm.PlaybackSpeed = math.random(100-20,100+20)/100
+		hmm:Play()
+	end
+	if ToWhere == nil then
+		ToWhere = Handle or Character and Character:FindFirstChildOfClass('BasePart')
+	end
+	if ToWhere and FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound') then
+		Mainplayfunction(FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound'))
+	elseif ToWhere and not FindFirstChildOfNameAndClass(ToWhere, SoundName, 'Sound') then
+		--DebugText("Checking Encryted Table For Sound:"..tostring(Encryption(SoundName,true)) )
+		if SoundLib[SoundName] then
+			local sound = Instance.new("Sound")
+			local Where = ToWhere
+			sound.Parent = Where
+			if typeof(SoundLib[SoundName]) == 'number' then
+				sound.SoundId = 'rbxassetid://'..SoundLib[SoundName]
+			else
+				sound.SoundId = SoundLib[SoundName]
+			end
+			sound.Name = SoundName
+			sound:Play()
+		else
+			warn("Sound >"..SoundName.."< Not Found In Database")
+		end
+	end
+end
+
+--<<Variables>>--
+local ISNEARAIMFORCED: boolean = nearaim
+local Enabled: boolean = false
+local Activated: boolean = false
+local Reloading: boolean = false
+local ShootTick: number = 0
+local ReMagTick: number = 0
+local ReloadTick: number = 0
+local AxTic: number = tick()
+local Tool: Tool? = script:FindFirstAncestorWhichIsA('Tool')
+if not Tool then script:Destroy() return end
+Handle = FindFirstChildOfNameAndClass(Tool, 'Handle', 'BasePart') or Tool:FindFirstChild('Handle') or Instance.new('Part', Tool)
+if Handle.Name ~= 'Handle' then Handle.Name = 'Handle' end
+local toolactor: Actor? = script:FindFirstAncestorWhichIsA('Actor') or (Tool and Tool:FindFirstChildOfClass('Actor'))
+
+--<<Data Type>>--
+type BulletHitData = {Position: Vector3, Instance: Instance, DistanceTraveled: number, DamageHasBeenRegistered: boolean, HitVelocity: Vector3, HitNormal: Vector3}
+type BulletData = {BulletType: string, Color: Color3, Damage: number, Recoil: number, Spread: number, FiringCoroutine: thread?, HasRegisteredHit: BulletHitData?} 
+
+--<<Table Variables>>--
+local EffectInstance: {Instance?} = {}
+local ToolGripCoroute: thread?
+local AmmunitionData: {['Shooting']: {BulletData?}, ['Mag']: {BulletData?}} = {['Mag'] = {}, ['Shooting'] = {}}
+
+--<<Table Related Algorithms>>--
+local function filteroperationnumber(Amount: number): number
+	if Amount ~= Amount or typeof(Amount) ~= 'number' then return 0 end
+	Amount = math.clamp(Amount, 0, math.huge)
+	Amount = math.ceil(Amount)
+	return Amount
+end
+
+local function Reload(Amount: number)
+	Amount = filteroperationnumber(Amount)
+	Amount = math.clamp(Amount, 0, MaxBullet - #AmmunitionData['Shooting'])
+	if Amount <= 0 then return end
+	for i = 1, Amount do
+		for i: number, v: BulletData? in pairs(AmmunitionData['Mag']) do
+			if v and not v.FiringCoroutine and not v.HasRegisteredHit then
+				AmmunitionData['Shooting'][#AmmunitionData['Shooting'] + 1] = v
+				AmmunitionData['Mag'][i] = nil
+				if table.find(AmmunitionData['Mag'], v) then
+					table.remove(AmmunitionData['Mag'], table.find(AmmunitionData['Mag'], v))
+				end
+				break
+			end
+		end
+	end 
+end
+
+local function InitializeAmmo(Amount: number)
+	Amount = filteroperationnumber(Amount)
+	if Amount <= 0 then return end
+	for i = 1, Amount do
+		table.insert(AmmunitionData['Mag'], {
+			BulletType = "Standard",
+			Color = Tool and Tool.Parent and Tool.Parent.Name == 'Solivion' and BrickColor.random().Color or Color3.new(1, 1, 1),
+			Damage = math.random(9,12),
+			Recoil = math.random() * 2,
+			Spread = math.random()/10,
+			FiringCoroutine = nil,
+			HasRegisteredHit = nil
+		})
+	end
+end
+
+--<<Gun System(Feat GPT. For Some Lazy Trail Effect)>>--
+local function CreateBulletTrail(startPos, endPos, bulletColor, extend)
+	local bulletTrail = Instance.new("Part")
+	bulletTrail.Material = Enum.Material.Neon
+	bulletTrail.Size = Vector3.new(0.1, 0.1, (startPos - endPos).magnitude)
+	bulletTrail.CFrame = CFrame.new(startPos, endPos) * CFrame.new(0, 0, -bulletTrail.Size.Z / 2)
+	bulletTrail.Color = bulletColor
+	bulletTrail.Anchored = true
+	bulletTrail.CanCollide = false
+	bulletTrail.Parent = workspace
+	TweenService:Create(bulletTrail, TweenInfo.new(0.49), {Color = Color3.new(0,0,0), Transparency = 1, Size = extend and Vector3.new(0.1, 0.1, (startPos - endPos).magnitude * 1.2) or Vector3.new(0.1, 0.1, 0)}):Play()
+	table.insert(EffectInstance, bulletTrail)
+	task.delay(0.49, function() if table.find(EffectInstance, bulletTrail) then table.remove(EffectInstance, table.find(EffectInstance, bulletTrail)) end end)
+	Debris:AddItem(bulletTrail, 0.5)
+	return bulletTrail
+end
+
+local function CreateBulletHole(hitPosition, hitNormal)
+	local bulletHole = Instance.new("Part")
+	bulletHole.Size = Vector3.new(0.2, 0.2, 0.01)
+	bulletHole.Anchored = true
+	bulletHole.CFrame = CFrame.new(hitPosition, hitPosition + hitNormal) * CFrame.new(0, 0, -bulletHole.Size.Z / 2)
+	bulletHole.CanCollide = false
+	bulletHole.Color = Color3.new(0, 0, 0)
+	bulletHole.Parent = workspace
+	TweenService:Create(bulletHole, TweenInfo.new(9.9), {Transparency = 1}):Play()
+	task.delay(9.9, function() if table.find(EffectInstance, bulletHole) then table.remove(EffectInstance, table.find(EffectInstance, bulletHole)) end end)
+	Debris:AddItem(bulletHole, 10)
+	return bulletHole
+end
+
+local function Shoot()
+	if AxTic < ReMagTick or AxTic < ReloadTick or not Activated then return end
+	local a a = tick() AxTic = a -- Activation Nonetheless
+	if not Tool or not Tool.Enabled or (tick() - ShootTick) < CooldownPerBullet or (tick() - ReMagTick) < (RenewBulletTime + ReloadTime) or (tick() - ReloadTick) < ReloadTime or Reloading or not Enabled then return end
+	Tool.ToolTip = '(' .. #AmmunitionData['Shooting'] .. '/' .. MaxBullet .. ')'
+	if #AmmunitionData['Shooting'] <= 0 then
+		Reloading = true
+		local foolproof2 foolproof2 = tick()
+		local curstate = 1
+		local Lock
+		local ValidSession = true
+		Lock = Tool.Unequipped:Once(function()
+			ValidSession = false
+			if curstate == 1 then table.clear(AmmunitionData['Mag']) end
+			if curstate == 2 then table.clear(AmmunitionData['Shooting']) end
+			ReloadTick = 0
+			ReMagTick = 0
+			Lock = nil
+			Reloading = false
+		end)
+		ReloadTick = foolproof2
+		if #AmmunitionData['Mag'] <= 0 then
+			ReMagTick = foolproof2
+			PlaySound('Click', Handle)
+			Tool.ToolTip = "<<Initializing New Bullets>>"
+			task.delay(RenewBulletTime, function()
+				if Lock and Reloading and ValidSession and ReMagTick == foolproof2 and ReloadTick == foolproof2 and Enabled then
+					foolproof2 = tick()
+					curstate = 2
+					Tool.ToolTip = "{<Bullet Initialized, Reloading>}"
+					PlaySound('Pop', Handle)
+					PlaySound('Reload', Handle)
+					InitializeAmmo(MaxBullet * 7)
+					ReloadTick = foolproof2
+					Activated = false
+				end
+			end)
+			task.delay(RenewBulletTime + ReloadTime, function()
+				if Lock and Reloading and ValidSession and ReloadTick == foolproof2 and Enabled then
+					curstate = 3
+					Tool.ToolTip = "{<Reloaded>}"
+					Lock:Disconnect()
+					Lock = nil
+					Reload(MaxBullet)
+					Reloading = false
+					Activated = false
+				end
+			end)
+		else
+			curstate = 2
+			PlaySound('Reload', Handle)
+			Tool.ToolTip = "{<Reloading>}"
+			task.delay(ReloadTime, function()
+				if Lock and Reloading and ValidSession and ReloadTick == foolproof2 and Enabled then
+					curstate = 3
+					Tool.ToolTip = "{<Reloaded>}"
+					Lock:Disconnect()
+					Lock = nil
+					Reload(MaxBullet)
+					Reloading = false
+					Activated = false
+				end
+			end)
+		end
+		return
+	end
+	Activated = false
+	ShootTick = tick()
+	local Pos = Handle.CFrame.Position + Handle.CFrame.UpVector * -2.5 + Handle.CFrame.LookVector * 0.25
+	local bullet = table.remove(AmmunitionData['Shooting'], 1)
+	local direction = (-Handle.CFrame.UpVector * bullet.Damage + Vector3.new(math.random() * bullet.Spread, math.random() * bullet.Spread, 0)).unit
+	
+	local rayParams = RaycastParams.new()
+	rayParams.FilterDescendantsInstances = EffectInstance
+	rayParams:AddToFilter(Character)
+	rayParams:AddToFilter(Handle)
+	rayParams.FilterType = Enum.RaycastFilterType.Exclude
+	rayParams.IgnoreWater = true
+	
+	if nearaim then
+		local coin: BasePart?
+		local nearbyarea: BasePart = Instance.new('Part', game:FindFirstChildOfClass('RunService'))
+		nearbyarea.Size = Vector3.new(50, 50, 50)
+		nearbyarea.CFrame = Handle.CFrame + (nearbyarea.Size.Z/2.05) * (Character and Character.PrimaryPart or Character:FindFirstChildOfClass('Humanoid') and Character:FindFirstChildOfClass('Humanoid').RootPart or Character:FindFirstChildOfClass('BasePart') or Character:GetPivot()).CFrame.LookVector
+		local nearbyting = workspace:GetPartsInPart(nearbyarea) nearbyarea:Destroy()
+		local nearest = 250
+		local AmountLeft = MaxCompare
+		for i, v in ipairs(nearbyting) do -- random choose
+			if AmountLeft <= 0 then break else AmountLeft -= 1 end
+			if (Character and v:IsDescendantOf(Character)) or v:IsDescendantOf(Tool) then continue end
+			local raytoit = (Character and Character.PrimaryPart and workspace:Raycast(Character.PrimaryPart.Position, -(Character.PrimaryPart.Position - v.Position),rayParams)) or workspace:Raycast(Handle.Position, -(Handle.Position - v.Position),rayParams) or workspace:Raycast(Pos, -(Pos - v.Position),rayParams) or workspace:Raycast(Pos, -(Pos - (v.Position + v.Size.Y * -v.CFrame.UpVector * 0.1)),rayParams) or workspace:Raycast(Pos, -(Pos - (v.Position + v.Size.Y * v.CFrame.UpVector * 0.1)),rayParams)
+			if v.Name:upper() == 'COIN' or (aimnosight or not raytoit or (raytoit and raytoit.Instance and raytoit.Instance == v and not v:IsDescendantOf(Character) and (v:FindFirstAncestorWhichIsA('Model') and v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid') and v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health > 0 and v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health == v:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health))) then
+				local model = v:FindFirstAncestorWhichIsA('Model')
+				if not model or not model:FindFirstChildOfClass('Humanoid') then continue end
+				if (v.Position - Handle.Position).Magnitude < nearest then
+					nearest = (v.Position - Handle.Position).Magnitude
+					coin = v
+				end
+			end
+		end
+		if coin then
+			--Tool.Grip = CFrame.new(Tool.Grip.Position) * CFrame.new(Tool:GetPivot().Position):ToObjectSpace(CFrame.new(Handle.Position, coin.Position)).Rotation * CFrame.Angles(math.rad(-90), 0, 0)
+			--Pos = Handle.CFrame.Position + Handle.CFrame.UpVector * -2.5 + Handle.CFrame.LookVector * 0.25
+			direction = -(Pos - (coin.Position + coin.Size.X * -coin.CFrame.RightVector * math.random(-50,50) * nearaimspread/100 + coin.Size.Z * -coin.CFrame.LookVector * math.random(-50,50) * nearaimspread/100 + coin.Size.Y * -coin.CFrame.UpVector * math.random(-50,50) * nearaimspread/100)).Unit
+			if not ISNEARAIMFORCED and Character and Character:FindFirstChildOfClass('Humanoid') and Character:FindFirstChildOfClass('Humanoid').RootPart then Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame = CFrame.new(Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame.Position, Vector3.new(coin.Position.X, Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame.Position.Y, coin.Position.Z)) end	
+		end
+	end
+	
+	if not ISNEARAIMFORCED and AxTic == a then nearaim = false end
+	
+	local fire = Handle:FindFirstChild('Fire')
+	if fire and fire:IsA('Sound') then
+		fire.TimePosition = 0.1
+		fire.PlaybackSpeed = 1 - bullet.Recoil / 10
+		fire:Play()
+	end
+	
+	local function reflectShoot(pos, dir, remainingBounces, filter)
+		if remainingBounces <= 0 then return end
+		rayParams.FilterDescendantsInstances = filter
+		rayParams:AddToFilter(Character)
+		local rateangle = -(nearaim and 20 or 45)
+		local result = workspace:Raycast(pos, dir * 1000, rayParams) or workspace:Raycast(pos + dir * 1000, -dir * 1000, rayParams)
+		--[[if not result and remainingBounces == MaxBounce then
+			repeat 
+				ShootTick = tick()
+				result = workspace:Raycast(pos, (dir) * 1000 + Handle.CFrame.RightVector * rateangle, rayParams) or workspace:Raycast(pos, (dir) * 1000 + Handle.CFrame.ZVector * rateangle, rayParams) or workspace:Raycast(pos, (dir) * 1000  + Handle.CFrame.RightVector * rateangle + Handle.CFrame.ZVector * rateangle, rayParams) or workspace:Raycast(pos, (dir) * 1000  + Handle.CFrame.ZVector * rateangle + Handle.CFrame.XVector * 30, rayParams) or workspace:Raycast(pos, (dir) * 1000  + Handle.CFrame.ZVector * rateangle + Handle.CFrame.XVector * -30, rayParams) or workspace:Raycast(pos, (dir) * 1000  + Handle.CFrame.ZVector * 30 + Handle.CFrame.XVector * rateangle, rayParams) or workspace:Raycast(pos, (dir) * 1000  + Handle.CFrame.ZVector * -30 + Handle.CFrame.XVector * rateangle, rayParams) or workspace:Raycast(pos, (dir) * 1000 + Handle.CFrame.RightVector * rateangle - Handle.CFrame.ZVector * rateangle, rayParams)
+				rateangle += 1
+				if result then break end
+			until result or rateangle > (nearaim and 20 or 45)
+		end]]
+		if result then
+			local hit = result.Instance
+			local position = result.Position
+			local normal = result.Normal
+			bullet.HasRegisteredHit = {
+				Position = position,
+				Instance = hit,
+				DistanceTraveled = (position - Pos).magnitude,
+				DamageHasBeenRegistered = true,
+				HitVelocity = dir,
+				HitNormal = normal
+			}
+
+			local hole = CreateBulletHole(position, normal)
+			if result.Instance:IsA('BasePart') then
+				if not result.Instance:IsDescendantOf(Character) and result.Instance:FindFirstAncestorWhichIsA('Model') and result.Instance:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid') and result.Instance:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health > 0 and result.Instance:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health == result.Instance:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid').Health then
+					local humanoid = result.Instance:FindFirstAncestorWhichIsA('Model'):FindFirstChildOfClass('Humanoid')
+					humanoid.Health = humanoid.Health - humanoid.MaxHealth * bullet.Damage / 100
+					if result.Instance.Name:upper():match('LEG') or result.Instance.Name:upper():match('FOOT') then
+						humanoid.Health = humanoid.Health - humanoid.MaxHealth * bullet.Damage / 150
+						humanoid.Sit = true
+					end
+					if result.Instance.Name:upper():match('HEAD') then
+						humanoid.Health = humanoid.Health - humanoid.MaxHealth * bullet.Damage / 25
+					end
+					PlaySound('HumHit', hole)
+				end
+				if result.Material == Enum.Material.Glass or result.Material == Enum.Material.Ice then
+					result.Instance.Anchored = false
+				end
+				if result.Instance.Anchored == false and remainingBounces <= 0 then
+					result.Instance.AssemblyLinearVelocity = result.Instance.AssemblyLinearVelocity + dir * 100
+				end
+				local weld = Instance.new('Weld', hole)
+				weld.C0 = result.Instance.CFrame:ToObjectSpace(hole.CFrame)
+				hole.Anchored = false
+				hole.Parent = result.Instance
+				weld.Part1 = hole
+				weld.Part0 = result.Instance
+				rayParams:AddToFilter(hole)
+			else
+				hole.Anchored = true
+			end
+			
+			table.insert(EffectInstance, hole)
+			PlaySound('Hit', hole)
+
+			-- Reflect the bullet
+			local reflectDir = dir - 2 * (dir:Dot(normal)) * normal
+			local trail = CreateBulletTrail(pos, position, bullet.Color, true)
+			rayParams:AddToFilter(trail)
+			table.insert(EffectInstance, trail)
+			reflectShoot(position, reflectDir, remainingBounces - 1, EffectInstance)
+		else
+			local endPosition = pos + dir * 1000
+			local trail = CreateBulletTrail(pos, endPosition, bullet.Color)
+			table.insert(EffectInstance, trail)
+		end
+	end
+	
+	PlaySound('Shot', Handle)
+	-- Start the shooting process with reflections
+	reflectShoot(Pos, direction, MaxBounce or math.random(25, 50), EffectInstance)
+
+	-- Apply recoil
+	Tool.Grip = Tool.Grip * CFrame.new(0, 0, math.rad(bullet.Recoil * -15)) * CFrame.Angles(math.rad(bullet.Recoil * -15), 0, 0)
+
+	Tool.ToolTip = '(' .. #AmmunitionData['Shooting'] .. '/' .. MaxBullet .. ')'
+end
+
+local function EquipTool()
+	table.clear(EffectInstance)
+	Enabled = true
+	Activated = false
+	AxTic = tick()
+	ShootTick = tick()
+	ReMagTick = 0
+	ReloadTick = 0
+	Character = Tool:FindFirstAncestorWhichIsA('Model')
+	if not Character then return end
+	if not table.find(HadFixed, Character) and Character:FindFirstChildOfClass('Humanoid') and Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+		coroutine.resume(coroutine.create(function()
+			for i,v in Character:GetDescendants() do
+				if v.Name == 'RightGripAttachment' and v.CFrame ~= (CFrame.new(v.CFrame.Position) * CFrame.Angles(math.rad(-90),0,0)) then
+					v.CFrame = CFrame.new(v.CFrame.Position) * CFrame.Angles(math.rad(-90),0,0)
+				end
+			end
+			table.insert(HadFixed, Character)
+		end))
+	else
+		table.insert(HadFixed, Character)
+	end
+	if ToolGripCoroute then coroutine.close(ToolGripCoroute) end
+	ToolGripCoroute = coroutine.create(function()
+		local last = tick()
+		--local tor = FindFirstChildOfNameAndClass(Character, 'UpperTorso', 'BasePart')
+		while task.wait(.01) and Character and Tool and Tool:IsDescendantOf(Character) do
+			local speed = 1 - 0.00001 ^ (tick() - last)
+			last = tick()
+			Tool.Grip = Tool.Grip:Lerp(CFrame.Angles(math.rad(-90),0,0), speed)
+		end
+	end)
+	if ToolGripCoroute then	coroutine.resume(ToolGripCoroute) end
+	
+end
+
+--<<Pre Startup>>--
+InitializeAmmo(MaxBullet * 7)
+Reload(MaxBullet)
+
+--<<Event Connections>>--
+Tool.Activated:Connect(function()
+	Activated = true local tic tic = tick() AxTic = tic if not Tool or not Tool.Enabled or (not ISNEARAIMFORCED and nearaim) or (tick() - ShootTick) < CooldownPerBullet or (tick() - ReMagTick) < (RenewBulletTime + ReloadTime) or (tick() - ReloadTick) < ReloadTime or Reloading or not Enabled then return end if #AmmunitionData['Shooting'] <= 0 then Tool.ToolTip = '[Out Of Bullet, Release LMB To Reload]' return end if #AmmunitionData['Shooting'] > 0 and not ISNEARAIMFORCED then Tool.ToolTip = '[>AIMING<]'	nearaim = false task.wait(AimTime) if AxTic == tic and Enabled then nearaim = true Tool.ToolTip = '[<AIMED>]' end end
+end)
+Tool.Deactivated:Connect(Shoot)
+Tool.Equipped:Connect(EquipTool)
+Tool.Unequipped:Connect(function()
+	Enabled = false
+	Activated = false
+	Reloading = false
+	AxTic = tick()
+	ShootTick = tick()
+	ReMagTick = 0
+	ReloadTick = 0
+	Tool.ToolTip = not ISNEARAIMFORCED and '<<Click To Shoot, To Aim Hold LMB for '..AimTime..' Seconds>>' or '<<Click To Shoot The Nearest Target>>'
+	for i,v in Handle:GetChildren() do
+		if v:IsA('Sound') then
+			v:Stop()
+		end
+	end
+	if ToolGripCoroute then
+		coroutine.close(ToolGripCoroute)
+		ToolGripCoroute= nil
+	end
+end)]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{0B6B3F96-F8E8-48D0-9FF4-8ED0567E440D}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Script</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="Part" referent="RBXDE5778FFC3ED46B3B31700407B8711B3">
+			<Properties>
+				<token name="shape">1</token>
+				<token name="formFactorRaw">0</token>
+				<bool name="Anchored">false</bool>
+				<bool name="AudioCanCollide">true</bool>
+				<float name="BackParamA">-0.5</float>
+				<float name="BackParamB">0.5</float>
+				<token name="BackSurface">0</token>
+				<token name="BackSurfaceInput">0</token>
+				<float name="BottomParamA">-0.5</float>
+				<float name="BottomParamB">0.5</float>
+				<token name="BottomSurface">0</token>
+				<token name="BottomSurfaceInput">0</token>
+				<CoordinateFrame name="CFrame">
+					<X>1</X>
+					<Y>75.5</Y>
+					<Z>159.399994</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>-4.37113883e-08</R11>
+					<R12>-1</R12>
+					<R20>0</R20>
+					<R21>1</R21>
+					<R22>-4.37113883e-08</R22>
+				</CoordinateFrame>
+				<bool name="CanCollide">true</bool>
+				<bool name="CanQuery">true</bool>
+				<bool name="CanTouch">true</bool>
+				<bool name="CastShadow">true</bool>
+				<string name="CollisionGroup">Default</string>
+				<int name="CollisionGroupId">0</int>
+				<Color3uint8 name="Color3uint8">4288914085</Color3uint8>
+				<PhysicalProperties name="CustomPhysicalProperties">
+					<CustomPhysics>false</CustomPhysics>
+				</PhysicalProperties>
+				<bool name="EnableFluidForces">true</bool>
+				<float name="FrontParamA">-0.5</float>
+				<float name="FrontParamB">0.5</float>
+				<token name="FrontSurface">0</token>
+				<token name="FrontSurfaceInput">0</token>
+				<float name="LeftParamA">-0.5</float>
+				<float name="LeftParamB">0.5</float>
+				<token name="LeftSurface">0</token>
+				<token name="LeftSurfaceInput">0</token>
+				<bool name="Locked">false</bool>
+				<bool name="Massless">false</bool>
+				<token name="Material">256</token>
+				<string name="MaterialVariantSerialized"></string>
+				<CoordinateFrame name="PivotOffset">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<float name="Reflectance">0</float>
+				<float name="RightParamA">-0.5</float>
+				<float name="RightParamB">0.5</float>
+				<token name="RightSurface">0</token>
+				<token name="RightSurfaceInput">0</token>
+				<int name="RootPriority">0</int>
+				<Vector3 name="RotVelocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<float name="TopParamA">-0.5</float>
+				<float name="TopParamB">0.5</float>
+				<token name="TopSurface">0</token>
+				<token name="TopSurfaceInput">0</token>
+				<float name="Transparency">0</float>
+				<Vector3 name="Velocity">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+				</Vector3>
+				<Vector3 name="size">
+					<X>1</X>
+					<Y>3</Y>
+					<Z>2</Z>
+				</Vector3>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Handle</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="SpecialMesh" referent="RBXFBCA674AD3574F05A904167ACF8A5E03">
+				<Properties>
+					<token name="MeshType">5</token>
+					<Content name="MeshId"><url>rbxasset://fonts/PaintballGun.mesh</url></Content>
+					<Content name="TextureId"><url>rbxasset://textures/PaintballGunTex128.png</url></Content>
+					<Vector3 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="Scale">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<Vector3 name="VertexColor">
+						<X>1</X>
+						<Y>1</Y>
+						<Z>1</Z>
+					</Vector3>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Mesh</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Sound" referent="RBX06EDCA58E1254FDE96FE4F4E9B937BFC">
+				<Properties>
+					<bool name="AcousticSimulationEnabled">true</bool>
+					<NumberRange name="LoopRegion">0 60000 </NumberRange>
+					<bool name="Looped">false</bool>
+					<bool name="PlayOnRemove">false</bool>
+					<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+					<bool name="PlaybackRegionsEnabled">false</bool>
+					<float name="PlaybackSpeed">1</float>
+					<bool name="Playing">false</bool>
+					<float name="RollOffMaxDistance">10000</float>
+					<float name="RollOffMinDistance">0</float>
+					<token name="RollOffMode">0</token>
+					<Ref name="SoundGroup">null</Ref>
+					<Content name="SoundId"><url>rbxasset://sounds//paintball.wav</url></Content>
+					<double name="TimePosition">0.5</double>
+					<float name="Volume">2</float>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Fire</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>
