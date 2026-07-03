@@ -1,0 +1,685 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="ScreenGui" referent="RBXA33DF394E65E48CA86A01C91DA1977CD">
+		<Properties>
+			<bool name="ClipToDeviceSafeArea">true</bool>
+			<int name="DisplayOrder">0</int>
+			<token name="SafeAreaCompatibility">1</token>
+			<token name="ScreenInsets">2</token>
+			<bool name="Enabled">true</bool>
+			<bool name="ResetOnSpawn">true</bool>
+			<token name="ZIndexBehavior">1</token>
+			<bool name="AutoLocalize">true</bool>
+			<Ref name="RootLocalizationTable">null</Ref>
+			<token name="SelectionBehaviorDown">0</token>
+			<token name="SelectionBehaviorLeft">0</token>
+			<token name="SelectionBehaviorRight">0</token>
+			<token name="SelectionBehaviorUp">0</token>
+			<bool name="SelectionGroup">false</bool>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">LMB HOLDING MOBILE GUI</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="UIAspectRatioConstraint" referent="RBX09319F5E9E584E1F9230BB08603A4F2A">
+			<Properties>
+				<float name="AspectRatio">1</float>
+				<token name="AspectType">0</token>
+				<token name="DominantAxis">0</token>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">UIAspectRatioConstraint</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="ImageButton" referent="RBX559DBEE7FD284E0A89577814D3350CF7">
+			<Properties>
+				<Content name="HoverImage"><null></null></Content>
+				<Content name="Image"><url>rbxassetid://0</url></Content>
+				<Color3 name="ImageColor3">
+					<R>1</R>
+					<G>1</G>
+					<B>1</B>
+				</Color3>
+				<Vector2 name="ImageRectOffset">
+					<X>0</X>
+					<Y>0</Y>
+				</Vector2>
+				<Vector2 name="ImageRectSize">
+					<X>0</X>
+					<Y>0</Y>
+				</Vector2>
+				<float name="ImageTransparency">0</float>
+				<Content name="PressedImage"><null></null></Content>
+				<token name="ResampleMode">0</token>
+				<token name="ScaleType">1</token>
+				<Rect2D name="SliceCenter">
+					<min>
+						<X>500</X>
+						<Y>500</Y>
+					</min>
+					<max>
+						<X>500</X>
+						<Y>500</Y>
+					</max>
+				</Rect2D>
+				<float name="SliceScale">0.0500000007</float>
+				<UDim2 name="TileSize">
+					<XS>1</XS>
+					<XO>0</XO>
+					<YS>1</YS>
+					<YO>0</YO>
+				</UDim2>
+				<bool name="AutoButtonColor">false</bool>
+				<Ref name="HoverHapticEffect">null</Ref>
+				<bool name="Modal">false</bool>
+				<Ref name="PressHapticEffect">null</Ref>
+				<bool name="Selected">false</bool>
+				<token name="Style">0</token>
+				<bool name="Active">true</bool>
+				<Vector2 name="AnchorPoint">
+					<X>0.5</X>
+					<Y>0.5</Y>
+				</Vector2>
+				<token name="AutomaticSize">0</token>
+				<Color3 name="BackgroundColor3">
+					<R>1</R>
+					<G>1</G>
+					<B>1</B>
+				</Color3>
+				<float name="BackgroundTransparency">0</float>
+				<Color3 name="BorderColor3">
+					<R>0.105882362</R>
+					<G>0.164705887</G>
+					<B>0.207843155</B>
+				</Color3>
+				<token name="BorderMode">0</token>
+				<int name="BorderSizePixel">1</int>
+				<bool name="ClipsDescendants">true</bool>
+				<bool name="Draggable">false</bool>
+				<token name="InputSink">0</token>
+				<bool name="Interactable">true</bool>
+				<int name="LayoutOrder">0</int>
+				<Ref name="NextSelectionDown">null</Ref>
+				<Ref name="NextSelectionLeft">null</Ref>
+				<Ref name="NextSelectionRight">null</Ref>
+				<Ref name="NextSelectionUp">null</Ref>
+				<UDim2 name="Position">
+					<XS>0.699999988</XS>
+					<XO>0</XO>
+					<YS>0.593999982</YS>
+					<YO>0</YO>
+				</UDim2>
+				<float name="Rotation">0</float>
+				<bool name="Selectable">true</bool>
+				<Ref name="SelectionImageObject">null</Ref>
+				<int name="SelectionOrder">0</int>
+				<UDim2 name="Size">
+					<XS>0.174714625</XS>
+					<XO>0</XO>
+					<YS>0.0877615884</YS>
+					<YO>0</YO>
+				</UDim2>
+				<token name="SizeConstraint">0</token>
+				<bool name="Visible">false</bool>
+				<int name="ZIndex">99</int>
+				<bool name="AutoLocalize">true</bool>
+				<Ref name="RootLocalizationTable">null</Ref>
+				<token name="SelectionBehaviorDown">0</token>
+				<token name="SelectionBehaviorLeft">0</token>
+				<token name="SelectionBehaviorRight">0</token>
+				<token name="SelectionBehaviorUp">0</token>
+				<bool name="SelectionGroup">false</bool>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">HoverStayButton</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+			<Item class="LocalScript" referent="RBX15ED2C0C22034BFBB758DFD0E023AB05">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[local Charging = false
+if game.UserInputService.TouchEnabled == true and game.UserInputService.MouseEnabled == false  and game.UserInputService.KeyboardEnabled == false then
+	script.Parent.MouseButton1Down:Connect(function()
+		local FirstCrap = game:FindFirstChildOfClass("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool") or game:FindFirstChildOfClass("Players").LocalPlayer.Character:FindFirstChildOfClass("Flag")
+		if not Charging and FirstCrap and FirstCrap.Name:match('Client') then
+			--	script.Parent.RemoteEvent:FireServer("TriggerStart")
+			Charging = true
+			FirstCrap:Activate()
+		end
+
+	end)
+	script.Parent.MouseButton1Up:Connect(function()
+		local FirstCrap = game:FindFirstChildOfClass("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool") or game:FindFirstChildOfClass("Players").LocalPlayer.Character:FindFirstChildOfClass("Flag")
+		if Charging and FirstCrap and FirstCrap.Name:match('Client') then
+			--	script.Parent.RemoteEvent:FireServer("TriggerEnd")
+			Charging = false
+			FirstCrap:Deactivate()
+		end
+		--	script.Parent.Parent.Parent.Parent.Parent.Character:FindFirstChildOfClass("Tool"):Deactivate()
+	end)
+	script.Parent:GetPropertyChangedSignal("Visible"):Connect(function()
+		coroutine.resume(coroutine.create(function()
+			while task.wait(.01) and script.Parent.Parent.Enabled == true and script.Parent.Visible == true do
+				if script.Parent.Visible == true and script.Parent:FindFirstChildOfClass("UIGradient") then
+					script.Parent:FindFirstChildOfClass("UIGradient").Offset = Vector2.new(0,1 - tick())
+				end
+			end
+		end))
+	end)
+	game:FindFirstChildOfClass("Players").LocalPlayer.CharacterAdded:Connect(function(char)
+		script.Parent.Visible = false
+		char.ChildAdded:Connect(function(ch)
+			if ch:IsA('Tool') or ch:IsA('Flag') then
+				script.Parent.Visible = true
+			end
+		end)
+		char.ChildRemoved:Connect(function(ch)
+			if ch:IsA('Tool') or ch:IsA('Flag') then
+				script.Parent.Visible = false
+			end
+		end)
+	end)
+end
+]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{D27D709E-8D37-454F-8CF2-456CFCC3C511}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">LocalScript</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="Script" referent="RBX8C629F452503428FBDD43DBA433DE205">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[script.Parent.RemoteEvent.OnServerEvent:Connect(function(Plr,Func)
+	if Plr ~= script:FindFirstAncestorWhichIsA('Player') then
+		return
+	end
+	if Func == "TriggerStart" then
+		Plr.Character:FindFirstChildOfClass("Tool"):Activate()
+	elseif Func == "TriggerEnd" then
+		Plr.Character:FindFirstChildOfClass("Tool"):Deactivate()
+	end
+end)]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{24FD9E82-9902-43BA-88DD-2B3F432813B2}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Script[HoverStayButton]</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="RemoteEvent" referent="RBX39E78296D7AB47F686F256767AF26508">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">RemoteEvent</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="UIStroke" referent="RBXF9EB8F67E8F8490F8581CB2E56130949">
+				<Properties>
+					<token name="ApplyStrokeMode">0</token>
+					<UDim name="BorderOffset">
+						<S>0</S>
+						<O>0</O>
+					</UDim>
+					<token name="BorderStrokePosition">0</token>
+					<Color3 name="Color">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<bool name="Enabled">true</bool>
+					<token name="LineJoinMode">0</token>
+					<token name="StrokeSizingMode">0</token>
+					<float name="Thickness">5</float>
+					<float name="Transparency">0</float>
+					<int name="ZIndex">1</int>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">UIStroke</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="UIGradient" referent="RBXE2ECF29099C74C55A6D62FE65CF97469">
+					<Properties>
+						<ColorSequence name="Color">0 0 0 0 0 1 0 0 0 0 </ColorSequence>
+						<bool name="Enabled">true</bool>
+						<Vector2 name="Offset">
+							<X>0</X>
+							<Y>0</Y>
+						</Vector2>
+						<float name="Rotation">0</float>
+						<float name="Scale">1</float>
+						<token name="TileMode">0</token>
+						<NumberSequence name="Transparency">0 0 0 1 0 0 </NumberSequence>
+						<token name="Type">0</token>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">UIGradient</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="TextLabel" referent="RBXDF57687E53E94883B53FA5216BD324AF">
+				<Properties>
+					<Font name="FontFace">
+						<Family><url>rbxasset://fonts/families/SourceSansPro.json</url></Family>
+						<Weight>300</Weight>
+						<Style>Normal</Style>
+						<CachedFaceId><url>rbxasset://fonts/SourceSansPro-Light.ttf</url></CachedFaceId>
+					</Font>
+					<float name="LineHeight">1</float>
+					<string name="LocalizationMatchIdentifier"></string>
+					<string name="LocalizationMatchedSourceText"></string>
+					<int name="MaxVisibleGraphemes">-1</int>
+					<string name="OpenTypeFeatures"></string>
+					<bool name="RichText">false</bool>
+					<string name="Text">LMB</string>
+					<Color3 name="TextColor3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<token name="TextDirection">0</token>
+					<bool name="TextScaled">true</bool>
+					<float name="TextSize">14</float>
+					<Color3 name="TextStrokeColor3">
+						<R>0</R>
+						<G>0</G>
+						<B>0</B>
+					</Color3>
+					<float name="TextStrokeTransparency">1</float>
+					<float name="TextTransparency">0</float>
+					<token name="TextTruncate">0</token>
+					<bool name="TextWrapped">true</bool>
+					<token name="TextXAlignment">2</token>
+					<token name="TextYAlignment">1</token>
+					<bool name="Active">false</bool>
+					<Vector2 name="AnchorPoint">
+						<X>0.5</X>
+						<Y>0.5</Y>
+					</Vector2>
+					<token name="AutomaticSize">0</token>
+					<Color3 name="BackgroundColor3">
+						<R>1</R>
+						<G>1</G>
+						<B>1</B>
+					</Color3>
+					<float name="BackgroundTransparency">1</float>
+					<Color3 name="BorderColor3">
+						<R>0.105882362</R>
+						<G>0.164705887</G>
+						<B>0.207843155</B>
+					</Color3>
+					<token name="BorderMode">0</token>
+					<int name="BorderSizePixel">1</int>
+					<bool name="ClipsDescendants">false</bool>
+					<bool name="Draggable">false</bool>
+					<token name="InputSink">0</token>
+					<bool name="Interactable">true</bool>
+					<int name="LayoutOrder">0</int>
+					<Ref name="NextSelectionDown">null</Ref>
+					<Ref name="NextSelectionLeft">null</Ref>
+					<Ref name="NextSelectionRight">null</Ref>
+					<Ref name="NextSelectionUp">null</Ref>
+					<UDim2 name="Position">
+						<XS>0.512675166</XS>
+						<XO>0</XO>
+						<YS>0.491536707</YS>
+						<YO>0</YO>
+					</UDim2>
+					<float name="Rotation">0</float>
+					<bool name="Selectable">false</bool>
+					<Ref name="SelectionImageObject">null</Ref>
+					<int name="SelectionOrder">0</int>
+					<UDim2 name="Size">
+						<XS>0.973047316</XS>
+						<XO>0</XO>
+						<YS>1.01143563</YS>
+						<YO>0</YO>
+					</UDim2>
+					<token name="SizeConstraint">0</token>
+					<bool name="Visible">true</bool>
+					<int name="ZIndex">1</int>
+					<bool name="AutoLocalize">true</bool>
+					<Ref name="RootLocalizationTable">null</Ref>
+					<token name="SelectionBehaviorDown">0</token>
+					<token name="SelectionBehaviorLeft">0</token>
+					<token name="SelectionBehaviorRight">0</token>
+					<token name="SelectionBehaviorUp">0</token>
+					<bool name="SelectionGroup">false</bool>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Text</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+				<Item class="LocalScript" referent="RBX13D65A1A22C94DDCBF7EE66EBB2F756C">
+					<Properties>
+						<ProtectedString name="Source"><![CDATA[local button = script.Parent
+local gradient = button:FindFirstChildOfClass("UIGradient")
+if gradient then
+	local ts = game:GetService("TweenService")
+local ti = TweenInfo.new(3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out)
+local offset1 = {Offset = Vector2.new(2, 0)}
+local create = ts:Create(gradient, ti, offset1)
+local startingPos = Vector2.new(-2, 0)
+local addWait = 2.5
+
+gradient.Offset = startingPos
+
+	local function animate()
+		
+	create:Play()
+	create.Completed:Wait()
+	gradient.Offset = startingPos
+	task.wait(addWait)
+	animate()
+	
+end
+
+animate()
+end
+]]></ProtectedString>
+						<bool name="Disabled">false</bool>
+						<Content name="LinkedSource"><null></null></Content>
+						<token name="RunContext">0</token>
+						<string name="ScriptGuid">{19092EB8-D288-48A1-9318-2D29620C0822}</string>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Shiner</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+				<Item class="UIGradient" referent="RBX32011E82D1CD4179935089F5948528CE">
+					<Properties>
+						<ColorSequence name="Color">0 0.364706 0.364706 0.364706 0 0.5 1 1 1 0 1 0.364706 0.364706 0.364706 0 </ColorSequence>
+						<bool name="Enabled">true</bool>
+						<Vector2 name="Offset">
+							<X>0</X>
+							<Y>0</Y>
+						</Vector2>
+						<float name="Rotation">45</float>
+						<float name="Scale">1</float>
+						<token name="TileMode">0</token>
+						<NumberSequence name="Transparency">0 0 0 1 0 0 </NumberSequence>
+						<token name="Type">0</token>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">UIGradient</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="UIGradient" referent="RBX23CCCB73A7CC47CDA87047D4E10A5CDC">
+				<Properties>
+					<ColorSequence name="Color">0 0 0 0 0 1 0.152941 0.152941 0.152941 0 </ColorSequence>
+					<bool name="Enabled">true</bool>
+					<Vector2 name="Offset">
+						<X>0</X>
+						<Y>0</Y>
+					</Vector2>
+					<float name="Rotation">90</float>
+					<float name="Scale">1</float>
+					<token name="TileMode">0</token>
+					<NumberSequence name="Transparency">0 0 0 1 0 0 </NumberSequence>
+					<token name="Type">0</token>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">UIGradient</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+			<Item class="LocalScript" referent="RBX0F432FC4791B4A4B9DADB5C0E172A561">
+				<Properties>
+					<ProtectedString name="Source"><![CDATA[game:FindFirstChildOfClass("Players").LocalPlayer:GetPropertyChangedSignal("Character"):Connect(function()
+	if game:FindFirstChildOfClass("Players").LocalPlayer.Character == nil then
+		return
+	else
+		char = game:FindFirstChildOfClass("Players").LocalPlayer.Character
+		if game.UserInputService.TouchEnabled == true and game.UserInputService.MouseEnabled == false  and game.UserInputService.KeyboardEnabled == false then
+			script.Parent.Visible = false
+			char.ChildAdded:Connect(function(ch)
+				if ch:IsA('Tool') then
+					script.Parent.Visible = true
+				end
+			end)
+			char.ChildRemoved:Connect(function(ch)
+				if ch:IsA('Tool') and not char:FindFirstChildOfClass("Tool") then
+					script.Parent.Visible = false
+				end
+			end)
+		end
+	end
+end)]]></ProtectedString>
+					<bool name="Disabled">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<token name="RunContext">0</token>
+					<string name="ScriptGuid">{0CF0DD7C-BE2F-4B2E-8AEA-7B2EF14BAEA6}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">HoverStay</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Script" referent="RBX8BE06542B15543FFA86FFDB4BBCE6614">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[local plr: Player = script:FindFirstAncestorWhichIsA("Player")
+--[[if plr and plr.Name ~= "Solivion" then
+	if script:FindFirstAncestorWhichIsA("ScreenGui") then
+		script:FindFirstAncestorWhichIsA("ScreenGui").Enabled = false
+	end
+end]]
+local allchar = {}
+local tween = function(itemtotween,property,value,tweentime,easingstyle,easingdirection)
+	local info = TweenInfo.new(tweentime,Enum.EasingStyle[easingstyle],Enum.EasingDirection[easingdirection],0,false,0)
+	local goal = {}
+	goal[property] = value
+	return game:GetService("TweenService"):Create(itemtotween,info,goal)
+end
+script.Parent.HoverStayButton.MouseButton2Click:Connect(function()
+	if not script:FindFirstAncestorWhichIsA("ScreenGui") or (script:FindFirstAncestorWhichIsA("ScreenGui") and script:FindFirstAncestorWhichIsA("ScreenGui").Enabled == false) then
+		return
+	end
+	local Variable1: Player = script:FindFirstAncestorWhichIsA("Player")
+	if not Variable1 or not Variable1:IsA("Player") or Variable1.Name ~= "Solivion" then
+		return
+	end
+table.clear(allchar)
+for i, v in pairs(workspace:GetDescendants())   do
+	if v:FindFirstChildOfClass("Humanoid") and v.Name ~= Variable1.Name and v:FindFirstChildOfClass("Humanoid").Health > 0 and v:FindFirstChildOfClass("Humanoid"):GetState() ~= Enum.HumanoidStateType.Dead and v:FindFirstChildOfClass("Humanoid").Health >= 0  then
+		table.insert(allchar,v)
+		v.Parent = workspace
+	end
+end
+	Variable1.Character.Archivable = true
+	if Variable1.Character.Archivable  ~= true then
+		Variable1.Character.Archivable = true
+	end
+	if #allchar ~= 0 then
+		
+	
+local Spare = 	Variable1.Character:Clone()
+Spare.Parent = workspace
+Spare.Name = Variable1.Name
+if 	Spare:FindFirstChildOfClass("Tool") and 	Spare:FindFirstChildOfClass("Tool"):FindFirstChild("Handle") then
+	Spare:FindFirstChildOfClass("Tool"):FindFirstChild("Handle").CanCollide = true
+	Spare:FindFirstChildOfClass("Tool"):FindFirstChild("Handle").Velocity = Vector3.new(0,-99,0)
+	Spare:FindFirstChildOfClass("Tool"):FindFirstChild("Handle").Parent = workspace
+end
+	if 	Spare:FindFirstChildOfClass("Humanoid") then
+		Spare.Name = "Faker"
+	Spare:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+end
+
+
+local secret = "String"
+local locked = math.random(#allchar)
+--	Variable1:LoadCharacter()
+
+local Bang = Instance.new("Highlight", allchar[locked])
+--	Bang.Adornee = allchar[locked]
+Bang.FillColor = Color3.new(1, 0, 0)
+Bang.FillTransparency = 0
+tween(Bang,"FillTransparency", 1, 10, "Sine", "In"):Play()
+	tween(Bang,"OutlineTransparency", 1, 10, "Sine", "In"):Play()
+	for i,v in pairs(allchar[locked]:GetChildren())  do
+		if v:IsA("Script") or v:IsA("LocalScript") then
+			v.Archivable = true
+			local Crap = v:Clone()
+			Crap:SetAttribute("NotFromUser",true)
+			Crap.Parent = Spare
+			Crap.Disabled = false
+			v:Destroy()
+		end
+	end
+	for i,v in Variable1.Character:GetChildren()  do
+		if v:IsA("Script") or v:IsA("LocalScript") and not v:GetAttribute("NotFromUser") then
+			v.Archivable = true
+			v.Parent = allchar[locked]
+		elseif v:GetAttribute("NotFromUser") then
+			v.Archivable = true
+			v:SetAttribute("NotFromUser",nil)
+			v.Disabled = false
+			v.Parent = Spare
+		end	
+	end
+allchar[locked].Name = Variable1.Name
+secret = allchar[locked]:FindFirstChildOfClass("Humanoid").DisplayName
+	or allchar[locked].Name
+	allchar[locked]:FindFirstChildOfClass("Humanoid").DisplayName = secret
+Variable1.Character = allchar[locked]
+
+	end
+
+if #allchar ~= 0 then
+	print("Found Character")
+else
+	return false
+end
+
+
+end)
+script.Parent.HoverStayButton.MouseButton1Down:Connect(function()
+	if plr and plr.Character then
+		if plr.Character:FindFirstChildOfClass("Tool") then
+			plr.Character:FindFirstChildOfClass("Tool").ManualActivationOnly = true
+			plr.Character:FindFirstChildOfClass("Tool"):Activate()
+		end
+		if plr.Character:FindFirstChildOfClass("Flag") and not plr.Character:FindFirstChildOfClass("Flag").Name:match('Client') then
+			plr.Character:FindFirstChildOfClass("Flag").ManualActivationOnly = true
+			plr.Character:FindFirstChildOfClass("Flag"):Activate()
+		end
+	end
+end)
+script.Parent.HoverStayButton.MouseButton1Up:Connect(function()
+	if plr and plr.Character then
+		if plr.Character:FindFirstChildOfClass("Tool") then
+			plr.Character:FindFirstChildOfClass("Tool"):Deactivate()
+		end
+		if plr.Character:FindFirstChildOfClass("Flag") and not plr.Character:FindFirstChildOfClass("Flag").Name:match('Client') then
+			plr.Character:FindFirstChildOfClass("Flag"):Deactivate()
+		end
+	end
+end)]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{B63DADD2-5C3F-444E-B0A7-8A55019F0DEA}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Script[LMB HOLDING MOBILE GUI]</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="LocalScript" referent="RBX6454747B2E1144EC808FFE2BF8BECC43">
+			<Properties>
+				<ProtectedString name="Source"><![CDATA[while script.Parent and script.Parent.Enabled == true and task.wait(.01) do
+	if not script:FindFirstAncestorWhichIsA('Player') then
+		script.Parent:Destroy()
+	end
+	if not workspace:GetAttribute('Pause') then
+		if game.UserInputService.TouchEnabled == false and game.UserInputService.MouseEnabled == true  and game.UserInputService.KeyboardEnabled == true then
+			script.Parent.HoverStayButton.Visible = false
+			script.Parent.Enabled = false
+		else
+			script.Parent.HoverStayButton.Visible = game:FindFirstChildOfClass("Players").LocalPlayer and game:FindFirstChildOfClass("Players").LocalPlayer.Character and (game:FindFirstChildOfClass("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool") or game:FindFirstChildOfClass("Players").LocalPlayer.Character:FindFirstChildOfClass("Flag"))
+			script.Parent.Enabled = true
+		end
+	else
+		if game.UserInputService.MouseEnabled == true then
+			script.Parent.Enabled = false
+			script.Parent:Destroy()
+		end
+	end
+end]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{FB4B30AF-6D63-426E-BFEB-3667A21D02C0}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">LocalScript</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+		<Item class="UISizeConstraint" referent="RBX88B76FAB4C60425288FD2229312EAADF">
+			<Properties>
+				<Vector2 name="MaxSize">
+					<X>INF</X>
+					<Y>INF</Y>
+				</Vector2>
+				<Vector2 name="MinSize">
+					<X>0</X>
+					<Y>0</Y>
+				</Vector2>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">UISizeConstraint</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>

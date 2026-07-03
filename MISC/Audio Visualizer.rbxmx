@@ -1,0 +1,112 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="LocalScript" referent="RBXEF6A95BA65554714BAF35D2506AEBE51">
+		<Properties>
+			<ProtectedString name="Source"><![CDATA[if game:FindFirstChildOfClass('Players').LocalPlayer.UserId == game.CreatorId or game:FindFirstChildOfClass('RunService'):IsStudio() or workspace:GetAttribute('__Private') then else script:Destroy() return end
+local TweenService = game:FindFirstChildOfClass("TweenService")
+local RunService = game:FindFirstChildOfClass("RunService")
+local BlurEffect = Instance.new("BlurEffect")
+BlurEffect.Parent = game:FindFirstChildOfClass("Lighting")
+local CCE = Instance.new("ColorCorrectionEffect")
+CCE.Parent = game:FindFirstChildOfClass("Lighting")
+
+local sound = script:FindFirstChild("BGM")
+
+local attackTime = 1
+local releaseTime = 5
+local previousLoudness = 0
+local PreviousTween: Tween = nil
+
+function LerpNum(start: number, goal: number, alpha: number): number
+	return start + (goal - start) * alpha
+end
+
+function applyBlur(intensity, deltaT)
+	local tweenInfo = TweenInfo.new(attackTime * deltaT, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+	local goal = {Size = intensity}
+	local tween = TweenService:Create(BlurEffect, tweenInfo, goal)
+	if PreviousTween then PreviousTween:Cancel() end
+	PreviousTween = tween
+	tween:Play()
+end
+
+function releaseBlur(intensity,deltaT)
+	local tweenInfo = TweenInfo.new(releaseTime * deltaT, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+	local goal = {Size = intensity}
+	local tween = TweenService:Create(BlurEffect, tweenInfo, goal)
+	if PreviousTween then PreviousTween:Cancel() end
+	PreviousTween = tween
+	tween:Play()
+end
+
+local lastT = tick()
+while task.wait() do
+	local deltaT = tick() - lastT
+	lastT = tick()
+	if not sound then sound = workspace:FindFirstChild('BGM') end
+	if sound and sound.IsPlaying then
+		local currentLoudness = sound.PlaybackLoudness / 10
+		local InterpolationSpeed = 1 - (10 ^ (-6 * deltaT))
+		if workspace.CurrentCamera then
+			workspace.CurrentCamera.FieldOfView = LerpNum(workspace.CurrentCamera.FieldOfView, 70 + currentLoudness/5, InterpolationSpeed)
+		end
+		if BlurEffect then
+			BlurEffect.Size = LerpNum(BlurEffect.Size, currentLoudness/5, InterpolationSpeed)
+		end
+		if CCE then
+			CCE.TintColor = CCE.TintColor:Lerp(Color3.new(math.clamp(1 + math.abs(math.cos(tick())/2) - currentLoudness/100, 0, 1),1 - currentLoudness/100,1), InterpolationSpeed)
+		end
+		--[[if currentLoudness > previousLoudness then
+			applyBlur(currentLoudness/5, deltaT)
+		else
+			releaseBlur(currentLoudness/5, deltaT)
+		end
+		previousLoudness = currentLoudness]]
+	else
+		releaseBlur(0, deltaT)
+	end
+end
+]]></ProtectedString>
+			<bool name="Disabled">false</bool>
+			<Content name="LinkedSource"><null></null></Content>
+			<token name="RunContext">0</token>
+			<string name="ScriptGuid">{452525B4-884B-403C-B6B7-9A9A5C05F598}</string>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<string name="Name">Enable If You Want BGM Volume Visualizer</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+		</Properties>
+		<Item class="Sound" referent="RBX468844710E6D482494A135FD44D57D2D">
+			<Properties>
+				<bool name="AcousticSimulationEnabled">true</bool>
+				<NumberRange name="LoopRegion">0 60000 </NumberRange>
+				<bool name="Looped">true</bool>
+				<bool name="PlayOnRemove">false</bool>
+				<NumberRange name="PlaybackRegion">0 60000 </NumberRange>
+				<bool name="PlaybackRegionsEnabled">false</bool>
+				<float name="PlaybackSpeed">1</float>
+				<bool name="Playing">true</bool>
+				<float name="RollOffMaxDistance">10000</float>
+				<float name="RollOffMinDistance">10</float>
+				<token name="RollOffMode">3</token>
+				<Ref name="SoundGroup">null</Ref>
+				<Content name="SoundId"><url>rbxassetid://45819151</url></Content>
+				<double name="TimePosition">0</double>
+				<float name="Volume">0.25</float>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">BGM</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
+			</Properties>
+		</Item>
+	</Item>
+	<SharedStrings>
+		<SharedString md5="yuZpQdnvvUBOTYh1jqZ2cA=="></SharedString>
+	</SharedStrings>
+</roblox>
