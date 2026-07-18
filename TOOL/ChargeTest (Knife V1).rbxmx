@@ -2,7 +2,7 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Tool" referent="RBX44F3AFB35AAB4185B7ACF765839E8DBA">
+	<Item class="Tool" referent="RBX5B218AFD52D341418282364C209E09DC">
 		<Properties>
 			<bool name="CanBeDropped">false</bool>
 			<bool name="Enabled">true</bool>
@@ -73,7 +73,7 @@
 			<int64 name="SourceAssetId">10036668191</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="RemoteEvent" referent="RBX65DE9DAF44CB440281F502034DDF5A82">
+		<Item class="RemoteEvent" referent="RBXFA8519C65B77413CA3C49B5AA2263DD1">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -83,7 +83,7 @@
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="ScreenGui" referent="RBX69E83E4F43B3449C881E9958E65843B8">
+		<Item class="ScreenGui" referent="RBXB0A788E2AB4A414D95EEDEC63C44A081">
 			<Properties>
 				<bool name="ClipToDeviceSafeArea">true</bool>
 				<int name="DisplayOrder">0</int>
@@ -106,7 +106,7 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Folder" referent="RBX71D1F9F2583B49499AD1D95AB431BBE8">
+			<Item class="Folder" referent="RBX0521D54FC7704A148C130DB184B29718">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -115,7 +115,7 @@
 					<int64 name="SourceAssetId">-1</int64>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
-				<Item class="Folder" referent="RBX106D4C8CBF1A42BE98B70B37FC734DED">
+				<Item class="Folder" referent="RBX07852D246A584FAFB02FC93A7087A5FC">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -124,7 +124,7 @@
 						<int64 name="SourceAssetId">-1</int64>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
-					<Item class="Frame" referent="RBXEC0DB6C18F06472DAF54CDBBAC75778F">
+					<Item class="Frame" referent="RBX4FBB1A7464394E609832369A1A7C50DE">
 						<Properties>
 							<token name="Style">0</token>
 							<bool name="Active">false</bool>
@@ -188,7 +188,7 @@
 							<int64 name="SourceAssetId">-1</int64>
 							<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 						</Properties>
-						<Item class="Frame" referent="RBXB397F8F4506D4578AFECC783E6815BB7">
+						<Item class="Frame" referent="RBX34251A2BEE904AEFB6E3B5D8AF5805DE">
 							<Properties>
 								<token name="Style">0</token>
 								<bool name="Active">false</bool>
@@ -255,7 +255,7 @@
 						</Item>
 					</Item>
 				</Item>
-				<Item class="Folder" referent="RBXC3927392A75549A087901E5773264D5B">
+				<Item class="Folder" referent="RBXC8B33D48D16D4C5CA407D2B00455B87D">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -264,7 +264,7 @@
 						<int64 name="SourceAssetId">-1</int64>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
-					<Item class="Frame" referent="RBXE5E601DA292D40A2AAD3F353B188B45E">
+					<Item class="Frame" referent="RBXA54F4D38440E44E1997BB50B9623E5F7">
 						<Properties>
 							<token name="Style">0</token>
 							<bool name="Active">false</bool>
@@ -328,7 +328,7 @@
 							<int64 name="SourceAssetId">-1</int64>
 							<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 						</Properties>
-						<Item class="Frame" referent="RBX05E18F218E284B4F973F7435E9012EBD">
+						<Item class="Frame" referent="RBX4364C74D019A438682502EA6B44151B7">
 							<Properties>
 								<token name="Style">0</token>
 								<bool name="Active">false</bool>
@@ -395,7 +395,7 @@
 						</Item>
 					</Item>
 				</Item>
-				<Item class="Folder" referent="RBXF220E5BA846B459E8FC00765717E1588">
+				<Item class="Folder" referent="RBX5CF61A203D8A427294BD01B80C6A2C82">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -404,7 +404,7 @@
 						<int64 name="SourceAssetId">-1</int64>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
-					<Item class="Frame" referent="RBXEB2AD84ECF0747D88ACAB34392B474F3">
+					<Item class="Frame" referent="RBXEA22141DF8C9498497967517026D8E04">
 						<Properties>
 							<token name="Style">0</token>
 							<bool name="Active">false</bool>
@@ -468,7 +468,7 @@
 							<int64 name="SourceAssetId">-1</int64>
 							<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 						</Properties>
-						<Item class="Frame" referent="RBX3C274BA45ECE4EA08B4BC906B795612B">
+						<Item class="Frame" referent="RBX7D004ABAEF644F9FBB66DB6952E9049D">
 							<Properties>
 								<token name="Style">0</token>
 								<bool name="Active">false</bool>
@@ -535,7 +535,7 @@
 						</Item>
 					</Item>
 				</Item>
-				<Item class="Folder" referent="RBX885DCE55832047CF94EFBDCC659A336D">
+				<Item class="Folder" referent="RBX5C3CC8F1CAEF4875BD968A638CEBF4D6">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -544,7 +544,7 @@
 						<int64 name="SourceAssetId">-1</int64>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
-					<Item class="Frame" referent="RBXEF73B3F6821B423785BD45CC740EB411">
+					<Item class="Frame" referent="RBX470C73233593417192763D06FC0FCE5B">
 						<Properties>
 							<token name="Style">0</token>
 							<bool name="Active">false</bool>
@@ -608,7 +608,7 @@
 							<int64 name="SourceAssetId">-1</int64>
 							<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 						</Properties>
-						<Item class="Frame" referent="RBXF5EE00741ED6444188B70EDA7E557BE1">
+						<Item class="Frame" referent="RBXBD1C6240AB574A61B87AD1A780DD65A6">
 							<Properties>
 								<token name="Style">0</token>
 								<bool name="Active">false</bool>
@@ -676,7 +676,7 @@
 					</Item>
 				</Item>
 			</Item>
-			<Item class="ImageLabel" referent="RBX902995AD18274D1A8AD609A73D5C8017">
+			<Item class="ImageLabel" referent="RBXF1AA22D9D2A4447D9B39A7CB05A8B7A4">
 				<Properties>
 					<Content name="Image"><url>http://www.roblox.com/asset/?id=316279304</url></Content>
 					<Color3 name="ImageColor3">
@@ -773,7 +773,7 @@
 					<int64 name="SourceAssetId">-1</int64>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
-				<Item class="UIAspectRatioConstraint" referent="RBX443D0840309D487884973D61464AE29F">
+				<Item class="UIAspectRatioConstraint" referent="RBX3A90C6D49E274994BFF3F997C4C0BA43">
 					<Properties>
 						<float name="AspectRatio">1</float>
 						<token name="AspectType">0</token>
@@ -786,7 +786,7 @@
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="ImageLabel" referent="RBX93E116773FE3452D962722DFE4911015">
+				<Item class="ImageLabel" referent="RBX91FD379B67E243E5A8B9F752EBCECC3C">
 					<Properties>
 						<Content name="Image"><url>http://www.roblox.com/asset/?id=316279304</url></Content>
 						<Color3 name="ImageColor3">
@@ -886,7 +886,7 @@
 				</Item>
 			</Item>
 		</Item>
-		<Item class="LocalScript" referent="RBXDAB659EF93E44074B283F2630C99F4EC">
+		<Item class="LocalScript" referent="RBXC04A8AD7B44740D2A2106B5B1CF1E967">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[-- I won't claim ownership of a Dumb Crap my autism made me do at 3 am{Cringe warning}
 --2024 note, other than that. enjoy the thing I totally didn't cook last year. along with the dumbest comment known to man(not sexist)--
@@ -929,7 +929,8 @@ local ArmWeld = script.Parent.Handle["Arm Weld"] -- Somehow I animate with this 
 local canDmg = false -- Is it legal to hurt people?
 local FireMax = 0 -- How long ur arms will move and how long will the purge ends
 local hitbox = handle:WaitForChild("Hitbox", 1) -- handle scale Bads
-local chargeAnimation = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(chargeAnimationId) -- Why are you in here, GET OUT!
+if not game.Players.LocalPlayer.Character then game.Players.LocalPlayer.CharacterAdded:Wait() end
+local chargeAnimation = game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):LoadAnimation(chargeAnimationId) -- Why are you in here, GET OUT!
 function SendLerpSignal(X,Y,Z,VecX,VecY,VecZ,Alpha) -- Send To Server With The Dumbest Way Ever, Don't ask why I seperated them, You will learn about it in the mean time.
 	script.Parent.Lerpremote:FireServer("Lerp Weld",X,Y,Z,VecX,VecY,VecZ,Alpha) -- What we sent to brazil
 end -- Ending of the function, Ain't no way bruh. It Bads And Doesn't Work
@@ -1142,7 +1143,7 @@ end)]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBXD64FFA9400BA4F288DA055D2656167AE">
+			<Item class="ModuleScript" referent="RBXB5208793649343DCB3A21ED357D77D42">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<ProtectedString name="Source"><![CDATA[local mathUtils = {}
@@ -1164,7 +1165,7 @@ return mathUtils]]></ProtectedString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Script" referent="RBXA43F56872B1B49BB90182842C9692510">
+		<Item class="Script" referent="RBX6D9A74B47EF04A84B9AD5407E8BA1BDE">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[script.Parent.Lerpremote.OnServerEvent:Connect(function(plr,Remote,X,Y,Z,VecX,VecY,VecZ,Alpha)
 	if Remote == "Lerp Weld"and X <100 and Y<100 and Z<100 then
@@ -1186,7 +1187,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="RemoteEvent" referent="RBX7C2AA4EC394A4C4683606D974F41018F">
+		<Item class="RemoteEvent" referent="RBXFC3A87E185DB468FAEC18964CB67EBE7">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1196,7 +1197,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="BoolValue" referent="RBXFE96CB57A6644E3FBAB8A6B61C5B4166">
+		<Item class="BoolValue" referent="RBXE335BF569DE04CC699C8F6CDE7892A73">
 			<Properties>
 				<bool name="Value">false</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1207,7 +1208,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="StringValue" referent="RBX07E97DAB280E47B7830B3A3E6DD0B7BD">
+		<Item class="StringValue" referent="RBX4F8D2A03D7D447A5820A31A900196C21">
 			<Properties>
 				<string name="Value"></string>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1218,7 +1219,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="Part" referent="RBX8A4CA951AF9049F08DF7A06680495A59">
+		<Item class="Part" referent="RBXF77F182130754FCFAF0319440D5D6B9C">
 			<Properties>
 				<token name="shape">1</token>
 				<token name="formFactorRaw">1</token>
@@ -1316,7 +1317,7 @@ end)]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Animation" referent="RBXDF183F50D688499C8BD67B4EF99B6446">
+			<Item class="Animation" referent="RBXC1019AA7F3D44078B733470411341A5C">
 				<Properties>
 					<Content name="AnimationId"><url>rbxassetid://12979935257</url></Content>
 					<BinaryString name="AttributesSerialize"></BinaryString>
@@ -1327,7 +1328,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Weld" referent="RBX68A4060AA386462E888520884472D352">
+			<Item class="Weld" referent="RBXB558D8AAA4134461B411647897D253B6">
 				<Properties>
 					<CoordinateFrame name="C0">
 						<X>0</X>
@@ -1358,8 +1359,8 @@ end)]]></ProtectedString>
 						<R22>-4.37113883e-08</R22>
 					</CoordinateFrame>
 					<bool name="Enabled">false</bool>
-					<Ref name="Part0">RBX8A4CA951AF9049F08DF7A06680495A59</Ref>
-					<Ref name="Part1">RBX08F205061AB245A89AD357489EA0AD43</Ref>
+					<Ref name="Part0">RBXF77F182130754FCFAF0319440D5D6B9C</Ref>
+					<Ref name="Part1">RBX89DCA3FFC1D64C1FB8F9C78CCCFB9015</Ref>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
@@ -1368,7 +1369,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Part" referent="RBX08F205061AB245A89AD357489EA0AD43">
+			<Item class="Part" referent="RBX89DCA3FFC1D64C1FB8F9C78CCCFB9015">
 				<Properties>
 					<token name="shape">1</token>
 					<token name="formFactorRaw">1</token>
@@ -1467,7 +1468,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="SpecialMesh" referent="RBX297F9371D8D04514BE870985A62544D3">
+			<Item class="SpecialMesh" referent="RBX5B5E8E93E7704507B86187C20A2E1339">
 				<Properties>
 					<token name="MeshType">5</token>
 					<Content name="MeshId"><url>rbxassetid://3499835987</url></Content>
@@ -1495,7 +1496,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Folder" referent="RBXF2A81137A12344CFB397D21D9B555FB2">
+			<Item class="Folder" referent="RBX7153AF130EFB43B9AC5FB42754575084">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1504,7 +1505,7 @@ end)]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
-				<Item class="Sound" referent="RBX3BE9FE3314114CD78B24D694A64E38C6">
+				<Item class="Sound" referent="RBX33175DCC413D4BEB9BAE99880C85D827">
 					<Properties>
 						<bool name="AcousticSimulationEnabled">true</bool>
 						<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1529,7 +1530,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="Sound" referent="RBX516CBF440BE049239B39492848415C6E">
+				<Item class="Sound" referent="RBX13A69C87D03B4A32AC8EC7128439C634">
 					<Properties>
 						<bool name="AcousticSimulationEnabled">true</bool>
 						<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1554,7 +1555,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="Sound" referent="RBX3D1CA4433DBE4572A4A6629EF6692386">
+				<Item class="Sound" referent="RBXD012AF2BBEC34CD39EBB1E6D199EB4B0">
 					<Properties>
 						<bool name="AcousticSimulationEnabled">true</bool>
 						<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1579,7 +1580,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="Sound" referent="RBX7951442B57DD480DBC45B292E62C1AD2">
+				<Item class="Sound" referent="RBX375BFC8662254A41B40F2D7498981338">
 					<Properties>
 						<bool name="AcousticSimulationEnabled">true</bool>
 						<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1604,7 +1605,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="Sound" referent="RBX95933BF015324A17B313B34761FAD5EC">
+				<Item class="Sound" referent="RBX0ED9709A39204F3D9C27B571425A5DA4">
 					<Properties>
 						<bool name="AcousticSimulationEnabled">true</bool>
 						<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1629,7 +1630,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="Sound" referent="RBXAFB19B8D6025439BA738FE5482C13C0E">
+				<Item class="Sound" referent="RBXDE1A76D7D0434EDE9850BC8B261F6529">
 					<Properties>
 						<bool name="AcousticSimulationEnabled">true</bool>
 						<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1654,7 +1655,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="Sound" referent="RBX34AA8DD79BC9433FA48653787B4E3FE9">
+				<Item class="Sound" referent="RBX7CF562C0AD0D465D83B716C045EBE475">
 					<Properties>
 						<bool name="AcousticSimulationEnabled">true</bool>
 						<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1680,7 +1681,7 @@ end)]]></ProtectedString>
 					</Properties>
 				</Item>
 			</Item>
-			<Item class="Sound" referent="RBXF39621192A9D46B09F2E13C408021EE5">
+			<Item class="Sound" referent="RBX51511E6A57D84DCCB48A100C28821028">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1705,7 +1706,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX4C127835D47C47EC8A2DC7ACC5E27C89">
+			<Item class="Sound" referent="RBX300E83B448074CD5AE6D65618E2EE6DB">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1730,9 +1731,9 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Highlight" referent="RBX318E2B9886FD48D8909E4598544F3C11">
+			<Item class="Highlight" referent="RBXAA22F78025DE4133B50BE1A84333168A">
 				<Properties>
-					<Ref name="Adornee">RBX8A4CA951AF9049F08DF7A06680495A59</Ref>
+					<Ref name="Adornee">RBXF77F182130754FCFAF0319440D5D6B9C</Ref>
 					<token name="DepthMode">1</token>
 					<bool name="Enabled">true</bool>
 					<Color3 name="FillColor">
@@ -1755,7 +1756,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Attachment" referent="RBX5AF7DD43BE6E4D72A28D0959EB689647">
+			<Item class="Attachment" referent="RBX49569A8AFFB44BD48E6DEA96E973AD3F">
 				<Properties>
 					<CoordinateFrame name="CFrame">
 						<X>0.0841475278</X>
@@ -1780,10 +1781,10 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Trail" referent="RBX0EBBA9202075470B8455EF50E212B17E">
+			<Item class="Trail" referent="RBXEBE33865265344A79EC31C036F908D38">
 				<Properties>
-					<Ref name="Attachment0">RBX38683369D9BF488CB428174282DFD3E7</Ref>
-					<Ref name="Attachment1">RBX5AF7DD43BE6E4D72A28D0959EB689647</Ref>
+					<Ref name="Attachment0">RBX82768950D812405CB6215B9ED81E0E22</Ref>
+					<Ref name="Attachment1">RBX49569A8AFFB44BD48E6DEA96E973AD3F</Ref>
 					<float name="Brightness">1</float>
 					<ColorSequence name="Color">0 1 1 1 0 1 1 1 1 0 </ColorSequence>
 					<bool name="Enabled">false</bool>
@@ -1806,7 +1807,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Attachment" referent="RBX38683369D9BF488CB428174282DFD3E7">
+			<Item class="Attachment" referent="RBX82768950D812405CB6215B9ED81E0E22">
 				<Properties>
 					<CoordinateFrame name="CFrame">
 						<X>0.102246583</X>
@@ -1831,7 +1832,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX4236C8068C254D51901DA2BF476FBA9E">
+			<Item class="Sound" referent="RBX7A87814BC01C44E9B0920B09D70DDDCE">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -1856,7 +1857,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Weld" referent="RBX589549CDDCC24426BA438241D28049CB">
+			<Item class="Weld" referent="RBX20D9D3E6544C4138A00447E426BDEDBB">
 				<Properties>
 					<CoordinateFrame name="C0">
 						<X>0</X>
@@ -1887,8 +1888,8 @@ end)]]></ProtectedString>
 						<R22>-4.37113883e-08</R22>
 					</CoordinateFrame>
 					<bool name="Enabled">false</bool>
-					<Ref name="Part0">RBX8A4CA951AF9049F08DF7A06680495A59</Ref>
-					<Ref name="Part1">RBX08F205061AB245A89AD357489EA0AD43</Ref>
+					<Ref name="Part0">RBXF77F182130754FCFAF0319440D5D6B9C</Ref>
+					<Ref name="Part1">RBX89DCA3FFC1D64C1FB8F9C78CCCFB9015</Ref>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
@@ -1897,7 +1898,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Attachment" referent="RBX58A4E60315424E40BDCEDAEA6D3A234B">
+			<Item class="Attachment" referent="RBXE9EEE8275B35445195097B0470A04880">
 				<Properties>
 					<CoordinateFrame name="CFrame">
 						<X>0</X>
@@ -1921,7 +1922,7 @@ end)]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
-				<Item class="ParticleEmitter" referent="RBXC55BA639DB6A4E618B40495D79E308B9">
+				<Item class="ParticleEmitter" referent="RBX0623A5D5C310431598D34547E576CD81">
 					<Properties>
 						<Vector3 name="Acceleration">
 							<X>0</X>
@@ -1976,7 +1977,7 @@ end)]]></ProtectedString>
 				</Item>
 			</Item>
 		</Item>
-		<Item class="RemoteEvent" referent="RBX11F08A1DF39F4263A587FF5CD0D9199C">
+		<Item class="RemoteEvent" referent="RBXCE661984741447E38337A48696E70AEA">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1986,7 +1987,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBXCD5E8F390534458B84A7030099984A89">
+		<Item class="Folder" referent="RBX38803E104CE54130BDA1D55E67DF0F24">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1995,7 +1996,7 @@ end)]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Folder" referent="RBX0BCDFDE3320A4B1DB1F79F5E16D03C80">
+			<Item class="Folder" referent="RBX7D17B86AF1734CE18242DF02152AC19A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2004,7 +2005,7 @@ end)]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
-				<Item class="RemoteEvent" referent="RBXF99355291E5E46B2B06E9C41D41DD15E">
+				<Item class="RemoteEvent" referent="RBX581129C838D3492C85B9114FE8D3912C">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2014,7 +2015,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBX474FD4AD5013469688C6EE59694AD081">
+				<Item class="RemoteEvent" referent="RBXEBAB602465EA457795C15563044E2DA6">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2024,7 +2025,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBXCFA26F31895B4D129F98D456D791CF72">
+				<Item class="RemoteEvent" referent="RBX3B978F31F5C6442E9EAA3A218B8CFF40">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2034,7 +2035,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBX656D4735E6124BE388D9F537EB4C0075">
+				<Item class="RemoteEvent" referent="RBX605B03D6D6F34DFA8AA5CA905EA4BBF4">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2044,7 +2045,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBX6EDD02D284814DD691FD0356D1604B39">
+				<Item class="RemoteEvent" referent="RBX729EB509B0F24CA4B1C8C74C460535FA">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2054,7 +2055,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBXF0924251D9CA43ABB1AB6052646229F3">
+				<Item class="RemoteEvent" referent="RBX9EEB41B9AB584735993A4CDD6AF6192A">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2064,7 +2065,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBXBA4B9A15EBCD49F6BFC20DECD1DC6CDA">
+				<Item class="RemoteEvent" referent="RBX4B916D6BA519456CB3166059DA06CCA4">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2074,7 +2075,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBX5FB3C53EE68C4FCEB7684BEDDE7865AC">
+				<Item class="RemoteEvent" referent="RBXE02B855F165D4CF9AE0AB80216E74B7F">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2084,7 +2085,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBXEB24BA965BF74099B1E036C8B0B5B132">
+				<Item class="RemoteEvent" referent="RBXA59A747A4BC3454FB2540563C09AD459">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2094,7 +2095,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBX53940AD02CDB40D6BD7FB63340D5985C">
+				<Item class="RemoteEvent" referent="RBX39CD3E588BE0463B989E3343F91BC153">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2104,7 +2105,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBX3099DD5B342C48D7860AAEC908C71032">
+				<Item class="RemoteEvent" referent="RBXB07ECAE7E65046AA8358A60CA6A21C76">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2114,7 +2115,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBXA68239714F454656AB0DB57AAF7DC997">
+				<Item class="RemoteEvent" referent="RBX5A77F5E9305449AD8D2A5801EA0C5B85">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2124,7 +2125,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBXA07C813BB63A42ABABCBA4508582C532">
+				<Item class="RemoteEvent" referent="RBXB5FD4480C4374EACB3E678C371E1D473">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2134,7 +2135,7 @@ end)]]></ProtectedString>
 						<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 					</Properties>
 				</Item>
-				<Item class="RemoteEvent" referent="RBXD4E4E181D21A495AA16121947B1CF05A">
+				<Item class="RemoteEvent" referent="RBXF9345CC6CEB84B9FA48F90F47E48F199">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2146,7 +2147,7 @@ end)]]></ProtectedString>
 				</Item>
 			</Item>
 		</Item>
-		<Item class="ModuleScript" referent="RBX2F8CC8C5FB0041CB81FFC95E90099CDE">
+		<Item class="ModuleScript" referent="RBX7F35C11EBC5D464D9D8365CFAA0DDE65">
 			<Properties>
 				<Content name="LinkedSource"><null></null></Content>
 				<ProtectedString name="Source"><![CDATA[-- Camera Shaker
@@ -2342,7 +2343,7 @@ return CameraShaker]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBXBCC17670B371464FB26A5DAA5D851513">
+			<Item class="ModuleScript" referent="RBX65A360221ECE4DDBA724880345D706C3">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<ProtectedString name="Source"><![CDATA[-- Camera Shake Instance
@@ -2522,7 +2523,7 @@ return CameraShakeInstance]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXC73CE543E998457C9030F29D83574467">
+			<Item class="ModuleScript" referent="RBX780788C751BC48F3A83C80F85AB38BA2">
 				<Properties>
 					<Content name="LinkedSource"><null></null></Content>
 					<ProtectedString name="Source"><![CDATA[-- Camera Shake Presets
@@ -2687,7 +2688,7 @@ return setmetatable({}, {
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="RemoteEvent" referent="RBXA14AEB89445E47EA9F48F4B8CFF7F8D7">
+		<Item class="RemoteEvent" referent="RBX2CF9B62C6F4145AAA8B2DE927D0E04CD">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2697,7 +2698,7 @@ return setmetatable({}, {
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX5A7BB3E4B158443F938BDFD13801A425">
+		<Item class="Script" referent="RBXCFE53ADBAADF41D39E6DB009D5B4A18B">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[--[[
 
@@ -2735,7 +2736,7 @@ local AFTERIMAGE_LIFETIME = 0.5; --How long each afterimage will live.
 local AFTERIMAGE_COLLISIONGROUP_ID = nil;
 
 --[[//Actual Code\\]]--
-local lastAfterimageTick = tick();
+local lastAfterimageTick = os.clock();
 --[[Services]]--
 local Debris = game:GetService("Debris");
 local PhysService = game:GetService("PhysicsService");
@@ -2820,14 +2821,14 @@ end
 
 --Main function
 function makeAfterimage(plr)
-	if (tick() - lastAfterimageTick) > AFTERIMAGE_FREQUENCY then
-		lastAfterimageTick = tick()
+	if (os.clock() - lastAfterimageTick) > AFTERIMAGE_FREQUENCY then
+		lastAfterimageTick = os.clock()
 		if plr.Character then
 			local char = plr.Character;
 			local hrp = char.PrimaryPart;
 			local hum = char:FindFirstChildOfClass("Humanoid");
 			--[[Other variables]]--
-			local lastAfterimageTick = tick();
+			local lastAfterimageTick = os.clock();
 			local lastPos = hrp.Position;
 			local isMoving = false;char.Archivable = true;
 			local afterimage = char:Clone();
@@ -2863,7 +2864,7 @@ function makeAfterimage(plr)
 						v.CastShadow = false;
 						v.Reflectance = 0;
 						v.CollisionGroupId = AFTERIMAGE_COLLISIONGROUP_ID;
-						for i , c in pairs(v:children()) do
+						for i , c in pairs(v:GetChildren()) do
 							if c:IsA("Sound") then
 								c.Volume = 0
 							end
@@ -2927,7 +2928,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="BoolValue" referent="RBXC0FAD4270C8147C89385BFB10F7C371B">
+		<Item class="BoolValue" referent="RBX783CE419A9E74D1AAD3855950EE46D53">
 			<Properties>
 				<bool name="Value">true</bool>
 				<BinaryString name="AttributesSerialize"></BinaryString>
@@ -2938,7 +2939,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="LocalScript" referent="RBX51B1D4F6D3EA447FBBFA0C726E6F3216">
+		<Item class="LocalScript" referent="RBX3CF3E6C0C0824290B6884DB8B27A5E1A">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[local player = game.Players.LocalPlayer
 local Camera = workspace.CurrentCamera
@@ -3040,7 +3041,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX3946A266E2024DF0A1699E69032F0BA6">
+		<Item class="Script" referent="RBX0E26891107C2443EB9ACB99FF255FF81">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[-- I won't claim ownership of a Dumb Crap my autism made me do at 3 am{Cringe warning}
 --2024 note, other than that. enjoy the thing I totally didn't cook last year. along with the dumbest comment known to man(not sexist)--
@@ -3056,10 +3057,10 @@ Molten = script.Parent["Molten?"].Value
 script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variable2)
 	if Wut == "Dmg" then
 		if not Variable1 or not Variable1.Parent or not Variable1:FindFirstAncestorOfClass('Model') or not Variable1:FindFirstAncestorOfClass('Model'):FindFirstChildOfClass("Humanoid") then return end
-		local Sfx = script.Parent.Handle.Stab:children()
+		local Sfx = script.Parent.Handle.Stab:GetChildren()
 		local random = math.random(1,#Sfx)
 		Sfx[random]:Play()
-		for i , v in pairs(Variable1:children()) do
+		for i , v in pairs(Variable1:GetChildren()) do
 			if v:IsA("Highlight") then
 				v:Destroy()
 			end
@@ -3103,7 +3104,7 @@ script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variab
 			if Variable1.Name == "Left Leg" or Variable1.Name == "Right Leg" then
 			--	Variable1:FindFirstAncestorOfClass('Model'):FindFirstChild("Humanoid").Speed = Variable1:FindFirstAncestorOfClass('Model'):FindFirstChild("Humanoid").Speed - 1
 			elseif Variable1.Name == "Right Arm" then
-				for i,v in pairs(Variable1:FindFirstAncestorOfClass('Model'):children()) do --Gets all of character's children.
+				for i,v in pairs(Variable1:FindFirstAncestorOfClass('Model'):GetChildren()) do --Gets all of character's children.
 					if v:IsA("Tool") then
 						v.Parent = workspace
 					end
@@ -3113,7 +3114,7 @@ script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variab
 					script.Parent.fistremote:FireClient(game.Players:GetPlayerFromCharacter(Variable1:FindFirstAncestorOfClass('Model')),"Right Arm Got Hit",Variable2,nil)
 				end
 			elseif Variable1.Name == "Left Arm" then
-				for i,v in pairs(Variable1:FindFirstAncestorOfClass('Model'):children()) do --Gets all of character's children.
+				for i,v in pairs(Variable1:FindFirstAncestorOfClass('Model'):GetChildren()) do --Gets all of character's children.
 					if v:IsA("Tool") then
 						v.Enabled = false
 						wait(1)
@@ -3139,19 +3140,19 @@ script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variab
 			end
 			if MeltVal.Value >= 100 then --Don't Copy This S*** just use break joints
 				if Variable1.Name ~= "Head" then -- Why the heck is dummy's head affected by this?
-					for i , v in pairs(Variable1:children()) do
+					for i , v in pairs(Variable1:GetChildren()) do
 						if v:IsA("Highlight") then
 							v.Adornee = Variable1
 							v.FillTransparency = 0
 						end
 					end
-					for i , v in pairs(Variable1:FindFirstAncestorOfClass('Model'):children()) do
+					for i , v in pairs(Variable1:FindFirstAncestorOfClass('Model'):GetChildren()) do
 						if v:IsA("Motor6D") or v:IsA("Weld") then
 							if v.Part1 == Variable1 or v.Part0 == Variable1 then
 								v:Destroy()
 							end
 						elseif v:IsA("BasePart") or v:IsA("MeshPart") or v:IsA("Accessory") or v:IsA("WedgePart") then
-							for i , c in pairs(v:children()) do
+							for i , c in pairs(v:GetChildren()) do
 								if c:IsA("Motor6D") or c:IsA("Weld") then
 									if c.Part1 == Variable1 or c.Part0 == Variable1 then
 										c:Destroy()
@@ -3159,13 +3160,13 @@ script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variab
 								end
 							end
 						elseif v:IsA("Tool") then
-							for i , c in pairs(v:children()) do
+							for i , c in pairs(v:GetChildren()) do
 								if c:IsA("Motor6D") or c:IsA("Weld") then
 									if c.Part1 == Variable1 or c.Part0 == Variable1 then
 										c:Destroy()
 									end
 								elseif c:IsA("BasePart") or c:IsA("MeshPart") or c:IsA("Accessory") or c:IsA("WedgePart") then
-									for i , d in pairs(v:children()) do
+									for i , d in pairs(v:GetChildren()) do
 										if d:IsA("Motor6D") or d:IsA("Weld") then
 											if d.Part1 == Variable1 or d.Part0 == Variable1 then
 												d:Destroy()
@@ -3176,7 +3177,7 @@ script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variab
 							end
 						end
 					end
-					for i , v in pairs(Variable1:children()) do
+					for i , v in pairs(Variable1:GetChildren()) do
 						if v:IsA("Motor6D") then
 							if v.Part1 == Variable1 or v.Part0 == Variable1 then
 								v:Destroy()
@@ -3191,7 +3192,7 @@ script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variab
 							v:Destroy()
 						end
 					end
-					for i , v in pairs(Variable1:children()) do
+					for i , v in pairs(Variable1:GetChildren()) do
 						if v:IsA("Highlight") and v.Name == "Melt" then
 							v:Destroy()
 						elseif v:IsA("Highlight") and v.Name == "Burnt" then
@@ -3285,13 +3286,13 @@ script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variab
 			script.Parent.Remotes.Camera.RoughDriving:FireClient(plr)
 		end
 	elseif Wut == "Drop Tools Player" then -- Incase it hits The Arm Player Character is holding the tools
-		for i,v in pairs(Variable1:FindFirstAncestorOfClass('Model'):children()) do --Gets all of character's children.
+		for i,v in pairs(Variable1:FindFirstAncestorOfClass('Model'):GetChildren()) do --Gets all of character's children.
 			if v:IsA("Tool") then
 				v.Parent = workspace
 			end
 		end
 	elseif Wut == "Stunt Player" then -- Incase it hits The Arm Player Character is holding the tools
-		for i,v in pairs(Variable1:FindFirstAncestorOfClass('Model'):children()) do --Gets all of character's children.
+		for i,v in pairs(Variable1:FindFirstAncestorOfClass('Model'):GetChildren()) do --Gets all of character's children.
 			if v:IsA("Tool") then
 				v.Enabled = false
 				wait(1)
@@ -3325,8 +3326,8 @@ script.Parent.fistremote.OnServerEvent:Connect(function(plr,Wut,Variable1,Variab
 	end
 end)
 script.Parent.Equipped:Connect(function()
-	script.Parent.Handle["Arm Weld"].Part0 = script.Parent.Parent.Torso
-	script.Parent.Handle["Arm Weld"].Part1 = script.Parent.Parent["Right Arm"]
+	script.Parent.Handle["Arm Weld"].Part0 = script.Parent.Parent:FindFirstChild('Torso') or script.Parent.Parent:FindFirstChild('UpperTorso')
+	script.Parent.Handle["Arm Weld"].Part1 = script.Parent.Parent:FindFirstChild('Right Arm') or script.Parent.Parent:FindFirstChild('RightUpperArm') 
 	script.Parent.Handle["Arm Weld"].Enabled = true
 	if Molten then
 		script.Parent.Name = "Real Knife(Melt)"
@@ -3362,7 +3363,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="Script" referent="RBX9840C4F92F0845F28EDA16935462A8CF">
+		<Item class="Script" referent="RBXD832A608723442B3B7658197BBB9DCA1">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[--this thing is badly made, Believe me I made it last year
 --imperformant guranteed]]></ProtectedString>

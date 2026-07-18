@@ -2,7 +2,7 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Tool" referent="RBX780C661B80024C589C076194195CEDB4">
+	<Item class="Tool" referent="RBX9F7CF8FF89B14AF0B8AB36E7E1E5A3C5">
 		<Properties>
 			<bool name="CanBeDropped">true</bool>
 			<bool name="Enabled">true</bool>
@@ -73,7 +73,7 @@
 			<int64 name="SourceAssetId">17356894316</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Part" referent="RBX5B53705109B1473094EF8FF4BB4013C7">
+		<Item class="Part" referent="RBX3E1DE59CA708477FB8F721412B7528A3">
 			<Properties>
 				<token name="shape">1</token>
 				<token name="formFactorRaw">1</token>
@@ -171,7 +171,7 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="SpecialMesh" referent="RBXC9EBBFE0A2D24C6C964607E4FEF3B7EC">
+			<Item class="SpecialMesh" referent="RBX0140F9AF723142B79FC423328162990B">
 				<Properties>
 					<token name="MeshType">5</token>
 					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=12557856</url></Content>
@@ -199,7 +199,7 @@
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX0FDA9D94C970457CAFFCDC255709318D">
+			<Item class="Sound" referent="RBX47B9D730076F4371BB3B761D20D23616">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -224,7 +224,7 @@
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX163C200CB057420F98499E593FDE0BAD">
+			<Item class="Sound" referent="RBXDF898B143A984BB6A3495C469CCADA39">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -250,7 +250,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Script" referent="RBX115162EA6C28423ABC75C2CEE589EA4B">
+		<Item class="Script" referent="RBX626911003BCB4036AB9F6E752DB539B1">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[--By Solivion, Funny Negative quality
 local Debris: Debris = game:FindFirstChildOfClass('Debris')
@@ -288,7 +288,7 @@ function Ragdoll(Who, RagdollTime)
 		RagdollCountdowner[Who] = RagdollTime
 	end
 	local StartTic = 0
-	StartTic = tick()
+	StartTic = os.clock()
 	if Who:FindFirstChildOfClass("Humanoid") then
 		local WhosHumanoid = Who:FindFirstChildOfClass("Humanoid")
 		Who:SetAttribute("IsRagdoll", true)
@@ -358,7 +358,7 @@ function Ragdoll(Who, RagdollTime)
 			joint.Enabled = false
 		end
 	end
-	repeat task.wait(.01) until (tick() - StartTic) >= RagdollCountdowner[Who]
+	repeat task.wait(.01) until (os.clock() - StartTic) >= RagdollCountdowner[Who]
 	RagdollCountdowner[Who] = nil
 	if Who == nil then
 		return 
@@ -431,11 +431,12 @@ function Launch()
 		Sound:Play()
 		Raypar:AddToFilter(CloneHandle)
 		local RayHit
-		local LastTick = tick()
+		local LastTick = os.clock()
 		local LastCFrame = CloneHandle.CFrame
+		Debris:AddItem(CloneHandle, 10)
 		while CloneHandle and CloneHandle:IsDescendantOf(workspace) and Velocity.Y > 0 and MaxDistance > Distance and task.wait(.01) do
-			local Delta = tick() - LastTick
-			LastTick = tick()
+			local Delta = os.clock() - LastTick
+			LastTick = os.clock()
 			Distance += Delta
 			RayHit = workspace:Raycast(CloneHandle.Position, Velocity, Raypar) or workspace:Raycast(LastCFrame.p, (CloneHandle.Position - LastCFrame.p), Raypar) or workspace:Raycast(CloneHandle.Position, (LastCFrame.p - CloneHandle.Position), Raypar)
 			if RayHit then
@@ -487,51 +488,6 @@ Tool.Unequipped:Connect(function() Equipped = false end)]]></ProtectedString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 				<bool name="DefinesCapabilities">false</bool>
 				<string name="Name">Bomb</string>
-				<int64 name="SourceAssetId">-1</int64>
-				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
-			</Properties>
-		</Item>
-		<Item class="Camera" referent="RBXD2BB81706E9E4142B750B0D69015A0A3">
-			<Properties>
-				<CoordinateFrame name="CFrame">
-					<X>5.17327499</X>
-					<Y>0.67203033</Y>
-					<Z>-2.74646306</Z>
-					<R00>-0.483426452</R00>
-					<R01>0.199247032</R01>
-					<R02>0.852408051</R02>
-					<R10>-0</R10>
-					<R11>0.97375226</R11>
-					<R12>-0.227610737</R12>
-					<R20>-0.875385046</R20>
-					<R21>-0.11003305</R21>
-					<R22>-0.470737547</R22>
-				</CoordinateFrame>
-				<Ref name="CameraSubject">null</Ref>
-				<token name="CameraType">0</token>
-				<float name="FieldOfView">70</float>
-				<token name="FieldOfViewMode">0</token>
-				<CoordinateFrame name="Focus">
-					<X>0.199999809</X>
-					<Y>1.99999857</Y>
-					<Z>0</Z>
-					<R00>1</R00>
-					<R01>0</R01>
-					<R02>0</R02>
-					<R10>0</R10>
-					<R11>1</R11>
-					<R12>0</R12>
-					<R20>0</R20>
-					<R21>0</R21>
-					<R22>1</R22>
-				</CoordinateFrame>
-				<bool name="HeadLocked">true</bool>
-				<float name="HeadScale">1</float>
-				<bool name="VRTiltAndRollEnabled">false</bool>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-				<bool name="DefinesCapabilities">false</bool>
-				<string name="Name">ThumbnailCamera</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>

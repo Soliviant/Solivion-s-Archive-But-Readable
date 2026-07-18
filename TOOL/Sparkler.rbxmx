@@ -2,7 +2,7 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Tool" referent="RBX02C728A4A1534F719DF631E4C43DCC62">
+	<Item class="Tool" referent="RBX37E57050C83140BBA827CD9D22EE9C23">
 		<Properties>
 			<bool name="CanBeDropped">false</bool>
 			<bool name="Enabled">true</bool>
@@ -73,7 +73,7 @@
 			<int64 name="SourceAssetId">17313650969</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Actor" referent="RBX7402039D50E744A6A0F0B8AF02FABEDC">
+		<Item class="Actor" referent="RBX8F50A0706B674AB8A8F0E523E1A67ADA">
 			<Properties>
 				<token name="LevelOfDetail">0</token>
 				<CoordinateFrame name="ModelMeshCFrame">
@@ -109,7 +109,7 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Script" referent="RBX5D4D4610044E41A9A5BF43853058B438">
+			<Item class="Script" referent="RBX659CD943F634400F8114B77E32713D4B">
 				<Properties>
 					<ProtectedString name="Source"><![CDATA[--<{By Solivion, This item either needs a fire source tool to pair with or just force it}>--
 --[[//
@@ -166,11 +166,11 @@ local GlowLight: PointLight?
 local GlowLight_Weld: Weld?
 local Left_Arm_Weld: Weld?
 local Right_Arm_Weld: Weld?
-local LastAnimTick: number = tick()
-local EquipTick: number = tick()
-local TimerStarted: number = tick()
-local ActionTick: number = tick()
-local AnimTick: number = tick()
+local LastAnimTick: number = os.clock()
+local EquipTick: number = os.clock()
+local TimerStarted: number = os.clock()
+local ActionTick: number = os.clock()
+local AnimTick: number = os.clock()
 local CurrentAnimation: AnimationName = 'Null'
 local Active: boolean = false
 local Equipped: boolean = false
@@ -194,7 +194,7 @@ local RequestCoroutine: thread?
 local SparklerEffectCoroutine: {[string]: thread?} = {}
 local ToolAnimationCoroutine: thread?
 local GivenCharacter: Model?
-local GivingRequestTick: number = tick()
+local GivingRequestTick: number = os.clock()
 local GivenAcceptRequestConnection: RBXScriptConnection?
 local GivenDeclineRequestConnection: RBXScriptConnection?
 local GivenInfoConnection: RBXScriptConnection?
@@ -264,6 +264,20 @@ function LockR15Arm(Character: Model)
 					table.insert(R15LockWeld, Replace)
 				end
 			end
+			if v:FindFirstChildOfClass('AnimationConstraint') and not table.find(R15LockWeld, v:FindFirstChildOfClass('AnimationConstraint')) then
+				local mt = v:FindFirstChildOfClass('AnimationConstraint')
+				if mt.Enabled == true then
+					mt.Enabled = false
+					table.insert(R15LockWeld, mt)
+					local Replace = Instance.new('Weld', mt.Parent)
+					Replace.Name = mt.Name
+					Replace.Part1 = mt.Attachment1 and mt.Attachment1.Parent
+					Replace.Part0 = mt.Attachment0 and mt.Attachment0.Parent
+					Replace.C0 = mt.C0
+					Replace.C1 = mt.C1
+					table.insert(R15LockWeld, Replace)
+				end
+			end
 		end
 	end --r6ify
 end
@@ -271,7 +285,7 @@ end
 function UnlockR15()
 	SYNC()
 	for i,v in ipairs(R15LockWeld) do
-		if v:IsA('Motor6D') then
+		if v:IsA('Motor6D') or v:IsA("AnimationConstraint") then
 			v.Enabled = true
 		else
 			v:Destroy()
@@ -279,7 +293,6 @@ function UnlockR15()
 	end
 	table.clear(R15LockWeld)
 end
-
 function AreCFramesLooselyEqual(cframe1: CFrame, cframe2: CFrame)
 	--[[tolerance = tolerance or 0.01 -- Default tolerance if not specified
 
@@ -379,13 +392,13 @@ function Classic_Flagstand_Effect(Coordinate: CFrame?, Size: number?, Parent: In
 		coroute = coroutine.create(function()
 			SYNC()
 			local altr = Fade_Duration
-			local lastamtick = tick()
+			local lastamtick = os.clock()
 			while task.wait(.01) and altr > 0 do
 				DSYN()
-				local delta = tick() - lastamtick
+				local delta = os.clock() - lastamtick
 				local speed = 1 - .000001 ^ delta
 				altr = altr - delta
-				lastamtick = tick()
+				lastamtick = os.clock()
 				DSYN()
 				if effect then
 					SYNC()
@@ -684,7 +697,7 @@ end
 function CancelRequest()
 	DSYN()
 	CurrentAnimation = 'Idle'
-	GivingRequestTick = tick()
+	GivingRequestTick = os.clock()
 	if GivenCharacter then
 		GivenCharacter = nil
 	end
@@ -841,7 +854,7 @@ function Gift_Request(Target_Character: Model?)
 	end
 	CancelRequest()
 	local CurrentTick = EquipTick
-	CurrentTick = tick()
+	CurrentTick = os.clock()
 	if Target_Character and not Target_Character:FindFirstChildOfClass('Tool') and not Target_Character:FindFirstChildOfClass('Flag') then
 		GivenCharacter = Target_Character
 		GivingRequestTick = CurrentTick
@@ -857,7 +870,7 @@ function Gift_Request(Target_Character: Model?)
 		--Debris:AddItem(GivenDeclineOption,9.9)
 		Debris:AddItem(GivenAcceptOption,10)
 		GivenAcceptRequestConnection = GivenAcceptOption.AncestryChanged:Once(function()
-			if (tick() - CurrentTick) >= 9.99 or ((Target_Character:FindFirstChildOfClass('Tool') or Target_Character:FindFirstChildOfClass('Flag')) and (Target_Character:FindFirstChildOfClass('Tool') or Target_Character:FindFirstChildOfClass('Flag')) ~= GivenAcceptOption) then
+			if (os.clock() - CurrentTick) >= 9.99 or ((Target_Character:FindFirstChildOfClass('Tool') or Target_Character:FindFirstChildOfClass('Flag')) and (Target_Character:FindFirstChildOfClass('Tool') or Target_Character:FindFirstChildOfClass('Flag')) ~= GivenAcceptOption) then
 				if Tool then SYNC() Tool.ToolTip = 'Denied' end
 				return
 			end
@@ -951,7 +964,7 @@ function Gift_Request(Target_Character: Model?)
 			GivenRequestCountdown = GiftingRequestTimeout
 			while GivenCharacter == Target_Character and not Target_Character:FindFirstChildOfClass('Tool') and EquipTick <= GivingRequestTick and GivenDeclineOption and GivenAcceptOption and Target_Character and Character and Equipped and (Character:GetPivot().Position - Target_Character:GetPivot().Position).Magnitude <= 10 and GivingRequestTick == CurrentTick and GivenRequestCountdown > 0 and task.wait(0.1) do
 				DSYN()
-				GivenRequestCountdown = GiftingRequestTimeout - (tick() - CurrentTick)
+				GivenRequestCountdown = GiftingRequestTimeout - (os.clock() - CurrentTick)
 				if Tool then if CapturedTime > 0 and Active then SYNC() Tool.ToolTip = 'Requesting['..GivenRequestCountdown..']('..CapturedTime..')' else SYNC() Tool.ToolTip = 'Requesting['..GivenRequestCountdown..']' end end
 				DSYN() if GivenDeclineOption then SYNC()	GivenDeclineOption.ToolTip = 'Unequip To Decline Gift[Auto Decline In:'..GivenRequestCountdown..']' end
 			end
@@ -995,7 +1008,7 @@ function Tool_Activation()
 	DSYN()
 	Active = true
 	local CurrentTick = EquipTick
-	CurrentTick = tick()
+	CurrentTick = os.clock()
 	ActionTick = CurrentTick
 	if EquipTick > ActionTick or ActionTick ~= CurrentTick then --Unequipped Or Overlap
 		return
@@ -1011,7 +1024,7 @@ function Tool_Activation()
 		TimerStarted = CurrentTick
 		while TimerStarted == CurrentTick and CapturedTime <= 10 and Active and ActionTick == CurrentTick and Equipped and EquipTick <= ActionTick and task.wait(0.1) do
 			DSYN()
-			if ActionTick == CurrentTick and TimerStarted == CurrentTick then	CapturedTime = tick() - TimerStarted if GivenCharacter then SYNC() Tool.ToolTip = 'Requesting['..GivenRequestCountdown..']('..CapturedTime..')' else SYNC() Tool.ToolTip = CapturedTime end end
+			if ActionTick == CurrentTick and TimerStarted == CurrentTick then	CapturedTime = os.clock() - TimerStarted if GivenCharacter then SYNC() Tool.ToolTip = 'Requesting['..GivenRequestCountdown..']('..CapturedTime..')' else SYNC() Tool.ToolTip = CapturedTime end end
 		end --max activation time is 10, don't wanna slowdown the server longer than that
 	end)
 	DSYN()
@@ -1029,12 +1042,12 @@ function Tool_Deactivation()
 	end
 	Active = false
 	local CurrentTick = EquipTick
-	CurrentTick = tick()
+	CurrentTick = os.clock()
 	ActionTick = CurrentTick
 	if ActionTick < EquipTick or ActionTick ~= CurrentTick or not Equipped or Active or TimerStarted > CurrentTick then
 		return
 	else
-		TimerStarted = tick()
+		TimerStarted = os.clock()
 		if	ToolTimeCapturerCoroutine  then
 			SYNC()
 			coroutine.close(ToolTimeCapturerCoroutine)
@@ -1226,8 +1239,8 @@ function Tool_Equipped()
 	DSYN()
 	CurrentAnimation = 'Idle'
 	local ThisEquipTick = EquipTick
-	ThisEquipTick = tick()
-	LastAnimTick = tick()
+	ThisEquipTick = os.clock()
+	LastAnimTick = os.clock()
 	Equipped = true
 	ActionTick = ThisEquipTick
 	AnimTick = ThisEquipTick
@@ -1273,8 +1286,8 @@ function Tool_Equipped()
 		--print('animed')
 		while ThisEquipTick == AnimTick and CurrentAnimation ~= nil and Left_Arm_Weld and Left_Arm_Weld.Parent ~= nil and Right_Arm_Weld and Right_Arm_Weld.Parent ~= nil and task.wait(0.05) do
 			DSYN()
-			local DT = tick() - LastAnimTick
-			LastAnimTick = tick()
+			local DT = os.clock() - LastAnimTick
+			LastAnimTick = os.clock()
 			local LerpSpeed = 1 - (0.0000001 ^ DT)
 			if not Left_Arm_Weld or not Right_Arm_Weld then
 				return
@@ -1311,6 +1324,9 @@ function Tool_Equipped()
 				end
 			else
 				if Right_Arm_Weld.Enabled == false then SYNC()Right_Arm_Weld.Enabled = true DSYN() end
+				if not SparklerDetail[CurrentlySelectedIndex] then
+					SparklerDetail[CurrentlySelectedIndex] = {Durabillity = 0,}
+				end
 				if CurrentAnimation == 'Idle' then
 					SYNC()
 					Tool.Grip = Tool.Grip:Lerp(CFrame.new(0,-SparklerDetail[CurrentlySelectedIndex].Durabillity/80,0), LerpSpeed)
@@ -1447,12 +1463,12 @@ function Tool_Unequipped()
 	CharacterInventory = nil
 	Equipped = false
 	local ThisEquipTick = EquipTick
-	ThisEquipTick = tick()
+	ThisEquipTick = os.clock()
 	EquipTick = ThisEquipTick
-	ActionTick = tick()
+	ActionTick = os.clock()
 	if ThisEquipTick == EquipTick then task.wait(0.3) end
 	if ThisEquipTick == EquipTick then
-		AnimTick = tick()
+		AnimTick = os.clock()
 		SYNC()
 		UnlockR15()
 		if Left_Arm_Weld then	Left_Arm_Weld:Destroy() Left_Arm_Weld = nil end
@@ -1472,7 +1488,8 @@ Tool.Unequipped:Connect(Tool_Unequipped)
 					<Content name="LinkedSource"><null></null></Content>
 					<token name="RunContext">0</token>
 					<string name="ScriptGuid">{F88F0F16-B12F-4ED2-8F78-9E2CB167524D}</string>
-					<BinaryString name="AttributesSerialize"></BinaryString>
+					<BinaryString name="AttributesSerialize"><![CDATA[AQAAAAYAAABDUkVESVQCJwAAAEBTb2xpdmlhbnQgR2l0aHViL0NvZGViZXJnL1lvdXR1YmUg
+MjAyNg==]]></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
 					<string name="Name">Script[Sparkler]</string>
@@ -1481,7 +1498,7 @@ Tool.Unequipped:Connect(Tool_Unequipped)
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Part" referent="RBX8638CA7B12334972A3DECEC304BF47B2">
+		<Item class="Part" referent="RBX67CCB51459624B7D9B6C7CADE2958995">
 			<Properties>
 				<token name="shape">1</token>
 				<token name="formFactorRaw">1</token>

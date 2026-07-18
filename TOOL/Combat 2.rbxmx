@@ -2,9 +2,8 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Flag" referent="RBXF23EACD565AC40FFAE1747C09FBECBB6">
+	<Item class="Tool" referent="RBX6800F8C10F054D89A0C5A4527E056C48">
 		<Properties>
-			<int name="TeamColor">194</int>
 			<bool name="CanBeDropped">false</bool>
 			<bool name="Enabled">true</bool>
 			<CoordinateFrame name="Grip">
@@ -23,8 +22,8 @@
 			</CoordinateFrame>
 			<bool name="ManualActivationOnly">false</bool>
 			<bool name="RequiresHandle">false</bool>
-			<string name="ToolTip"></string>
-			<Content name="TextureId"><url>rbxassetid://139139002453430</url></Content>
+			<string name="ToolTip">SMYLE_PROJECT</string>
+			<Content name="TextureId"><null></null></Content>
 			<token name="LevelOfDetail">0</token>
 			<CoordinateFrame name="ModelMeshCFrame">
 				<X>0</X>
@@ -51,30 +50,15 @@
 			<Ref name="PrimaryPart">null</Ref>
 			<float name="ScaleFactor">1</float>
 			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
-			<OptionalCoordinateFrame name="WorldPivotData">
-				<CFrame>
-					<X>26.275383</X>
-					<Y>2.72782564</Y>
-					<Z>-44.516552</Z>
-					<R00>1</R00>
-					<R01>0</R01>
-					<R02>0</R02>
-					<R10>0</R10>
-					<R11>1</R11>
-					<R12>0</R12>
-					<R20>0</R20>
-					<R21>0</R21>
-					<R22>1</R22>
-				</CFrame>
-			</OptionalCoordinateFrame>
-			<BinaryString name="AttributesSerialize"></BinaryString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize">AQAAAAYAAABDcmVkaXQCGgAAAEBTb2xpdmlvbiBPbiBSb2Jsb3ggKDIwMjQp</BinaryString>
 			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 			<bool name="DefinesCapabilities">false</bool>
 			<string name="Name">Combat 2</string>
-			<int64 name="SourceAssetId">17405622460</int64>
+			<int64 name="SourceAssetId">-1</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Actor" referent="RBX20D2B60A7FEA414C8D462836300C052B">
+		<Item class="Actor" referent="RBXF4824B519B924292995F64B0C103C082">
 			<Properties>
 				<token name="LevelOfDetail">0</token>
 				<CoordinateFrame name="ModelMeshCFrame">
@@ -125,13 +109,19 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Script" referent="RBX7F8968F7268945A0AE50BE7785ED552A">
+			<Item class="Script" referent="RBX16D18E167959464CAD33B784C90B3468">
 				<Properties>
 					<ProtectedString name="Source"><![CDATA[--!native
---<<By Solivion>>--
+--<<By Solivion 2024; Patched by yours truly (@Soliviant Codeberg/Github 2026); Want a better copy? Get it from Item_DAT>>--
 --<{For Normal Sized Rig Only}>--
 --<<Combat2: Crash 'n Burn Edition, What a fail(Totally not Rufus14's Combat Copy)>>--
 --fun passsion project cuz I have no idea what game to make and stuff(wasted oppertunity frfr)
+
+--[[7/16/2026]]--
+--fixed leg weld being enabled upon init in r15 (likely broken due to the new AvatarJointUpgrade being enabled and it falling into the Recovery)
+--removed deprecated
+--replaced flag with tool and parts
+--fixed ragdoll
 
 --[[3/23/2026]]--
 --Disabled name fetching because it could fail from too many request. Nothing else if changed from the 9/7/2024 version
@@ -156,7 +146,7 @@ end
 local DamageMultiplierGlobal: number? = 1.5 -- Damage Multiplier, Applies To All Moves That Register Via hitbox Per Part, Excluding Stomping And Grabbing 
 local LMBAttackType: ('Punch' | 'Swing' | 'Mix') = 'Mix' -- Self Explanatory
 
-local StealthGrab: boolean? = false -- No, this is not meant to be 𝓕𝓻𝓮𝓪𝓴𝔂, Anyways It Will Snap Neck Upon Releasing LMB while equipping the tool and the skill being used(Exceeding Timer Set Below), intended to create a meatshield
+local StealthGrab: boolean? = true -- No, this is not meant to be 𝓕𝓻𝓮𝓪𝓴𝔂, Anyways It Will Snap Neck Upon Releasing LMB while equipping the tool and the skill being used(Exceeding Timer Set Below), intended to create a meatshield
 local Stomp: boolean? = true -- Stomp If Anybody Nearby Has Ragdolled
 local JumpKick: boolean? = true -- Don't Know The Proper Name For This, But It'll do the trick if you Press LMB During Humanoid's 'Jumping' State. Very Hard To Get The State To Put It Simply
 
@@ -217,13 +207,13 @@ local Shutdown = false
 
 --<<Stuff>>--
 local Debris: Debris = game:FindFirstChildOfClass('Debris')
-local Tool: (Tool | Flag)? = script:FindFirstAncestorOfClass("Tool") or script:FindFirstAncestorWhichIsA("Flag")
+local Tool: (Tool | Flag)? = script:FindFirstAncestorOfClass("Tool")
 local toolactor: Actor? = script:FindFirstAncestorWhichIsA('Actor')
 local ServerStorage: (ServerStorage | ReplicatedStorage) = game:FindFirstChildOfClass('ServerStorage') or game:FindFirstChildOfClass('ReplicatedStorage')
 local ServerScriptService: (ServerScriptService | ReplicatedFirst) = game:FindFirstChildOfClass('ServerScriptService') or game:FindFirstChildOfClass('ReplicatedFirst')
 
 --<<Parental Failsave>>--
-if not Tool and script.Parent ~= nil then --[[local act = Instance.new('Actor',ServerScriptService)]] Tool = Instance.new('Flag', script.Parent) Tool.Parent = script.Parent Tool.CanBeDropped = false Tool.RequiresHandle = false Tool.Name = '{<Combat>}' --[[toolactor = act toolactor.Parent = Tool or ServerScriptService if act.Parent ~= nil then script.Parent = toolactor else toolactor = Instance.new('Actor', ServerScriptService) script.Parent = toolactor end]] end
+if not Tool and script.Parent ~= nil then --[[local act = Instance.new('Actor',ServerScriptService)]] Tool = Instance.new('Tool', script.Parent) Tool.Parent = script.Parent Tool.CanBeDropped = false Tool.RequiresHandle = false Tool.Name = '{<Combat>}' --[[toolactor = act toolactor.Parent = Tool or ServerScriptService if act.Parent ~= nil then script.Parent = toolactor else toolactor = Instance.new('Actor', ServerScriptService) script.Parent = toolactor end]] end
 if script.Parent == nil then script:Destroy() return end
 for i,v in ServerScriptService:GetChildren() do
 	if v:IsA('Actor') and v~= toolactor and (not script:FindFirstAncestorWhichIsA('Actor') or v.Name == script:FindFirstAncestorWhichIsA('Actor').Name) and not v:FindFirstChild(script.Name) and not v:FindFirstChildOfClass('BaseScript') then
@@ -615,8 +605,8 @@ local Animation: {AnimationTracks: {string: CFrame}?} = {
 			["RootJoint"] = CFrame.new(0, 2.38418579e-07, 0.0249996185, 0.988610268, 0.119000785, -0.0921355858, -0.122199282, 0.992055953, -0.0298686996, 0.0878492743, 0.0407874063, 0.995298386)
 		},
 		["2"] =    {
-			["LeftShoulder"] = CFrame.Angles(0, math.rad(math.cos(tick() * 4) * 5), math.rad(math.sin(tick() * 4)) * 5) * CFrame.new(-0.570445538, -0.0436298847, -1.4298768, 0.854787409, -0.421138287, 0.303291559, 0.0213192422, -0.555409431, -0.831304669, 0.518544793, 0.717054367, -0.465778321),
-			["RightShoulder"] = CFrame.Angles(0, math.rad(math.sin(tick() * 4) * 5), math.rad(math.cos(tick() * 4)) * 5) * CFrame.new(1.09802723, -0.0877785683, -0.565543175, 0.716215551, 0.214950591, -0.663951993, -0.649753749, -0.141789883, -0.746803463, -0.254667461, 0.966277421, 0.0381128192),
+			["LeftShoulder"] = CFrame.Angles(0, math.rad(math.cos(os.clock() * 4) * 5), math.rad(math.sin(os.clock() * 4)) * 5) * CFrame.new(-0.570445538, -0.0436298847, -1.4298768, 0.854787409, -0.421138287, 0.303291559, 0.0213192422, -0.555409431, -0.831304669, 0.518544793, 0.717054367, -0.465778321),
+			["RightShoulder"] = CFrame.Angles(0, math.rad(math.sin(os.clock() * 4) * 5), math.rad(math.cos(os.clock() * 4)) * 5) * CFrame.new(1.09802723, -0.0877785683, -0.565543175, 0.716215551, 0.214950591, -0.663951993, -0.649753749, -0.141789883, -0.746803463, -0.254667461, 0.966277421, 0.0381128192),
 			["RootJoint"] = CFrame.new(0, 2.38418579e-07, 0.0249996185, 0.992999554, 0.0756146461, -0.0907450393, -0.0789604038, 0.996302485, -0.033859171, 0.0878492743, 0.0407874063, 0.995298386)
 			, ["Neck"] = CFrame.new(-0.121644497, 1.49911973, -0.0569515228, 0.992999732, -0.0789595172, 0.0878505334, 0.075613685, 0.996302485, 0.0407876074, -0.0907462761, -0.0338593461, 0.995298266)
 		}
@@ -629,9 +619,9 @@ local Animation: {AnimationTracks: {string: CFrame}?} = {
 			["RootJoint"] = CFrame.new(2.86102295e-06, 4.76837158e-07, 9.53674316e-07, 0.997732759, -0.0164013207, 0.0652764514, 0.0111075938, 0.996681333, 0.0806482509, -0.0663829446, -0.07974042, 0.994603157)
 		},
 		["2"] =    {
-			["LeftShoulder"] = CFrame.Angles(math.rad(math.sin(tick() * 2) * 5), math.rad(math.cos(tick() * 2) * 6), 0) *  CFrame.new(-0.563072205, 0.589743376, -1.3564558, 0.887656748, -0.169402748, -0.428218901, -0.162528306, -0.985288799, 0.0528732464, -0.430876493, 0.0226650424, -0.902127624),
-			["RightShoulder"] = CFrame.Angles(math.rad(math.cos(tick() * 2) * 5), math.rad(math.sin(tick() * 2) * 6), 0) * CFrame.new(0.949696541, 0.113526106, -0.853090286, 0.96753937, 0.211930558, 0.13767539, 0.247382462, -0.905624926, -0.344452858, 0.0516812727, 0.367329717, -0.928654373),
-			["RootJoint"] = CFrame.Angles(0, math.rad(math.cos(tick() * 2) * 4), math.rad(math.sin(tick() * 2) * 5)) * CFrame.new(2.86102295e-06, 4.76837158e-07, 9.53674316e-07, 0.997732759, -0.0164013207, 0.0652764514, 0.0154254632, 0.999762595, 0.0154254138, -0.065514341, -0.0143836103, 0.997748256)
+			["LeftShoulder"] = CFrame.Angles(math.rad(math.sin(os.clock() * 2) * 5), math.rad(math.cos(os.clock() * 2) * 6), 0) *  CFrame.new(-0.563072205, 0.589743376, -1.3564558, 0.887656748, -0.169402748, -0.428218901, -0.162528306, -0.985288799, 0.0528732464, -0.430876493, 0.0226650424, -0.902127624),
+			["RightShoulder"] = CFrame.Angles(math.rad(math.cos(os.clock() * 2) * 5), math.rad(math.sin(os.clock() * 2) * 6), 0) * CFrame.new(0.949696541, 0.113526106, -0.853090286, 0.96753937, 0.211930558, 0.13767539, 0.247382462, -0.905624926, -0.344452858, 0.0516812727, 0.367329717, -0.928654373),
+			["RootJoint"] = CFrame.Angles(0, math.rad(math.cos(os.clock() * 2) * 4), math.rad(math.sin(os.clock() * 2) * 5)) * CFrame.new(2.86102295e-06, 4.76837158e-07, 9.53674316e-07, 0.997732759, -0.0164013207, 0.0652764514, 0.0154254632, 0.999762595, 0.0154254138, -0.065514341, -0.0143836103, 0.997748256)
 			, ["Neck"] = CFrame.new(0.0231361389, 1.49964643, 0.0231370926, 0.997733891, 0.0154254595, -0.0655151084, -0.0164013598, 0.999764621, -0.0143838208, 0.0652757734, 0.015425289, 0.99774915	)
 		}
 	},
@@ -1035,12 +1025,12 @@ local HitboxDebounce: {[BasePart?]: {Instance?}} = {} -- Not Character But Limbs
 local Character: Model?
 local DeltaTime: number = 0
 local LeftRight: ('Left' | 'Right') = 'Right'
-local BlockTick = tick()
-local lastfly = tick() - 4
-local lastpunch = tick() - 4
-local lastgrab = tick() - 10.01
-local ActivationTick: number = tick()
-local EquipTick: number = tick()
+local BlockTick = os.clock()
+local lastfly = os.clock() - 4
+local lastpunch = os.clock() - 4
+local lastgrab = os.clock() - 10.01
+local ActivationTick: number = os.clock()
+local EquipTick: number = os.clock()
 local Equipped: boolean = false
 local Activated: boolean = false
 local EffectInstance: {BasePart?} = {}
@@ -1178,7 +1168,7 @@ end
 
 --<<Util2>>--
 function trail(cate:string, where: Instance?, color: Color3?, attachmenta: Attachment?, attachmentb: Attachment?, Size: NumberSequence?, Transparency: NumberSequence?, LifeTime: number?): Trail?
-	--print('process start >>'..tostring(tick())..'<< for '..where.Name)
+	--print('process start >>'..tostring(os.clock())..'<< for '..where.Name)
 	if not trailforpart[where] then trailforpart[where] = {} end
 	if trailforpart[where] and trailforpart[where][cate] then for i,v in trailforpart[where][cate] do sync() v:Destroy() end trailforpart[where][cate] = {} end trailforpart[where][cate] = {}
 	if not attachmenta or not attachmentb then return end
@@ -1357,7 +1347,7 @@ function DetectDowned(Char: Model)
 	end
 end 
 function DetectLooseStealth(Char:Model)
-	if Character and Char and Char:FindFirstChildOfClass("Humanoid") and (Char:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Running or Char:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Freefall) and FindFirstChildOfNameAndClass(Char, 'HumanoidRootPart', 'BasePart') and FindFirstChildOfNameAndClass(Character, 'HumanoidRootPart', 'BasePart') and (FindFirstChildOfNameAndClass(Character, 'HumanoidRootPart', 'BasePart').CFrame.Position - FindFirstChildOfNameAndClass(Char, 'HumanoidRootPart', 'BasePart').CFrame.Position).Unit:Dot(FindFirstChildOfNameAndClass(Char, 'HumanoidRootPart', 'BasePart').CFrame.LookVector) <= -0.8  then
+	if Character and Char and Char:FindFirstChildOfClass("Humanoid") and (Char:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Running or Char:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Seated or Char:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.FallingDown or Char:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Freefall) and FindFirstChildOfNameAndClass(Char, 'HumanoidRootPart', 'BasePart') and FindFirstChildOfNameAndClass(Character, 'HumanoidRootPart', 'BasePart') and (FindFirstChildOfNameAndClass(Character, 'HumanoidRootPart', 'BasePart').CFrame.Position - FindFirstChildOfNameAndClass(Char, 'HumanoidRootPart', 'BasePart').CFrame.Position).Unit:Dot(FindFirstChildOfNameAndClass(Char, 'HumanoidRootPart', 'BasePart').CFrame.LookVector) <= -0.8  then
 		return true
 	else
 		return false
@@ -1403,7 +1393,9 @@ local DetectNearby = function(Character: Model, Dis: number?, Query: any?)
 			if FindFirstChildOfNameAndClass(v,"Head","BasePart") ~= nil and Character and ClosestTargetHead and ClosestTargetHead.CFrame.LookVector:Dot (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - ClosestTargetHead.Position) >= -0.1 then
 				if (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - ClosestTargetHead.Position).Magnitude < ClosestDis and v ~= Character then
 					unsync()
-					if Character and Character:FindFirstChildOfClass("Humanoid").RootPart and not workspace:Raycast(Character:FindFirstChildOfClass("Humanoid").RootPart.Position,FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Character:FindFirstChildOfClass("Humanoid").RootPart.Position, Parameter) and not workspace:Raycast(FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Character:FindFirstChildOfClass("Humanoid").RootPart.Position - FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Parameter) then
+					local ResultA=workspace:Raycast(Character:FindFirstChildOfClass("Humanoid").RootPart.Position,FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Character:FindFirstChildOfClass("Humanoid").RootPart.Position, Parameter) 
+					local ResultB=  workspace:Raycast(FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Character:FindFirstChildOfClass("Humanoid").RootPart.Position - FindFirstChildOfNameAndClass(v,"Head","BasePart").Position, Parameter)
+					if Character and Character:FindFirstChildOfClass("Humanoid").RootPart and (ResultA == nil or ResultA.Instance:IsDescendantOf(v)) and (ResultB == nil or ResultB.Instance:IsDescendantOf(v)) then
 						ClosestTarget = v
 						ClosestDis = (FindFirstChildOfNameAndClass(v,"Head","BasePart").Position - Character:FindFirstChildOfClass("Humanoid").RootPart.Position).Magnitude
 					end
@@ -1438,6 +1430,21 @@ function LockR15toR6(Character: Model)
 					if not table.find(R15LockWeld[Character], Replace) then	table.insert(R15LockWeld[Character], Replace) end
 				end
 			end
+			if v:FindFirstChildOfClass('AnimationConstraint') and not table.find(R15LockWeld[Character], v:FindFirstChildOfClass('AnimationConstraint')) then
+				local mt = v:FindFirstChildOfClass('AnimationConstraint')
+				if mt.Enabled == true then
+					task.synchronize()
+					mt.Enabled = false
+					table.insert(R15LockWeld[Character], mt)
+					local Replace = Instance.new('Weld', mt.Parent)
+					Replace.Name = mt.Name
+					Replace.Part1 = mt.Part1
+					Replace.Part0 = mt.Part0
+					Replace.C0 = mt.C0
+					Replace.C1 = mt.C1
+					if not table.find(R15LockWeld[Character], Replace) then	table.insert(R15LockWeld[Character], Replace) end
+				end
+			end
 		end
 	end --r6ify
 end
@@ -1445,7 +1452,7 @@ function UnlockR15(Character)
 	task.synchronize()
 	if not R15LockWeld[Character] then return end
 	for i,v in ipairs(R15LockWeld[Character]) do
-		if v:IsA('Motor6D') then
+		if v:IsA('Motor6D') or v:IsA("AnimationConstraint") then
 			v.Enabled = true
 		else
 			v:Destroy()
@@ -1481,12 +1488,12 @@ function Classic_Flagstand_Effect(Coordinate: (CFrame | Vector3)?, Size: number?
 	end
 	for i = 1,Amount do
 		sync()
-		local effect = Instance.new("FlagStand", Parent)
-		local lastamtick = tick()
+		local effect = Instance.new("Part", Parent)
+		local lastamtick = os.clock()
 		local coroute
 		local GravityStack = 0
 		local hit:RaycastResult?
-		local lastpos: Vector3? = Coordinate.p or Subject:GetPivot().Position
+		local lastpos: Vector3? = Coordinate.Position or Subject:GetPivot().Position
 		local corouteDis: RBXScriptConnection?
 		local breakApart = (Motion ~= Vector3.new() and Colour ~= Color3.new(1, 1, 1) and Vector3.new(Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1))) or Vector3.new()
 		effect.Size = (Size and Vector3.new(Size,Size,Size)) or Vector3.new(5,5,5)
@@ -1504,15 +1511,15 @@ function Classic_Flagstand_Effect(Coordinate: (CFrame | Vector3)?, Size: number?
 		local Sized = effect.Size.X
 		coroute = coroutine.create(function()
 			unsync()
-			lastamtick = tick()
+			lastamtick = os.clock()
 			local Fade_Duration_Count = Fade_Duration
 			task.delay(Fade_Duration - 1, function() if table.find(EffectInstance, effect) then table.remove(EffectInstance, table.find(EffectInstance, effect)) end end)
 			while task.wait(UpdateRate) and Fade_Duration_Count > 0 do
 				unsync()
-				local delta = tick() - lastamtick
+				local delta = os.clock() - lastamtick
 				local speed = 1 - .000001 ^ delta
 				Fade_Duration_Count = Fade_Duration_Count - delta
-				lastamtick = tick()
+				lastamtick = os.clock()
 				unsync()
 				if effect then
 					local targetc = effect.CFrame targetc = (effect.CFrame + (Motion/1.25 + breakApart/1.25) * speed )* CFrame.fromEulerAnglesYXZ(Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3)
@@ -1661,7 +1668,7 @@ function Ragdoll(Who: Model, RagdollTime: number)
 	if not HasRagdoll then return end
 	unsync()
 	if Who and (Who:GetAttribute('PermRag') or RagdollCountdowner[Who] and RagdollCountdowner[Who] >= math.huge) then if not Who:GetAttribute('PermRag') then sync() Who:SetAttribute('PermRag', true) end RagdollCountdowner[Who] = nil return end
-	pcall(function() if Who:FindFirstChildOfClass('Humanoid') and (RagdollTime > RagdollTimeThatWillForceUnequipTool or (RagdollCountdowner[Who] and RagdollCountdowner[Who] > RagdollTimeThatWillForceUnequipTool)) then local istool = Who:FindFirstChildOfClass('Tool') or Who:FindFirstChildOfClass('Flag') sync() if istool and FindFirstChildOfNameAndClass(istool, 'Handle', 'BasePart') then istool.Parent = workspace end Who:FindFirstChildOfClass('Humanoid'):UnequipTools() end end)
+	pcall(function() if Who:FindFirstChildOfClass('Humanoid') and (RagdollTime > RagdollTimeThatWillForceUnequipTool or (RagdollCountdowner[Who] and RagdollCountdowner[Who] > RagdollTimeThatWillForceUnequipTool)) then local istool = Who:FindFirstChildOfClass('Tool') sync() if istool and FindFirstChildOfNameAndClass(istool, 'Handle', 'BasePart') then istool.Parent = workspace end Who:FindFirstChildOfClass('Humanoid'):UnequipTools() end end)
 	if Who == nil or (Who:GetAttribute("IsRagdoll") == true and Who:FindFirstChildOfClass("Humanoid") and Who:FindFirstChildOfClass("Humanoid"):GetState() == Enum.HumanoidStateType.Physics) then
 		if RagdollCountdowner[Who] then	RagdollCountdowner[Who] = RagdollCountdowner[Who] + RagdollTime end
 		return 
@@ -1673,7 +1680,7 @@ function Ragdoll(Who: Model, RagdollTime: number)
 	end
 	local SetBackHipHeight = 2
 	local StartTic = 0
-	StartTic = tick()
+	StartTic = os.clock()
 	if Who:FindFirstChildOfClass("Humanoid") and not Who:GetAttribute("IsRagdoll") then
 		sync()
 		Who:FindFirstChildOfClass("Humanoid").RequiresNeck = false
@@ -1747,22 +1754,22 @@ function Ragdoll(Who: Model, RagdollTime: number)
 					Debris:AddItem(Nocollide, RagdollTime)
 				end
 				unsync()
-				if joint.Enabled == true then
+				if joint.Enabled or joint:GetAttribute("WasOn") then
 					WasOn[joint] = true
 				else
 					WasOn[joint] = false
 				end
 				sync()
-				joint.Enabled = false
-			elseif joint:IsA("Tool") or joint:IsA("Flag") then
-				if joint.Enabled == true then
+				joint.Enabled = false 	
+			elseif joint:IsA("Tool") then
+				if joint.Enabled or joint:GetAttribute("WasOn") then
 					WasOn[joint] = true
 				else
 					WasOn[joint] = false
 				end
 				sync()
-				joint.Enabled = false
-			elseif (joint:IsA("Weld") or joint:IsA("Snap") or joint:IsA("Glue")) and joint.Name ~= 'AccessoryWeld' then -- Nope, Leave these guys alone.
+				joint.Enabled = false 	
+			elseif (joint:IsA("AnimationConstraint") or joint:IsA("Weld") --[[or joint:IsA("Snap") or joint:IsA("Glue")]]) and joint.Name ~= 'AccessoryWeld' then -- Nope, Leave these guys alone.
 				sync()	
 				local Nocollide = Instance.new("NoCollisionConstraint")
 				Nocollide.Parent = joint.Parent
@@ -1770,13 +1777,13 @@ function Ragdoll(Who: Model, RagdollTime: number)
 				Nocollide.Part0 = joint.Part0
 				Nocollide.Name = joint.Name
 				unsync()
-				if joint.Enabled == true then
+				if joint.Enabled or joint:GetAttribute("WasOn") then
 					WasOn[joint] = true
 				else
 					WasOn[joint] = false
 				end
-				table.insert(Contain, Nocollide)
-				--joint.Enabled = true
+				table.insert(Contain, Nocollide) sync()
+				joint.Enabled = false
 			elseif joint:IsA("Part") or joint:IsA("BasePart") or joint:IsA("MeshPart") or joint:IsA("WedgePart") or joint:IsA("UnionOperation") then
 				if joint.CanCollide == true then
 					WasOn[joint] = true
@@ -1790,22 +1797,25 @@ function Ragdoll(Who: Model, RagdollTime: number)
 					joint.CanCollide = false
 				end
 				joint.CanTouch = true
-			elseif joint:IsA("Script") or joint:IsA("LocalScript") and joint ~= script then
-				if joint.Enabled == true then
+			--[[elseif joint:IsA("Script") or joint:IsA("LocalScript") and joint ~= script then
+				if joint.Enabled or joint:GetAttribute("WasOn") then
 					WasOn[joint] = true
 				else
 					WasOn[joint] = false
 				end
 				sync()
-				joint.Enabled = false
+				--joint.Enabled = false]]
 			end
 			if not table.find(Contain, joint) then
 				table.insert(Contain, joint)
 			end
+			if WasOn[joint] then
+				joint:SetAttribute("WasOn", WasOn[joint])
+			end
 		end
 	end
 	if not RagdollTime or RagdollTime >= math.huge then table.clear(Contain) if Who.Name ~= CreditName and Who.PrimaryPart and DeathSFX then sync() local ahh = Instance.new('Sound', Who.PrimaryPart or Who:FindFirstChildOfClass('BasePart')) ahh.SoundId = DeathSFXID ahh.Volume = ahh.Volume * VolumeMaster ahh:Play() end if Who.Name == CreditName and Who.PrimaryPart then sync() local sad = Instance.new('Sound', Who.PrimaryPart) sad.SoundId = math.random() > .5  and 'rbxassetid://1080610827' or 'rbxassetid://5195087640' if sad.SoundId == 'rbxassetid://5195087640' then sad.Volume = 0.3 end sad.Volume = sad.Volume * VolumeMaster sad:Play() end return end
-	repeat task.wait(.01) until not Who or not RagdollCountdowner[Who] or RagdollCountdowner[Who] >= math.huge or (tick() - StartTic) >= RagdollCountdowner[Who]
+	repeat task.wait(.01) until not Who or not RagdollCountdowner[Who] or RagdollCountdowner[Who] >= math.huge or (os.clock() - StartTic) >= RagdollCountdowner[Who]
 	if not Who or Who and not RagdollCountdowner[Who] or RagdollCountdowner[Who] >= math.huge then
 		table.clear(Contain)
 		RagdollCountdowner[Who] = nil
@@ -1831,7 +1841,7 @@ function Ragdoll(Who: Model, RagdollTime: number)
 	local Solver = function(joint: Instance)
 		unsync()
 		if not WasOn[joint] then return end
-		if (joint:IsA("Motor6D") or joint:IsA("Weld") or joint:IsA("Snap") or joint:IsA("Glue") or joint:IsA("Script") or joint:IsA("LocalScript") or joint:IsA('Tool') or joint:IsA('Flag')) then
+		if (joint:IsA("Motor6D") or joint:IsA("AnimationConstraint") or joint:IsA("Weld") --[[or joint:IsA("Snap") or joint:IsA("Glue")]] or joint:IsA("Script") or joint:IsA("LocalScript") or joint:IsA('Tool')) then
 			if WasOn[joint] == true then
 				sync()
 				joint.Enabled = true
@@ -1852,6 +1862,10 @@ function Ragdoll(Who: Model, RagdollTime: number)
 			end
 		end
 		if WasOn[joint] then
+			if joint:GetAttribute('WasOn') == WasOn[joint] then
+				sync()
+				joint:SetAttribute('WasOn', nil)
+			end
 			WasOn[joint] = nil
 		end
 	end
@@ -1955,9 +1969,13 @@ Functions = {
 			if not Humanoid then
 				return
 			end
+			sync()
+			if RiggedCharacter[AnimatedCharacter]['LeftHip'] then	
+				RiggedCharacter[AnimatedCharacter]['LeftHip'].Enabled = false end
+			if RiggedCharacter[AnimatedCharacter]['RightHip'] then RiggedCharacter[AnimatedCharacter]['RightHip'].Enabled = false end 
 			local AnimationIndice: number = 1
-			local AnimationTick: number = tick()
-			local LastTick: number = tick()
+			local AnimationTick: number = os.clock()
+			local LastTick: number = os.clock()
 			local CorouteContainer = CoroutineAnimation[AnimatedCharacter]
 			local RigContainer = RiggedCharacter[AnimatedCharacter]
 			local LastAnimationNameContainer = 'By Soli' or CurrentAnimation[AnimatedCharacter]
@@ -1986,8 +2004,8 @@ Functions = {
 					if AnimatedCharacter == Character and not Equipped and CurrentAnimation[AnimatedCharacter] and CurrentAnimation[AnimatedCharacter] ~= "Unequip" then 
 						CurrentAnimation[AnimatedCharacter] = "Unequip"
 					end
-					local Delta = math.clamp(tick() - LastTick, 0, 5)
-					LastTick = tick()
+					local Delta = math.clamp(os.clock() - LastTick, 0, 5)
+					LastTick = os.clock()
 					local Speed = math.clamp(1 - 0.000001^Delta,0,1)
 					AnimationNameContainer = CurrentAnimation[AnimatedCharacter]
 					local SpecifiedSpeed = AnimSpeed[AnimationNameContainer] or 1
@@ -1996,7 +2014,7 @@ Functions = {
 					end
 					if AnimationNameContainer ~= LastAnimationNameContainer then
 						AnimationIndice = 1
-						AnimationTick = tick()
+						AnimationTick = os.clock()
 						LastAnimationNameContainer = AnimationNameContainer
 					end
 					if VelocityTilt and RigContainer and RootJoint and Root and Humanoid then
@@ -2014,16 +2032,16 @@ Functions = {
 						unsync()
 					end
 					if Animation[AnimationNameContainer] then
-						local TimedIndices = tostring(math.clamp(math.ceil((tick() - AnimationTick) * 20 * SpecifiedSpeed), 0, AnimFrame[AnimationNameContainer] or 6))
+						local TimedIndices = tostring(math.clamp(math.ceil((os.clock() - AnimationTick) * 20 * SpecifiedSpeed), 0, AnimFrame[AnimationNameContainer] or 6))
 						if Animation[AnimationNameContainer][TimedIndices] then
 							if AnimationIndice < tonumber(TimedIndices) then
 								AnimationIndice = tonumber(TimedIndices)
 							end
 							--else
-							--print('no '.. AnimationNameContainer.. '> '.. tostring(math.ceil((tick() - AnimationTick) * 6)))
+							--print('no '.. AnimationNameContainer.. '> '.. tostring(math.ceil((os.clock() - AnimationTick) * 6)))
 						elseif not Animation[AnimationNameContainer][TimedIndices] and Animation[AnimationNameContainer][AnimationIndice + 1] then
 							AnimationIndice = AnimationIndice + 1 -- manual increase
-							AnimationTick = tick()
+							AnimationTick = os.clock()
 						end
 						if Animation[AnimationNameContainer] and Animation[AnimationNameContainer][tostring(AnimationIndice)] then
 							unsync()
@@ -2067,10 +2085,10 @@ Functions = {
 		if Shutdown and not HitboxConnections[Part] then return end
 		if not Part then return end
 		local valid = true
-		local new = math.randomseed(tick()) or EquipTick
+		local new = math.randomseed(os.clock()) or EquipTick
 		local customSize = Part.Size
-		local lastvel = Part.Velocity
-		new = tick()
+		local lastvel = Part.AssemblyLinearVelocity
+		new = os.clock()
 		HitboxTick[Part] = new
 		if HitboxConnections[Part] then for i,v in ipairs(HitboxConnections[Part]) do sync() v:Disconnect() if table.find(HitboxConnections[Part], v) then table.remove(HitboxConnections[Part], table.find(HitboxConnections[Part], v)) end end end
 		if not Duration or Duration <= 0 or HitboxTick[Part] ~= new then return end
@@ -2110,21 +2128,21 @@ Functions = {
 					if RagdollOnVitalHitWithPunch then
 						coroutine.resume(coroutine.create(function()
 							if BP.Name:upper():match("LEG") then
-								Ragdoll(		ParModel, math.clamp(Part.Velocity.Magnitude/3, 0, 4)* returnmuliplierfromcharacter(IntModel))
+								Ragdoll(		ParModel, math.clamp(Part.AssemblyLinearVelocity.Magnitude/3, 0, 4)* returnmuliplierfromcharacter(ParModel))
 							elseif BP.Name:upper():match("HEAD") then
-								Ragdoll(		ParModel, math.clamp(Part.Velocity.Magnitude/4, 0, 5)* returnmuliplierfromcharacter(IntModel))
+								Ragdoll(		ParModel, math.clamp(Part.AssemblyLinearVelocity.Magnitude/4, 0, 5)* returnmuliplierfromcharacter(ParModel))
 							end
 						end))
 					end
 					sync()
-					Classic_Flagstand_Effect((BP or ParModel:FindFirstChildOfClass('Humanoid').RootPart or ParModel.PrimaryPart or Part).Position, math.random(20,25)/60, workspace, math.random(2,4), 7, (BP or ParModel:FindFirstChildOfClass('Humanoid').RootPart or ParModel.PrimaryPart or Part).Color, Enum.Material.Neon, ClampVector3(ClampVector3((Part.Position - BP.Position) or lastvel or Part.Velocity or Vector3.new(0,1,0)).Unit * math.random(1000,1200)/750), 'Shrink', math.random(40,60)/100, {Character, BP, ParModel})
+					Classic_Flagstand_Effect((BP or ParModel:FindFirstChildOfClass('Humanoid').RootPart or ParModel.PrimaryPart or Part).Position, math.random(20,25)/60, workspace, math.random(2,4), 7, (BP or ParModel:FindFirstChildOfClass('Humanoid').RootPart or ParModel.PrimaryPart or Part).Color, Enum.Material.Neon, ClampVector3(ClampVector3((Part.Position - BP.Position) or lastvel or Part.AssemblyLinearVelocity or Vector3.new(0,1,0)).Unit * math.random(1000,1200)/750), 'Shrink', math.random(40,60)/100, {Character, BP, ParModel})
 					unsync()
 					if ParModel:FindFirstChildOfClass('Humanoid') and ParModel:FindFirstChildOfClass('Humanoid').BreakJointsOnDeath == true then
 						sync()
 						ParModel:FindFirstChildOfClass('Humanoid').BreakJointsOnDeath = false
 					end
 					sync()
-					--BP.Velocity = BP.Velocity + lastvel.Unit * 10 --Part.Velocity * 5
+					--BP.AssemblyLinearVelocity = BP.AssemblyLinearVelocity + lastvel.Unit * 10 --Part.AssemblyLinearVelocity * 5
 					--[[if ParModel:FindFirstChildOfClass('Humanoid').RootPart and ParModel:FindFirstChildOfClass('Humanoid'):GetState() == Enum.HumanoidStateType.Running then
 						ParModel:FindFirstChildOfClass('Humanoid').RootPart.CFrame = CFrame.new(ParModel:FindFirstChildOfClass('Humanoid').RootPart.Position)  * CFrame.new(ParModel:FindFirstChildOfClass('Humanoid').RootPart.CFrame.LookVector, Character:FindFirstChildOfClass("Humanoid").RootPart.Position + Vector3.new ((Part.AssemblyLinearVelocity).X,0,(Part.AssemblyLinearVelocity).Z)).Rotation
 					end]]
@@ -2132,7 +2150,7 @@ Functions = {
 					if	ParModel:FindFirstChildOfClass('Humanoid').Health <= 0 or ParModel:FindFirstChildOfClass('Humanoid').Health ~= ParModel:FindFirstChildOfClass('Humanoid').Health and not ParModel:GetAttribute('Tagged_By_Combat') then
 						sync()
 						ParModel:FindFirstChildOfClass('Humanoid').PlatformStand = true
-						ParModel:FindFirstChildOfClass('Humanoid').RootPart.Velocity = Part.CFrame.LookVector * Part.Mass * 20 * Part.AssemblyLinearVelocity.Magnitude --[[ClampVector3(ClampVector3(Vector3.new(lastvel.Unit.X,0,lastvel.Unit.Z)) * math.floor(math.clamp(math.random(800,1200)/100,0, 30)))]] --ClampVector3(ParModel:FindFirstChildOfClass('Humanoid').RootPart.Velocity + Vector3.new(lastvel.Unit.X,0,lastvel.Unit.Z) * 5 --[[(ClampVector3(Vector3.new(lastvel.Unit.X,0,lastvel.Unit.Z)) * math.floor(math.clamp(math.random(800,1200)/100,0, 30) * 2))]]) 
+						ParModel:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity = Part.CFrame.LookVector * Part.Mass * 20 * Part.AssemblyLinearVelocity.Magnitude --[[ClampVector3(ClampVector3(Vector3.new(lastvel.Unit.X,0,lastvel.Unit.Z)) * math.floor(math.clamp(math.random(800,1200)/100,0, 30)))]] --ClampVector3(ParModel:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity + Vector3.new(lastvel.Unit.X,0,lastvel.Unit.Z) * 5 --[[(ClampVector3(Vector3.new(lastvel.Unit.X,0,lastvel.Unit.Z)) * math.floor(math.clamp(math.random(800,1200)/100,0, 30) * 2))]]) 
 						ParModel:SetAttribute('Tagged_By_Combat', true)
 						coroutine.resume(coroutine.create(function()	Ragdoll(ParModel, math.huge)end))
 					end
@@ -2144,7 +2162,7 @@ Functions = {
 		local function Filter(BP)
 			unsync()
 			--register in time
-			if (HitboxTick[Part] and EquipTick and EquipTick > HitboxTick[Part]) or (HitboxTick[Part] and tick() - HitboxTick[Part] > (Duration + 0.25)) or (HitboxTick[Part] and HitboxTick[Part] ~= new) or not Equipped then
+			if (HitboxTick[Part] and EquipTick and EquipTick > HitboxTick[Part]) or (HitboxTick[Part] and os.clock() - HitboxTick[Part] > (Duration + 0.25)) or (HitboxTick[Part] and HitboxTick[Part] ~= new) or not Equipped then
 				Clean()
 				--return
 			end
@@ -2222,7 +2240,7 @@ Functions = {
 		sync()
 		RayEvent = game:FindFirstChildOfClass('RunService').Stepped:Connect(function(a,t)
 			unsync()
-			if  not HitboxTick[Part] or not Equipped or EquipTick > new  or (HitboxTick[Part] and tick() - HitboxTick[Part] > Duration) or HitboxTick[Part] ~= new then
+			if  not HitboxTick[Part] or not Equipped or EquipTick > new  or (HitboxTick[Part] and os.clock() - HitboxTick[Part] > Duration) or HitboxTick[Part] ~= new then
 				sync()
 				Clean()
 				unsync()
@@ -2243,7 +2261,7 @@ Functions = {
 					local Cast: RaycastResult?
 					local CurOffsetPos = Part.CFrame:ToObjectSpace(i).Position-- print(v - CurOffsetPos)
 					unsync()
-					if RaycastHitbox then	Cast = workspace:Raycast(v, CurOffsetPos - v, RayPar) or workspace:Raycast(CurOffsetPos - Part.Velocity, Part.Velocity, RayPar) or workspace:Raycast(CurOffsetPos, v - CurOffsetPos, RayPar) or workspace:Raycast(CurOffsetPos, -Part.Velocity, RayPar) or workspace:Raycast(v, Part.Position - v, RayPar) or workspace:Raycast(Part.Position, v - Part.Position, RayPar) or workspace:Raycast(CurOffsetPos, Part.Position - CurOffsetPos, RayPar) or workspace:Raycast(Part.Position, CurOffsetPos - Part.Position, RayPar) end
+					if RaycastHitbox then	Cast = workspace:Raycast(v, CurOffsetPos - v, RayPar) or workspace:Raycast(CurOffsetPos - Part.AssemblyLinearVelocity, Part.AssemblyLinearVelocity, RayPar) or workspace:Raycast(CurOffsetPos, v - CurOffsetPos, RayPar) or workspace:Raycast(CurOffsetPos, -Part.AssemblyLinearVelocity, RayPar) or workspace:Raycast(v, Part.Position - v, RayPar) or workspace:Raycast(Part.Position, v - Part.Position, RayPar) or workspace:Raycast(CurOffsetPos, Part.Position - CurOffsetPos, RayPar) or workspace:Raycast(Part.Position, CurOffsetPos - Part.Position, RayPar) end
 					local also = PartQueryHitbox and workspace:GetPartsInPart(Part, apar)
 					if PartQueryHitbox then	coroutine.resume(coroutine.create(function() for i,v in also do Filter(v) end end)) end
 					if Cast then
@@ -2252,7 +2270,7 @@ Functions = {
 							local howmuch = 100 howmuch = MaxRaycastLoop
 							repeat 
 								howmuch -= 1
-								Cast = workspace:Raycast(CurOffsetPos, lastvel, RayPar) or workspace:Raycast(v, -lastvel, RayPar) or workspace:Raycast(v, Part.Velocity, RayPar) or workspace:Raycast(CurOffsetPos, -Part.Velocity, RayPar) or workspace:Raycast(CurOffsetPos, Part.Position - CurOffsetPos, RayPar) or workspace:Raycast(Part.Position, CurOffsetPos - Part.Position, RayPar) or workspace:Raycast(Part.Position, v - Part.Position, RayPar) or workspace:Raycast(v, Part.Position - v, RayPar) 
+								Cast = workspace:Raycast(CurOffsetPos, lastvel, RayPar) or workspace:Raycast(v, -lastvel, RayPar) or workspace:Raycast(v, Part.AssemblyLinearVelocity, RayPar) or workspace:Raycast(CurOffsetPos, -Part.AssemblyLinearVelocity, RayPar) or workspace:Raycast(CurOffsetPos, Part.Position - CurOffsetPos, RayPar) or workspace:Raycast(Part.Position, CurOffsetPos - Part.Position, RayPar) or workspace:Raycast(Part.Position, v - Part.Position, RayPar) or workspace:Raycast(v, Part.Position - v, RayPar) 
 								if Cast and HitboxDebounce[Part] and not table.find(HitboxDebounce[Part],Cast.Instance) and Cast.Instance.Parent and Cast.Instance:IsA('BasePart') then
 									Filter(Cast.Instance)
 								else
@@ -2268,7 +2286,7 @@ Functions = {
 			end))
 				coroutine.resume(coroutine.create(function()
 				if LastMid or not Mb and HitboxTick[Part] == new and PartQueryHitbox then
-						local altbetween = createHitboxPart(LastMid, Part.CFrame + Part.Velocity, Part.Size * 1.5)
+						local altbetween = createHitboxPart(LastMid, Part.CFrame + Part.AssemblyLinearVelocity, Part.Size * 1.5)
 						unsync()
 					local getbet = PartQueryHitbox and workspace:GetPartsInPart(altbetween, apar) or {}
 					if PartQueryHitbox then	coroutine.resume(coroutine.create(function() for i,v in getbet do Filter(v) end end)) end
@@ -2312,7 +2330,7 @@ Functions = {
 		unsync()
 		if not CharacterToConnect then return end
 		local When = EquipTick
-		When = tick()
+		When = os.clock()
 		if CharacterToConnect and CharacterToConnect:FindFirstChildOfClass("Humanoid") then
 			Character = CharacterToConnect
 			Humanoid = CharacterToConnect:FindFirstChildOfClass('Humanoid')
@@ -2364,11 +2382,11 @@ Functions = {
 						unsync()
 						if ToolCurrentState == 'Equipped' then
 							ToolCurrentState = 'Block'
-							BlockTick = tick()
-							ActivationTick = tick()
+							BlockTick = os.clock()
+							ActivationTick = os.clock()
 						elseif ToolCurrentState == 'Block' then
 							ToolCurrentState = 'Checkered'
-							ActivationTick = tick()
+							ActivationTick = os.clock()
 						elseif ToolCurrentState == 'Punching' then
 							ToolCurrentState = 'Block'
 							BlockTick = ActivationTick
@@ -2388,9 +2406,9 @@ Functions = {
 					if ToolCurrentState == "Checkered" then
 						CanDeflect = false
 						unsync()
-						local istool = ClosestTarget and (ClosestTarget:FindFirstChildOfClass('Tool') or ClosestTarget:FindFirstChildOfClass('Flag'))
+						local istool = ClosestTarget and (ClosestTarget:FindFirstChildOfClass('Tool'))
 						if ClosestTarget ~= nil and ClosestTargetHead then
-							local mid = CharacterToConnect:GetPivot() + (ClosestTarget:GetPivot().p - CharacterToConnect:GetPivot().p)/2
+								local mid = CharacterToConnect:GetPivot() + (ClosestTarget:GetPivot().Position - CharacterToConnect:GetPivot().Position)/2
 							sync()
 							Humanoid.PlatformStand = false
 							Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
@@ -2474,8 +2492,8 @@ Functions = {
 						Active = true
 					elseif ToolCurrentState == "Block" then
 						Active = false
-						local mid = CharacterToConnect:GetPivot() + (ClosestTarget:GetPivot().p - CharacterToConnect:GetPivot().p)/2
-						if (tick() - BlockTick) < 0.1 then
+							local mid = CharacterToConnect:GetPivot() + (ClosestTarget:GetPivot().Position - CharacterToConnect:GetPivot().Position)/2
+						if (os.clock() - BlockTick) < 0.1 then
 							CanDeflect = false
 							Classic_Flagstand_Effect(mid, 0.5, workspace, math.random(1,3) + math.ceil(DTHP/2), math.random(5,7), ClosestTargetHead.Color:Lerp(Character:FindFirstChildOfClass("Humanoid").RootPart.Color, 0.3), Enum.Material.Neon, nil, 'Expand', 3)						
 							--Clash
@@ -2486,7 +2504,7 @@ Functions = {
 								FindFirstChildOfNameAndClass(Character,"Head","BasePart").CFrame = CFrame.new(FindFirstChildOfNameAndClass(Character,"Head","BasePart").CFrame.Position, Vector3.new(ClosestTargetHead.CFrame.Position.X,FindFirstChildOfNameAndClass(Character,"Head","BasePart").CFrame.Position.Y,ClosestTargetHead.CFrame.Position.Z) )
 								FindFirstChildOfNameAndClass(Character,"Head","BasePart").AssemblyLinearVelocity = FindFirstChildOfNameAndClass(Character,"Head","BasePart").AssemblyLinearVelocity + FindFirstChildOfNameAndClass(Character,"Head","BasePart").CFrame.LookVector * 5 
 								ClosestTarget:FindFirstChildOfClass("Humanoid").PlatformStand = true
-								ClosestTargetHead.AssemblyLinearVelocity = ClosestTargetHead.AssemblyLinearVelocity + (Character:FindFirstChildOfClass("Humanoid").RootPart.Position - ClosestTargetHead.CFrame.p) * - DTHP * 2
+									ClosestTargetHead.AssemblyLinearVelocity = ClosestTargetHead.AssemblyLinearVelocity + (Character:FindFirstChildOfClass("Humanoid").RootPart.Position - ClosestTargetHead.CFrame.Position) * - DTHP * 2
 								ClosestTarget:FindFirstChildOfClass("Humanoid").PlatformStand = false
 								PlaySound('glassbreak0wav', ClosestTargetHead, 0.3)
 							end
@@ -2561,7 +2579,7 @@ Functions = {
 				elseif NewState == Enum.HumanoidStateType.Ragdoll or NewState == Enum.HumanoidStateType.PlatformStanding or NewState == Enum.HumanoidStateType.Physics then
 					Active = false
 					HealthEventEnabled = false
-					if ClearHitbox and CurrentAnimation[CharacterToConnect] ~= 'Flying Kick' and (not FlyingCoroute or FlyingCoroute and coroutine.status(FlyingCoroute) == 'dead') and Active and (tick() - lastfly) > 0.1 then	ClearHitbox(CharacterToConnect) end
+					if ClearHitbox and CurrentAnimation[CharacterToConnect] ~= 'Flying Kick' and (not FlyingCoroute or FlyingCoroute and coroutine.status(FlyingCoroute) == 'dead') and Active and (os.clock() - lastfly) > 0.1 then	ClearHitbox(CharacterToConnect) end
 				else
 					Active = true
 				end
@@ -2613,7 +2631,7 @@ end
 Tool.Unequipped:Connect(function()
 	if DynamicHitbox then RaycastHitbox = false PartQueryHitbox = false end
 	unsync()
-	local E = tick() E = tick() EquipTick = E ActivationTick = E ToolCurrentState = "Unequipped" Equipped = false Activated = false CurrentAnimation[Character] = 'Unequip'
+	local E = os.clock() E = os.clock() EquipTick = E ActivationTick = E ToolCurrentState = "Unequipped" Equipped = false Activated = false CurrentAnimation[Character] = 'Unequip'
 	unsync()
 	local Randomed = math.random(1,3)
 	local Bracket1, Bracket2 =  string.rep("<", Randomed),string.rep(">", Randomed)
@@ -2642,7 +2660,7 @@ Tool.Equipped:Connect(function()
 	for i, cache in ToolHumanoidConnection do sync() cache:Disconnect() end
 	Tool.ToolTip = 'Hold To Attack or Block, Release When Blocking To Counter'
 	unsync()
-	local E = tick() E = tick() EquipTick = E ActivationTick = E ToolCurrentState = "Equipped" Equipped = true Activated = false
+	local E = os.clock() E = os.clock() EquipTick = E ActivationTick = E ToolCurrentState = "Equipped" Equipped = true Activated = false
 	Character = Tool:FindFirstAncestorWhichIsA("Model")
 	if Character then ClearHitbox(Character) else return end
 	if Character and Character:FindFirstChildOfClass('Humanoid') and Character:GetAttribute('IsRagdoll') then
@@ -2687,15 +2705,15 @@ local lastactive = 0
 Tool.Deactivated:Connect(function()
 	unsync()
 	if ToolCurrentState == 'Punching' or ToolCurrentState == 'Stomp' then
-		if (tick() - lastactive) <= 10 ^ -8 then return else lastactive = tick() end -- mobile double tap issue
-		ActivationTick = tick()
+		if (os.clock() - lastactive) <= 10 ^ -8 then return else lastactive = os.clock() end -- mobile double tap issue
+		ActivationTick = os.clock()
 		Activated = false
 		return
 	end
-	if not Active or not Activated then Activated = false ActivationTick =  tick() return end
-	local ActivateDelta = 0 ActivateDelta = math.clamp(tick() - ActivationTick, 0, 5) local E = tick() E = tick() ActivationTick = E Activated = false
+	if not Active or not Activated then Activated = false ActivationTick =  os.clock() return end
+	local ActivateDelta = 0 ActivateDelta = math.clamp(os.clock() - ActivationTick, 0, 5) local E = os.clock() E = os.clock() ActivationTick = E Activated = false
 	if ActivateDelta <= 0.5 and not (ToolCurrentState == "Grabbing" and ActivateDelta >= (SnapTime or 0)) then
-		--[[local statecheckearlyisgrab = ToolCurrentState == 'Grabbing' or CurrentAnimation[Character] == 'GRAB' or (tick() - lastgrab) < StealthGrabCooldown/3 or GrabCoroute ~= nil
+		--[[local statecheckearlyisgrab = ToolCurrentState == 'Grabbing' or CurrentAnimation[Character] == 'GRAB' or (os.clock() - lastgrab) < StealthGrabCooldown/3 or GrabCoroute ~= nil
 		if statecheckearlyisgrab and Equipped then
 			task.delay(0.25, function()
 				if ActivationTick == E and Equipped then
@@ -2772,7 +2790,7 @@ Tool.Deactivated:Connect(function()
 				if TargetCharacter and TargetCharacter:FindFirstChildOfClass('Humanoid') then
 					TargetCharacter:FindFirstChildOfClass("Humanoid").Health = 0
 					TargetCharacter:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
-					TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.Velocity = --[[TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.Velocity + ]]ClampVector3(Character:FindFirstChildOfClass("Humanoid").RootPart.CFrame.LookVector) * math.random(17500,27500)/1000
+					TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.AssemblyLinearVelocity = --[[TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.AssemblyLinearVelocity + ]]ClampVector3(Character:FindFirstChildOfClass("Humanoid").RootPart.CFrame.LookVector) * math.random(17500,27500)/1000
 				end
 			end
 			unsync()
@@ -2793,23 +2811,23 @@ end)
 Tool.Activated:Connect(function()
 	unsync()
 	if ToolCurrentState == 'Grabbing' and Equipped then ToolCurrentState = 'Equipped' if Character then CurrentAnimation[Character] = 'Equip' end end
-	if RegisterCooldown and ((tick() - lastfly) < RegisterCooldown or (tick() - lastgrab) < RegisterCooldown or (tick() - BlockTick) < RegisterCooldown/2 or (tick() - EquipTick) < RegisterCooldown or (tick() - lastpunch) < RegisterCooldown) then return end
+	if RegisterCooldown and ((os.clock() - lastfly) < RegisterCooldown or (os.clock() - lastgrab) < RegisterCooldown or (os.clock() - BlockTick) < RegisterCooldown/2 or (os.clock() - EquipTick) < RegisterCooldown or (os.clock() - lastpunch) < RegisterCooldown) then return end
 	if not Character or not Tool or not Tool:IsDescendantOf(Character) or Tool.Enabled == false or ToolCurrentState == 'Punching' or CurrentAnimation[Character] == 'Countering' or CurrentAnimation[Character] == 'Countered' or CurrentAnimation[Character] == 'PerfectBlock' or ToolCurrentState == 'Block' or ToolCurrentState == 'Stomp' or ToolCurrentState == "Grabbing" then
-		if (tick() - lastactive) <= 10 ^ -8 then return else lastactive = tick() end -- mobile double tap issue
+		if (os.clock() - lastactive) <= 10 ^ -8 then return else lastactive = os.clock() end -- mobile double tap issue
 		if ToolCurrentState == 'Block' then
 			CurrentAnimation[Character] = 'Equip'
 			ToolCurrentState = 'Equipped'
 		end
-		ActivationTick = tick()
+		ActivationTick = os.clock()
 		Activated = false
 		return
 	end
-	if not Active then Activated = false ActivationTick =  tick() return end
-	local E = tick() E = tick() ActivationTick = E Activated = true
-	if JumpKick and (tick() - lastfly) > JumpKickCooldown and SkillStateCheck() and Character and Humanoid and Humanoid.RootPart and (Humanoid.RootPart.Velocity.Y > 0) and (Humanoid:GetState() == Enum.HumanoidStateType.Freefall or Humanoid:GetState() == Enum.HumanoidStateType.Jumping) then
+	if not Active then Activated = false ActivationTick =  os.clock() return end
+	local E = os.clock() E = os.clock() ActivationTick = E Activated = true
+	if JumpKick and (os.clock() - lastfly) > JumpKickCooldown and SkillStateCheck() and Character and Humanoid and Humanoid.RootPart and (Humanoid.RootPart.AssemblyLinearVelocity.Y > 0) and (Humanoid:GetState() == Enum.HumanoidStateType.Freefall or Humanoid:GetState() == Enum.HumanoidStateType.Jumping) then
 		if Character then	CurrentAnimation[Character] = "Flying Kick" if Humanoid then sync() Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false) unsync() end end
 		if DynamicHitbox then RaycastHitbox = true PartQueryHitbox = false end
-		lastfly = tick()
+		lastfly = os.clock()
 		Active = false
 		Activated = false
 		ActivationTick = 1
@@ -2857,14 +2875,14 @@ Tool.Activated:Connect(function()
 			Debris:AddItem(SFX, 120)
 			unsync()
 		end
-		local Velocity = Vector3.new(initChrHM.RootPart.Velocity.X, 0, initChrHM.RootPart.Velocity.Z).Magnitude > 8 and Vector3.new(initChrHM.RootPart.Velocity.X, 0, initChrHM.RootPart.Velocity.Z).Unit * (Vector3.new(initChrHM.RootPart.Velocity.X, 0, initChrHM.RootPart.Velocity.Z).Magnitude + 5) or (initChrHM.RootPart.CFrame.LookVector * 20 --[[+initChrHM.RootPart.CFrame.UpVector * 2]]) . Unit * math.random(5,10) --[[initChr:FindFirstChildOfClass("Humanoid").RootPart.Velocity.Magnitude]] or initChrHM.RootPart.Velocity * 2.25
+		local Velocity = Vector3.new(initChrHM.RootPart.AssemblyLinearVelocity.X, 0, initChrHM.RootPart.AssemblyLinearVelocity.Z).Magnitude > 8 and Vector3.new(initChrHM.RootPart.AssemblyLinearVelocity.X, 0, initChrHM.RootPart.AssemblyLinearVelocity.Z).Unit * (Vector3.new(initChrHM.RootPart.AssemblyLinearVelocity.X, 0, initChrHM.RootPart.AssemblyLinearVelocity.Z).Magnitude + 5) or (initChrHM.RootPart.CFrame.LookVector * 20 --[[+initChrHM.RootPart.CFrame.UpVector * 2]]) . Unit * math.random(5,10) --[[initChr:FindFirstChildOfClass("Humanoid").RootPart.AssemblyLinearVelocity.Magnitude]] or initChrHM.RootPart.AssemblyLinearVelocity * 2.25
 		local Gravity = Vector3.new()
 		local StartedJump
 		local lasthi =initChrHM.RootPart.Position.Y
 		local lastpivot = initChr:GetPivot()
 		local ticklastpivot = initChr:GetPivot()
-		StartedJump = tick()
-		local LastUpdateTick = tick()
+		StartedJump = os.clock()
+		local LastUpdateTick = os.clock()
 		local LastPartPos: {BasePart: Vector3?} = {}
 		local Disable: boolean = false
 		if initChrHM and initChrHM.RootPart then
@@ -2888,7 +2906,7 @@ Tool.Activated:Connect(function()
 		if initChr and initChrHM then sync()	initChrHM:ChangeState(Enum.HumanoidStateType.Physics) unsync() end
 		FlyingCoroute = coroutine.create(function()
 			--add while loop here
-			lastfly = tick()
+			lastfly = os.clock()
 			local ReducedVel = true
 			local VelRot
 			local Fatalitypoint = 10
@@ -2908,9 +2926,9 @@ Tool.Activated:Connect(function()
 			sync()
 			Debris:AddItem(trailroot, 120)
 			local function handlescan(Scanned: any?)
-				--print('Reg Tick:' .. tostring(tick() - lastfly))
+				--print('Reg Tick:' .. tostring(os.clock() - lastfly))
 				unsync()
-				if (tick() - lastfly) > 120 or not (Velocity and Gravity) or Velocity.Magnitude <= 0.1 or Fatalitypoint <= 0 or (tick() - lastfly) > JumpKickCooldown or not Scanned or table.find(CooldownList, Scanned) then return end
+				if (os.clock() - lastfly) > 120 or not (Velocity and Gravity) or Velocity.Magnitude <= 0.1 or Fatalitypoint <= 0 or (os.clock() - lastfly) > JumpKickCooldown or not Scanned or table.find(CooldownList, Scanned) then return end
 				unsync()
 				local Unserious = false
 				if typeof(Scanned) ~= 'RaycastResult' and typeof(Scanned) == 'Instance' and Scanned:IsA("BasePart") then
@@ -2968,14 +2986,14 @@ Tool.Activated:Connect(function()
 						unsync()	
 					else
 						if Unserious or Disable then return end
-						if (tick() - LastBounce) < MaxRate then return else LastBounce = tick() end
+						if (os.clock() - LastBounce) < MaxRate then return else LastBounce = os.clock() end
 						Classic_Flagstand_Effect(Scanned.Position, Velocity.Magnitude * 5,workspace, math.ceil(Velocity.Magnitude), math.random(2,3)/8, (Scanned.Instance:IsA('BasePart') and Scanned.Instance.Color or workspace:FindFirstChildOfClass('Terrain'):GetMaterialColor(Scanned.Material) or workspace:FindFirstChildOfClass('Terrain').WaterColor):Lerp(TorsoTar.Color, 0.3), Scanned.Material, nil, 'Expand', 1.75)
 						Classic_Flagstand_Effect(Scanned.Position, math.clamp(Velocity.Magnitude, 0,2)/4, workspace, math.ceil(Velocity.Magnitude), 7, (Scanned.Instance:IsA('BasePart') and Scanned.Instance.Color or workspace:FindFirstChildOfClass('Terrain'):GetMaterialColor(Scanned.Material) or workspace:FindFirstChildOfClass('Terrain').WaterColor):Lerp(TorsoTar.Color, 0.3), Scanned.Material, -Velocity, 'Shrink', 0.5, {Scanned.Instance:IsA('BasePart') and Scanned.Instance, initChr})
 						Disable = true
 						CooldownCount[Scanned.Instance] = 1
 						table.insert(CooldownList, Scanned.Instance)
 						if not (Scanned.Instance == lastfoor or Scanned.Instance:IsDescendantOf(lastfoor)) then
-							Velocity = HandleRaycastHit(Velocity, Scanned) + (Scanned.Instance:IsA("BasePart") and Scanned.Instance.Anchored == false and Scanned.Instance.Velocity or Vector3.new())/2
+							Velocity = HandleRaycastHit(Velocity, Scanned) + (Scanned.Instance:IsA("BasePart") and Scanned.Instance.Anchored == false and Scanned.Instance.AssemblyLinearVelocity or Vector3.new())/2
 						else
 							Velocity = Vector3.new(Velocity.X,0,Velocity.Z) 
 						end
@@ -2986,7 +3004,7 @@ Tool.Activated:Connect(function()
 						--initChr:FindFirstChildOfClass("Humanoid").RootPart.Position = 	Bounce.p	
 						initChr:PivotTo(Bounce)
 						ticklastpivot = CFrame.new(Scanned.Position)
-						lastpivot = Bounce--[[ + (Scanned.Position - lastpivot.p)]]
+						lastpivot = Bounce--[[ + (Scanned.Position - lastpivot.Position)]]
 						local Sounder = Instance.new('Part', workspace)
 						Sounder.Anchored = true
 						Sounder.CanCollide = false
@@ -3009,11 +3027,11 @@ Tool.Activated:Connect(function()
 					end	
 				else
 					if 	Scanned.Instance and Scanned.Instance:IsA('BasePart') and (not IntModel or IntModel and not IntModel:FindFirstChildOfClass("Humanoid")) and Scanned.Instance.Anchored == false then
-						sync() LapPar:AddToFilter(Scanned.Instance) RaycastPar:AddToFilter(Scanned.Instance) Scanned.Instance:BreakJoints() Scanned.Instance.Velocity = Scanned.Instance.Velocity + ClampVector3(Velocity) * math.random(40,60)/10 PlaySound('Deep_Impact', Scanned.Instance, 0.1) unsync()
+						sync() LapPar:AddToFilter(Scanned.Instance) RaycastPar:AddToFilter(Scanned.Instance) Scanned.Instance:BreakJoints() Scanned.Instance.AssemblyLinearVelocity = Scanned.Instance.AssemblyLinearVelocity + ClampVector3(Velocity) * math.random(40,60)/10 PlaySound('Deep_Impact', Scanned.Instance, 0.1) unsync()
 					elseif IntModel and IntModel:FindFirstChildOfClass("Humanoid") then
-						sync() IntModel:FindFirstChildOfClass("Humanoid").BreakJointsOnDeath = false RaycastPar:AddToFilter(IntModel) LapPar:AddToFilter(IntModel) IntModel:FindFirstChildOfClass("Humanoid").Health = IntModel:FindFirstChildOfClass("Humanoid").Health - ((Scanned.Instance.Name:upper():match('HEAD') and math.random(20,35) or math.random(10,20)) + Velocity.Magnitude * 7) * returnmuliplierfromcharacter(IntModel) * IntModel:FindFirstChildOfClass("Humanoid").MaxHealth/100 PlaySound('Unequip', Scanned.Instance, 0.4)  PlaySound('Curse_Hit', Scanned.Instance, 0.2) --[[if not HitboxDebounce[v] then HitboxDebounce[v] = {} end table.insert(HitboxDebounce[v], Scanned.Instance)]] RaycastPar:AddToFilter(IntModel) coroutine.resume(coroutine.create(function() IntModel:FindFirstChildOfClass("Humanoid").RootPart.Velocity = IntModel:FindFirstChildOfClass("Humanoid").RootPart.Velocity + ClampVector3(Velocity) * 20 Ragdoll(IntModel, (math.random(12,22)/14 + Velocity.Magnitude/1.5) * returnmuliplierfromcharacter(IntModel)) end)) 
-						sync() Scanned.Instance.Velocity = ClampVector3(Scanned.Instance.Velocity) +  ClampVector3(Velocity) * 5 unsync()
-						if (tick() - LREG) > MaxRate then LREG = tick()	Classic_Flagstand_Effect(Scanned.Position, 0.5, workspace, math.ceil(Velocity.Magnitude * 2), Velocity.Magnitude/4 + 7, Scanned.Instance.Color:Lerp(TorsoTar.Color, 0.3), Enum.Material.Neon, -Velocity, 'Shrink', 0.5, {Scanned.Instance, initChr}) end
+						sync() IntModel:FindFirstChildOfClass("Humanoid").BreakJointsOnDeath = false RaycastPar:AddToFilter(IntModel) LapPar:AddToFilter(IntModel) IntModel:FindFirstChildOfClass("Humanoid").Health = IntModel:FindFirstChildOfClass("Humanoid").Health - ((Scanned.Instance.Name:upper():match('HEAD') and math.random(20,35) or math.random(10,20)) + Velocity.Magnitude * 7) * returnmuliplierfromcharacter(IntModel) * IntModel:FindFirstChildOfClass("Humanoid").MaxHealth/100 PlaySound('Unequip', Scanned.Instance, 0.4)  PlaySound('Curse_Hit', Scanned.Instance, 0.2) --[[if not HitboxDebounce[v] then HitboxDebounce[v] = {} end table.insert(HitboxDebounce[v], Scanned.Instance)]] RaycastPar:AddToFilter(IntModel) coroutine.resume(coroutine.create(function() IntModel:FindFirstChildOfClass("Humanoid").RootPart.AssemblyLinearVelocity = IntModel:FindFirstChildOfClass("Humanoid").RootPart.AssemblyLinearVelocity + ClampVector3(Velocity) * 20 Ragdoll(IntModel, (math.random(12,22)/14 + Velocity.Magnitude/1.5) * returnmuliplierfromcharacter(IntModel)) end)) 
+						sync() Scanned.Instance.AssemblyLinearVelocity = ClampVector3(Scanned.Instance.AssemblyLinearVelocity) +  ClampVector3(Velocity) * 5 unsync()
+						if (os.clock() - LREG) > MaxRate then LREG = os.clock()	Classic_Flagstand_Effect(Scanned.Position, 0.5, workspace, math.ceil(Velocity.Magnitude * 2), Velocity.Magnitude/4 + 7, Scanned.Instance.Color:Lerp(TorsoTar.Color, 0.3), Enum.Material.Neon, -Velocity, 'Shrink', 0.5, {Scanned.Instance, initChr}) end
 						if IntModel:FindFirstChildOfClass("Humanoid").Health <= 0 or IntModel:FindFirstChildOfClass("Humanoid").Health ~= IntModel:FindFirstChildOfClass("Humanoid").Health then	coroutine.resume(coroutine.create(function()	Ragdoll(IntModel, math.huge) end))	else  coroutine.resume(coroutine.create(function()	Ragdoll(IntModel, returnmuliplierfromcharacter(IntModel) * Velocity.Magnitude * 2.5) end)) end
 					end
 				end
@@ -3030,7 +3048,7 @@ Tool.Activated:Connect(function()
 			local Connection7 : {RBXScriptConnection} = Functions['Hitbox'](RightArmTar, 0, handlescan)
 			while task.wait(UpdateRate) and Head and TorsoTar and RootTar and RightLegTar and LeftLegTar and Fatalitypoint > 0 and script and script.Parent and Equipped and Tool and CurrentAnimation[initChr] == "Flying Kick" and CurrentAnimation[initChr] and Velocity and initChr and Gravity and (Velocity.Magnitude >= 0.1 or Gravity.Magnitude >= 0.1) do
 				unsync()
-				local Delta = math.clamp(tick() - LastUpdateTick, 0, 5) 
+				local Delta = math.clamp(os.clock() - LastUpdateTick, 0, 5) 
 				dts = 1 - 0.000001 ^ Delta
 				if (initChr:GetPivot().Position - ticklastpivot.Position).Magnitude >= 0.05 * dts then
 					Fatalitypoint = 10
@@ -3041,21 +3059,21 @@ Tool.Activated:Connect(function()
 					end
 				end
 				ticklastpivot = initChr:GetPivot()
-				lastfly = tick()
+				lastfly = os.clock()
 				ReducedVel = true	
-				LastUpdateTick = tick()
+				LastUpdateTick = os.clock()
 				Velocity = ClampVector3(Velocity)
 				Gravity = ClampVector3(Gravity)
 				--pos, legs, torso and root
 				unsync()
 				local floorrr = workspace:Raycast(lastpivot.Position, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(lastpivot.Position - (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity) * 2, RaycastParfloor)  or workspace:Raycast(lastpivot.Position + (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), -(Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), RaycastParfloor) 
-					or workspace:Raycast(RootTar.CFrame.p - Vector3.new(0,--[[-0.925]] - 1,0), Vector3.new(0,--[[-0.925]] - 1,0) * 2, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p , Vector3.new(0,--[[-0.925]] - 1,0), RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p + Vector3.new(0,--[[-0.925]] - 1,0), -Vector3.new(0,--[[-0.925]] - 1,0) * 2, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p - Gravity, Gravity * 2, RaycastParfloor) or workspace:Raycast(RightLegTar.Position + RightLegTar.CFrame.UpVector * -RightLegTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(LeftLegTar.Position + LeftLegTar.CFrame.UpVector * -LeftLegTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RightLegTar.Position, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(LeftLegTar.Position, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(Head.Position, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.Position, Vector3.new(0,Velocity.Y,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p , Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p + RootTar.CFrame.UpVector *  RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p + RootTar.CFrame.UpVector *  -RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p + RootTar.CFrame.RightVector *  RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p + RootTar.CFrame.RightVector *  -RootTar.Size.X/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p + Vector3.new(0,--[[-0.925]] - 1,0) , -Vector3.new(0,--[[-0.925]] - 1,0), RaycastParfloor) 
+					or workspace:Raycast(RootTar.CFrame.Position - Vector3.new(0,--[[-0.925]] - 1,0), Vector3.new(0,--[[-0.925]] - 1,0) * 2, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position , Vector3.new(0,--[[-0.925]] - 1,0), RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position + Vector3.new(0,--[[-0.925]] - 1,0), -Vector3.new(0,--[[-0.925]] - 1,0) * 2, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position - Gravity, Gravity * 2, RaycastParfloor) or workspace:Raycast(RightLegTar.Position + RightLegTar.CFrame.UpVector * -RightLegTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(LeftLegTar.Position + LeftLegTar.CFrame.UpVector * -LeftLegTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RightLegTar.Position, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(LeftLegTar.Position, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(Head.Position, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.Position, Vector3.new(0,Velocity.Y,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position , Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position + RootTar.CFrame.UpVector *  RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position + RootTar.CFrame.UpVector *  -RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position + RootTar.CFrame.RightVector *  RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position + RootTar.CFrame.RightVector *  -RootTar.Size.X/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position + Vector3.new(0,--[[-0.925]] - 1,0) , -Vector3.new(0,--[[-0.925]] - 1,0), RaycastParfloor) 
 				----[[or
-				--workspace:Raycast(RootTar.CFrame.p + RootTar.CFrame.RightVector *  RootTar.Size.X/2 + RootTar.CFrame.UpVector *  RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p + RootTar.CFrame.RightVector *  -RootTar.Size.X/2 + RootTar.CFrame.UpVector *  RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or
-				--workspace:Raycast(RootTar.CFrame.p + RootTar.CFrame.RightVector *  RootTar.Size.X/2 + RootTar.CFrame.UpVector *  -RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.p + RootTar.CFrame.RightVector *  -RootTar.Size.X/2 + RootTar.CFrame.UpVector *  -RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p , Vector3.new(0,--[[-0.925]] - 1,0), RaycastParfloor) or workspace:Raycast(TorsoTar.Position, Vector3.new(0,Velocity.Y,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p , Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p + TorsoTar.CFrame.UpVector *  TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p + TorsoTar.CFrame.UpVector *  -TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p + TorsoTar.CFrame.RightVector *  TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p + TorsoTar.CFrame.RightVector *  -TorsoTar.Size.X/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or
-				--workspace:Raycast(TorsoTar.CFrame.p + TorsoTar.CFrame.RightVector *  TorsoTar.Size.X/2 + TorsoTar.CFrame.UpVector *  TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p + TorsoTar.CFrame.RightVector *  -TorsoTar.Size.X/2 + TorsoTar.CFrame.UpVector *  TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or
-				--workspace:Raycast(TorsoTar.CFrame.p + TorsoTar.CFrame.RightVector *  TorsoTar.Size.X/2 + TorsoTar.CFrame.UpVector *  -TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p + TorsoTar.CFrame.RightVector *  -TorsoTar.Size.X/2 + TorsoTar.CFrame.UpVector *  -TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(lastpivot.Position, Gravity, RaycastParfloor) or	workspace:Raycast(lastpivot.Position + (Gravity), -(Gravity), RaycastParfloor) 
-				--or workspace:Raycast(TorsoTar.CFrame.p + Vector3.new(0,--[[-0.925]] - 1,0) , Vector3.new(0,1.5,0), RaycastParfloor) or workspace:Raycast(lastpivot.Position + (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), -(Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.p + (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), - (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), RaycastParfloor) or workspace:Raycast(TorsoTar.Position + (Vector3.new(0,Velocity.Y,0) + Gravity), -(Vector3.new(0,Velocity.Y,0) + Gravity), RaycastParfloor)]]
+				--workspace:Raycast(RootTar.CFrame.Position + RootTar.CFrame.RightVector *  RootTar.Size.X/2 + RootTar.CFrame.UpVector *  RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position + RootTar.CFrame.RightVector *  -RootTar.Size.X/2 + RootTar.CFrame.UpVector *  RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or
+				--workspace:Raycast(RootTar.CFrame.Position + RootTar.CFrame.RightVector *  RootTar.Size.X/2 + RootTar.CFrame.UpVector *  -RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(RootTar.CFrame.Position + RootTar.CFrame.RightVector *  -RootTar.Size.X/2 + RootTar.CFrame.UpVector *  -RootTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position , Vector3.new(0,--[[-0.925]] - 1,0), RaycastParfloor) or workspace:Raycast(TorsoTar.Position, Vector3.new(0,Velocity.Y,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position , Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position + TorsoTar.CFrame.UpVector *  TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position + TorsoTar.CFrame.UpVector *  -TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position + TorsoTar.CFrame.RightVector *  TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position + TorsoTar.CFrame.RightVector *  -TorsoTar.Size.X/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or
+				--workspace:Raycast(TorsoTar.CFrame.Position + TorsoTar.CFrame.RightVector *  TorsoTar.Size.X/2 + TorsoTar.CFrame.UpVector *  TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position + TorsoTar.CFrame.RightVector *  -TorsoTar.Size.X/2 + TorsoTar.CFrame.UpVector *  TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or
+				--workspace:Raycast(TorsoTar.CFrame.Position + TorsoTar.CFrame.RightVector *  TorsoTar.Size.X/2 + TorsoTar.CFrame.UpVector *  -TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position + TorsoTar.CFrame.RightVector *  -TorsoTar.Size.X/2 + TorsoTar.CFrame.UpVector *  -TorsoTar.Size.Y/2, Vector3.new(0,--[[-0.925]] - 1,0) + Gravity, RaycastParfloor) or workspace:Raycast(lastpivot.Position, Gravity, RaycastParfloor) or	workspace:Raycast(lastpivot.Position + (Gravity), -(Gravity), RaycastParfloor) 
+				--or workspace:Raycast(TorsoTar.CFrame.Position + Vector3.new(0,--[[-0.925]] - 1,0) , Vector3.new(0,1.5,0), RaycastParfloor) or workspace:Raycast(lastpivot.Position + (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), -(Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), RaycastParfloor) or workspace:Raycast(TorsoTar.CFrame.Position + (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), - (Vector3.new(0,--[[-0.925]] - 1,0) + Gravity), RaycastParfloor) or workspace:Raycast(TorsoTar.Position + (Vector3.new(0,Velocity.Y,0) + Gravity), -(Vector3.new(0,Velocity.Y,0) + Gravity), RaycastParfloor)]]
 				lastfoor = initChr
 				if not floorrr then	
 					Classic_Flagstand_Effect(RootTar.Position, math.random(2,3)/8, workspace, 1, 7, TorsoTar.Color:Lerp(Color3.new(1,1,1), 0.3), Enum.Material.ForceField, nil, 'Expand', 2.75)
@@ -3140,7 +3158,7 @@ Tool.Activated:Connect(function()
 						end
 					end
 					if v:IsA('BasePart') and v.Transparency < 1 and PartQueryHitbox then
-						local scan = createHitboxPart(CFrame.new(v.Position) + v.Velocity , CFrame.new(LastPartPos[v]), v.Size * 2)
+						local scan = createHitboxPart(CFrame.new(v.Position) + v.AssemblyLinearVelocity , CFrame.new(LastPartPos[v]), v.Size * 2)
 						unsync()
 						local alt = workspace:GetPartsInPart(scan,LapPar)coroutine.resume(coroutine.create(function() for i,v in alt do handlescan(v) end end))
 						sync()
@@ -3155,26 +3173,26 @@ Tool.Activated:Connect(function()
 				CurrentAnimation[initChr] = "Flying Kick"
 				local cal = CFrame.new()
 				if not VelRot then
-					VelRot = CFrame.new(initChrHM.RootPart.Position + (Velocity + Gravity - initChrHM.RootPart.Velocity) * (1 - 0.00000001 ^ Delta) * 5, lastpivot.Position + (Velocity + Gravity) * (1 - 0.00000001 ^ Delta) * 10).Rotation		
+					VelRot = CFrame.new(initChrHM.RootPart.Position + (Velocity + Gravity - initChrHM.RootPart.AssemblyLinearVelocity) * (1 - 0.00000001 ^ Delta) * 5, lastpivot.Position + (Velocity + Gravity) * (1 - 0.00000001 ^ Delta) * 10).Rotation		
 				end
 				cal = CFrame.new(initChrHM.RootPart.Position + (Velocity + Gravity) * (1 - 0.00000001 ^ Delta) * 5, lastpivot.Position + (Velocity + Gravity) * (1 - 0.00000001 ^ Delta) * 10)			
 				VelRot = VelRot:Lerp(cal.Rotation, math.clamp(1 - 0.0000001 ^ Delta, 0, 1) * Velocity.Magnitude/2.5)
 				local Remap = CFrame.new(cal.Position) * VelRot
 				Remap = Remap * CFrame.Angles(math.rad(90),0,0)
 				--This Handle Not a Number(NAN)
-				if Remap.Position.Y == Remap.Position.Y and Remap.Position.Z == Remap.Position.Z and Remap.Position.X == Remap.Position.X and Remap.Position ~= Vector3.new(math.huge,math.huge,math.huge) and (Remap.p - lastpivot.p).Magnitude <= (maxflymag * (1 - 0.00000001 ^ Delta) * 5) and (Remap.p - lastpivot.p).Magnitude <= 75 then
+				if Remap.Position.Y == Remap.Position.Y and Remap.Position.Z == Remap.Position.Z and Remap.Position.X == Remap.Position.X and Remap.Position ~= Vector3.new(math.huge,math.huge,math.huge) and (Remap.Position - lastpivot.Position).Magnitude <= (maxflymag * (1 - 0.00000001 ^ Delta) * 5) and (Remap.Position - lastpivot.Position).Magnitude <= 75 then
 					sync()	
 					SFX.Volume = Velocity.Magnitude * 5
 					SFX.MinDistance = Velocity.Magnitude * 5
 					SFX.MaxDistance = Velocity.Magnitude * 3 * 5
 					unsync()	
-					if (Remap.p - lastpivot.p).Magnitude <= (maxflymag * (1 - 0.00000001 ^ Delta)) or (Remap.p - lastpivot.p).Magnitude <= 250 then
+					if (Remap.Position - lastpivot.Position).Magnitude <= (maxflymag * (1 - 0.00000001 ^ Delta)) or (Remap.Position - lastpivot.Position).Magnitude <= 250 then
 						sync() initChr:PivotTo(Remap)
 					end
 					unsync()
 					lastpivot = Remap--lastpivot
 					--initChr:FindFirstChildOfClass("Humanoid").RootPart.Position = cal.Position
-					if initChrHM.RootPart.Velocity.Magnitude > 0.1 then	sync() initChrHM.RootPart.Velocity = Vector3.new() or Velocity end
+					if initChrHM.RootPart.AssemblyLinearVelocity.Magnitude > 0.1 then	sync() initChrHM.RootPart.AssemblyLinearVelocity = Vector3.new() or Velocity end
 				else
 					break
 				end
@@ -3210,13 +3228,13 @@ Tool.Activated:Connect(function()
 				end 
 				--print('a')
 				initChr:PivotTo(initChrHM.RootPart.CFrame--[[ +initChrHM.RootPart.CFrame.UpVector * Vector3.new(0,initChr:FindFirstChildOfClass("Humanoid").RootPart.Size.Y/2,0)]])
-				initChrHM.RootPart.Velocity = Vector3.new()
+				initChrHM.RootPart.AssemblyLinearVelocity = Vector3.new()
 				initChrHM.RootPart.Anchored = false
-				initChrHM.RootPart.Velocity = Vector3.new()
+				initChrHM.RootPart.AssemblyLinearVelocity = Vector3.new()
 				pcall(function() initChrHM.RootPart:SetNetworkOwnershipAuto() end)
 				initChrHM.RootPart.CanCollide = true
 				initChrHM.AutoRotate = true
-				initChrHM.RootPart.Velocity = Vector3.new()
+				initChrHM.RootPart.AssemblyLinearVelocity = Vector3.new()
 				--ignore ragdoll state
 				initChrHM:ChangeState(Enum.HumanoidStateType.Running)
 				initChrHM.PlatformStand = false
@@ -3237,8 +3255,8 @@ Tool.Activated:Connect(function()
 				initChrHM:ChangeState(Enum.HumanoidStateType.Jumping)
 				initChrHM.Jump = true
 				if not initChrHM or not initChrHM.RootPart then return end
-				initChrHM.RootPart.Velocity = Vector3.new()
-				if TorsoTar then				TorsoTar.Velocity = Vector3.new() end
+				initChrHM.RootPart.AssemblyLinearVelocity = Vector3.new()
+				if TorsoTar then				TorsoTar.AssemblyLinearVelocity = Vector3.new() end
 				--print('c')
 				initChr:PivotTo(velrotate2)
 				Functions["Hitbox"](Head, 0)
@@ -3266,7 +3284,7 @@ Tool.Activated:Connect(function()
 				CurrentAnimation[initChr] = (Equipped and 'Equip') or 'Unequip'
 				Active = true
 				Activated = false
-				ActivationTick = tick()
+				ActivationTick = os.clock()
 			else
 				table.clear(LastPartPos)
 				table.clear(CooldownList)
@@ -3277,13 +3295,13 @@ Tool.Activated:Connect(function()
 			coroutine.resume(FlyingCoroute)
 		end
 	else
-		local SneakedUpon = StealthGrab and (tick() - lastgrab) > StealthGrabCooldown and SkillStateCheck() and Character and Character:FindFirstChildOfClass("Humanoid").RootPart and Humanoid and (Humanoid:GetState() == Enum.HumanoidStateType.Running or Humanoid:GetState() == Enum.HumanoidStateType.Freefall) and DetectNearby(Character, 7, DetectLooseStealth)
+		local SneakedUpon = StealthGrab and (os.clock() - lastgrab) > StealthGrabCooldown and SkillStateCheck() and Character and Character:FindFirstChildOfClass("Humanoid").RootPart and Humanoid and (Humanoid:GetState() == Enum.HumanoidStateType.Running or Humanoid:GetState() == Enum.HumanoidStateType.Freefall) and DetectNearby(Character, 7, DetectLooseStealth)
 		if SneakedUpon then
 			-- Assassinate, Grab
 			if DynamicHitbox then RaycastHitbox = false PartQueryHitbox = false end
 			TargetCharacter = SneakedUpon
-			lastgrab = tick()
-			lastpunch = tick()
+			lastgrab = os.clock()
+			lastpunch = os.clock()
 			ToolCurrentState = "Grabbing"
 			CurrentAnimation[Character] = 'GRAB'
 			TargetCharacter = SneakedUpon
@@ -3297,19 +3315,19 @@ Tool.Activated:Connect(function()
 			local Pivot =Character:GetPivot()
 			local TarPivot =SneakedUpon:GetPivot()
 			local LookTarget = Vector3.new(TarPivot.X, Pivot.Y, TarPivot.Z)
-			local Pivoteer1 = CFrame.new(Pivot.p, LookTarget)
+			local Pivoteer1 = CFrame.new(Pivot.Position, LookTarget)
 			sync()
 			if Equipped and Character then	Character:PivotTo(Pivoteer1) end
 			unsync()
 				task.wait(0.025)
 			if GrabCoroute then sync() coroutine.close(GrabCoroute) GrabCoroute = nil unsync() end
-			if not SneakedUpon or not Activated or not Equipped or not Tool or not Character or (SneakedUpon:GetPivot().p - Character:GetPivot().p).Magnitude > 10 then sync() Tool:Deactivate() if Equipped then ToolCurrentState = 'Equipped' if Character then CurrentAnimation[Character] = 'Equip' if Character and not Activated and not Character:GetAttribute('IsRagdoll') then lastgrab = 0 end end else if Character and not Character:GetAttribute('IsRagdoll') then lastgrab = 0 end end return end
+			if not SneakedUpon or not Activated or not Equipped or not Tool or not Character or (SneakedUpon:GetPivot().Position - Character:GetPivot().Position).Magnitude > 10 then sync() Tool:Deactivate() if Equipped then ToolCurrentState = 'Equipped' if Character then CurrentAnimation[Character] = 'Equip' if Character and not Activated and not Character:GetAttribute('IsRagdoll') then lastgrab = 0 end end else if Character and not Character:GetAttribute('IsRagdoll') then lastgrab = 0 end end return end
 				GrabCoroute = coroutine.create(function()
 				unsync()
-				lastgrab = tick()
+				lastgrab = os.clock()
 				local StrugglePoint = math.random(20,35)
 				local Welder:Weld? = Instance.new("Weld")
-				local time2 = tick()
+				local time2 = os.clock()
 				sync()
 				Character:FindFirstChildOfClass("Humanoid").RootPart.Archivable = true
 				local CheckedCanCollide = {}
@@ -3340,10 +3358,11 @@ Tool.Activated:Connect(function()
 				local stateallowedbefore = Humanoid:GetStateEnabled(Enum.HumanoidStateType.Jumping, false)
 				local lastregisterstruggle = 0
 				local StruggleIndi = Instance.new'Tool'
+				sync()
 				StruggleIndi.Name = 'Struggle Needed:'.. StrugglePoint
 				StruggleIndi.Parent = TargetCharacter
 				sync()
-				Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+				--Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
 				TargetCharacter:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Physics)
 				if TargetCharacter and TargetCharacter:FindFirstChildOfClass("Humanoid") then if TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart then sync() TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.CanCollide = false end sync() TargetCharacter:FindFirstChildOfClass("Humanoid").AutoRotate = false end
 				sync()
@@ -3357,16 +3376,16 @@ Tool.Activated:Connect(function()
 					Tool:Deactivate()
 				end
 				if TargetCharacter and TargetCharacter:FindFirstChildOfClass("Humanoid") then TargetCharacter:FindFirstChildOfClass("Humanoid").AutoRotate = false end
-				if Humanoid then	Humanoid.JumpPower = 1 or math.clamp(math.random(), 0, 1) end
+				--if Humanoid then	Humanoid.JumpPower = 1 or math.clamp(math.random(), 0, 1) end
 				while task.wait(UpdateRate) and ToolCurrentState == "Grabbing" and Character and Humanoid and Humanoid.RootPart and TargetCharacter and TargetCharacter:FindFirstChildOfClass("Humanoid") and TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart and TargetCharacter:FindFirstChildOfClass("Humanoid").Health > 0 and Welder and clone and Equipped and StrugglePoint > 0 and Tool and Character:FindFirstChildOfClass("Humanoid")and (isr6 or (Humanoid:GetState() == Enum.HumanoidStateType.Running or Humanoid:GetState() == Enum.HumanoidStateType.Freefall or Humanoid:GetState() == Enum.HumanoidStateType.Climbing)) and ActivationTick == E do
 					unsync()
-					lastgrab = tick()
-					local DT = tick() - time2
-					if not TargetCharacter or not  TargetCharacter:FindFirstChildOfClass("Humanoid") then sync() Humanoid.JumpPower = jumpbefore or LastJumpPower break end
+					lastgrab = os.clock()
+					local DT = os.clock() - time2
+					if not TargetCharacter or not  TargetCharacter:FindFirstChildOfClass("Humanoid") then --[[ sync() Humanoid.JumpPower = jumpbefore or LastJumpPower]] break end
 					local focuspart: BasePart? = GrabFollowTorso and (FindFirstChildOfNameAndClass(Character, 'UpperTorso', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Torso', 'BasePart')) or Character:FindFirstChildOfClass("Humanoid").RootPart
 					local newhealth = TargetCharacter:FindFirstChildOfClass("Humanoid").Health - TargetCharacter:FindFirstChildOfClass("Humanoid") .MaxHealth * DT/10
 					local newpos = focuspart.CFrame + Character:FindFirstChildOfClass("Humanoid").RootPart.Size.Z * 1.2 * focuspart.CFrame.LookVector
-					time2 = tick()
+					time2 = os.clock()
 					if not clone or clone.Parent == nil then
 						sync()
 						if clone and clone.Parent == nil then
@@ -3389,13 +3408,13 @@ Tool.Activated:Connect(function()
 						Welder.Parent = TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart
 						Welder.Name = 'AccessoryWeld'
 					end
-					if TargetCharacter:FindFirstChildOfClass('Tool') or TargetCharacter:FindFirstChildOfClass('Flag') then
-						if (tick() - lastregisterstruggle) > .025 then lastregisterstruggle = tick() StrugglePoint = StrugglePoint - 1 if StruggleIndi then sync() StruggleIndi.Name = 'Struggle Needed:'.. StrugglePoint unsync() end end
+					if TargetCharacter:FindFirstChildOfClass('Tool') then
+						if (os.clock() - lastregisterstruggle) > .025 then lastregisterstruggle = os.clock() StrugglePoint = StrugglePoint - 1 if StruggleIndi then sync() StruggleIndi.Name = 'Struggle Needed:'.. StrugglePoint unsync() end end
 						sync()
 						if TargetCharacter:FindFirstChildOfClass("Humanoid") then
 							TargetCharacter:FindFirstChildOfClass("Humanoid"):UnequipTools()
 						else
-							(TargetCharacter:FindFirstChildOfClass('Tool') or TargetCharacter:FindFirstChildOfClass('Flag')).Parent = workspace
+							(TargetCharacter:FindFirstChildOfClass('Tool')).Parent = workspace
 						end
 					end
 					sync()
@@ -3403,19 +3422,19 @@ Tool.Activated:Connect(function()
 					if TargetCharacter:FindFirstChildOfClass("Humanoid") then
 						TargetCharacter:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Physics)
 						TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart:PivotTo(clone.CFrame or newpos)
-						TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.Velocity = Vector3.new()
+						TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.AssemblyLinearVelocity = Vector3.new()
 						TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.CanCollide = false
 					end
-					if Humanoid then
-						Humanoid.UseJumpPower = true
-						Humanoid.JumpPower = 2 - math.clamp(math.random(), -1, 1)
-					end
-					if TargetCharacter and TargetCharacter:FindFirstChildOfClass("Humanoid") and TargetCharacter:FindFirstChildOfClass("Humanoid") then if (TargetCharacter:FindFirstChildOfClass("Tool") or TargetCharacter:FindFirstChildOfClass("Flag")) then if FindFirstChildOfNameAndClass((TargetCharacter:FindFirstChildOfClass("Tool") or TargetCharacter:FindFirstChildOfClass("Flag")), 'Handle', 'BasePart') then (TargetCharacter:FindFirstChildOfClass("Tool") or TargetCharacter:FindFirstChildOfClass("Flag")).Parent = workspace else TargetCharacter:FindFirstChildOfClass("Humanoid"):UnequipTools() end end if newhealth > 0 then TargetCharacter:FindFirstChildOfClass("Humanoid") .Health = newhealth end end
+					--if Humanoid then
+					--	Humanoid.UseJumpPower = true
+					--	Humanoid.JumpPower = 2 - math.clamp(math.random(), -1, 1)
+					--end
+					if TargetCharacter and TargetCharacter:FindFirstChildOfClass("Humanoid") and TargetCharacter:FindFirstChildOfClass("Humanoid") then if (TargetCharacter:FindFirstChildOfClass("Tool")) then if FindFirstChildOfNameAndClass((TargetCharacter:FindFirstChildOfClass("Tool")), 'Handle', 'BasePart') then (TargetCharacter:FindFirstChildOfClass("Tool")).Parent = workspace else TargetCharacter:FindFirstChildOfClass("Humanoid"):UnequipTools() end end if newhealth > 0 then TargetCharacter:FindFirstChildOfClass("Humanoid") .Health = newhealth end end
 				end
 				if StruggleIndi then sync() StruggleIndi:Destroy() unsync() end
 				if Equipped and Character and not Character:GetAttribute('IsRagdoll') and Activated and ActivationTick == E and Tool and CurrentAnimation[Character] == 'GRAB' then
 					CurrentAnimation[Character] = 'Equip'
-					if Character and (tick() - ActivationTick) < 1 and not Character:GetAttribute('IsRagdoll') then	lastgrab = 0 end
+					if Character and (os.clock() - ActivationTick) < 1 and not Character:GetAttribute('IsRagdoll') then	lastgrab = 0 end
 				end
 				sync()
 				pcall(function()
@@ -3445,8 +3464,8 @@ Tool.Activated:Connect(function()
 				end)
 				pcall(function()
 					sync()
-					if Humanoid then Humanoid.JumpPower = jumpbefore Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, stateallowedbefore) end
-					if TargetCharacter and TargetCharacter:FindFirstChildOfClass("Humanoid") then if TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart then TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.CanCollide = true end if TargetCharacter:FindFirstChildOfClass("Humanoid").Health > 0 then 	coroutine.resume(coroutine.create(function() Ragdoll(TargetCharacter, 1) end))  if TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart then TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.Velocity = TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.Velocity + ClampVector3(Character:FindFirstChildOfClass("Humanoid").RootPart.CFrame.LookVector) * math.random(35,50) end end TargetCharacter:FindFirstChildOfClass("Humanoid").AutoRotate = false end
+					--if Humanoid then Humanoid.JumpPower = jumpbefore Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, stateallowedbefore) end
+					if TargetCharacter and TargetCharacter:FindFirstChildOfClass("Humanoid") then if TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart then TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.CanCollide = true end if TargetCharacter:FindFirstChildOfClass("Humanoid").Health > 0 then 	coroutine.resume(coroutine.create(function() Ragdoll(TargetCharacter, 1) end))  if TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart then TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.AssemblyLinearVelocity = TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.AssemblyLinearVelocity + ClampVector3(Character:FindFirstChildOfClass("Humanoid").RootPart.CFrame.LookVector) * math.random(35,50) end end TargetCharacter:FindFirstChildOfClass("Humanoid").AutoRotate = false end
 					if TargetCharacter and TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart and TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.CanCollide == false then PlaySound('fabric', TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart, 0.25) sync() TargetCharacter:FindFirstChildOfClass("Humanoid").RootPart.CanCollide = true end
 					sync()
 				end)
@@ -3454,13 +3473,13 @@ Tool.Activated:Connect(function()
 			end)
 			--	end)
 			if ActivationTick == E and GrabCoroute then coroutine.resume(GrabCoroute) end
-			lastgrab = tick()
+			lastgrab = os.clock()
 	else
-		if (tick() - lastpunch) < RegisterCooldown then return end
+		if (os.clock() - lastpunch) < RegisterCooldown then return end
 		local Downed
 		Downed = Stomp and SkillStateCheck() and RiggedCharacter[Character] and RiggedCharacter[Character]['LeftHip'] and DetectNearby(Character, 7, DetectDowned) --no double find
 		unsync()
-		lastpunch = tick()
+		lastpunch = os.clock()
 		if not Downed and SkillStateCheck() then
 			if DynamicHitbox then RaycastHitbox = false PartQueryHitbox = true end
 			ToolCurrentState = "Punching" 
@@ -3485,7 +3504,7 @@ Tool.Activated:Connect(function()
 					sync()
 					v:Disconnect()
 				end	
-				if E == ActivationTick and Activated then 	Functions['Hitbox'](leftside, 0) Functions['Hitbox'](rightside, 0) if rightside then PlaySound('Swoosh', rightside, 0.150) end if leftside then  PlaySound('Swoosh', leftside, 0.150) end BlockTick = tick() ToolCurrentState = "Block" CurrentAnimation[Character] = 'Block' else CurrentAnimation[Character] = 'Equip'ToolCurrentState = "Equipped" end
+				if E == ActivationTick and Activated then 	Functions['Hitbox'](leftside, 0) Functions['Hitbox'](rightside, 0) if rightside then PlaySound('Swoosh', rightside, 0.150) end if leftside then  PlaySound('Swoosh', leftside, 0.150) end BlockTick = os.clock() ToolCurrentState = "Block" CurrentAnimation[Character] = 'Block' else CurrentAnimation[Character] = 'Equip'ToolCurrentState = "Equipped" end
 			end)
 		elseif Downed and SkillStateCheck() then
 			if not Character or (not RiggedCharacter[Character]['RightHip'] and not RiggedCharacter[Character]['LeftHip']) then
@@ -3497,11 +3516,11 @@ Tool.Activated:Connect(function()
 			local Pivot =Character:GetPivot()
 			local TarPivot =Downed:GetPivot()
 			local LookTarget = Vector3.new(TarPivot.X, Pivot.Y, TarPivot.Z)
-			local Pivoteer1 = CFrame.new(Pivot.p, LookTarget)
+			local Pivoteer1 = CFrame.new(Pivot.Position, LookTarget)
 			unsync()
-			local isleft = not RiggedCharacter[Character]['RightHip'] or (RiggedCharacter[Character]['RightHip'].Part1.Position - TargetedChar:GetPivot().p).Magnitude > (RiggedCharacter[Character]['LeftHip'].Part1.Position - TargetedChar:GetPivot().p).Magnitude
+				local isleft = not RiggedCharacter[Character]['RightHip'] or (RiggedCharacter[Character]['RightHip'].Part1.Position - TargetedChar:GetPivot().Position).Magnitude > (RiggedCharacter[Character]['LeftHip'].Part1.Position - TargetedChar:GetPivot().Position).Magnitude
 			local DetWeld
-			DetWeld = (isleft and RiggedCharacter[Character]['LeftHip'].Part1 or RiggedCharacter[Character]['RightHip'].Part1 or Character:FindFirstChildOfClass('Humanoid').RootPart).CFrame  --(isleft and RiggedCharacter[Character]['LeftHip'].Part1.Velocity or RiggedCharacter[Character]['RightHip'].Part1.Velocity or Character:FindFirstChildOfClass('Humanoid').RootPart.Velocity).Unit
+			DetWeld = (isleft and RiggedCharacter[Character]['LeftHip'].Part1 or RiggedCharacter[Character]['RightHip'].Part1 or Character:FindFirstChildOfClass('Humanoid').RootPart).CFrame  --(isleft and RiggedCharacter[Character]['LeftHip'].Part1.AssemblyLinearVelocity or RiggedCharacter[Character]['RightHip'].Part1.AssemblyLinearVelocity or Character:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity).Unit
 			unsync()
 			local up
 			up = Downed and Character and Downed:FindFirstChildOfClass('Humanoid') and Downed:FindFirstChildOfClass('Humanoid').RootPart and Character:FindFirstChildOfClass('Humanoid') and Character:FindFirstChildOfClass('Humanoid').RootPart and Downed:FindFirstChildOfClass('Humanoid').RootPart.Position.Y < Character:FindFirstChildOfClass('Humanoid').RootPart.Position.Y 
@@ -3515,16 +3534,16 @@ Tool.Activated:Connect(function()
 			if isleft then
 				Animation["Stomp"] = Downed:GetAttribute("IsRagdoll") and {
 					["1"] =    {
-						["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p - TargetedChar:GetPivot().p)) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame.p, TargetedChar:GetPivot().p).Rotation:Inverse() ,
+							["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position - TargetedChar:GetPivot().Position)) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame.Position, TargetedChar:GetPivot().Position).Rotation:Inverse() ,
 						["RootJoint"] = CFrame.new(4.76837158e-07, -2.38418579e-07, 0, 0.935391605, -0.195090324, 0.294927865, 0.186060965, 0.98078537, 0.0586647913, -0.300705791, 0, 0.953716934)
 					},
 					["2"] =    {
-						["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().p - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p + RiggedCharacter[Character]['LeftHip'].Part0.CFrame.UpVector * 0.5) * 1.25) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame.p, TargetedChar:GetPivot().p - RiggedCharacter[Character]['LeftHip'].Part0.CFrame.UpVector * 2 - RiggedCharacter[Character]['LeftHip'].Part0.CFrame.LookVector * 6).Rotation,
+							["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().Position - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position + RiggedCharacter[Character]['LeftHip'].Part0.CFrame.UpVector * 0.5) * 1.25) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame.Position, TargetedChar:GetPivot().Position - RiggedCharacter[Character]['LeftHip'].Part0.CFrame.UpVector * 2 - RiggedCharacter[Character]['LeftHip'].Part0.CFrame.LookVector * 6).Rotation,
 						["RootJoint"] = CFrame.new(-9.53674316e-07, 2.38418579e-07, 0, 0.690345645, 0.216439649, -0.690345526, -0.153045952, 0.976296127, 0.153045937, 0.707106888, 3.13197757e-09, 0.707106829)
 					},
 					["3"] =    
 						{
-							["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().p - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p - RiggedCharacter[Character]['LeftHip'].Part0.CFrame.UpVector * 3) * 1.5) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame.p, TargetedChar:GetPivot().p + RiggedCharacter[Character]['LeftHip'].Part0.CFrame.LookVector * 1 + RiggedCharacter[Character]['LeftHip'].Part0.CFrame.LookVector * 6).Rotation * CFrame.Angles(math.rad(30 * (TargetedChar:GetPivot().p - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p).Magnitude),0,0),
+								["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().Position - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position - RiggedCharacter[Character]['LeftHip'].Part0.CFrame.UpVector * 3) * 1.5) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame.Position, TargetedChar:GetPivot().Position + RiggedCharacter[Character]['LeftHip'].Part0.CFrame.LookVector * 1 + RiggedCharacter[Character]['LeftHip'].Part0.CFrame.LookVector * 6).Rotation * CFrame.Angles(math.rad(30 * (TargetedChar:GetPivot().Position - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position).Magnitude),0,0),
 							["RootJoint"] = CFrame.new(-9.53674316e-07, 2.38418579e-07, 0, 0.690345645, 0.216439649, -0.690345526, -0.153045952, 0.976296127, 0.153045937, 0.707106888, 3.13197757e-09, 0.707106829):Inverse()
 						},
 					["4"] =    {
@@ -3535,15 +3554,15 @@ Tool.Activated:Connect(function()
 					or
 					{
 						["1"] =    {
-							["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p - TargetedChar:GetPivot().p)) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p, TargetedChar:GetPivot().p).Rotation:Inverse() ,
+								["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position - TargetedChar:GetPivot().Position)) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position, TargetedChar:GetPivot().Position).Rotation:Inverse() ,
 							["RootJoint"] = CFrame.new(4.76837158e-07, -2.38418579e-07, 0, 0.935391605, -0.195090324, 0.294927865, 0.186060965, 0.98078537, 0.0586647913, -0.300705791, 0, 0.953716934)
 						},
 						["2"] =    {
-							["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().p - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p) * 1.25) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p, TargetedChar:GetPivot().p).Rotation * CFrame.Angles(math.rad(90),0,0),
+								["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().Position - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position) * 1.25) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position, TargetedChar:GetPivot().Position).Rotation * CFrame.Angles(math.rad(90),0,0),
 							["RootJoint"] = CFrame.new(-9.53674316e-07, 2.38418579e-07, 0, 0.690345645, 0.216439649, -0.690345526, -0.153045952, 0.976296127, 0.153045937, 0.707106888, 3.13197757e-09, 0.707106829):Inverse()
 						},
 						["3"] =    {
-							["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().p - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p) * 1.5) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.p, TargetedChar:GetPivot().p).Rotation * CFrame.Angles(math.rad(45),0,0),
+								["LeftHip"] = CFrame.new(RiggedCharacter[Character]['LeftHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().Position - RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position) * 1.5) * CFrame.new(RiggedCharacter[Character]['LeftHip'].Part1.CFrame.Position, TargetedChar:GetPivot().Position).Rotation * CFrame.Angles(math.rad(45),0,0),
 							["RootJoint"] = CFrame.new(-9.53674316e-07, 2.38418579e-07, 0, 0.690345645, 0.216439649, -0.690345526, -0.153045952, 0.976296127, 0.153045937, 0.707106888, 3.13197757e-09, 0.707106829)
 						}
 						,
@@ -3555,16 +3574,16 @@ Tool.Activated:Connect(function()
 			else
 				Animation["Stomp"] = Downed:GetAttribute("IsRagdoll") and {
 					["1"] =    {
-						["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(RiggedCharacter[Character]['RightHip'].Part1.CFrame.p - TargetedChar:GetPivot().p)) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame.p, TargetedChar:GetPivot().p).Rotation:Inverse() ,
+							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position - TargetedChar:GetPivot().Position)) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame.Position, TargetedChar:GetPivot().Position).Rotation:Inverse() ,
 						["RootJoint"] = CFrame.new(4.76837158e-07, -2.38418579e-07, 0, 0.935391605, -0.195090324, 0.294927865, 0.186060965, 0.98078537, 0.0586647913, -0.300705791, 0, 0.953716934):Inverse()
 					},
 					["2"] =    {
-						["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().p - RiggedCharacter[Character]['RightHip'].Part1.CFrame.p + RiggedCharacter[Character]['RightHip'].Part0.CFrame.UpVector * 0.5) * 1.25) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame.p, TargetedChar:GetPivot().p - RiggedCharacter[Character]['RightHip'].Part0.CFrame.UpVector * 2 - RiggedCharacter[Character]['RightHip'].Part0.CFrame.LookVector * 6).Rotation,
+							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().Position - RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position + RiggedCharacter[Character]['RightHip'].Part0.CFrame.UpVector * 0.5) * 1.25) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame.Position, TargetedChar:GetPivot().Position - RiggedCharacter[Character]['RightHip'].Part0.CFrame.UpVector * 2 - RiggedCharacter[Character]['RightHip'].Part0.CFrame.LookVector * 6).Rotation,
 						["RootJoint"] = CFrame.new(-9.53674316e-07, 2.38418579e-07, 0, 0.690345645, 0.216439649, -0.690345526, -0.153045952, 0.976296127, 0.153045937, 0.707106888, 3.13197757e-09, 0.707106829):Inverse()
 					},
 					["3"] =    
 						{
-							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().p - RiggedCharacter[Character]['RightHip'].Part1.CFrame.p - RiggedCharacter[Character]['RightHip'].Part0.CFrame.UpVector * 3) * 1.5) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame.p, TargetedChar:GetPivot().p + RiggedCharacter[Character]['RightHip'].Part0.CFrame.LookVector * 1 + RiggedCharacter[Character]['RightHip'].Part0.CFrame.LookVector * 6).Rotation * CFrame.Angles(math.rad(30 * (TargetedChar:GetPivot().p - RiggedCharacter[Character]['RightHip'].Part1.CFrame.p).Magnitude),0,0),
+								["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().Position - RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position - RiggedCharacter[Character]['RightHip'].Part0.CFrame.UpVector * 3) * 1.5) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame.Position, TargetedChar:GetPivot().Position + RiggedCharacter[Character]['RightHip'].Part0.CFrame.LookVector * 1 + RiggedCharacter[Character]['RightHip'].Part0.CFrame.LookVector * 6).Rotation * CFrame.Angles(math.rad(30 * (TargetedChar:GetPivot().Position - RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position).Magnitude),0,0),
 							["RootJoint"] = CFrame.new(-9.53674316e-07, 2.38418579e-07, 0, 0.690345645, 0.216439649, -0.690345526, -0.153045952, 0.976296127, 0.153045937, 0.707106888, 3.13197757e-09, 0.707106829)
 						},
 					["4"] =    {
@@ -3575,15 +3594,15 @@ Tool.Activated:Connect(function()
 					or
 					{
 						["1"] =    {
-							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(RiggedCharacter[Character]['RightHip'].Part1.CFrame.p - TargetedChar:GetPivot().p)) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part1.CFrame.p, TargetedChar:GetPivot().p).Rotation:Inverse() ,
+							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position - TargetedChar:GetPivot().Position)) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position, TargetedChar:GetPivot().Position).Rotation:Inverse() ,
 							["RootJoint"] = CFrame.new(4.76837158e-07, -2.38418579e-07, 0, 0.935391605, -0.195090324, 0.294927865, 0.186060965, 0.98078537, 0.0586647913, -0.300705791, 0, 0.953716934):Inverse()
 						},
 						["2"] =    {
-							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().p - RiggedCharacter[Character]['RightHip'].Part1.CFrame.p) * 1.25) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part1.CFrame.p, TargetedChar:GetPivot().p).Rotation * CFrame.Angles(math.rad(90),0,0),
+							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().Position - RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position) * 1.25) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position, TargetedChar:GetPivot().Position).Rotation * CFrame.Angles(math.rad(90),0,0),
 							["RootJoint"] = CFrame.new(-9.53674316e-07, 2.38418579e-07, 0, 0.690345645, 0.216439649, -0.690345526, -0.153045952, 0.976296127, 0.153045937, 0.707106888, 3.13197757e-09, 0.707106829)
 						},
 						["3"] =    {
-							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().p - RiggedCharacter[Character]['RightHip'].Part1.CFrame.p) * 1.5) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part1.CFrame.p, TargetedChar:GetPivot().p).Rotation * CFrame.Angles(math.rad(45),0,0),
+							["RightHip"] = CFrame.new(RiggedCharacter[Character]['RightHip'].Part0.CFrame:VectorToObjectSpace(TargetedChar:GetPivot().Position - RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position) * 1.5) * CFrame.new(RiggedCharacter[Character]['RightHip'].Part1.CFrame.Position, TargetedChar:GetPivot().Position).Rotation * CFrame.Angles(math.rad(45),0,0),
 							["RootJoint"] = CFrame.new(-9.53674316e-07, 2.38418579e-07, 0, 0.690345645, 0.216439649, -0.690345526, -0.153045952, 0.976296127, 0.153045937, 0.707106888, 3.13197757e-09, 0.707106829):Inverse()
 						}
 						,
@@ -3604,17 +3623,17 @@ Tool.Activated:Connect(function()
 				if Character and StompRotation then Character:PivotTo(Pivoteer1) end
 			task.delay(0.02, function() sync() if Character and StompRotation then Character:PivotTo(Pivoteer1) end end)
 			task.delay(0.03, function() sync() if Character and StompRotation then Character:PivotTo(Pivoteer1) end end)
-				task.delay(0.05, function() sync() if Character and StompRotation then Character:PivotTo(Pivoteer1) end Classic_Flagstand_Effect(datleg.CFrame.p, datleg.Velocity.Magnitude/10, workspace, math.random(2,4), math.random(5,7) * 1.5, BrickColor.random().Color , Enum.Material.ForceField, Vector3.new(), 'Shrink', 4) end)
+				task.delay(0.05, function() sync() if Character and StompRotation then Character:PivotTo(Pivoteer1) end Classic_Flagstand_Effect(datleg.CFrame.Position, datleg.AssemblyLinearVelocity.Magnitude/10, workspace, math.random(2,4), math.random(5,7) * 1.5, BrickColor.random().Color , Enum.Material.ForceField, Vector3.new(), 'Shrink', 4) end)
 			task.delay(0.08, function() sync() if Character and StompRotation then Character:PivotTo(Pivoteer1) end end)
 			task.delay(0.09, function() sync() if Character and StompRotation then Character:PivotTo(Pivoteer1) end end)
 				if datleg then	PlaySound('Swoosh', datleg, 0.25) end
 			task.delay(0.1, function()
-			if (TarPivot.Position - Pivot.p).Magnitude > 10 and datleg and not Downed or not Equipped then if ToolCurrentState == "Stomp" then ToolCurrentState = "Equipped" CurrentAnimation[Character] = 'Equip' sync() if RiggedCharacter[Character]['LeftHip'] then	RiggedCharacter[Character]['LeftHip'].Enabled = false end if RiggedCharacter[Character]['RightHip'] then RiggedCharacter[Character]['RightHip'].Enabled = false end CurrentAnimation[Character] = 'Equip'ToolCurrentState = "Equipped" if Character and Character:FindFirstChildOfClass('Humanoid') then Character:FindFirstChildOfClass('Humanoid').AutoRotate = true end end return end
+			if (TarPivot.Position - Pivot.Position).Magnitude > 10 and datleg and not Downed or not Equipped then if ToolCurrentState == "Stomp" then ToolCurrentState = "Equipped" CurrentAnimation[Character] = 'Equip' sync() if RiggedCharacter[Character]['LeftHip'] then	RiggedCharacter[Character]['LeftHip'].Enabled = false end if RiggedCharacter[Character]['RightHip'] then RiggedCharacter[Character]['RightHip'].Enabled = false end CurrentAnimation[Character] = 'Equip'ToolCurrentState = "Equipped" if Character and Character:FindFirstChildOfClass('Humanoid') then Character:FindFirstChildOfClass('Humanoid').AutoRotate = true end end return end
 				if up then	coroutine.resume(coroutine.create(function() Ragdoll(Downed, math.random(30,100)/15) end)) end
 				local tartor = FindFirstChildOfNameAndClass(TargetedChar ,'UpperTorso', 'BasePart') or FindFirstChildOfNameAndClass(TargetedChar ,'Torso', 'Part')
 				local Head = FindFirstChildOfNameAndClass(TargetedChar ,'Head', 'BasePart')
 				if not tartor or not Head then return end
-				if Head and (Head.Position - Pivot.p).Magnitude < (tartor.Position - Pivot.p).Magnitude then
+				if Head and (Head.Position - Pivot.Position).Magnitude < (tartor.Position - Pivot.Position).Magnitude then
 					tartor = Head
 				end
 				unsync()
@@ -3622,16 +3641,16 @@ Tool.Activated:Connect(function()
 					DetWeld = (DetWeld.Position - tartor.Position).Unit
 				end
 				local updated
-				updated = Downed:FindFirstChildOfClass('Humanoid').RootPart.Velocity + ClampVector3(DetWeld * math.clamp((Character:GetPivot().p - TargetedChar:GetPivot().p).Magnitude, 0, 1) * 3.5)
+				updated = Downed:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity + ClampVector3(DetWeld * math.clamp((Character:GetPivot().Position - TargetedChar:GetPivot().Position).Magnitude, 0, 1) * 3.5)
 				if Downed:FindFirstChildOfClass('Humanoid') and up then
 					sync()
 					if Character and StompRotation then Character:PivotTo(Pivoteer1) end
 					Downed:FindFirstChildOfClass('Humanoid').BreakJointsOnDeath = false
-					if Downed:FindFirstChildOfClass('Humanoid').RootPart then Downed:FindFirstChildOfClass('Humanoid').RootPart.Velocity = updated unsync() if tartor then  Classic_Flagstand_Effect(tartor.CFrame.p, math.random(20,25)/60, workspace, math.random(6,10), math.random(10,15), tartor.Color , Enum.Material.Neon, DetWeld.Unit * math.random(2,3), 'Shrink', 0.5, {Character, TargetedChar}) Classic_Flagstand_Effect(tartor.CFrame.p, math.random(24,25)/75, workspace, math.random(6,10), math.random(6,7), tartor.Color , Enum.Material.Neon, Vector3.new(), 'Expand', 2.5)  Classic_Flagstand_Effect(tartor.CFrame.p, math.random(24,25)/75, workspace, math.random(2,4), math.random(6,7) * 1.5, tartor.Color , Enum.Material.ForceField, Vector3.new(), 'Expand', 3) end end
+					if Downed:FindFirstChildOfClass('Humanoid').RootPart then Downed:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity = updated unsync() if tartor then  Classic_Flagstand_Effect(tartor.CFrame.Position, math.random(20,25)/60, workspace, math.random(6,10), math.random(10,15), tartor.Color , Enum.Material.Neon, DetWeld.Unit * math.random(2,3), 'Shrink', 0.5, {Character, TargetedChar}) Classic_Flagstand_Effect(tartor.CFrame.Position, math.random(24,25)/75, workspace, math.random(6,10), math.random(6,7), tartor.Color , Enum.Material.Neon, Vector3.new(), 'Expand', 2.5)  Classic_Flagstand_Effect(tartor.CFrame.Position, math.random(24,25)/75, workspace, math.random(2,4), math.random(6,7) * 1.5, tartor.Color , Enum.Material.ForceField, Vector3.new(), 'Expand', 3) end end
 					sync()
 					Downed:FindFirstChildOfClass('Humanoid').Health = Downed:FindFirstChildOfClass('Humanoid').Health - math.random(20,40) * returnmuliplierfromcharacter(Downed) * 3 * Downed:FindFirstChildOfClass('Humanoid').MaxHealth/100
 					if Downed:FindFirstChildOfClass('Humanoid').Health <= 0 or Downed:FindFirstChildOfClass('Humanoid').Health ~= Downed:FindFirstChildOfClass('Humanoid').Health then	coroutine.resume(coroutine.create(function()	Ragdoll(Downed, math.huge) end))	 end
-						Downed:FindFirstChildOfClass('Humanoid').RootPart.Velocity = Downed:FindFirstChildOfClass('Humanoid').RootPart.Velocity +  ClampVector3( ClampVector3(LookTarget - Pivot.p) * math.random(20000,30000)/750) end
+						Downed:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity = Downed:FindFirstChildOfClass('Humanoid').RootPart.AssemblyLinearVelocity +  ClampVector3( ClampVector3(LookTarget - Pivot.Position) * math.random(20000,30000)/750) end
 					if up then PlaySound('Punch3' ,Downed.PrimaryPart, 0.4) else PlaySound('Woosh', isleft and RiggedCharacter[Character]['LeftHip'].Part1 or RiggedCharacter[Character]['RightHip'].Part1, 0.3) end
 					task.wait(0.25)
 					sync()
@@ -3681,8 +3700,9 @@ end)
 					<bool name="Disabled">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
 					<token name="RunContext">0</token>
-					<string name="ScriptGuid">{5DFE2489-BDE1-484E-AD64-BC4F6A33A171}</string>
-					<BinaryString name="AttributesSerialize"></BinaryString>
+					<string name="ScriptGuid">{9C13DFA0-210A-4CCB-8DAE-75C9DF5F340B}</string>
+					<BinaryString name="AttributesSerialize"><![CDATA[AQAAAAYAAABDUkVESVQCJwAAAEBTb2xpdmlhbnQgQ29kZWJlcmcvR2l0aHViL1lvdXR1YmUg
+MjAyNg==]]></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
 					<string name="Name">Combat: Crash n&apos; Burn Edition</string>

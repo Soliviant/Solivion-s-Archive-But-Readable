@@ -2,9 +2,8 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Flag" referent="RBXEDEC88C5613B47968B0A96396E78F1F1">
+	<Item class="Tool" referent="RBX4569EBFD69EC41C5B71B69D86358D1A1">
 		<Properties>
-			<int name="TeamColor">1004</int>
 			<bool name="CanBeDropped">true</bool>
 			<bool name="Enabled">true</bool>
 			<CoordinateFrame name="Grip">
@@ -23,7 +22,7 @@
 			</CoordinateFrame>
 			<bool name="ManualActivationOnly">false</bool>
 			<bool name="RequiresHandle">false</bool>
-			<string name="ToolTip">Written And Scripted By Solivion</string>
+			<string name="ToolTip">A Book By @Solivion</string>
 			<Content name="TextureId"><null></null></Content>
 			<token name="LevelOfDetail">0</token>
 			<CoordinateFrame name="ModelMeshCFrame">
@@ -51,34 +50,19 @@
 			<Ref name="PrimaryPart">null</Ref>
 			<float name="ScaleFactor">1</float>
 			<SharedString name="SlimHash">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
-			<OptionalCoordinateFrame name="WorldPivotData">
-				<CFrame>
-					<X>-2.33705091</X>
-					<Y>2</Y>
-					<Z>0.848079681</Z>
-					<R00>1</R00>
-					<R01>0</R01>
-					<R02>0</R02>
-					<R10>0</R10>
-					<R11>1</R11>
-					<R12>0</R12>
-					<R20>0</R20>
-					<R21>0</R21>
-					<R22>1</R22>
-				</CFrame>
-			</OptionalCoordinateFrame>
-			<BinaryString name="AttributesSerialize"><![CDATA[AQAAAAYAAABPZmZzZXQUAAAAP83MzL0AAIC+AOpGdz+jMIk9AACAvgAAAADqRnc/7oOEPu6D
-hD4AAIC+69luPw==]]></BinaryString>
+			<OptionalCoordinateFrame name="WorldPivotData"></OptionalCoordinateFrame>
+			<BinaryString name="AttributesSerialize">AQAAABIAAABXcml0dGVuX2FuZF9Qb3J0ZWQCFQAAAEBTb2xpdmlvbiBSb2Jsb3ggMjAyNA==</BinaryString>
 			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 			<bool name="DefinesCapabilities">false</bool>
 			<string name="Name">Basics In Scripting</string>
-			<int64 name="SourceAssetId">18863163958</int64>
+			<int64 name="SourceAssetId">-1</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Script" referent="RBXE664DF0F624944119F9538491EAE22B6">
+		<Item class="Script" referent="RBX8A296863CA674789B16270CF21D53048">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[--by Solivion, I ported my own book out of 'Library of Aletheia' cuz why not
 --credit me quite a bit if u use this lol
+--re-written the script to be more performant(I removed the while loop aspect because it's the main culprit of lags, and also os.clock() because it's slowly causing minor increases in memory usage overtime), and used RunService.heartbeat for Delta Time instead 
 
 --<<Settings>>--
 local BookDebug: boolean? = false
@@ -95,8 +79,13 @@ local PickUpMaxDistance: number? = 10
 local SwitchPerClick: number? = 2
 local PageRestLeftAngle: number?, PageRestRightAngle: number? = 1,1
 local FirstEverRegisterAsLastPage: ('15' | '0' | 'Back Cover') = '0' or '15' or 'Back Cover' -- choose one by moving one of these infront of the first 'or'
+local Tween_Time: number? = .25
+local Easing_Style: Enum.EasingStyle? = Enum.EasingStyle.Circular
+local In_Out = Enum.EasingDirection.InOut
+local AnimTweenInfo: TweenInfo? = TweenInfo.new(.5, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out)
 
 --<<CORE, DO NOT EDIT UNLESS YOU GET IT>>--
+local Players = game:FindFirstChildOfClass('Players') or game:GetService('Players')
 local Tool = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag')
 local Handle = Instance.new('Part', Tool or game:FindFirstChildOfClass('ServerStorage') or game:FindFirstChildOfClass('ReplicatedStorage'))
 Handle.Name = 'BOOK_PLACEHOLDER'
@@ -112,15 +101,28 @@ type ArrayType = (string | number)
 type Book_Page_Dataset = {Context: string?, Subtitle: string?, Content: string, IsCover: boolean?}
 type PBDArray = (ArrayType | Book_Page_Dataset)
 type PPDArray = (BasePart | ArrayType)
-local Physical_Pages: {ArrayType: BasePart?} = {}
-local Physical_Page_Data: {PPDArray: {Front: SurfaceGui, Back: SurfaceGui, Page_Number: string, LowestPage: number?, Page_Weld: JointInstance}?} = {}
-local Physical_Book_Data: {PBDArray: PageData?} = {}
+type Threader = (thread | RBXScriptConnection)
+local Physical_Pages: {[ArrayType?]: BasePart} = {}
+local Physical_Page_Data: {[PPDArray?]: {Front: SurfaceGui, Back: SurfaceGui, Page_Number: string, LowestPage: number?, Page_Weld: JointInstance, CurrentDestination: CFrame?, LastDestination: CFrame?, TweenOperation: Tween?}} = {}
+local Physical_Book_Data: {[PBDArray?]: PageData} = {}
 local Cover_Pages: {SurfaceGui?} = {}
 local R15LockWeld: {JointInstance?} = {}
 
 --<{'Basics in scriptin'}>--
 --[[-=<Written Book's Final Version: 16:45 6th August 2024 UTC>=-]]--
-local Datas: {ArrayType: Book_Page_Dataset?} = {
+local TEnabled: boolean = false
+local Sounds: {number} = {
+	pageturn0wav = 12222076,
+	splat0wav = 12222152,
+	switch0wav = 12222170,
+	flashbulb0wav = 12221996,
+	Kerplunk0wav = 12222054,
+	SWITCH30WAV = 12222183,
+	bass0wav = 12221831,
+	solivion = 1233413367
+}
+--indecipherable galore
+local Datas: {[ArrayType?]: Book_Page_Dataset} = {
 	['-2'] = {
 		Context = 'Authored By @Solivion',
 		Subtitle = 'THE BOOK COVER',
@@ -313,9 +315,11 @@ function DebugOutput(...)
 	if BookDebug then	print(...) end
 end
 
+function HALT(v: (thread | RBXScriptConnection)) if typeof(v) == 'thread' then	coroutine.close(v) elseif typeof(v) == 'RBXScriptConnection' then v:Disconnect() end end
+
 function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: string)
 	local Found: boolean = false
-	if Where == nil then
+	if Where == nil or typeof(Where) ~= 'Instance' then
 		return
 	end
 	for i,v in Where:GetChildren() do
@@ -332,7 +336,7 @@ function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: stri
 	end
 end
 
-local function StarkestOutlineColour(Colour)
+function StarkestOutlineColour(Colour)
 	local brightness = (0.299 * Colour.R + 0.587 * Colour.G + 0.114 * Colour.B)
 
 	local STARK
@@ -343,6 +347,31 @@ local function StarkestOutlineColour(Colour)
 	end
 
 	return STARK
+end
+
+function PlaySound(SoundName,ToWhere)
+	--getOrCreateSound(SoundName)
+	local Mainplayfunction = function(hmm)
+		hmm.PlaybackSpeed = math.random(100-20,100+20)/100
+		hmm:Play()
+	end
+	if ToWhere == nil then
+		ToWhere = Tool:FindFirstChild("Handle")
+	end
+	if ToWhere and FindFirstChildOfNameAndClass(ToWhere, SoundName, "Sound") then
+		Mainplayfunction(FindFirstChildOfNameAndClass(ToWhere, SoundName, "Sound"))
+	elseif ToWhere and not FindFirstChildOfNameAndClass(ToWhere, SoundName, "Sound") then
+		if Sounds[SoundName] then
+			local sound = Instance.new("Sound")
+			local Where = ToWhere
+			sound.Parent = Where
+			sound.SoundId = (typeof(Sounds[SoundName]) == 'number' and 'rbxassetid://'..Sounds[SoundName]) or Sounds[SoundName]
+			sound.Name = SoundName
+			sound:Play()
+		else
+			warn("Sound >"..SoundName.."< Not Found In Database")
+		end
+	end
 end
 
 function LockR15Arm(Character: Model)
@@ -362,14 +391,27 @@ function LockR15Arm(Character: Model)
 					table.insert(R15LockWeld, Replace)
 				end
 			end
+			if v:FindFirstChildOfClass('AnimationConstraint') and not table.find(R15LockWeld, v:FindFirstChildOfClass('AnimationConstraint')) then
+				local mt = v:FindFirstChildOfClass('AnimationConstraint')
+				if mt.Enabled == true then
+					mt.Enabled = false
+					table.insert(R15LockWeld, mt)
+					local Replace = Instance.new('Weld', mt.Parent)
+					Replace.Name = mt.Name
+					Replace.Part1 = mt.Attachment1 and mt.Attachment1.Parent
+					Replace.Part0 = mt.Attachment0 and mt.Attachment0.Parent
+					Replace.C0 = mt.C0
+					Replace.C1 = mt.C1
+					table.insert(R15LockWeld, Replace)
+				end
+			end
 		end
 	end --r6ify
 end
 
 function UnlockR15()
-	--task.synchronize()
-	for i,v in ipairs(R15LockWeld) do
-		if v:IsA('Motor6D') then
+	for i,v in R15LockWeld do
+		if v:IsA('Motor6D') or v:IsA("AnimationConstraint") then
 			v.Enabled = true
 		else
 			v:Destroy()
@@ -484,10 +526,12 @@ coroutine.resume(coroutine.create(function()
 end))
 
 if Tool then
+	local Numsys = 0
 	--DebugOutput('reg')
+	local TweenService: TweenService = game:FindFirstChildOfClass('TweenService') or game:GetService('TweenService')
 	local Character: Model?
 	type States = ('Equipping' | 'Changing_Page' | 'Unequipping' | 'Dropped' | 'None')
-	type PageNumbers = ( 'Front Cover'| '0'| '1'| '2'| '3'| '4'| '5'| '6'| '7'| '8'| '9'| '10'| '11'| '12'| '13'| '14'| '15'| 'Back Cover')
+	type PageNumbers = ( 'Front Cover'| '-1'| '0'| '1'| '2'| '3'| '4'| '5'| '6'| '7'| '8'| '9'| '10'| '11'| '12'| '13'| '14'| '15'| 'Back Cover')
 	local State: States = "None"
 	local CurrentPage: PageNumbers = 'Front Cover'
 	local LastPage: PageNumbers = 'Back Cover'
@@ -501,16 +545,150 @@ if Tool then
 	local RAWeld: JointInstance?
 	local HWOffset: CFrame = CFrame.new()
 	local RWOffset: CFrame = CFrame.new()
-	local EquipTick: number = tick()
-	local ActiveTick: number = tick()
+	local EquipTick: number = 0
+	local ActiveTick: number = 0
 	local LatestPageSwitch = 0
 	local Equipping: boolean = false
 	local Activated: boolean = false
+	local Info = TweenInfo.new(Tween_Time or .1, Easing_Style or Enum.EasingStyle.Circular, In_Out or Enum.EasingDirection)
+	type LastAnimData = {C0: CFrame, C1: CFrame, TweenC0: Tween?, TweenC1: Tween?}
+	local LastAnim: {Arm: LastAnimData, Handle: LastAnimData} = {
+		Arm = {C0 = CFrame.new(), C1 = CFrame.new()},Handle = {C0 = CFrame.new(), C1 = CFrame.new()}
+	}
+	local TurnBack: boolean = false
+	local tweens: {[Instance?]: Tween} = {}
 	--shoulda put it in the same table
-	local OnEquipCorouteFunctions: {thread?} = {}
-	local OnUnequipCorouteFunctions: {thread?} = {}
-	local RuntimeCorouteFunctions: {thread?} = {}
+	local OnEquipCorouteFunctions: {Threader?} = {}
+	local OnUnequipCorouteFunctions: {Threader?} = {}
+	local RuntimeCorouteFunctions: {Threader?} = {}
+	function TIMER()
+		if (ActiveTick + 1) >= 30 or (EquipTick + 1) >= 30 then
+			if EquipTick > ActiveTick then
+				EquipTick = 0
+				ActiveTick = -1
+			elseif EquipTick == ActiveTick then
+				EquipTick = 0
+				ActiveTick = 0
+			elseif EquipTick < ActiveTick then
+				EquipTick = -1
+				ActiveTick = 0
+			end
+		end
+		if EquipTick > ActiveTick then
+			return EquipTick + 1
+		else
+			return ActiveTick + 1
+		end
+	end
 	
+	local function UpdateAnim()
+		if Character and Tool and (Equipping or State == 'Unequipping')  then 
+			local ARMALTDES, ARMDESTINATION, HANDLEALTDES, HANDLEDESTINATION = CFrame.new(),CFrame.new(),CFrame.new(),CFrame.new()
+			local Timesince = LatestPageSwitch + .1
+			if CurrentPage ~= 'Back Cover' and CurrentPage ~= 'Front Cover' then
+				if RAWeld then
+					ARMALTDES = HWOffset * CFrame.new(0,TS.Size.Y/5,-TS.Size.Z * 1.25) * CFrame.Angles(math.rad(90),0,math.rad(-45))
+					if SwitchPerClick >= 2 then
+						ARMDESTINATION = CFrame.new() * CFrame.Angles(math.rad(.2 - math.clamp(Timesince ,0,.2)) * -100,0,0)
+					else
+						if CurrentPage % 2 == 0 then
+							ARMDESTINATION = CFrame.new(-PaperProportion.Z/4,-PaperProportion.Y/4,-PaperProportion.X/4) * CFrame.Angles(math.rad(.2 - math.clamp(Timesince,0,.2)) * -100,0,0)
+						else
+							ARMDESTINATION = CFrame.new(-PaperProportion.Z/2,-PaperProportion.Y/2,-PaperProportion.X/2) * CFrame.Angles(math.rad(.1 - math.clamp(Timesince,0,.1)) * 150,0,0)
+						end
+					end
+				end
+				if HandleWeld then
+					HANDLEALTDES = RWOffset * CFrame.Angles(math.rad(5),math.rad(12.5),math.rad(-14.5)) * CFrame.Angles(math.rad(-15) , math.rad(-15), 0) * CFrame.new(-RH.Size.X/2, -RH.Size.Y/20, -RH.Size.Z/4) * CFrame.new(-0.8, 0.2, 0.4)
+						--[[if CurrentPage % 2 ~= 0 then
+							HANDLEDESTINATION = CFrame.new()
+						else
+							HANDLEDESTINATION = CFrame.new(0,0,PaperProportion.Z/2)
+						end]]
+					if SwitchPerClick >= 2 then
+						HANDLEDESTINATION = CFrame.new(-RH.Size.Z/2.5,-RH.Size.Z/8,-RH.Size.Z/4) * CFrame.Angles(0, math.abs(25), 0) * CFrame.new(Vector3.new(0.3, -0.25, 0.5))
+					else
+						HANDLEDESTINATION = CFrame.new(0,0,PaperProportion.Z/2)
+					end
+				end
+				for i,v in pairs(Physical_Page_Data) do
+					if v and v.Page_Weld then
+						if v.LowestPage then
+							local iscover = false
+							if v.IsCover then
+								iscover = true
+							end
+							if v.LowestPage > tonumber(CurrentPage) then
+								local Angle = -90 + (v.LowestPage * (PageRestLeftAngle or 1)) + (iscover and 180 or 0)
+								local Offset = CalculateDislocation(PaperProportion, Angle)/1.325 -- Use positive offset
+								v.CurrentDestination = CFrame.new(-Offset) * CFrame.Angles(0, math.rad(Angle), 0)
+							else
+								local Angle = -180 + (v.LowestPage * (PageRestRightAngle or 1)) + (iscover and 180 or 0)
+								local Offset = CalculateDislocation(PaperProportion, Angle)/2 -- Use positive offset
+								v.CurrentDestination = CFrame.new(-Offset) * CFrame.new(-0.66, 0, 0.4) * CFrame.Angles(0, math.rad(Angle - 45), 0)
+							end
+						else
+							v.CurrentDestination = CFrame.new()
+						end
+					end
+
+				end
+			else
+				if RAWeld then
+					ARMDESTINATION = CFrame.new()
+				end
+				if HandleWeld then
+					HANDLEDESTINATION = CFrame.new()
+				end
+				if State == 'Unequipping' or State == 'Equipping' then
+					if RAWeld then
+						if Equipping then
+							ARMALTDES = HWOffset * CFrame.Angles(math.rad(90),0,0)
+						else
+							ARMALTDES = HWOffset
+						end
+					end
+					if HandleWeld then
+						if Equipping then
+							HANDLEALTDES = RWOffset
+						else
+							HANDLEALTDES = RWOffset * CFrame.Angles(math.rad(-30),0,math.rad(45))
+						end
+					end
+				else
+					if RAWeld then
+						ARMALTDES = HWOffset * CFrame.Angles(math.rad(90),math.rad(-45),math.rad(-15))
+					end
+					if HandleWeld then
+						HANDLEALTDES = RWOffset * CFrame.Angles(math.rad(-45),math.rad(15),0)
+					end
+				end
+				for i,v in pairs(Physical_Page_Data) do
+					if v and v.Page_Weld then
+						v.CurrentDestination = CFrame.new()
+					end
+				end
+			end
+			if RAWeld then
+				if ARMALTDES ~= LastAnim.Arm.C0 then if LastAnim.Arm.TweenC0 then LastAnim.Arm.TweenC0:Cancel() LastAnim.Arm.TweenC0 = nil end LastAnim.Arm.TweenC0 = TweenService:Create(RAWeld, AnimTweenInfo or Info, {C0 = ARMALTDES}) if LastAnim.Arm.TweenC0  then LastAnim.Arm.TweenC0 :Play() end LastAnim.Arm.C0 = ARMALTDES --[[RAWeld.C0 = ARMALTDES]] end
+				if ARMDESTINATION ~= LastAnim.Arm.C1 then if LastAnim.Arm.TweenC1 then LastAnim.Arm.TweenC1:Cancel() LastAnim.Arm.TweenC1 = nil end LastAnim.Arm.TweenC1 = TweenService:Create(RAWeld, AnimTweenInfo or Info, {C1 = ARMDESTINATION}) if LastAnim.Arm.TweenC1  then LastAnim.Arm.TweenC1 :Play() end LastAnim.Arm.C1 = ARMDESTINATION	--[[RAWeld.C1 = ARMDESTINATION]] end
+			end
+			if HandleWeld then
+				if HANDLEALTDES ~= LastAnim.Handle.C0 then if LastAnim.Handle.TweenC0 then LastAnim.Handle.TweenC0:Cancel() LastAnim.Handle.TweenC0 = nil end LastAnim.Handle.TweenC0 = TweenService:Create(HandleWeld, AnimTweenInfo or Info, {C0 = HANDLEALTDES}) if LastAnim.Handle.TweenC0  then LastAnim.Handle.TweenC0 :Play() end LastAnim.Handle.C0 = HANDLEALTDES	--[[HandleWeld.C0 = HANDLEALTDES]] end
+				if HANDLEDESTINATION ~= LastAnim.Handle.C1 then if LastAnim.Handle.TweenC1 then LastAnim.Handle.TweenC1:Cancel() LastAnim.Handle.TweenC1 = nil end LastAnim.Handle.TweenC1 = TweenService:Create(HandleWeld, AnimTweenInfo or Info, {C1 = HANDLEDESTINATION}) if LastAnim.Handle.TweenC1  then LastAnim.Handle.TweenC1 :Play() end  LastAnim.Handle.C1 = HANDLEDESTINATION	--[[HandleWeld.C1 = HANDLEDESTINATION]] end
+			end
+			for i,v in pairs(Physical_Page_Data) do
+				if v.Page_Weld and v.LastDestination ~= v.CurrentDestination then
+					--v.Page_Weld.C1 = v.CurrentDestination
+					if tweens[v.Page_Weld] then tweens[v.Page_Weld]:Cancel() tweens[v.Page_Weld] = nil end
+					tweens[v.Page_Weld] = TweenService:Create(v.Page_Weld, Info, {C1 = v.CurrentDestination})
+					if v and v.Page_Weld and v.Page_Weld.Part1 then	PlaySound((v.Page_Weld.Part1.Color == CoverColor and 'switch0wav') or 'pageturn0wav',v.Page_Weld.Part1) end
+					if tweens[v.Page_Weld] then tweens[v.Page_Weld]:Play() end
+					v.LastDestination = v.CurrentDestination
+				end
+			end
+		end
+	end
 	local function UpdateBook()
 		DebugOutput('Curpage:'..CurrentPage..'/LastPage:'..LastPage..'/Paper:'..((CurrentPage == 'Back Cover' or CurrentPage == 'Front Cover') and 'Book Cover' or (math.floor(tonumber(CurrentPage)/2))..((tonumber(CurrentPage) or 1) % 2 == 0 and '[Front]' or '[Back]')))
 		DisplayingPage = {} -- always able to be seen, none
@@ -550,22 +728,24 @@ if Tool then
 				end
 			end
 		end
+		UpdateAnim()
 	end
 	local function Equipped()
 		if State == 'Dropped' then return end
+		TurnBack = false
 		Character = Tool:FindFirstAncestorWhichIsA('Model') or Tool.Parent
 		for i,v in RuntimeCorouteFunctions do
-			coroutine.close(v)
+			HALT(v)
 		end
+		if Character then Tool.Enabled = true end
 		RuntimeCorouteFunctions = {}
-		local curstick = tick() curstick = tick()
+		local curstick = 0 local curtick = 0 curstick = TIMER() curtick = curstick
 		EquipTick = curstick
 		if not Character or not Character:FindFirstChildOfClass('Humanoid') then return end
 		coroutine.resume(coroutine.create(function() LockR15Arm(Character) if ToolProx and Equipping and EquipTick == curstick then ToolProx:Destroy() ToolProx = nil end end))
 		RA = FindFirstChildOfNameAndClass(Character, 'RightUpperArm', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Right Arm', 'BasePart')
 		RH = FindFirstChildOfNameAndClass(Character, 'RightHand', 'BasePart') or RA
 		TS = FindFirstChildOfNameAndClass(Character, 'UpperTorso', 'BasePart') or FindFirstChildOfNameAndClass(Character, 'Torso', 'BasePart')
-		local curtick = tick() curtick = tick()
 		EquipTick = curtick
 		ActiveTick = curtick
 		Activated = false
@@ -573,7 +753,8 @@ if Tool then
 		State = 'Equipping'
 		CurrentPage = 'Front Cover'
 		LastPage = FirstEverRegisterAsLastPage or '0' or 'Back Cover'
-		LatestPageSwitch = tick() + 0.2
+		LatestPageSwitch = .4
+		TEnabled = false
 		UpdateBook()
 		local OnEquipFunction = coroutine.create(function()
 			--DebugOutput('ran')
@@ -601,120 +782,134 @@ if Tool then
 						HandleWeld = AnimatableGripWeld
 					end
 				end
+				UpdateAnim()
 				State = 'None'
 			end
 		end)
 		local AnimationFunction = coroutine.create(function()
-			local lasttick = tick()
-			while task.wait(.01) and Character and Tool and (EquipTick == curtick or State == 'Unequipping') do
-				local dt = tick() - lasttick
-				local sped = 1 - 0.0000001 ^ dt
-				lasttick = tick()
-				if CurrentPage ~= 'Back Cover' and CurrentPage ~= 'Front Cover' then
-					if RAWeld then
-						RAWeld.C0 = RAWeld.C0:Lerp(HWOffset * CFrame.new(0,TS.Size.Y/5,-TS.Size.Z * 1.25) * CFrame.Angles(math.rad(90),0,math.rad(-45)), sped)
-						if SwitchPerClick >= 2 then
-							RAWeld.C1 = RAWeld.C1:Lerp(CFrame.new() * CFrame.Angles(math.rad(.2 - math.clamp(tick() - LatestPageSwitch,0,.2)) * -100,0,0), sped)
-						else
-							if CurrentPage % 2 == 0 then
-								RAWeld.C1 = RAWeld.C1:Lerp(CFrame.new(-PaperProportion.Z/4,-PaperProportion.Y/4,-PaperProportion.X/4) * CFrame.Angles(math.rad(.2 - math.clamp(tick() - LatestPageSwitch,0,.2)) * -100,0,0), sped)
-							else
-								RAWeld.C1 = RAWeld.C1:Lerp(CFrame.new(-PaperProportion.Z/2,-PaperProportion.Y/2,-PaperProportion.X/2) * CFrame.Angles(math.rad(.1 - math.clamp(tick() - LatestPageSwitch,0,.1)) * 150,0,0), sped)
-							end
-						end
-					end
-					if HandleWeld then
-						HandleWeld.C0 = HandleWeld.C0:Lerp(RWOffset * CFrame.Angles(math.rad(5),math.rad(12.5),math.rad(-14.5)) * CFrame.Angles(math.rad(-15) , math.rad(-15), 0) * CFrame.new(-RH.Size.X/2, -RH.Size.Y/20, -RH.Size.Z/4) * CFrame.new(-0.8, 0.2, 0.4), sped)
-						--[[if CurrentPage % 2 ~= 0 then
-							HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(), sped)
-						else
-							HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(0,0,PaperProportion.Z/2), sped)
-						end]]
-						if SwitchPerClick >= 2 then
-							HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(-RH.Size.Z/2.5,-RH.Size.Z/8,-RH.Size.Z/4) * CFrame.Angles(0, math.abs(25), 0) * CFrame.new(Vector3.new(0.3, -0.25, 0.5)), sped)
-						else
-							HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(0,0,PaperProportion.Z/2), sped)
-						end
-					end
-					for i,v in pairs(Physical_Page_Data) do
-						if v and v.Page_Weld then
-							if v.LowestPage then
-								local iscover = false
-								if v.IsCover then
-									iscover = true
-								end
-								if v.LowestPage > tonumber(CurrentPage) then
-									local Angle = -90 + (v.LowestPage * (PageRestLeftAngle or 1)) + (iscover and 180 or 0)
-									local Offset = CalculateDislocation(PaperProportion, Angle)/1.325 -- Use positive offset
-									v.Page_Weld.C1 = v.Page_Weld.C1:Lerp(CFrame.new(-Offset) * CFrame.Angles(0, math.rad(Angle), 0), sped)
-								else
-									local Angle = -180 + (v.LowestPage * (PageRestRightAngle or 1)) + (iscover and 180 or 0)
-									local Offset = CalculateDislocation(PaperProportion, Angle)/2 -- Use positive offset
-									v.Page_Weld.C1 = v.Page_Weld.C1:Lerp(CFrame.new(-Offset) * CFrame.new(-0.66, 0, 0.4) * CFrame.Angles(0, math.rad(Angle - 45), 0), sped)
-								end
-							else
-								v.Page_Weld.C1 = v.Page_Weld.C1:Lerp(CFrame.new(), sped)
-							end
-						end
+			local Tied: RBXScriptConnection?
+			local Enabled = true
+			Tied = game:FindFirstChildOfClass('RunService').Heartbeat:Connect(function(dt)
+				if LatestPageSwitch > 0 then	LatestPageSwitch -= dt LatestPageSwitch = math.clamp(LatestPageSwitch, 0,1) end
+				--if Character and Tool and (EquipTick == curstick or State == 'Unequipping')  then 
+				--	local ARMALTDES, ARMDESTINATION, HANDLEALTDES, HANDLEDESTINATION = CFrame.new(),CFrame.new(),CFrame.new(),CFrame.new()
+				--	local sped = 1 - 0.0000001 ^ dt
+				--	local Timesince = LatestPageSwitch + .1
+				--	if Enabled then Enabled = false task.delay(0.1, function() Enabled = true end) end
+				--	if LatestPageSwitch > 0 then	LatestPageSwitch -= dt LatestPageSwitch = math.clamp(LatestPageSwitch, 0,1) end
+				--if CurrentPage ~= 'Back Cover' and CurrentPage ~= 'Front Cover' then
+				--	if RAWeld then
+				--		ARMALTDES = HWOffset * CFrame.new(0,TS.Size.Y/5,-TS.Size.Z * 1.25) * CFrame.Angles(math.rad(90),0,math.rad(-45))
+				--		if SwitchPerClick >= 2 then
+				--			ARMDESTINATION = CFrame.new() * CFrame.Angles(math.rad(.2 - math.clamp(Timesince ,0,.2)) * -100,0,0)
+				--		else
+				--			if CurrentPage % 2 == 0 then
+				--				ARMDESTINATION = CFrame.new(-PaperProportion.Z/4,-PaperProportion.Y/4,-PaperProportion.X/4) * CFrame.Angles(math.rad(.2 - math.clamp(Timesince,0,.2)) * -100,0,0)
+				--			else
+				--				ARMDESTINATION = CFrame.new(-PaperProportion.Z/2,-PaperProportion.Y/2,-PaperProportion.X/2) * CFrame.Angles(math.rad(.1 - math.clamp(Timesince,0,.1)) * 150,0,0)
+				--			end
+				--		end
+				--	end
+				--	if HandleWeld then
+				--		HANDLEALTDES = RWOffset * CFrame.Angles(math.rad(5),math.rad(12.5),math.rad(-14.5)) * CFrame.Angles(math.rad(-15) , math.rad(-15), 0) * CFrame.new(-RH.Size.X/2, -RH.Size.Y/20, -RH.Size.Z/4) * CFrame.new(-0.8, 0.2, 0.4)
+				--		----[[if CurrentPage % 2 ~= 0 then
+				--		--	HANDLEDESTINATION = CFrame.new()
+				--		--else
+				--		--	HANDLEDESTINATION = CFrame.new(0,0,PaperProportion.Z/2)
+				--		--end
+				--		if SwitchPerClick >= 2 then
+				--			HANDLEDESTINATION = CFrame.new(-RH.Size.Z/2.5,-RH.Size.Z/8,-RH.Size.Z/4) * CFrame.Angles(0, math.abs(25), 0) * CFrame.new(Vector3.new(0.3, -0.25, 0.5))
+				--		else
+				--			HANDLEDESTINATION = CFrame.new(0,0,PaperProportion.Z/2)
+				--		end
+				--	end
+				--	for i,v in pairs(Physical_Page_Data) do
+				--		if v and v.Page_Weld then
+				--			if v.LowestPage then
+				--				local iscover = false
+				--				if v.IsCover then
+				--					iscover = true
+				--				end
+				--				if v.LowestPage > tonumber(CurrentPage) then
+				--					local Angle = -90 + (v.LowestPage * (PageRestLeftAngle or 1)) + (iscover and 180 or 0)
+				--					local Offset = CalculateDislocation(PaperProportion, Angle)/1.325 -- Use positive offset
+				--					v.CurrentDestination = CFrame.new(-Offset) * CFrame.Angles(0, math.rad(Angle), 0)
+				--				else
+				--					local Angle = -180 + (v.LowestPage * (PageRestRightAngle or 1)) + (iscover and 180 or 0)
+				--					local Offset = CalculateDislocation(PaperProportion, Angle)/2 -- Use positive offset
+				--					v.CurrentDestination = CFrame.new(-Offset) * CFrame.new(-0.66, 0, 0.4) * CFrame.Angles(0, math.rad(Angle - 45), 0)
+				--				end
+				--			else
+				--				v.CurrentDestination = CFrame.new()
+				--			end
+				--		end
 
-					end
-				else
-					if RAWeld then
-						RAWeld.C1 = RAWeld.C1:Lerp(CFrame.new(), sped)
-					end
-					if HandleWeld then
-						HandleWeld.C1 = HandleWeld.C1:Lerp(CFrame.new(), sped)
-					end
-					if State == 'Unequipping' or State == 'Equipping' then
-						if RAWeld then
-							if Equipping then
-								RAWeld.C0 = RAWeld.C0:Lerp(HWOffset * CFrame.Angles(math.rad(90),0,0), sped)
-							else
-								RAWeld.C0 = RAWeld.C0:Lerp(HWOffset, sped)
-							end
-						end
-						if HandleWeld then
-							if Equipping then
-								HandleWeld.C0 = HandleWeld.C0:Lerp(RWOffset, sped)
-							else
-							HandleWeld.C0 = HandleWeld.C0:Lerp(RWOffset * CFrame.Angles(math.rad(-30),0,math.rad(45)), sped)
-							end
-						end
-					else
-						if RAWeld then
-							RAWeld.C0 = RAWeld.C0:Lerp(HWOffset * CFrame.Angles(math.rad(90),math.rad(-45),math.rad(-15)), sped)
-						end
-						if HandleWeld then
-							HandleWeld.C0 = HandleWeld.C0:Lerp(RWOffset * CFrame.Angles(math.rad(-45),math.rad(15),0), sped)
-						end
-					end
-					for i,v in pairs(Physical_Page_Data) do
-						if v and v.Page_Weld then
-							v.Page_Weld.C1 = v.Page_Weld.C1:Lerp(CFrame.new(), sped)
-						end
-					end
-				end
-			end
+				--	end
+				--else
+				--	if RAWeld then
+				--		ARMDESTINATION = CFrame.new()
+				--	end
+				--	if HandleWeld then
+				--		HANDLEDESTINATION = CFrame.new()
+				--	end
+				--	if State == 'Unequipping' or State == 'Equipping' then
+				--		if RAWeld then
+				--			if Equipping then
+				--				ARMALTDES = HWOffset * CFrame.Angles(math.rad(90),0,0)
+				--			else
+				--				ARMALTDES = HWOffset
+				--			end
+				--		end
+				--		if HandleWeld then
+				--			if Equipping then
+				--				HANDLEALTDES = RWOffset
+				--			else
+				--			HANDLEALTDES = RWOffset * CFrame.Angles(math.rad(-30),0,math.rad(45))
+				--			end
+				--		end
+				--	else
+				--		if RAWeld then
+				--			ARMALTDES = HWOffset * CFrame.Angles(math.rad(90),math.rad(-45),math.rad(-15))
+				--		end
+				--		if HandleWeld then
+				--			HANDLEALTDES = RWOffset * CFrame.Angles(math.rad(-45),math.rad(15),0)
+				--		end
+				--	end
+				--	for i,v in pairs(Physical_Page_Data) do
+				--		if v and v.Page_Weld then
+				--			v.CurrentDestination = CFrame.new()
+				--		end
+				--	end
+				--	end
+				--else if Tied then Tied:Disconnect() Tied = nil end end
+			end)
+			table.insert(RuntimeCorouteFunctions, Tied)
 		end)
 		if Character and Equipping and EquipTick == curtick then
 			coroutine.resume(OnEquipFunction) coroutine.resume(AnimationFunction)
 			table.insert(RuntimeCorouteFunctions, AnimationFunction)
 			table.insert(OnEquipCorouteFunctions, OnEquipFunction)
+			TEnabled = true
 		end
 	end
 	local function UnEquipped()
-		coroutine.resume(coroutine.create(UnlockR15))
-		local curtick = tick() curtick = tick()
+		task.spawn(UnlockR15)
+		TurnBack = false
+		local curtick = 0 curtick = TIMER()
 		ActiveTick = curtick
 		EquipTick = curtick
 		Equipping = false
 		Activated = false
+		local savedpage = 0 savedpage = CurrentPage
 		CurrentPage = 'Front Cover'
 		LastPage = FirstEverRegisterAsLastPage or '0' or 'Back Cover'
-		LatestPageSwitch = tick() + 0.2
+		LatestPageSwitch = .3
+		TEnabled = false
 		State = 'Unequipping'
+		Tool.Enabled = false
+		UpdateBook()
 		for i,v in OnEquipCorouteFunctions do
-			coroutine.close(v)
+			HALT(v)
 			--[[if table.find(OnEquipCorouteFunctions, v) then
 				table.remove(OnEquipCorouteFunctions, table.find(OnEquipCorouteFunctions, v))
 			end]]
@@ -723,15 +918,21 @@ if Tool then
 		local function destruct()
 			if not Equipping and EquipTick == curtick then
 				for i,v in RuntimeCorouteFunctions do
-					coroutine.close(v)
+					HALT(v)
 				end
 				RuntimeCorouteFunctions = {}
 				State = 'None'
 				if HandleWeld then HandleWeld:Destroy() HandleWeld = nil end if RAWeld then RAWeld:Destroy() RAWeld = nil end
 			end
 		end
-		if Tool:IsDescendantOf(workspace) then -- dropped
+		if Tool:IsDescendantOf(workspace) or Tool.Parent == workspace then -- dropped
 			State = 'Dropped'
+			if savedpage ~= 'Back Cover' and savedpage ~= 'Front Cover' then
+				PlaySound('Kerplunk0wav', Handle)
+			else
+				PlaySound('SWITCH30WAV', Handle)
+			end
+			PlaySound('splat0wav', Handle)
 			local latestpart: BasePart
 			for i,v in pairs(Physical_Pages) do if v:IsA('BasePart') then latestpart = v v.CanCollide = true end end
 			destruct()
@@ -741,6 +942,7 @@ if Tool then
 			for i,v in (Handle or latestpart):GetChildren() do if v:IsA('ProximityPrompt') then v:Destroy() end end
 			local NewPrompt = Instance.new('ProximityPrompt', Handle or latestpart)
 			if NewPrompt and NewPrompt.Parent and not Equipping then
+				State = 'Dropped'
 				ToolProx = NewPrompt
 				NewPrompt.ActionText = 'Pick Up'
 				NewPrompt.ObjectText = Tool.Name:upper():match('TOOL') and 'Basic To Scripting(Book)' or Tool.Name
@@ -748,7 +950,9 @@ if Tool then
 				NewPrompt.HoldDuration = PickUpDuration or math.huge
 				NewPrompt.MaxActivationDistance = PickUpMaxDistance or 15
 				local AttemptRecord: {Player: number?} = {}
+				local Updater: RBXScriptConnection?
 				local Attempts: {Player: thread?} = {}
+				local Attempters: {Player} = {}
 				local HoldBegan: RBXScriptConnection?, HoldEnded: RBXScriptConnection?, Triggered: RBXScriptConnection?
 				local Running: boolean = true
 				local function clear() if Tool then Tool.Enabled = true end if not BookCanCollide then for i,v in pairs(Physical_Pages) do if v:IsA('BasePart') then v.CanCollide = false end end end if HoldBegan then	HoldBegan:Disconnect() end if HoldEnded then HoldEnded:Disconnect() end if Triggered then Triggered:Disconnect() end HoldBegan = nil HoldEnded = nil Triggered = nil end
@@ -756,21 +960,57 @@ if Tool then
 					Running = false
 					AttemptRecord = {}
 					for i,v in Attempts do
-						coroutine.close(v)
+						HALT(v)
 					end
 					Attempts = {}
 				end
+				local function breakupd() if Updater then Updater:Disconnect() Updater = nil end end
+				Updater = game:FindFirstChildOfClass('RunService').Heartbeat:Connect(function(Delta)
+					for i: Player,v: number in pairs(AttemptRecord) do
+						if not i or not i:IsDescendantOf(Players) or not table.find(Attempters, i) or not i.Character or (i.Character:FindFirstChildOfClass('Tool') or i.Character:FindFirstChildOfClass('Flag')) or i:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) >= (PickUpMaxDistance or 15) then if i and AttemptRecord[i] then AttemptRecord[i] = AttemptRecord[i] - Delta * 2 end if not i or AttemptRecord[i] <= 0 then AttemptRecord[i] = nil end end 
+						local Total = v + Delta
+						AttemptRecord[i] = Total
+						if Total > (PickUpDuration or 1) then
+							NewPrompt.Enabled = false
+							if i.Character then
+								State = "None"
+								PlaySound('bass0wav', Handle)
+								if i.Character:FindFirstChildOfClass('Humanoid') then
+									Tool.Parent = i.Backpack or i.Character or workspace
+									i.Character:FindFirstChildOfClass('Humanoid'):EquipTool(Tool)
+									i.Character:FindFirstChildOfClass('Humanoid'):UnequipTools()
+									i.Character:FindFirstChildOfClass('Humanoid'):EquipTool(Tool)
+									TEnabled = true
+								else
+									Tool.Parent = i.Character or workspace
+								end
+							else
+								Tool.Parent = workspace
+							end
+							if Tool.Parent == workspace then NewPrompt.Enabled = true State = "Dropped" return else clear() end
+							AttemptRecord = {}
+							Attempts = {}
+							NewPrompt:Destroy()
+							breakupd()
+						end
+					end
+				end)
 				HoldBegan =	NewPrompt.PromptButtonHoldBegan:Connect(function(WHO)
-					if not Running then return end
-					local current = math.random() current = tick()
+					if not Running or State ~= 'Dropped' then return end
+					if Attempts[WHO] then Attempts[WHO]:Disconnect()  Attempts[WHO] = nil end
+					if WHO and not table.find(Attempters, WHO) and WHO.Character and not (WHO.Character:FindFirstChildOfClass('Flag') or WHO.Character:FindFirstChildOfClass('Tool')) and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) then
+						if not Attempts[WHO] and not AttemptRecord[WHO] then	AttemptRecord[WHO] = 0 end
+						table.insert(Attempters, WHO)
+					end
+					--[[local current = math.random() current = TIMER()
 					local Valid = true
 					AttemptRecord[WHO] = 0 -- nullify
 					if Attempts[WHO] then Attempts[WHO]:Disconnect()  Attempts[WHO] = nil end
 					if WHO and not Attempts[WHO] and WHO.Character and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) then
 						AttemptRecord[WHO] = current
 						local Attempt = coroutine.create(function()
-							while task.wait(.01) and Running and Attempts[WHO] and AttemptRecord[WHO] == current and Valid and WHO.Character and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) and (tick() - current) <= (PickUpDuration or 1) do end
-							if Valid and Running and Attempts[WHO] and AttemptRecord[WHO] == current and WHO.Character and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) and (tick() - current) >= (PickUpDuration or 1) then
+							while task.wait(.01) and Running and Attempts[WHO] and AttemptRecord[WHO] == current and Valid and WHO.Character and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) and (TIMER() - current) <= (PickUpDuration or 1) do end
+							if Valid and Running and Attempts[WHO] and AttemptRecord[WHO] == current and WHO.Character and WHO:DistanceFromCharacter(NewPrompt:FindFirstAncestorWhichIsA('BasePart').Position) < (PickUpMaxDistance or 15) and (TIMER() - current) >= (PickUpDuration or 1) then
 								clear()
 								NewPrompt.Enabled = false
 								Tool.Parent = WHO.Character or WHO.Backpack
@@ -785,18 +1025,21 @@ if Tool then
 							AttemptRecord[WHO] = 0
 						end)
 						if AttemptRecord[WHO] == current then Attempts[WHO] = Attempt coroutine.resume(Attempt) end
-					end
+					end]]
 				end)
 				HoldEnded =	NewPrompt.PromptButtonHoldEnded:Connect(function(WHO)
-					local current = math.random() current = tick()
+					if table.find(Attempters, WHO) then table.remove(Attempters, table.find(Attempters, WHO)) end
+					--AttemptRecord[WHO] = nil
+					--[[local current = math.random() current = TIMER()
 					AttemptRecord[WHO] = current
-					if Attempts[WHO] then coroutine.close(Attempts[WHO])  Attempts[WHO] = nil end
+					if Attempts[WHO] then coroutine.close(Attempts[WHO])  Attempts[WHO] = nil end]]
 				end)
 				Triggered =	NewPrompt.Triggered:Once(function(WHO)
 					clear()
 					NewPrompt:Destroy()
-					Tool.Parent = WHO.Character or WHO.Backpack
-					if Tool.Parent and not Tool.Parent:IsA('Model') then
+					Tool.Parent = WHO.Backpack
+					Tool.Enabled = true
+					if Tool.Parent and Tool:FindFirstAncestorWhichIsA('Backpack') then
 						State = "None"
 					end
 					cleantables()
@@ -826,7 +1069,10 @@ if Tool then
 			if not LastPage or LastPage == CurrentPage then return end
 			if typeof(Target_Page) == 'PageData' then Target_Page = Target_Page.PageNumber end
 			if not LastPage or LastPage == CurrentPage then return end
-			LatestPageSwitch = tick()
+			LatestPageSwitch = .2
+			TEnabled = false
+			local savede = EquipTick savede = EquipTick
+			task.delay(.1, function() if EquipTick == savede then TEnabled = true end end)
 			LastPage = CurrentPage
 			CurrentPage = tostring(Target_Page)
 			UpdateBook()
@@ -834,19 +1080,38 @@ if Tool then
 		Tool.Equipped:Connect(Equipped)
 		Tool.Unequipped:Connect(UnEquipped)
 		Tool.Activated:Connect(function()
-			local curtick = tick() curtick = tick()
+			if TurnBack or Activated or not TEnabled then TurnBack = false Activated = false return end
+			local curtick = 0 curtick = TIMER()
 			ActiveTick = curtick
-			if not Equipping or ActiveTick ~= curtick or State ~= 'None' or (tick() - LatestPageSwitch) < 0.1 then return end
+			if not Equipping or ActiveTick ~= curtick or State ~= 'None' or LatestPageSwitch > 0.1 or not TEnabled then return end
 			Activated = true
+			task.delay(.5, function() if ActiveTick == curtick and Equipping and TEnabled then TurnBack = true end end)
 		end)
 		Tool.Deactivated:Connect(function()
-			local curtick = tick() curtick = tick()
-			local ADelta = tick() - ActiveTick
+			if not Activated then TurnBack = false return end
+			Activated = false
+			local curtick = 0 curtick = TIMER()
+			local ADelta = TurnBack and 1 or 0
 			ActiveTick = curtick
-			if Activated and (tick() - LatestPageSwitch) >= 0.1 then
+			if Equipping and LatestPageSwitch <= 0.1 and curtick == ActiveTick and TEnabled then
+				TEnabled = false
 				Activated = false
 				if ADelta > 0.5 then
-					if LastPage and LastPage ~= CurrentPage then	SwitchPages(LastPage) else if CurrentPage == 'Front Cover' then SwitchPages('0') elseif CurrentPage == 'Back Cover' then SwitchPages('15') elseif ((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2)) < 16 then if ((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2)) >= 0 then SwitchPages(tostring((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2))) else SwitchPages('Front Cover') end end end
+					TurnBack = false
+					if tonumber(CurrentPage) and tonumber(CurrentPage) <= -1 then
+						SwitchPages('Front Cover')
+					elseif CurrentPage == 'Back Cover' then
+						SwitchPages('15')
+					elseif CurrentPage == 'Front Cover' then
+						SwitchPages('Back Cover')
+					else
+						if ((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2)) > 0 then
+							SwitchPages(tostring((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2)))
+						else
+							SwitchPages('Front Cover')
+						end
+					end
+					--if LastPage and LastPage ~= CurrentPage then	SwitchPages(LastPage) else if CurrentPage == 'Front Cover' then SwitchPages('0') elseif CurrentPage == 'Back Cover' then SwitchPages('15') elseif ((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2)) < 16 then if ((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2)) >= 0 then SwitchPages(tostring((tonumber(CurrentPage) or 0) - (SwitchPerClick or 2))) else SwitchPages('Front Cover') end end end
 				else
 					if CurrentPage == 'Front Cover' then
 						SwitchPages('-1')
@@ -861,6 +1126,7 @@ if Tool then
 					end
 				end
 			end
+			if ActiveTick == curtick then TEnabled = true end
 		end)
 	end
 end]]></ProtectedString>
@@ -868,7 +1134,8 @@ end]]></ProtectedString>
 				<Content name="LinkedSource"><null></null></Content>
 				<token name="RunContext">0</token>
 				<string name="ScriptGuid">{74E5FB4C-A62F-4678-BD35-FDCA507487F3}</string>
-				<BinaryString name="AttributesSerialize"></BinaryString>
+				<BinaryString name="AttributesSerialize"><![CDATA[AQAAAAYAAABDUkVESVQCJwAAAEBTb2xpdmlhbnQgR2l0aHViL0NvZGViZXJnL1lvdXR1YmUg
+MjAyNg==]]></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 				<bool name="DefinesCapabilities">false</bool>
 				<string name="Name">BIS(put in SSS or Tool or Flag)</string>

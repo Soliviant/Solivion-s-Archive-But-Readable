@@ -2,7 +2,7 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Tool" referent="RBX102DA34B06314B829D02318A69CAA253">
+	<Item class="Tool" referent="RBXA8A93A35BBCD49A5871B46C69CB5A3BC">
 		<Properties>
 			<bool name="CanBeDropped">true</bool>
 			<bool name="Enabled">true</bool>
@@ -73,13 +73,14 @@
 			<int64 name="SourceAssetId">17358140878</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Script" referent="RBXC86785529AFD489E896C0A0FFBD78AB9">
+		<Item class="Script" referent="RBX4E52BAA7A3C944C9B4E89708F7E17AA1">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[--//RealKnife.Lua//--
 --//Written By @Solivion//--
 -- Redundant Checks Here Are Just Perfect --
 -- This is made specially for normal sized R6, R15 may look degraded in terms of animation --
 -- made a while back for no reason. So uhh enjoy --
+-- patched 7/17/2026
 
 --<<Services>--
 local TweenService = game:GetService("TweenService")					  --Move Service V.0.1
@@ -97,8 +98,8 @@ local Slashing = false
 local CurActi = false				
 local CurrentState = "Unequipped"	
 local CurrentAnim = "None"			
-local LastestSlash = tick()			
-local StoredTick = tick()			
+local LastestSlash = os.clock()			
+local StoredTick = os.clock()			
 local DefaultDamage = 5			--Damage without Charging
 local CurrentDamage = DefaultDamage	
 local CanDmg = false					
@@ -365,18 +366,18 @@ local AnimationFrames = {
 			Root = {CFrame.new(0.2, 0, 0) * CFrameAngles(20, -25, 10), 0.5}
 		},
 		Frame2 = {
-			RightShoulder = {CFrame.new(-0.5, -0.5, -1) * CFrameAngles(-60, 120, -5), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
-			GripWeld = {CFrame.new(0, -1, 0) * CFrameAngles(43, -40, -45), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
-			RootJoint = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
-			Root = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
-			RootHip = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5}
+			RightShoulder = {CFrame.new(-0.5, -0.5, -1) * CFrameAngles(-60, 120, -5), 1.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			GripWeld = {CFrame.new(0, -1, 0) * CFrameAngles(43, -40, -45), 1.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			RootJoint = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			Root = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			RootHip = {CFrame.new(0.2, 0, 0) * CFrameAngles(-20, 40, 10), 1.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5}
 		},
 		Frame3 = {
-			RightShoulder = {CFrame.new(0,  0, -1-(math.abs( math.clamp((tick() - StoredTick)*2,1,10)))) * CFrameAngles(75, 30, -7),0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
-			GripWeld = {CFrame.new(0, -1, 0) * CFrameAngles(45 + (math.abs( math.clamp((tick() - StoredTick)*2,1,10))), -45- (math.abs( math.clamp((tick() - StoredTick)*2,1,10))), 9),0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
-			RootJoint = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
-			RootHip = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
-			Root = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5}
+			RightShoulder = {CFrame.new(0,  0, -1-(math.abs( math.clamp((os.clock() - StoredTick)*2,1,10)))) * CFrameAngles(75, 30, -7),0.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			GripWeld = {CFrame.new(0, -1, 0) * CFrameAngles(45 + (math.abs( math.clamp((os.clock() - StoredTick)*2,1,10))), -45- (math.abs( math.clamp((os.clock() - StoredTick)*2,1,10))), 9),0.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			RootJoint = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			RootHip = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5},
+			Root = {CFrame.new(0.2, 0, 0) * CFrameAngles(-10, 25, 10), 0.5 - (1 * math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge))/5}
 		} -- You Can Actually Add Your own Animation lol, And Yeah. The Animator Is pretty Bad. It quite has a playing pattern tho. It's probably 3-1-2
 	},
 	Silence = {
@@ -557,7 +558,12 @@ local function ApplyChaosEffect(Char:Model) -- Just Fly Around
 						if Which and Which.Parent and GetHumanoid(Which.Parent) then GetHumanoid(Which.Parent):ChangeState(Enum.HumanoidStateType.GettingUp) end
 					end
 				end)
-				Char:BreakJoints()
+				--Char:BreakJoints()
+				for i,v in Char:GetDescendants() do
+					if v:IsA("BasePart") then
+						pcall(function() for a, b in v:GetJoints() do b:Destroy() end end)
+					end
+				end
 			end
 		end
 		return -- Performance Wise
@@ -625,12 +631,12 @@ function Ragdoll(Who, RagdollTime)
 		DebugText("Ragdolled "..Who.Name)
 	end
 	for index,joint in pairs(Who:GetDescendants()) do
-		if joint:IsA("Motor6D") then
+		if joint:IsA("Motor6D") or joint:IsA("AnimationConstraint") then
 			local socket = Instance.new("BallSocketConstraint")
 			local a1 = Instance.new("Attachment")
 			local a2 = Instance.new("Attachment")
-			a1.Parent = joint.Part0
-			a2.Parent = joint.Part1
+			a1.Parent = joint:IsA("AnimationConstraint") and joint.Attachment0 and joint.Attachment0.Parent or joint:IsA("Motor6D") and joint.Part0
+			a2.Parent = joint:IsA("AnimationConstraint") and joint.Attachment1 and joint.Attachment1.Parent or joint:IsA("Motor6D") and joint.Part1
 			socket.Parent = joint.Parent
 			socket.Attachment0 = a1
 			socket.Attachment1 = a2
@@ -641,8 +647,8 @@ function Ragdoll(Who, RagdollTime)
 			socket.Name = joint.Name.."FakeAhhJoints"
 			local Nocollide = Instance.new("NoCollisionConstraint")
 			Nocollide.Parent = joint.Parent
-			Nocollide.Part1 = joint.Part1
-			Nocollide.Part0 = joint.Part0
+			Nocollide.Part1 = joint:IsA("AnimationConstraint") and joint.Attachment1 and joint.Attachment1.Parent or joint:IsA("Motor6D") and joint.Part1
+			Nocollide.Part0 = joint:IsA("AnimationConstraint") and joint.Attachment0 and joint.Attachment0.Parent or joint:IsA("Motor6D") and joint.Part0
 			Nocollide.Name = joint.Name
 			ApplyAttribute(a1)
 			ApplyAttribute(Nocollide)
@@ -690,7 +696,7 @@ function Ragdoll(Who, RagdollTime)
 	end
 	if Who ~= nil then
 		for index,joint in pairs(Who:GetDescendants()) do
-			if joint:IsA("Motor6D") or joint:IsA("Weld") or joint:IsA("Snap") or joint:IsA("Glue") or joint:IsA("Script") or joint:IsA("LocalScript") then
+			if joint:IsA("Motor6D") or joint:IsA("AnimationConstraint") or joint:IsA("Weld") or joint:IsA("Snap") or joint:IsA("Glue") or joint:IsA("Script") or joint:IsA("LocalScript") then
 				if joint:GetAttribute("WasOn") == true then
 					joint.Enabled = true
 				else
@@ -739,7 +745,7 @@ function IHoupeUDyeInnAhFier(Fnaf3:Model, Haw_Lhong:number)-- Not Really A Fire 
 	end
 end
 function reset()
-	for i,v in Knife:children() do
+	for i,v in Knife:GetChildren() do
 		if v:IsA("Weld") or v:IsA("Sound") then
 			Destruct(v)
 		elseif string.find(v.Name,"(SOL_IF_SYS_PRT_01)",1,false) then
@@ -756,11 +762,11 @@ function tween(speed, easingstyle, easingdirection, loopcount, reverseafterfinis
 end
 function ReplicateWeld(BasePart,Where)
 	for i,v in BasePart:GetChildren() do
-		if v:IsA("Motor6D") and not WeldStorage[string.gsub(v.Name, " ", "")] then
+		if (v:IsA("Motor6D") or v:IsA("AnimationConstraint")) and not WeldStorage[string.gsub(v.Name, " ", "")] then
 			local NewWeldForStuff = Instance.new("Weld", Where)
 			NewWeldForStuff.Name = string.gsub(v.Name," ","")
-			NewWeldForStuff.Part0 = v.Part0
-			NewWeldForStuff.Part1 = v.Part1
+			NewWeldForStuff.Part0 = v:IsA("AnimationConstraint")  and v.Attachment0 and v.Attachment0.Parent or v:IsA('Motor6D') and v.Part0
+			NewWeldForStuff.Part1 = v:IsA("AnimationConstraint")  and v.Attachment1 and v.Attachment1.Parent or v:IsA('Motor6D') and v.Part1
 			if string.find(NewWeldForStuff.Name,"Root",1,false) then
 				NewWeldForStuff.C1 = CFrameAngles(0,0,0) * CFrame.new(0,0,0)
 			else
@@ -1559,8 +1565,8 @@ Tool.Equipped:Connect(function()			-- Gang Gang, Yes Yes Yes, mmm icecream so go
 		pcall(function() Character:FindFirstChild('RightHand'):FindFirstChild('RightGrip').C0 = CFrame.Angles(-90, 0, 0) end)
 	end
 	CurrentAnim = "Idle"
-	LastestSlash = tick()
-	StoredTick = tick()
+	LastestSlash = os.clock()
+	StoredTick = os.clock()
 	if GetHumanoid(Character) and not Character:FindFirstChild("UpperTorso") then
 		for i,v in Knife:GetChildren() do
 			if v.Name ~= "RightShoulder" and v.Name ~= "RootJoint" and v.Name ~= "Neck" then
@@ -1601,7 +1607,7 @@ Tool.Activated:Connect(function() 		-- State Changer V0.1
 	if CurrentState ~= "Firing" and CurrentState ~= "Charging" then
 	--task.desynchronize() -- Please Don't Worry About The Warning, It's unusable without actors n' stuff
 	CurActi = true
-	if tick() - LastestSlash >= 3 then
+	if os.clock() - LastestSlash >= 3 then
 		CurrentAnimSequence = 1
 	end 
 	if GetHumanoid(Character) then
@@ -1614,7 +1620,7 @@ Tool.Activated:Connect(function() 		-- State Changer V0.1
 		EnableWeld("RootHip")
 		EnableWeld("RootJoint")
 		EnableWeld("Neck")
-		LastestSlash = tick()
+		LastestSlash = os.clock()
 		CanDmg = true
 		CurrentState = "Swinging"
 		LastestHealth = GetHumanoid(Character).Health
@@ -1672,7 +1678,7 @@ Tool.Activated:Connect(function() 		-- State Changer V0.1
 		if CurrentState ~= "Idle" and CurrentState ~= "Firing" and CurrentState ~= "Swinging" then
 			CanDmg = true
 			CurrentState = "Charge"
-			StoredTick = tick()
+			StoredTick = os.clock()
 			LastestHealth = GetHumanoid(Character).Health
 			Slashing = false	
 			playAnimation("Charging",0.1)
@@ -1694,7 +1700,7 @@ end)
 Tool.Deactivated:Connect(function()
 	CurActi = false
 	--task.desynchronize()
-	local ChargedPower = (tick() - StoredTick)*6.5
+	local ChargedPower = (os.clock() - StoredTick)*6.5
 	if CurrentState == "Charge" and ChargedPower >= LowestChargeRequirement then
 		EnTrail()
 		table.clear(Debounce)
@@ -1726,7 +1732,7 @@ Tool.Deactivated:Connect(function()
 				DroppedKnife.Material = Enum.Material.CorrodedMetal
 				DroppedKnife:SetAttribute("Already_Attached",false)
 				--DroppedKnife.Color = BrickColor.Black() -- It doesn't work :(
-				for i,v in DroppedKnife:children() do
+				for i,v in DroppedKnife:GetChildren() do
 					if not v:IsA("SpecialMesh") then
 						Destruct(v)
 					elseif v:IsA("SpecialMesh") then
@@ -1779,6 +1785,7 @@ Tool.Deactivated:Connect(function()
 		EnTrail()
 		PowerfulSlash = true
 		local Forward = Instance.new("BodyVelocity")
+		if Character and Character:FindFirstChildOfClass('Humanoid') then	Character:FindFirstChildOfClass("Humanoid").AutoRotate = false end
 		local Root = Character:FindFirstChild("HumanoidRootPart") or Character:FindFirstChild("Torso")
 		if Root then
 			DebugText("Root was Set To "..Root:GetFullName())
@@ -1801,6 +1808,7 @@ Tool.Deactivated:Connect(function()
 		if Forward then
 			Destruct(Forward)
 		end
+		if Character and Character:FindFirstChildOfClass('Humanoid') then	Character:FindFirstChildOfClass("Humanoid").AutoRotate = true end
 		playAnimation("Idle",0.1)
 		CurrentState = "Idle"
 		Slashing = false
@@ -1869,7 +1877,7 @@ function Prop(hit)
 				end
 				
 				if CurrentState == "Firing" or CurrentState == "Charging" or CurrentAnim == "Throwing" then
-					local ChargedPower = math.clamp((tick() - StoredTick)*5, LowestChargeRequirement, MaxCharge)
+					local ChargedPower = math.clamp((os.clock() - StoredTick)*5, LowestChargeRequirement, MaxCharge)
 					DebugText("With The Charge Power Of ".. ChargedPower.. "... You hit "..char.Name)
 					if ChargedPower < 8 then
 						PlaySound("Blade Stab")
@@ -1904,7 +1912,7 @@ function Prop(hit)
 					end
 					
 				else
-					CurrentDamage = DefaultDamage + math.clamp((tick() - LastestSlash)*5, 1, 5) -- My Style, I dislike velocity quite a bit.
+					CurrentDamage = DefaultDamage + math.clamp((os.clock() - LastestSlash)*5, 1, 5) -- My Style, I dislike velocity quite a bit.
 					PlaySound("Stab")
 					
 				end
@@ -2176,8 +2184,9 @@ script.Destroying:Connect(function()
 	exp.Hit:Connect(function(Part,Where)
 		if not Part:IsDescendantOf(Character) then
 			Part:SetAttribute("Bombed")
-			Part:BreakJoints()
-			Part:breakJoints()
+			for i,v in Part:GetJoints() do
+				v:Destroy()
+			end
 			Part.Parent = workspace
 		end
 	end)

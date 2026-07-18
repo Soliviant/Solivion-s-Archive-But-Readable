@@ -2,7 +2,7 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Tool" referent="RBX3C814E73914F42CDAF4C85F2FC2D6209">
+	<Item class="Tool" referent="RBX921FF330292E4FE2BDEDEEC3AE6F7EED">
 		<Properties>
 			<bool name="CanBeDropped">true</bool>
 			<bool name="Enabled">true</bool>
@@ -73,7 +73,7 @@
 			<int64 name="SourceAssetId">17253184616</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Script" referent="RBXC159ADA171504AA5A41CBCF06DF8915C">
+		<Item class="Script" referent="RBXA8F4B5D0F4A34BD58D9FC77B009B56E3">
 			<Properties>
 				<ProtectedString name="Source"><![CDATA[--//Knife Reimagined.Lua//--
 --//Written By @Solivion back in mid-2023//--
@@ -90,8 +90,8 @@ local FoundNearestGuy = false		--Are You Alone?
 local DaNearestOne = nil				--Stab, Muaheheh😈😈😈
 local AnimSpeedLmao = 1				--Bro Gone Insane
 local DoesUseCustomAnimation = false --Nah, Jit Trippin. You'll have to Code That In Yourself Pal.
-local LastestSlash = tick()			--I Dind't Get The Point Of Adding This
-local StoredTick = tick()			--When did we Start Charging Again, Oh Yeah It's In Here.
+local LastestSlash = os.clock()			--I Dind't Get The Point Of Adding This
+local StoredTick = os.clock()			--When did we Start Charging Again, Oh Yeah It's In Here.
 local LowestChargeRequirement = 2	--Or I'll Turn Ur Effort Into Vain
 local DefaultDamage = 10				--Damage without Charging
 local BurnDamage = 2					--You Get The Point, It Isn't Used Lmao.
@@ -99,7 +99,7 @@ local DamagePerCharge = 2			--It's That Straight Forward.
 local MaxCharge = 10					--Absolute Insanity
 local CurrentDamage = DefaultDamage	--How Much We Deal While Hitting Someone This Moment
 local Debounce = {}
-local LastestAnim = tick()	
+local LastestAnim = os.clock()	
 
 --<<Real Object>>--
 local Knife = script:FindFirstAncestorWhichIsA('Tool')
@@ -207,7 +207,7 @@ local WeldStorage = {
 }
 --<<Function>>--
 function reset()
-	for i,v in Knife:children() do
+	for i,v in Knife:GetChildren() do
 		if v:IsA("Weld") then
 			v:Destroy()
 		end
@@ -221,7 +221,7 @@ function tween(speed, easingstyle, easingdirection, loopcount, reverseafterfinis
 	anim:Play()
 end
 function ReplicateWeld(BasePart,Where)
-	for i,v in BasePart:GetChildren() do
+	for i,v in BasePart:GetDescendants() do
 		if v:IsA("Motor6D") then
 			local NewWeldForStuff = Instance.new("Weld", Where)
 			NewWeldForStuff.Name = string.gsub(v.Name," ","")
@@ -234,6 +234,24 @@ function ReplicateWeld(BasePart,Where)
 
 			-- Register the newly created weld in the WeldStorage table
 			WeldStorage[string.gsub(v.Name, " ", "")] = NewWeldForStuff
+			if string.gsub(v.Name, " ", ""):lower() == 'root'  then
+				WeldStorage['RootJoint'] = NewWeldForStuff
+			end
+		elseif v:IsA("AnimationConstraint") then
+			local NewWeldForStuff = Instance.new("Weld", Where)
+			NewWeldForStuff.Name = string.gsub(v.Name," ","")
+			NewWeldForStuff.Part0 = v.Attachment0 and v.Attachment0.Parent
+			NewWeldForStuff.Part1 = v.Attachment1 and v.Attachment1.Parent
+			NewWeldForStuff.C1 = v.C1
+			NewWeldForStuff.C0 = v.C0
+			NewWeldForStuff.Enabled = v.Enabled
+			-- TODO: Register These Welds Into The Table
+
+			-- Register the newly created weld in the WeldStorage table
+			WeldStorage[string.gsub(v.Name, " ", "")] = NewWeldForStuff
+			if string.gsub(v.Name, " ", ""):lower() == 'root'  then
+				WeldStorage['RootJoint'] = NewWeldForStuff
+			end
 		end
 	end
 end
@@ -246,6 +264,9 @@ function Init(What, Where) -- When And Why?
 		end
 		table.clear(WeldStorage)	
 		local Torso = Knife.Parent:FindFirstChild("UpperTorso")
+		if Torso then
+			ReplicateWeld(Knife.Parent,Where)
+		end
 		local Hrp = Knife.Parent:FindFirstChild("HumanoidRootPart")
 		if not Torso then
 			Torso = Knife.Parent:FindFirstChild("Torso")
@@ -281,7 +302,7 @@ function playAnimation(animationName, TimeBetweenFrames)
 			return
 		end
 		local crt = 0
-		crt = tick()
+		crt = os.clock()
 		LastestAnim = crt
 		for frameName, frameData in pairs(frames) do
 			if crt ~=LastestAnim then
@@ -323,7 +344,7 @@ function playAnimation(animationName, TimeBetweenFrames)
 end
 --<<Events>>--
 Knife.Equipped:Connect(function()
-	LastestAnim = tick()
+	LastestAnim = os.clock()
 	Init("Weld", Knife)
 	for i,v in Knife:GetDescendants() do
 		if v:IsA('JointInstance') and (v.Name:upper():match('LEG') or v.Name:upper():match('HIP')) then
@@ -336,7 +357,7 @@ Knife.Equipped:Connect(function()
 	CurrentState = "Idle"
 end)
 Knife.Unequipped:Connect(function()
-	LastestAnim = tick()
+	LastestAnim = os.clock()
 	CurrentAnim = "None"
 	CurrentState = "Unequipped"
 	table.clear(Debounce)
@@ -366,7 +387,7 @@ Knife.Activated:Connect(function()
 		CurrentState = "Charge"
 		playAnimation("Charging",0.1)
 		CurrentAnim = "Charging"
-		StoredTick = tick()
+		StoredTick = os.clock()
 	end
 	--task.synchronize()   -- Line Up!
 end)
@@ -374,7 +395,7 @@ Knife.Deactivated:Connect(function()
 	--task.desynchronize()
 	if CurrentState == "Charge" then
 		CurActi = false
-		CurrentDamage = DefaultDamage + (DamagePerCharge * math.clamp(tick() - StoredTick, LowestChargeRequirement, MaxCharge))
+		CurrentDamage = DefaultDamage + (DamagePerCharge * math.clamp(os.clock() - StoredTick, LowestChargeRequirement, MaxCharge))
 		playAnimation("Throw",0.1)
 		CurrentState = "Firing"
 		CurrentAnim = "Throw"
@@ -398,7 +419,7 @@ end)]]></ProtectedString>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
 		</Item>
-		<Item class="Part" referent="RBX883996688C184D4AB5ACCA159A3C6A31">
+		<Item class="Part" referent="RBX6202DD87550541F2AA60F066F24F175D">
 			<Properties>
 				<token name="shape">1</token>
 				<token name="formFactorRaw">3</token>
@@ -496,7 +517,7 @@ end)]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Sound" referent="RBX6C1E6F9A0E374EB2A0DAD8C884FB206E">
+			<Item class="Sound" referent="RBXEA6D29A45DB647E7B1541831EB69A099">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -521,7 +542,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="SpecialMesh" referent="RBX537186780B264A35B4DC7046BF4CA9AC">
+			<Item class="SpecialMesh" referent="RBX671DE0AF1B2B465F8FCFDE3681A690C5">
 				<Properties>
 					<token name="MeshType">5</token>
 					<Content name="MeshId"><url>http://www.roblox.com/asset/?id=121944778</url></Content>
@@ -549,7 +570,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX46C62243F00846FD898100AE9DE0C927">
+			<Item class="Sound" referent="RBXC5C481A2DAF24EEA90E007F79DAEBE3F">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -574,7 +595,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX8205397571C849A89F10329E4D8545FE">
+			<Item class="Sound" referent="RBXBC149443429C4A47A053EC9140533041">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -599,7 +620,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX72466A0C5D3F4751AA85C2F9A643924E">
+			<Item class="Sound" referent="RBXAA50D9C529544BFCA1854154A826777B">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -624,7 +645,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Attachment" referent="RBXA925C470104D491C990B7DA0BB95DE46">
+			<Item class="Attachment" referent="RBX4962AC188DAA44C6B41D966612721415">
 				<Properties>
 					<CoordinateFrame name="CFrame">
 						<X>0</X>
@@ -649,7 +670,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Attachment" referent="RBX454DA51A19274284B3C354949EC139BF">
+			<Item class="Attachment" referent="RBX96DB8FCE5CB0406E97CFA8119CF0F64B">
 				<Properties>
 					<CoordinateFrame name="CFrame">
 						<X>0</X>
@@ -674,10 +695,10 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Trail" referent="RBX1B62425291B14592833DB7476A3CF94E">
+			<Item class="Trail" referent="RBX3B2C0C46C8964196A60F0A8DF9363F51">
 				<Properties>
-					<Ref name="Attachment0">RBX454DA51A19274284B3C354949EC139BF</Ref>
-					<Ref name="Attachment1">RBXA925C470104D491C990B7DA0BB95DE46</Ref>
+					<Ref name="Attachment0">RBX96DB8FCE5CB0406E97CFA8119CF0F64B</Ref>
+					<Ref name="Attachment1">RBX4962AC188DAA44C6B41D966612721415</Ref>
 					<float name="Brightness">1</float>
 					<ColorSequence name="Color">0 1 1 1 0 1 1 1 1 0 </ColorSequence>
 					<bool name="Enabled">false</bool>
@@ -700,7 +721,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBXBD1760159B9F43CE8F263592F2EFFCC5">
+			<Item class="Sound" referent="RBX1B04827026FD4F3FAC893218B002B246">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -725,7 +746,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX17145BA1D24F42F0985890F1A2B3B961">
+			<Item class="Sound" referent="RBXBBB0A5754158475696D54A3C7A849E95">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -750,7 +771,7 @@ end)]]></ProtectedString>
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBXFF153DB8E6EF4531982E8458EBF3884A">
+			<Item class="Sound" referent="RBXF858FD0201C74DEFBEE3B492296411CC">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>

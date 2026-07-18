@@ -2,7 +2,7 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Tool" referent="RBX4BF588D96A684EA3A5A2D3A8792E103E">
+	<Item class="Tool" referent="RBX017FB5EC38B6469CA2D6E711EF408F61">
 		<Properties>
 			<bool name="CanBeDropped">false</bool>
 			<bool name="Enabled">true</bool>
@@ -58,7 +58,7 @@
 			<int64 name="SourceAssetId">17317992414</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Actor" referent="RBXC4A5B37BC4B24E8BB3CE3322A6F47C47">
+		<Item class="Actor" referent="RBXDFEB17433F3746D78A67CAF7E140019E">
 			<Properties>
 				<token name="LevelOfDetail">0</token>
 				<CoordinateFrame name="ModelMeshCFrame">
@@ -109,7 +109,7 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Script" referent="RBX30F453BE19B24E51B3A1A8DA5AD9B711">
+			<Item class="Script" referent="RBXD1BA71E7D54C4642B447C7494DF1F7D6">
 				<Properties>
 					<ProtectedString name="Source"><![CDATA[--{>+=Solivion=+<}--
 
@@ -150,8 +150,8 @@ local LightBall2
 local LightBall
 local Light
 local Active = false
-local activetick = tick()
-local EquipTick = tick()
+local activetick = os.clock()
+local EquipTick = os.clock()
 local lastactive = 0
 local Equipped = false
 local CancelDirectory
@@ -228,6 +228,20 @@ function LockR15Arm(Character: Model)
 					table.insert(R15LockWeld, Replace)
 				end
 			end
+			if v:FindFirstChildOfClass('AnimationConstraint') and not table.find(R15LockWeld, v:FindFirstChildOfClass('AnimationConstraint')) then
+				local mt = v:FindFirstChildOfClass('AnimationConstraint')
+				if mt.Enabled == true then
+					mt.Enabled = false
+					table.insert(R15LockWeld, mt)
+					local Replace = Instance.new('Weld', mt.Parent)
+					Replace.Name = mt.Name
+					Replace.Part1 = mt.Attachment1 and mt.Attachment1.Parent
+					Replace.Part0 = mt.Attachment0 and mt.Attachment0.Parent
+					Replace.C0 = mt.C0
+					Replace.C1 = mt.C1
+					table.insert(R15LockWeld, Replace)
+				end
+			end
 		end
 	end --r6ify
 end
@@ -235,7 +249,7 @@ end
 function UnlockR15()
 	task.synchronize()
 	for i,v in ipairs(R15LockWeld) do
-		if v:IsA('Motor6D') then
+		if v:IsA('Motor6D') or v:IsA("AnimationConstraint") then
 			v.Enabled = true
 		else
 			v:Destroy()
@@ -286,13 +300,13 @@ function Classic_Flagstand_Effect(Coordinate: CFrame?, Size: number?, Parent: In
 		coroute = coroutine.create(function()
 			task.synchronize()
 			local altr = Fade_Duration
-			local lastamtick = tick()
+			local lastamtick = os.clock()
 			while task.wait(.01) and altr > 0 and script:FindFirstAncestorWhichIsA('Actor') do
 				task.desynchronize()
-				local delta = tick() - lastamtick
+				local delta = os.clock() - lastamtick
 				local speed = 1 - .000001 ^ delta
 				altr = altr - delta
-				lastamtick = tick()
+				lastamtick = os.clock()
 				task.desynchronize()
 				if effect then
 					task.synchronize()
@@ -439,7 +453,7 @@ end
 
 function Light_Up(Thing: BasePart | Attachment, Size: number?, Referral_Directory: string?) -- Used For Litened up Lighter/sparkler
 	task.desynchronize()
-	local cu cu = tick()
+	local cu cu = os.clock()
 	--Lighter EFfect By Yours Truly
 	if not Thing then
 		return
@@ -492,15 +506,15 @@ function Light_Up(Thing: BasePart | Attachment, Size: number?, Referral_Director
 	Light = Instance.new('PointLight', Thing)
 	Light.Shadows = true
 	local TriggerEndKey = true -- Switch To End The Fire Effect
-	local lasttick = tick()
+	local lasttick = os.clock()
 	Classic_Flagstand_Effect(CFrame.new((WorldposOrCF == 'WorldPos' and Thing.WorldPosition) or Thing.Position), Size/8 + math.random(90,110)/100 * Size/8, Thing, math.random(5,10), 20, Color3.new(1,1,0), Enum.Material.Neon, Vector3.new(0,Size * 2, 0), 'Shrink', 1, {Thing, LightBall2, LightBall2}, true)
 	local Coroute: thread = coroutine.create(function()
 		while TriggerEndKey == true and Active and Equipped and EquipTick < activetick and script:FindFirstAncestorWhichIsA('Actor') and cu >= activetick and Thing and Thing.Parent and (Thing:IsA('BasePart') or Thing.Parent:IsA('Terrain') or Thing.Parent:IsA('BasePart')) and Thing:IsDescendantOf(workspace) and Thing.Parent ~= nil and task.wait(0.05) do
 			task.desynchronize()
-			local elapsetime = tick() -- edit this into when you start
-			local DeltaTick = tick() - lasttick
+			local elapsetime = os.clock() -- edit this into when you start
+			local DeltaTick = os.clock() - lasttick
 			local veco = ArmWeld.Part0.CFrame:VectorToObjectSpace(ArmWeld.Part0.Velocity)
-			lasttick = tick()
+			lasttick = os.clock()
 			local Speed = 1 - 0.000001 ^ DeltaTick
 			local StartC = CFrame.new((WorldposOrCF == 'WorldPos' and Thing.WorldPosition) or Thing.Position)
 			local C1 = CustomFlameColor or CustomLightColor or Color3.new(math.random(155,255),math.random(20,75),math.random(2,15))
@@ -554,7 +568,7 @@ if not AnimType or AnimType == 'Random' then AnimType = math.random() > .5 and '
 --<<Event Connections>>--
 
 Tool.Activated:Connect(function()
-	activetick = tick()
+	activetick = os.clock()
 	if GenFireHandleAttach and Equipped and GenFlicker and GenHandle and GenFillerWeld and GenFlickerWeld then
 		Active = true
 		task.synchronize()
@@ -606,7 +620,7 @@ Tool.Activated:Connect(function()
 end)
 
 Tool.Equipped:Connect(function()
-	local ticked = math.random() ticked = tick()
+	local ticked = math.random() ticked = os.clock()
 	EquipTick = ticked
 	Equipped = true
 	activetick = ticked
@@ -685,7 +699,7 @@ Tool.Equipped:Connect(function()
 end)
 
 Tool.Deactivated:Connect(function()
-	local ticked = math.random() ticked = tick()
+	local ticked = math.random() ticked = os.clock()
 	Active = false
 	EquipTick = ticked
 	activetick = ticked
@@ -716,7 +730,7 @@ Tool.Deactivated:Connect(function()
 end)
 
 Tool.Unequipped:Connect(function()
-	activetick = tick()
+	activetick = os.clock()
 	Equipped = false
 	if CancelDirectory then
 		task.synchronize()
@@ -743,7 +757,8 @@ end)]]></ProtectedString>
 					<Content name="LinkedSource"><null></null></Content>
 					<token name="RunContext">0</token>
 					<string name="ScriptGuid">{14AFBB40-EC44-486F-9D75-7B5CA3CE2EDC}</string>
-					<BinaryString name="AttributesSerialize"></BinaryString>
+					<BinaryString name="AttributesSerialize"><![CDATA[AQAAAAYAAABDUkVESVQCJwAAAEBTb2xpdmlhbnQgQ29kZWJlcmcvR2l0aHViL1lvdXR1YmUg
+MjAyNg==]]></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
 					<string name="Name">Fire</string>
