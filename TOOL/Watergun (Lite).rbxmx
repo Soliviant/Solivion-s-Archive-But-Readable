@@ -2,7 +2,7 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Tool" referent="RBX3A3C58BBD4C3435AB93B4E82203CB3AB">
+	<Item class="Tool" referent="RBXC818038DCE874C1F83B22ECF5037B8A2">
 		<Properties>
 			<bool name="CanBeDropped">true</bool>
 			<bool name="Enabled">true</bool>
@@ -73,7 +73,7 @@
 			<int64 name="SourceAssetId">17114110232</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Part" referent="RBX782703E162234A29AA3122508C9E4416">
+		<Item class="Part" referent="RBXBA82A407A7E74657861A74000070F6B5">
 			<Properties>
 				<token name="shape">1</token>
 				<token name="formFactorRaw">0</token>
@@ -171,7 +171,7 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="SpecialMesh" referent="RBX44E56510B021449E949EF44845F7FD37">
+			<Item class="SpecialMesh" referent="RBX320D2F3107FA40548E78F84837313D1A">
 				<Properties>
 					<token name="MeshType">5</token>
 					<Content name="MeshId"><url>rbxasset://fonts/PaintballGun.mesh</url></Content>
@@ -199,7 +199,7 @@
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX382CA38611A843D48732CAA0698A5424">
+			<Item class="Sound" referent="RBX70AF06159B9143F6800EAD88E1EEDCEF">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -225,7 +225,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Actor" referent="RBXAEBC0D08672D4B84BC8ACF629779E601">
+		<Item class="Actor" referent="RBXA6F29FE8033345F7851F93E72F87665F">
 			<Properties>
 				<token name="LevelOfDetail">0</token>
 				<CoordinateFrame name="ModelMeshCFrame">
@@ -261,9 +261,10 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Script" referent="RBX1592D19830BA46888FDBE5F1E3EAD6E2">
+			<Item class="Script" referent="RBXC3F1BE2D8AE24520992941AE1D687A9A">
 				<Properties>
 					<ProtectedString name="Source"><![CDATA[--Solivion's Lazy Songkran Special Watergun
+--patched with VERY SMALL optimization (changed tick delta to Increment by task.wait() with task.spawn on inner loop for parallel)
 local UpdateRate = 1/60
 
 local Water_Gun: (Tool|Flag) = script:FindFirstAncestorWhichIsA('Tool') or script:FindFirstAncestorWhichIsA('Flag')
@@ -282,6 +283,47 @@ local MaxCapacity: number = 100
 local Capacity: number = MaxCapacity
 local C: thread?
 
+--cloned over cuz I realize it didn't exist here
+function ClampVector3(vector: Vector3)
+	local max_value = 100 -- max 5, due to more than that being extremely fast
+	local Veccal = vector
+	if vector.X ~= vector.X then Veccal = Vector3.new(Random.new():NextInteger(-max_value, max_value), vector.Y, vector.Z) end
+	if Veccal.Y ~= Veccal.Y then Veccal = Vector3.new(Veccal.X, Random.new():NextInteger(-max_value, max_value), Veccal.Z) end
+	if Veccal.Z ~= Veccal.Z then Veccal = Vector3.new(Veccal.X, Veccal.Y, Random.new():NextInteger(-max_value, max_value)) end
+	local clampedX = math.clamp(vector.X, -max_value, max_value)
+	local clampedY = math.clamp(vector.Y, -max_value, max_value)
+	local clampedZ = math.clamp(vector.Z, -max_value, max_value)
+	Veccal = Vector3.new(clampedX, clampedY, clampedZ)
+	return Veccal
+end
+local function calculateBounceAngle(rayDirection: Vector3, raycastResult: RaycastResult) : Vector3
+	local normal = raycastResult.Normal
+	local dotProduct = rayDirection:Dot(normal) 
+	local reflection = rayDirection - 2 * dotProduct * normal
+	return ClampVector3(reflection) :: Vector3
+end
+function HandleRaycastHit(velocity: Vector3, raycastResult: RaycastResult)
+	local normal = raycastResult.Normal
+	local speed = velocity.Magnitude
+	local baseThreshold = 45  -- Base angle threshold in degrees
+	local speedFactor = 0.1  -- Factor to adjust threshold based on speed
+
+	-- Calculate dynamic threshold
+	local threshold = baseThreshold / (1 + speed * speedFactor)
+
+	-- Calculate the angle between the normal and the velocity
+	local angle = math.deg(math.acos(normal:Dot(velocity.Unit)))
+
+	if angle < threshold then
+		-- Go along the surface
+		local projectedVelocity = velocity - normal * velocity:Dot(normal)
+		return ClampVector3(projectedVelocity), false
+	else
+		-- Bounce off the surface
+		local reflectedVelocity = velocity - 2 * velocity:Dot(normal) * normal
+		return ClampVector3(reflectedVelocity), true
+	end
+end
 function Classic_Flagstand_Effect(Coordinate: (CFrame | Vector3)?, Size: number?, Parent: Instance?, Amount: number?, Fade_Duration: number?, Colour: Color3?, Material: Enum.Material?, Motion: Vector3?, ShrinkOrExpand: ('Shrink' | 'Expand')?, Size_Rate: number?, Filter: {Instance?}?)
 	--if not BrickVFX then return end
 	task.desynchronize()
@@ -520,18 +562,21 @@ Water_Gun.Activated:Connect(function()
 	end
 	task.synchronize()
 	C = coroutine.create(function()
-		local LastTick = tick()
+		local LastTick = 0
 		LastFireTick = LastTick
 		local WaterForce = 10
 		-- under 10 sec
-		while Character and Capacity > 0 and Water_Gun and C and task.wait(0.05) and (10 - (tick() - LastFireTick)) >= 0 and LastFireTick == LastTick and Activated and Equipped and WaterForce > 0 do
-			local CurrentDecrease = math.clamp(WaterForce - (10 - (tick() - LastFireTick)) * math.random(10,15)/30,0,0.5)
+		while Character and Capacity > 0 and Water_Gun and C and LastFireTick == LastTick and LastTick <= 10 and Activated and Equipped and WaterForce > 0 do
+			LastTick += task.wait(0.05)
+			LastFireTick = LastTick
+			task.spawn(function()
+			local CurrentDecrease = math.clamp(WaterForce - LastTick * math.random(10,15)/30,0,0.5)
 			WaterForce -= CurrentDecrease
 			Capacity = math.clamp(Capacity - CurrentDecrease,0,MaxCapacity) 
 			Water_Gun.ToolTip = '{'..Capacity..'/'..MaxCapacity..'}'
 			Classic_Flagstand_Effect(Water_Gun:FindFirstChild('Handle').CFrame + Water_Gun:FindFirstChild('Handle').CFrame.UpVector * -2.5 + Water_Gun:FindFirstChild('Handle').CFrame.LookVector * 0.25, CurrentDecrease/2.5,workspace,1,10,Color3.new(0, 0.666667, 1),Enum.Material.Neon,nil, 'Expand', 0.3, Character)
-			Classic_Flagstand_Effect(Water_Gun:FindFirstChild('Handle').CFrame + Water_Gun:FindFirstChild('Handle').CFrame.UpVector * -2.5 + Water_Gun:FindFirstChild('Handle').CFrame.LookVector * 0.25, CurrentDecrease/2,workspace,1,10,Color3.new(0.333333, 1, 1),Enum.Material.ForceField,-Water_Gun:FindFirstChild('Handle').CFrame.UpVector * CurrentDecrease * math.clamp(10 - (tick() - LastFireTick) * 10,0,10), 'Shrink', 0.1, Character)
-		end
+			Classic_Flagstand_Effect(Water_Gun:FindFirstChild('Handle').CFrame + Water_Gun:FindFirstChild('Handle').CFrame.UpVector * -2.5 + Water_Gun:FindFirstChild('Handle').CFrame.LookVector * 0.25, CurrentDecrease/2,workspace,1,10,Color3.new(0.333333, 1, 1),Enum.Material.ForceField,-Water_Gun:FindFirstChild('Handle').CFrame.UpVector * CurrentDecrease * math.clamp(10 - LastTick * 10,0,10), 'Shrink', 0.1, Character)
+		end) end
 	end)
 	if C then coroutine.resume(C) end
 end)
@@ -558,7 +603,7 @@ end)]]></ProtectedString>
 					<Content name="LinkedSource"><null></null></Content>
 					<token name="RunContext">0</token>
 					<string name="ScriptGuid">{F6246FE4-92A4-46C6-B198-7C585819A537}</string>
-					<BinaryString name="AttributesSerialize"></BinaryString>
+					<BinaryString name="AttributesSerialize">AQAAAAYAAABjcmVkaXQCHgAAAEBTb2x2aWFudCBDb2RlYmVyZy9HaXRodWIgMjAyNg==</BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
 					<string name="Name">WaterShooter</string>

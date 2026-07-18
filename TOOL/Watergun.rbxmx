@@ -2,7 +2,7 @@
 	<Meta name="ExplicitAutoJoints">true</Meta>
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Tool" referent="RBX0FC31B8438BC4BB39041250D830657CC">
+	<Item class="Tool" referent="RBX7DCC9ED3423F4201A718B6C0BA83E4C1">
 		<Properties>
 			<bool name="CanBeDropped">true</bool>
 			<bool name="Enabled">true</bool>
@@ -73,7 +73,7 @@
 			<int64 name="SourceAssetId">17715439324</int64>
 			<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 		</Properties>
-		<Item class="Part" referent="RBX40C981E3865044A6A09B665059594E3F">
+		<Item class="Part" referent="RBXC889F305413E4821BFCB8D09D0BD6B30">
 			<Properties>
 				<token name="shape">1</token>
 				<token name="formFactorRaw">0</token>
@@ -171,7 +171,7 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="SpecialMesh" referent="RBX4D26292751FF47449A4631659AE49C24">
+			<Item class="SpecialMesh" referent="RBX3F7ABB6F64D740B6A6ACD72D3FDBF012">
 				<Properties>
 					<token name="MeshType">5</token>
 					<Content name="MeshId"><url>rbxasset://fonts/PaintballGun.mesh</url></Content>
@@ -199,7 +199,7 @@
 					<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 				</Properties>
 			</Item>
-			<Item class="Sound" referent="RBX6CCE7DC35EEE47519F8FC362BC0D0C9F">
+			<Item class="Sound" referent="RBX073527470E4E424FBFBDA667D62B68A7">
 				<Properties>
 					<bool name="AcousticSimulationEnabled">true</bool>
 					<NumberRange name="LoopRegion">0 60000 </NumberRange>
@@ -225,7 +225,7 @@
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Actor" referent="RBXC8A4979629EE4068AD6ACBA1E0314F2E">
+		<Item class="Actor" referent="RBX259F299C46EA4C7AAAEFF282EF1BBDFA">
 			<Properties>
 				<token name="LevelOfDetail">0</token>
 				<CoordinateFrame name="ModelMeshCFrame">
@@ -276,7 +276,7 @@
 				<int64 name="SourceAssetId">-1</int64>
 				<SharedString name="Tags">yuZpQdnvvUBOTYh1jqZ2cA==</SharedString>
 			</Properties>
-			<Item class="Script" referent="RBX927B38922FFE46BAA1C670FAEA19918A">
+			<Item class="Script" referent="RBX60DEAF948CDD478FB5DF8F25B8F3E8D9">
 				<Properties>
 					<ProtectedString name="Source"><![CDATA[--<<Solivion's late Songkran Special Watergun>>--
 --<420% Cooler than the First Version(Trust me bro moment)>--
@@ -302,8 +302,8 @@ local Activated: boolean = false
 local Spinning: boolean = false
 local LastAnimTick: number = 0
 local LastFireTick: number = 0
-LastFireTick = tick()
-LastAnimTick = tick() -- Delta Time Usage
+LastFireTick = 0 or runtime()
+LastAnimTick = 0 or runtime() -- Delta Time Usage
 local MaxCapacity: number = 100
 local Capacity: number = MaxCapacity
 local WeldAnimator: thread?
@@ -322,7 +322,18 @@ local StoredGripWeldC1: CFrame = CFrame.new()
 local StoredGripWeldC0: CFrame = CFrame.new()
 local GripOffset: CFrame = CFrame.new()
 local R15LockWeld: {JointInstance} = {}
-
+local Loop = 0
+game:FindFirstChildOfClass('RunService').Heartbeat:Connect(function(dt)
+	Loop += dt
+	if Loop > 360 then LastFireTick -= 360
+		LastAnimTick -= 360 Loop -= 360 end
+end)
+function runtime(): number
+	return Loop
+end
+function DeltaT(number1: number, number2: number): number
+	return (number1 > number2 and number1 - number2) or number1 - (number2 - 360)
+end
 function LockR15Arm(Character: Model)
 	for i,v in pairs(Character:GetDescendants())  do
 		if (v.Name:match('Hand') or v.Name:match('LowerArm')) and v:IsA('BasePart') then
@@ -340,6 +351,20 @@ function LockR15Arm(Character: Model)
 					table.insert(R15LockWeld, Replace)
 				end
 			end
+			if v:FindFirstChildOfClass('AnimationConstraint') and not table.find(R15LockWeld, v:FindFirstChildOfClass('AnimationConstraint')) then
+				local mt = v:FindFirstChildOfClass('AnimationConstraint')
+				if mt.Enabled == true then
+					mt.Enabled = false
+					table.insert(R15LockWeld, mt)
+					local Replace = Instance.new('Weld', mt.Parent)
+					Replace.Name = mt.Name
+					Replace.Part1 = mt.Attachment1 and mt.Attachment1.Parent
+					Replace.Part0 = mt.Attachment0 and mt.Attachment0.Parent
+					Replace.C0 = mt.C0
+					Replace.C1 = mt.C1
+					table.insert(R15LockWeld, Replace)
+				end
+			end
 		end
 	end --r6ify
 end
@@ -347,7 +372,7 @@ end
 function UnlockR15()
 	task.synchronize()
 	for i,v in ipairs(R15LockWeld) do
-		if v:IsA('Motor6D') then
+		if v:IsA('Motor6D') or v:IsA('AnimationConstraint') then
 			v.Enabled = true
 		else
 			v:Destroy()
@@ -383,7 +408,47 @@ function FindFirstChildOfNameAndClass(Where: Instance, Name: string, Class: stri
 		end
 	end
 end
+--cloned over cuz I realize it didn't exist here
+function ClampVector3(vector: Vector3)
+	local max_value = 100 -- max 5, due to more than that being extremely fast
+	local Veccal = vector
+	if vector.X ~= vector.X then Veccal = Vector3.new(Random.new():NextInteger(-max_value, max_value), vector.Y, vector.Z) end
+	if Veccal.Y ~= Veccal.Y then Veccal = Vector3.new(Veccal.X, Random.new():NextInteger(-max_value, max_value), Veccal.Z) end
+	if Veccal.Z ~= Veccal.Z then Veccal = Vector3.new(Veccal.X, Veccal.Y, Random.new():NextInteger(-max_value, max_value)) end
+	local clampedX = math.clamp(vector.X, -max_value, max_value)
+	local clampedY = math.clamp(vector.Y, -max_value, max_value)
+	local clampedZ = math.clamp(vector.Z, -max_value, max_value)
+	Veccal = Vector3.new(clampedX, clampedY, clampedZ)
+	return Veccal
+end
+local function calculateBounceAngle(rayDirection: Vector3, raycastResult: RaycastResult) : Vector3
+	local normal = raycastResult.Normal
+	local dotProduct = rayDirection:Dot(normal) 
+	local reflection = rayDirection - 2 * dotProduct * normal
+	return ClampVector3(reflection) :: Vector3
+end
+function HandleRaycastHit(velocity: Vector3, raycastResult: RaycastResult)
+	local normal = raycastResult.Normal
+	local speed = velocity.Magnitude
+	local baseThreshold = 45  -- Base angle threshold in degrees
+	local speedFactor = 0.1  -- Factor to adjust threshold based on speed
 
+	-- Calculate dynamic threshold
+	local threshold = baseThreshold / (1 + speed * speedFactor)
+
+	-- Calculate the angle between the normal and the velocity
+	local angle = math.deg(math.acos(normal:Dot(velocity.Unit)))
+
+	if angle < threshold then
+		-- Go along the surface
+		local projectedVelocity = velocity - normal * velocity:Dot(normal)
+		return ClampVector3(projectedVelocity), false
+	else
+		-- Bounce off the surface
+		local reflectedVelocity = velocity - 2 * velocity:Dot(normal) * normal
+		return ClampVector3(reflectedVelocity), true
+	end
+end
 Handle = FindFirstChildOfNameAndClass(Water_Gun, "Handle", "BasePart")
 
 function Classic_Flagstand_Effect(Coordinate: (CFrame | Vector3)?, Size: number?, Parent: Instance?, Amount: number?, Fade_Duration: number?, Colour: Color3?, Material: Enum.Material?, Motion: Vector3?, ShrinkOrExpand: ('Shrink' | 'Expand')?, Size_Rate: number?, Filter: {Instance?}?)
@@ -413,13 +478,13 @@ function Classic_Flagstand_Effect(Coordinate: (CFrame | Vector3)?, Size: number?
 	for i = 1,Amount do
 		task.synchronize()
 		local effect = Instance.new("FlagStand", Parent)
-		local lastamtick = tick()
+		local lastamtick = runtime()
 		local coroute
 		local GravityStack = 0
 		local hit:RaycastResult?
-		local lastpos: Vector3? = (typeof(Coordinate) == 'CFrame' and Coordinate.Position or typeof(Coordinate) == 'Vector3' and Coordinate) or Subject:GetPivot().Position
+		local lastpos: Vector3? = Coordinate.p or Subject:GetPivot().Position
 		local corouteDis: RBXScriptConnection?
-		local breakApart = (Motion ~= Vector3.new() and Colour ~= Color3.new(1, 1, 1) and Vector3.new(Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1))/3) or Vector3.new()
+		local breakApart = (Motion ~= Vector3.new() and Colour ~= Color3.new(1, 1, 1) and Vector3.new(Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1),Random.new():NextInteger(-1,1))) or Vector3.new()
 		effect.Size = (Size and Vector3.new(Size,Size,Size)) or Vector3.new(5,5,5)
 		effect.Anchored = true
 		effect.CanCollide = false
@@ -435,19 +500,19 @@ function Classic_Flagstand_Effect(Coordinate: (CFrame | Vector3)?, Size: number?
 		local Sized = effect.Size.X
 		coroute = coroutine.create(function()
 			task.desynchronize()
-			lastamtick = tick()
+			lastamtick = runtime()
 			local Fade_Duration_Count = Fade_Duration
 			task.delay(Fade_Duration - 1, function() if table.find(EffectInstance, effect) then table.remove(EffectInstance, table.find(EffectInstance, effect)) end end)
 			while task.wait(UpdateRate) and Fade_Duration_Count > 0 do
 				task.desynchronize()
-				local delta = tick() - lastamtick
+				local delta = DeltaT(runtime(), lastamtick)
 				local speed = 1 - .000001 ^ delta
 				Fade_Duration_Count = Fade_Duration_Count - delta
-				lastamtick = tick()
+				lastamtick = runtime()
 				task.desynchronize()
 				if effect then
-					local targetc = effect.CFrame targetc = (effect.CFrame + (Motion/1.25 + breakApart/1.25) * speed )* CFrame.fromEulerAnglesYXZ(Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3)
-					local targett = effect.Transparency + 1 * speed/Fade_Duration
+					local targetc = effect.CFrame targetc = (effect.CFrame + (Motion/1.25 + breakApart/6.25) * 30 * delta )* CFrame.fromEulerAnglesYXZ(Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3, Random.new():NextInteger(-1,1)/3)
+					local targett = effect.Transparency + 1 * delta * 10/Fade_Duration
 					local Sizeb = effect.Size + effect.Size * Size_Rate * speed/Fade_Duration
 					local Sizes = effect.Size - effect.Size * Size_Rate * speed/Fade_Duration
 					task.synchronize()
@@ -531,13 +596,12 @@ function Classic_Flagstand_Effect(Coordinate: (CFrame | Vector3)?, Size: number?
 						task.desynchronize()
 						Sized = effect.Size.X
 						lastpos = effect.Position
-						if Motion.Y < (-0.5 * 25) then
-							Motion = Motion + Vector3.new(0,0.1,0) * speed -- slow rec as it inverse accelerates
-							GravityStack = GravityStack - 1
-						else -- until gravity balanced out
-							Motion = Motion + Vector3.new(0,-0.25,0) * speed -- high gain as it accelerates
-							GravityStack = GravityStack + 1
+						if Motion.Y > (-9.8 * Gravity_Multiplier) then
+							Motion = Vector3.new(Motion.X, Motion.Y - (delta * 9.8 * Gravity_Multiplier), Motion.Z)
+						else
+							Motion = Vector3.new(Motion.X, Motion.Y + (delta * 9.8 * Gravity_Multiplier), Motion.Z)
 						end
+						Motion = Motion:Lerp(Vector3.new(), speed/10)
 					end
 				end
 				task.desynchronize()
@@ -601,11 +665,11 @@ function GripSpin(Duration: number, Round: number, Start: CFrame?)
 	SPIN = coroutine.create(function()
 		Spinning = true
 		local SpinTick = 0
-		SpinTick = tick()
+		SpinTick = runtime()
 		local Origin_Grip = Start or Water_Gun.Grip
 		LastFireTick = SpinTick -- cancel shooter
-		while Handle and Spinning and not Activated and task.wait(.01) and (tick() - SpinTick) <= Duration and SPIN and Equipped and LastFireTick == SpinTick do
-			if LastFireTick == SpinTick and (tick() - SpinTick) <= Duration then
+		while Handle and Spinning and not Activated and task.wait(.01) and (runtime() - SpinTick) <= Duration and SPIN and Equipped and LastFireTick == SpinTick do
+			if LastFireTick == SpinTick and (runtime() - SpinTick) <= Duration then
 				if Debris and FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart') then
 					local AfterEffect: BasePart = FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart'):Clone()
 					AfterEffect.Anchored = true
@@ -624,7 +688,7 @@ function GripSpin(Duration: number, Round: number, Start: CFrame?)
 						Debris:AddItem(AfterEffect, Duration)
 					end
 				end
-				Water_Gun.Grip = Origin_Grip * CFrame.Angles((tick() - LastFireTick) * 180 * Round/Duration,0,0)
+				Water_Gun.Grip = Origin_Grip * CFrame.Angles((runtime() - LastFireTick) * 180 * Round/Duration,0,0)
 			end
 		end
 		Spinning = false
@@ -686,8 +750,8 @@ end
 
 Water_Gun.Equipped:Connect(function()
 	task.desynchronize()
-	LastAnimTick = tick()
-	LastFireTick = tick()
+	LastAnimTick = runtime()
+	LastFireTick = runtime()
 	if AfterUnequip then
 		task.synchronize()
 		coroutine.close(AfterUnequip)
@@ -705,7 +769,7 @@ Water_Gun.Equipped:Connect(function()
 	end
 	if S then
 		task.synchronize()
-		S:Disconnect()
+		S:Disconneruntime()
 		S = nil
 	end
 	if WeldAnimator then
@@ -790,10 +854,10 @@ Water_Gun.Equipped:Connect(function()
 				ReloadText()
 			end)
 			WeldAnimator = coroutine.create(function()
-				LastAnimTick = tick()
+				LastAnimTick = runtime()
 				while task.wait(.01) and Handle and Water_Gun and WeldAnimator--[[ and Water_Gun]] and Weld do -- After Unequip Animation Included
 					task.desynchronize()
-					local DeltaTime = tick() - LastAnimTick
+					local DeltaTime = DeltaT(runtime(), LastAnimTick) 
 					local Speed = 1 - (1 / 10000000) ^ DeltaTime
 					if Equipped and S then
 						if SPIN and not C and not R and not Activated and Spinning then
@@ -818,7 +882,7 @@ Water_Gun.Equipped:Connect(function()
 						end
 					end
 					task.desynchronize()
-					LastAnimTick = tick()
+					LastAnimTick = runtime()
 				end
 			end)
 			if WeldAnimator then
@@ -831,8 +895,8 @@ end)
 
 Water_Gun.Unequipped:Connect(function()
 	task.desynchronize()
-	LastAnimTick = tick()
-	LastFireTick = tick()
+	LastAnimTick = runtime()
+	LastFireTick = runtime()
 	Capacity = math.clamp(Capacity,0,MaxCapacity)
 	task.synchronize()coroutine.resume(coroutine.create(UnlockR15)) task.desynchronize()
 	Character = nil
@@ -946,17 +1010,17 @@ Water_Gun.Activated:Connect(function()
 	C = coroutine.create(function()
 		Spinning = false
 		local LastTick = 0
-		LastTick = tick()
+		LastTick = runtime()
 		LastFireTick = LastTick
 		local WaterForce = 10
 		-- under 10 sec
-		while Character and Handle and not Refilling and not R and Capacity > 0 and Water_Gun and C and task.wait(0.05) and (10 - (tick() - LastFireTick)) >= 0 and LastFireTick == LastTick and Activated and Equipped and WaterForce > 0 do
-			local CurrentDecrease = math.clamp(WaterForce - (10 - (tick() - LastFireTick)) * math.random(10,15)/30,0,0.5)
+		while Character and Handle and not Refilling and not R and Capacity > 0 and Water_Gun and C and task.wait(0.05) and (10 - (runtime() - LastFireTick)) >= 0 and LastFireTick == LastTick and Activated and Equipped and WaterForce > 0 do
+			local CurrentDecrease = math.clamp(WaterForce - (10 - (runtime() - LastFireTick)) * math.random(10,15)/30,0,0.5)
 			WaterForce -= CurrentDecrease
 			Capacity = math.clamp(Capacity - CurrentDecrease,0,MaxCapacity) 
 			Water_Gun.ToolTip = '{'..Capacity..'/'..MaxCapacity..'}'
 			Classic_Flagstand_Effect(FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame + FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame.UpVector * -2.5 + FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame.LookVector * 0.25, CurrentDecrease/2.5,workspace,1,10,Color3.new(0, 0.666667, 1),Enum.Material.Neon,nil, 'Expand', math.random(25,100)/100, Character)
-			Classic_Flagstand_Effect(FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame + FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame.UpVector * -2.5 + FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame.LookVector * 0.25, CurrentDecrease/2,workspace,1,10,Color3.new(0.333333, 1, 1),Enum.Material.Neon,-FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame.UpVector * CurrentDecrease * math.clamp(10 - (tick() - LastFireTick) * 10,0,10), 'Shrink', 0.1, Character)
+			Classic_Flagstand_Effect(FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame + FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame.UpVector * -2.5 + FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame.LookVector * 0.25, CurrentDecrease/2,workspace,1,10,Color3.new(0.333333, 1, 1),Enum.Material.Neon,-FindFirstChildOfNameAndClass(Water_Gun, 'Handle', 'BasePart').CFrame.UpVector * CurrentDecrease * math.clamp(10 - (runtime() - LastFireTick) * 10,0,10), 'Shrink', 0.1, Character)
 		end
 		ReloadText()
 	end)
@@ -985,7 +1049,7 @@ end)
 					<Content name="LinkedSource"><null></null></Content>
 					<token name="RunContext">0</token>
 					<string name="ScriptGuid">{67703752-5238-4E88-8D5E-E29C8C64DD35}</string>
-					<BinaryString name="AttributesSerialize"></BinaryString>
+					<BinaryString name="AttributesSerialize">AQAAABkAAABTb2xpdmlhbnRfR0lUSFVCX0NPREVCRVJHAgwAAABtYWRlIHRoaXMgeW8=</BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
 					<string name="Name">WaterShooter</string>
